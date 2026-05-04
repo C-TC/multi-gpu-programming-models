@@ -196,3 +196,87 @@ If you have privileged access to the CoreWeave host:
 Without those, V1 LL multi-node and V1 internode HT will continue to be
 blocked. V2 NCCL Gin is the working alternative for inter-node EP on
 CoreWeave H100 / H200.
+
+---
+
+## Update 2: H200 cluster deeper dig (2026-05-04, after first writeup)
+
+The first H200 writeup above gave up too early. Re-investigating with the
+hypothesis that the user said "IBGDA on this cluster works", I established:
+
+### IBGDA *does* work on this cluster (verified)
+
+`nvshmem/jacobi` cross-node with `NVSHMEM_IB_ENABLE_IBGDA=1` and **no
+`NVSHMEM_HCA_LIST` override** initialises IBGDA cleanly on all 16 PEs:
+
+```
+NVSHMEM INFO Successfully initialized the transport: IBGDA. It will be used
+             for device-side APIs over IB.
+```
+
+and the per-element `nvshmem_float_p` benchmark completes (5.5 ms for
+2048² × 50 iter at 2 nodes × 4 GPU). Same with `-use_block_comm`. So:
+
+* Driver is correctly configured for IBGDA — `/proc/driver/nvidia/params`
+  shows `EnableStreamMemOPs: 1` and `RegistryDwords: "PeerMappingOverride=1;"`,
+  exactly the regkey config DeepEP's `docs/nvshmem.md` recommends.
+* NVSHMEM 3.6.5 IBGDA initialises and runs against this fabric.
+* The `mlx5_*` device-name HCA list copied verbatim from the H100 cluster's
+  `run_2x8.sh` was actually *wrong* for this cluster — `ibv_devinfo -l`
+  returns `ibp0..ibp7` here, and pinning `NVSHMEM_HCA_LIST=mlx5_*` makes
+  NVSHMEM's IBGDA enumeration filter out everything ("device ibp7 is not
+  enumerated as an mlx5 device. Skipping..." → "Unable to initialize any
+  transports"). With no HCA list, NVSHMEM picks `ibp*` and IBGDA works.
+
+### DeepEP V1 LL still fails — but the failure is NOT IBGDA-broken-on-this-cluster
+
+With NVSHMEM 3.6.5 + clean env (no HCA_LIST override), V1 LL gets past
+init ("Successfully initialized IBGDA") and the kernel itself crashes with
+`cudaErrorIllegalAddress` at
+[`csrc/kernels/legacy/internode_ll.cu:552`](https://github.com/deepseek-ai/DeepEP/blob/main/csrc/kernels/legacy/internode_ll.cu#L552)
+(the LL dispatch kernel launch, with `CUDA_LAUNCH_BLOCKING=1`).
+
+Tested NVSHMEM versions:
+
+| NVSHMEM | `device_state` typedef | IBGDA init | LL kernel |
+|---|---|---|---|
+| 3.3.9 (DeepEP-recommended) | `v1` | ✗ "device ibp7 not enumerated as mlx5, skipping" → no transport | n/a |
+| 3.3.20 (cu13)               | `v1` | ✗ same | n/a |
+| 3.4.5 (cu13)                | `v1` | ✗ same | n/a |
+| 3.5.21 (cu13)               | `v2` | ✓ initialises | (not tested) |
+| 3.6.5 (cu13)                | `v2` | ✓ initialises  | ✗ `cudaErrorIllegalAddress` in dispatch kernel |
+
+Earlier I suspected a v1/v2 struct-layout mismatch. Looking at the actual
+diff, v2 only adds `int num_default_rc_per_pe;` *after* `globalmem` —
+field offsets that DeepEP's [`ibgda_device.cuh`](https://github.com/deepseek-ai/DeepEP/blob/main/csrc/kernels/legacy/ibgda_device.cuh)
+actually reads (`globalmem.rcs`, `num_rc_per_pe`, etc.) are unchanged.
+So a layout mismatch is *not* the explanation.
+
+Other things tried, all still hit `cudaErrorIllegalAddress`:
+
+* `NVSHMEM_DISABLE_P2P=1` (i.e. `--disable-nvlink`)
+* `NVSHMEM_HCA_LIST=ibp0,..,ibp7`
+* `NVSHMEM_IBGDA_NIC_HANDLER=mlx5` and `=gpu`
+* `compute-sanitizer` confirms the only "real" pre-LL errors are NCCL
+  trying to look up sm_90 kernels that aren't in NCCL 2.30 (those are
+  benign — V2 ep works fine on the same allocation), then the actual
+  `low_latency_dispatch_kernel` invalid-address.
+* Pre-V2 DeepEP commit `92fe2de` for V1 internode HT: Python wrapper now
+  matches but C++ NVSHMEM dispatch hangs with `RuntimeError: DeepEP error:
+  timeout (dispatch CPU)` — same fingerprint of "IBGDA in DeepEP doesn't
+  finish RDMA writes" but slightly different surface.
+
+### Bottom line for the H200 cluster
+
+* **NVSHMEM IBGDA itself works** — disprove anyone claiming the cluster's
+  IB fabric or driver setup is at fault.
+* **DeepEP V1 (legacy / NVSHMEM-backed) low-latency and internode HT
+  remain broken on this cluster** for a reason that's specific to DeepEP's
+  internal `nvshmemi_ibgda_*` device wrappers — it's not a raw IBGDA
+  capability problem nor (as best I can tell) a v1/v2 struct mismatch.
+* The right next step would be either (a) reach out to the DeepEP
+  maintainers with the `cudaErrorIllegalAddress` repro, or (b) try a
+  different DeepEP commit / use NIXL / use V2 NCCL Gin (which already
+  works fine on this fabric).
+* For our purposes, **V2 NCCL Gin is the working path** for inter-node EP
+  on this cluster: 62 GB/s SO BW at 2×8, ~110 µs combine at 2×4 LL.

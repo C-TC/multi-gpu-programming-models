@@ -1,0 +1,296 @@
+Testing with seed 0 ...
+Testing with seed 0 ...
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[layout] Kernel performance: 0.040 ms
+
+[layout] Kernel performance: 0.040 ms
+
+[testing] Running with BF16, without top-k (async=False, previous=False) ...NVSHMEM v3.6.5
+Global rank: 7, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 1, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 5, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 3, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 2, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 4, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 0, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 6, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[testing] Running with BF16, without top-k (async=False, previous=False) ...Global rank: 10, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 11, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 9, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 8, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 12, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 13, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 14, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 15, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank0]:[W504 19:33:26.172292807 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank8]:[W504 19:33:26.344370270 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank13]:[W504 19:33:27.890240945 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51268, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x701b96f90008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x701bba3dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x701bba3dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x701bba3ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x701bba3db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x701b97ca6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x701b964ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x701bcf09caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x701bcf129c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank13]:[W504 19:33:27.892824134 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 13] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank12]:[W504 19:33:27.087731928 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51246, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7640dd990008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7640d49dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7640d49dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7640d49ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7640d49db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7640b22a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7640b0aecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7640e969caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7640e9729c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank12]:[W504 19:33:27.090358911 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 12] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank15]:[W504 19:33:27.104491061 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51234, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x74ad8cb90008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x74ad83bdbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x74ad83bdd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x74ad83bddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x74ad83bdb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x74ad614a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x74ad5fcecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x74ad9889caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x74ad98929c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank15]:[W504 19:33:27.107105006 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 15] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank14]:[W504 19:33:27.121690749 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51296, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7cbcfd390008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7cbcf43dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7cbcf43dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7cbcf43ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7cbcf43db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7cbcd1ca6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7cbcd04ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7cbd0909caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7cbd09129c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank14]:[W504 19:33:27.124287139 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 14] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank9]:[W504 19:33:27.209628712 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51294, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7e2c2ad90008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7e2c21ddbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7e2c21ddd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7e2c21dddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7e2c21ddb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7e2bff6a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7e2bfdeecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7e2c36a9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7e2c36b29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank9]:[W504 19:33:27.212137766 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 9] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank10]:[W504 19:33:27.261373966 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51220, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x70656f8e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x706592ddbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x706592ddd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x706592dddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x706592ddb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7065706a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x70656eeecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7065a7a9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7065a7b29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank10]:[W504 19:33:27.263890438 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 10] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank5]:[W504 19:33:27.128348550 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:56830, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7b0d136e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7b0d36bdbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7b0d36bdd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7b0d36bddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7b0d36bdb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7b0d144a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7b0d12cecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7b0d4b69caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7b0d4b729c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank5]:[W504 19:33:27.130956499 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 5] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank11]:[W504 19:33:27.317205966 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=40, addr=[h200-bar-201-239.slurm-bar-compute.tenant-slurm.svc.cluster.local]:51282, remote=[h200-bar-201-087.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29506): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x79bcd82e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x79bcfb7dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x79bcfb7dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x79bcfb7ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x79bcfb7db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x79bcd90a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x79bcd78ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x79bd1029caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x79bd10329c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank11]:[W504 19:33:27.319807181 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 11] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+W0504 19:33:27.450000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680476 via signal SIGTERM
+W0504 19:33:27.450000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680477 via signal SIGTERM
+W0504 19:33:27.452000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680478 via signal SIGTERM
+W0504 19:33:27.454000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680479 via signal SIGTERM
+W0504 19:33:27.455000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680480 via signal SIGTERM
+W0504 19:33:27.456000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680481 via signal SIGTERM
+W0504 19:33:27.457000 1679994 torch/multiprocessing/spawn.py:175] Terminating process 1680482 via signal SIGTERM
+W0504 19:33:27.476000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363129 via signal SIGTERM
+W0504 19:33:27.477000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363130 via signal SIGTERM
+W0504 19:33:27.478000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363131 via signal SIGTERM
+W0504 19:33:27.480000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363132 via signal SIGTERM
+W0504 19:33:27.481000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363133 via signal SIGTERM
+W0504 19:33:27.485000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363134 via signal SIGTERM
+W0504 19:33:27.485000 2362635 torch/multiprocessing/spawn.py:175] Terminating process 2363135 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 393, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 339, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 138, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 377, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 490, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: DeepEP error: timeout (dispatch CPU)
+
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 393, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 339, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 138, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 377, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 490, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: DeepEP error: timeout (dispatch CPU)
+
+srun: error: h200-bar-201-087: task 0: Exited with exit code 1
+srun: error: h200-bar-201-239: task 1: Exited with exit code 1

@@ -1,0 +1,110 @@
+Allocating buffer size: 2146.961792 MB ...
+Allocating buffer size: 2146.961792 MB ...
+[rank2]:[W504 19:30:01.608684469 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+[rank0]:[W504 19:30:01.634044480 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank3]:[W504 19:30:01.635743206 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank1]:[W504 19:30:01.636644188 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank5]:[W504 19:30:01.637524107 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank4]:[W504 19:30:01.638131970 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank6]:[W504 19:30:01.640741094 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank7]:[W504 19:30:01.646365680 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank15]:[W504 19:30:01.842461848 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+[rank10]:[W504 19:30:01.842472435 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank11]:[W504 19:30:01.842517559 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+[rank12]:[W504 19:30:01.842531612 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank13]:[W504 19:30:01.842643605 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank14]:[W504 19:30:01.842758022 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank8]:[W504 19:30:01.844564258 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank9]:[W504 19:30:01.847817221 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank8]:[W504 19:30:02.180613718 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank0]:[W504 19:30:02.038537570 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0504 19:30:04.715000 2361130 torch/multiprocessing/spawn.py:175] Terminating process 2361628 via signal SIGTERM
+W0504 19:30:04.716000 2361130 torch/multiprocessing/spawn.py:175] Terminating process 2361629 via signal SIGTERM
+W0504 19:30:04.716000 2361130 torch/multiprocessing/spawn.py:175] Terminating process 2361631 via signal SIGTERM
+W0504 19:30:04.716000 2361130 torch/multiprocessing/spawn.py:175] Terminating process 2361635 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 5 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+W0504 19:30:04.921000 1678523 torch/multiprocessing/spawn.py:175] Terminating process 1679018 via signal SIGTERM
+W0504 19:30:04.921000 1678523 torch/multiprocessing/spawn.py:175] Terminating process 1679019 via signal SIGTERM
+W0504 19:30:04.922000 1678523 torch/multiprocessing/spawn.py:175] Terminating process 1679022 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 4 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+srun: error: h200-bar-201-087: task 0: Exited with exit code 1
+srun: error: h200-bar-201-239: task 1: Exited with exit code 1
