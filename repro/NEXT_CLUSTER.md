@@ -1,6 +1,30 @@
 # Moving to a different cluster — what to verify and what to bring
 
-This work was done on a CoreWeave H100 cluster, in the `gpu_a4d0481d.sqsh` container shipped via the mistral repo's [`scripts/utils/cluster.py ggpus`](../../mistral/scripts/utils/cluster.py). A few things that block important measurements were specific to that environment. If you're switching clusters, validate the items below **before** sinking time into running the whole reproduction.
+This work was originally done on a CoreWeave H100 cluster (container
+`gpu_a4d0481d.sqsh`), and **re-run on a CoreWeave H200 cluster on
+2026-05-04** (container `gpu_882f6e72.sqsh`). The two clusters share the
+same NIC stack and exhibit the same NVSHMEM IBGDA failure mode (V1 LL
+multi-node and V1 internode HT remain blocked on both). This document
+captures the items to validate before running on a third cluster.
+
+**TL;DR for the H200 run** (notes captured 2026-05-04):
+* Container path / partition changed: `gpu_882f6e72.sqsh`, partition `h200`.
+* `/opt/nvshmem` on the H200 container has a **broken `nvshmem.h` symlink**
+  → install `nvidia-nvshmem-cu13` to a workspace prefix and point
+  `NVSHMEM_HOME` at it (the new `repro/jacobi/setup_env.sh` does this by
+  default; the new `repro/deepep/setup.sh` falls back to a pip install if
+  the symlink is broken).
+* `nvshmem/Makefile` needed `-lnvshmem → -lnvshmem_host -lnvshmem_device`
+  (NVSHMEM 3 split; same fix needed on H100 or H200, already committed).
+* MPI lives at `/usr/local/mpi/bin/mpirun` here, not `/usr/bin/mpirun` —
+  setup_env.sh updated.
+* `srun --container-image=...` cost ~45 s per call regardless of payload,
+  so the 2-node Jacobi sweep is again the most painful piece. The script
+  now supports `REPS=2` to halve the wall time at the cost of one rep.
+* IBGDA is **still broken** on this fabric — same `cudaErrorIllegalAddress`
+  in the LL kernel after the topology check is bypassed with
+  `NVSHMEM_DISABLE_P2P=1`. See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md)
+  for the H200-specific findings.
 
 ## What to validate up front (≈30 min)
 
@@ -30,14 +54,15 @@ V1 `tests/legacy/test_internode.py` hardcodes `assert num_local_ranks == 8` and 
 
 ### 3. Toolchain expectations
 
-| Tool | Required minimum | What we hit on the current cluster |
-|---|---|---|
-| CUDA | 11.0 (Jacobi) / 12.3 (DeepEP V2) | 13.0 ✓ |
-| NCCL (V2 DeepEP) | 2.30.4 | container had 2.29.3 → had to `pip install --no-deps "nvidia-nccl-cu13>=2.30.4"` |
-| PyTorch (DeepEP V2) | 2.10 | 2.10.0a0 ✓ |
-| OpenMPI | any CUDA-aware OR plain OpenMPI for bootstrap-only | 4.1.9a1 (NOT CUDA-aware, fine for the NCCL/NVSHMEM measurements but `mpi/jacobi` baseline is unfairly slow) |
-| NVSHMEM | 0.4.1+ for `nvshmem/jacobi`, 3.x for DeepEP V2's NCCL/NVSHMEM coexistence | 3.4.5 ✓, but bootstrap MPI plugin was in `/usr/lib/x86_64-linux-gnu/nvshmem/13`, **not** `/opt/nvshmem/lib` — if your container puts them in the same place you can simplify `LD_LIBRARY_PATH` |
-| C++ standard | C++17 (CUDA 13 CCCL requirement) | repo Makefiles default to C++14 → had to `sed -i 's/-std=c++14/-std=c++17/g'` |
+| Tool | Required minimum | H100 cluster (`gpu_a4d0481d.sqsh`) | H200 cluster (`gpu_882f6e72.sqsh`) |
+|---|---|---|---|
+| CUDA | 11.0 (Jacobi) / 12.3 (DeepEP V2) | 13.0 ✓ | 13.0.88 ✓ |
+| NCCL (V2 DeepEP) | 2.30.4 | container had 2.29.3 → `pip install --no-deps "nvidia-nccl-cu13>=2.30.4"` | container has 2.28.8 → same workaround |
+| PyTorch (DeepEP V2) | 2.10 | 2.10.0a0 ✓ | 2.10.0a0+b558c986e8.nv25.11 ✓ |
+| OpenMPI | any CUDA-aware OR plain OpenMPI for bootstrap-only | 4.1.9a1 at `/usr/bin/mpirun` (not CUDA-aware) | 4.1.9a1 at `/usr/local/mpi/bin/mpirun` (not CUDA-aware) — note the path change |
+| NVSHMEM | 0.4.1+ for `nvshmem/jacobi`, 3.x for DeepEP V2 | 3.4.5 ✓; bootstrap MPI plugin in `/usr/lib/x86_64-linux-gnu/nvshmem/13` | 3.4.5 in `/opt/nvshmem` BUT `/opt/nvshmem/include/nvshmem.h` is a **broken symlink** to `/usr/include/nvshmem_13/` (which doesn't exist) → install `nvidia-nvshmem-cu13` (3.6.5) to a workspace prefix and point `NVSHMEM_HOME` at it |
+| C++ standard | C++17 (CUDA 13 CCCL requirement) | repo Makefiles default to C++14 → already patched on this branch | same; same patch |
+| nvshmem `-l` flag | NVSHMEM 3 split into _host.so + _device.a | `nvshmem/Makefile` already patched: `-lnvshmem` → `-lnvshmem_host -lnvshmem_device` | same fix is already in the branch |
 
 ### 4. Cluster overhead is reasonable
 
@@ -52,13 +77,14 @@ The current scripts' parameters are sized for ~50 s/srun overhead; bumping them 
 
 ## Items currently blocked / partial
 
-These three are the ones to retry on the new cluster:
+Status update from H200 re-run (2026-05-04):
 
-| Test | Blocker | Will it work on a fresh cluster? |
-|---|---|---|
-| **V1 DeepEP internode HT** (multi-node) | DeepEP V2 release `b306af0` regressed the V1 Python wrapper — `legacy.py:internode_dispatch` passes the wrong-shape args to the C++ binding (`TypeError`). | **No** — this is upstream code, not a cluster issue. To measure V1 internode HT honestly, `git checkout` an older DeepEP commit (pre-V2 release) and rebuild. |
-| **V1 DeepEP low-latency multi-node** | NVSHMEM IBGDA either fails to init (default config) or hits `cudaErrorIllegalAddress` in the LL kernel (with `--disable-nvlink`). See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md). | **Yes if IBGDA works** on the new fabric. Validate with the IBGDA sanity check above first. |
-| **V2 DeepEP low-latency 2 nodes × 4 GPU** | Just wasn't run; we already had 2-node × 8 GPU data and didn't need 2×4 too. | **Yes** — script in [deepep/run_2x4.sh](deepep/run_2x4.sh) can be extended. |
+| Test | H100 result | H200 result | Notes |
+|---|---|---|---|
+| **V1 DeepEP internode HT** (V2 release `b306af0`) | ✗ TypeError in Python wrapper | ✗ same TypeError | Upstream bug; not cluster-dependent. |
+| **V1 DeepEP internode HT** (pre-V2 commit `92fe2de`) | not retried originally | ✗ `RuntimeError: DeepEP error: timeout (dispatch CPU)` — wrapper now matches but C++ NVSHMEM RDMA dispatch hangs | Same fundamental IBGDA-doesn't-work issue. Build needs `CPATH=/usr/local/cuda/include/cccl` for CCCL. |
+| **V1 DeepEP low-latency multi-node** | ✗ IBGDA init / `cudaErrorIllegalAddress` | ✗ same fingerprint on H200 (NVSHMEM 3.6.5) — see [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) | Both clusters share NIC/firmware path that NVSHMEM IBGDA can't use. |
+| **V2 DeepEP low-latency 2 nodes × 4 GPU** | (skipped) | ✓ collected (~110 µs combine, 33 GB/s SO) | Now in the H200 results. |
 
 ## What's portable as-is
 

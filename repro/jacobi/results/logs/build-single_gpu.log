@@ -1,0 +1,2 @@
+rm -f jacobi jacobi.nsys-rep
+nvcc -DHAVE_CUB -Xcompiler -fopenmp -lineinfo -DUSE_NVTX -ldl -gencode arch=compute_90,code=sm_90 -gencode arch=compute_90,code=compute_90 -std=c++17 jacobi.cu -o jacobi

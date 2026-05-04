@@ -231,3 +231,99 @@ JOBID=<job id> bash /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programmin
 ```
 
 For 2 nodes × 4 GPU (V1 internode skipped), use [run_2x4.sh](run_2x4.sh) instead. For an IBGDA-only debug session, see [try_nvshmem_transports.sh](try_nvshmem_transports.sh) and [IBGDA_DEBUG.md](IBGDA_DEBUG.md).
+
+---
+
+## H200 cluster reproduction (2026-05-04)
+
+Re-ran the same suite on a CoreWeave H200 cluster. Container changed from
+`gpu_a4d0481d.sqsh` → `gpu_882f6e72.sqsh` (NVSHMEM 3.6.5 instead of 3.4.5),
+GPU is H200 SXM 144 GB instead of H100 SXM 80 GB. NIC stack (ConnectX-7,
+8 HCAs/node) is the same on both sides. Logs in `repro/deepep/results/*-newcluster-20260504.log`.
+
+### Single-node 8 GPU (intranode, NVLink-only)
+
+| Stack | Dispatch (FP8) | Combine | Notes |
+|---|---:|---:|---|
+| V1 NVSHMEM @ 24 SMs | **319.82 GB/s** / 500 µs | **320.79 GB/s** / 968 µs | Same as H100 (322 / 323 GB/s) |
+| V2 NCCL Gin default (auto SMs) | 329 GB/s SU / 408 µs | 339 GB/s SU / 762 µs | H100 was 334 / 346 GB/s |
+| V2 NCCL Gin matched to V1 (24 SMs, topk=8) | 304 GB/s SU / 528 µs | 308 GB/s SU / 1002 µs | H100 was 306 / 308 GB/s |
+
+**Takeaway**: identical to the H100 conclusions — V1 NVSHMEM ~5% faster
+than V2 NCCL Gin at equal SM budget; V2 default config gets ~7% more
+throughput by spending 64 SMs vs V1's 24. The H200's extra HBM/compute is
+not the bottleneck for these NVLink-bound workloads.
+
+### Single-node 8 GPU low-latency mode
+
+| Stack | Dispatch | Combine | Sum |
+|---|---:|---:|---:|
+| V1 NVSHMEM LL (IBGDA→NVLink fallback) | 37 µs / 200 GB/s | 67 µs / 218 GB/s | 112 µs (combined run, 196 GB/s) |
+| V2 NCCL Gin (`prefer_overlap=1`) | **30 µs** / 164 GB/s | **45 µs** / 211 GB/s | **76 µs total** |
+
+**Takeaway**: same as H100 — V2 ~30% faster end-to-end on a single-node LL
+workload (V1's IBGDA falls back to NVLink because all PEs are on the same
+NVLink island).
+
+### Multi-node 2 nodes × 8 GPU = 16 ranks (high-throughput)
+
+| Variant | Dispatch (SO / SU) | Dispatch t | Combine (SO / SU) | Combine t |
+|---|---:|---:|---:|---:|
+| V2 ep, topk=8, e=64 (24 SMs)   | **62 / 212 GB/s** | 980 µs  | 70 / 238 GB/s | 1670 µs |
+| V2 ep, topk=6, e=256 (32 SMs)  | **63 / 167 GB/s** | 952 µs  | 73 / 192 GB/s | 1585 µs |
+
+Compared to old H100 cluster (58 / 196 GB/s SO at topk=8): **H200 cluster
+gets ~7% more scale-out BW** (62 vs 58 GB/s) and slightly faster combine.
+
+### Multi-node 2 nodes × 4 GPU = 8 ranks (high-throughput)
+
+| Variant | Dispatch (SO / SU) | Dispatch t | Combine (SO / SU) | Combine t |
+|---|---:|---:|---:|---:|
+| V2 ep, topk=8, e=64 (24 SMs)   | **42 / 115 GB/s**, cached **47 / 129 GB/s**  | 1443 µs  | **86 / 233 GB/s** | 1369 µs |
+| V2 ep, topk=6, e=256 (24 SMs)  | **42 / 94 GB/s**, cached **47 / 105 GB/s**   | 1425 µs  | 85 / 190 GB/s  | 1357 µs |
+
+The 2×4 dispatch SO BW (42 GB/s) is ~17% higher than the H100 result for
+the same shape (36 GB/s at topk=8). Combine SO is even better (85 GB/s vs
+the H100's 79 GB/s).
+
+### Multi-node low-latency
+
+| Setup | Dispatch | Combine | Sum |
+|---|---:|---:|---:|
+| 2×8 V2 LL (`prefer_overlap=1`) | 19 / 56 GB/s, **103 µs** | 30 / 90 GB/s, **124 µs** | ~227 µs |
+| 2×4 V2 LL (`prefer_overlap=1`) | 19 / 48 GB/s, **103 µs** | 33 / 85 GB/s, **112 µs** | ~215 µs |
+
+Both numbers are ~5% better than the corresponding H100 figures (which were
+237 µs sum at 2×8). New for this cluster: the 2×4 V2 LL data point — the
+old H100 run skipped it.
+
+### V1 multi-node — still blocked
+
+| Test | Result on H200 |
+|---|---|
+| V1 internode HT (DeepEP V2 release b306af0) | ✗ TypeError in `legacy.py:internode_dispatch` (same upstream bug as H100 run) |
+| V1 internode HT (pre-V2 commit `92fe2de`) | ✗ `RuntimeError: DeepEP error: timeout (dispatch CPU)` — Python wrapper now matches but the C++ NVSHMEM RDMA dispatch hangs. Same root cause as V1 LL below. |
+| V1 LL multi-node (default config) | ✗ `init failed for transport: IBGDA`, then `[GPU N] Peer GPU 0 is not accessible, exiting` (NVSHMEM topology check) |
+| V1 LL multi-node (`--disable-nvlink`, sets `NVSHMEM_DISABLE_P2P=1`) | ✗ Past topology check, but kernel hits `cudaErrorIllegalAddress` during `low_latency_dispatch` — same fingerprint as old cluster |
+
+**Conclusion**: contrary to the original expectation that this cluster
+"should have working IBGDA", V1's NVSHMEM IBGDA path is blocked the same
+way as on the previous CoreWeave H100 cluster. The fingerprint is
+identical: NVSHMEM 3.x init reports IBGDA available, the topology check
+fails on inter-node P2P (workaround: `NVSHMEM_DISABLE_P2P=1`), and once
+past that the kernel-side RDMA write hits `cudaErrorIllegalAddress`. This
+points at a NIC firmware / `gdrdrv` / DEVX permissions issue on the IB
+fabric that affects both H100 and H200 nodes — V2 NCCL Gin works fine on
+the same hardware so the underlying fabric is not "broken", just NVSHMEM
+IBGDA's specific path doesn't come through. See
+[IBGDA_DEBUG.md](IBGDA_DEBUG.md) for a fuller diagnostic.
+
+### Updated final coverage matrix (H200 cluster)
+
+| Test | 1-node | 2-node × 4 | 2-node × 8 |
+|---|---|---|---|
+| V1 HT intranode | ✓ | n/a | n/a |
+| V1 HT internode | n/a | ✗ needs 8 GPU/node | ✗ broken (TypeError on V2; timeout on pre-V2) |
+| V1 LL | ✓ (IBGDA→NVLink fallback) | ✗ IBGDA / cudaErrorIllegalAddress | ✗ IBGDA / cudaErrorIllegalAddress |
+| V2 HT (`test_ep`) | ✓ (24 SMs and 64 SMs) | ✓ (topk=6 + topk=8) | ✓ (topk=6 + topk=8) |
+| V2 LL (`test_ep` + `prefer_overlap=1`) | ✓ | ✓ **(new this run)** | ✓ |

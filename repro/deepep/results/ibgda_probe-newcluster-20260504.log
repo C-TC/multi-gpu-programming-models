@@ -1,0 +1,85 @@
+=== HOSTNAME ===
+h200-bar-202-189
+=== ibstat HCAs ===
+repro/deepep/probe_ibgda.sh: line 6: ibstat: command not found
+=== ibv_devices ===
+    device          	   node GUID
+    ------          	----------------
+    ibp0            	5c2573030072726a
+    ibp1            	5c257303007ff5f0
+    ibp2            	5c257303007ff5d8
+    ibp3            	5c257303007ff670
+    ibp4            	5c25730300726f42
+    ibp5            	5c257303007ff708
+    ibp6            	5c25730300726f9a
+    ibp7            	5c257303007ff630
+=== mlx5 driver loaded ===
+=== /dev/infiniband ===
+issm0
+issm1
+issm2
+issm4
+issm5
+issm6
+issm7
+issm8
+rdma_cm
+umad0
+umad1
+umad2
+umad4
+umad5
+umad6
+umad7
+umad8
+uverbs0
+uverbs1
+uverbs2
+uverbs4
+uverbs5
+uverbs6
+uverbs7
+uverbs8
+=== /dev/gdrdrv ===
+crw-rw-rw- 1 nobody nogroup 504, 0 Apr  5 21:11 /dev/gdrdrv
+=== nvidia-peermem (newer way) ===
+repro/deepep/probe_ibgda.sh: line 16: modinfo: command not found
+=== devx access ===
+ibp0
+ibp1
+ibp2
+ibp3
+ibp4
+ibp5
+ibp6
+ibp7
+mlx5_0
+mlx5_1
+mlx5_2
+mlx5_3
+mlx5_4
+mlx5_5
+mlx5_6
+mlx5_7
+mlx5_8
+  ibp0 sriov_drivers_autoprobe=1
+  ibp1 sriov_drivers_autoprobe=1
+  ibp2 sriov_drivers_autoprobe=1
+  ibp3 sriov_drivers_autoprobe=1
+  ibp4 sriov_drivers_autoprobe=1
+  ibp5 sriov_drivers_autoprobe=1
+  ibp6 sriov_drivers_autoprobe=1
+  ibp7 sriov_drivers_autoprobe=1
+  mlx5_0 sriov_drivers_autoprobe=missing
+  mlx5_1 sriov_drivers_autoprobe=missing
+  mlx5_2 sriov_drivers_autoprobe=missing
+  mlx5_3 sriov_drivers_autoprobe=1
+  mlx5_4 sriov_drivers_autoprobe=missing
+  mlx5_5 sriov_drivers_autoprobe=missing
+  mlx5_6 sriov_drivers_autoprobe=missing
+  mlx5_7 sriov_drivers_autoprobe=missing
+  mlx5_8 sriov_drivers_autoprobe=missing
+=== nvshmem-info ===
+repro/deepep/probe_ibgda.sh: line 24: /opt/nvshmem/bin/nvshmem-info: No such file or directory
+=== Try IBGDA env to enable ===
+Check if NVSHMEM_DISABLE_NVLS / NVSHMEM_IBGDA_NIC_HANDLER vars are needed

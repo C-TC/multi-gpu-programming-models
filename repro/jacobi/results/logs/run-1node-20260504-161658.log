@@ -1,0 +1,297 @@
+  A-single_gpu-nx16384-ng1-r1  extra=''
+    raw: single_gpu, 16384, 16384, 1000, 1, 1.464818
+  A-single_gpu-nx16384-ng1-r2  extra=''
+    raw: single_gpu, 16384, 16384, 1000, 1, 1.464779
+  A-single_gpu-nx16384-ng1-r3  extra=''
+    raw: single_gpu, 16384, 16384, 1000, 1, 1.464649
+  A-mpi-nx16384-ng2-r1  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 2, 1, 1.199736, 1.513531
+  A-mpi-nx16384-ng2-r2  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 2, 1, 1.726892, 1.515434
+  A-mpi-nx16384-ng2-r3  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 2, 1, 1.710693, 1.514380
+  A-mpi_overlap-nx16384-ng2-r1  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 2, 1, 0.772083, 1.512966
+  A-mpi_overlap-nx16384-ng2-r2  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 2, 1, 1.047079, 1.513212
+  A-mpi_overlap-nx16384-ng2-r3  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 2, 1, 0.772811, 1.513058
+  A-nccl-nx16384-ng2-r1  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 2, 1, 0.799045, 1.510643
+  A-nccl-nx16384-ng2-r2  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 2, 1, 0.796608, 1.511949
+  A-nccl-nx16384-ng2-r3  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 2, 1, 0.796217, 1.513353
+  A-nccl_graphs-nx16384-ng2-r1  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 2, 1, 0.774408, 1.512804
+  A-nccl_graphs-nx16384-ng2-r2  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 2, 1, 0.775472, 1.512965
+  A-nccl_graphs-nx16384-ng2-r3  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 2, 1, 0.772567, 1.514818
+  A-nccl_overlap-nx16384-ng2-r1  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 2, 1, 0.780428, 1.512610
+  A-nccl_overlap-nx16384-ng2-r2  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 2, 1, 0.773474, 1.511280
+  A-nccl_overlap-nx16384-ng2-r3  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 2, 1, 0.775059, 1.512526
+  A-nvshmem-nx16384-ng2-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 2, 1, 0.903151, 1.774336
+  A-nvshmem-nx16384-ng2-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 2, 1, 0.901659, 1.765864
+  A-nvshmem-nx16384-ng2-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 2, 1, 0.906904, 1.768562
+  A-nvshmem_block-nx16384-ng2-r1  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 2, 1, 0.922074, 1.766774
+  A-nvshmem_block_nbsync-nx16384-ng2-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 2, 1, 0.920866, 1.767049
+  A-nvshmem_block-nx16384-ng2-r2  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 2, 1, 0.926155, 1.768400
+  A-nvshmem_block_nbsync-nx16384-ng2-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 2, 1, 0.932856, 1.772541
+  A-nvshmem_block-nx16384-ng2-r3  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 2, 1, 0.921936, 1.766298
+  A-nvshmem_block_nbsync-nx16384-ng2-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 2, 1, 0.931284, 1.768028
+  A-mpi-nx16384-ng4-r1  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 4, 1, 1.534101, 1.513623
+  A-mpi-nx16384-ng4-r2  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 4, 1, 1.515886, 1.512117
+  A-mpi-nx16384-ng4-r3  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 4, 1, 1.507086, 1.514831
+  A-mpi_overlap-nx16384-ng4-r1  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 4, 1, 0.785689, 1.513363
+  A-mpi_overlap-nx16384-ng4-r2  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 4, 1, 1.303974, 1.512370
+  A-mpi_overlap-nx16384-ng4-r3  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 4, 1, 1.132115, 1.513416
+  A-nccl-nx16384-ng4-r1  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 4, 1, 0.419683, 1.511623
+  A-nccl-nx16384-ng4-r2  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 4, 1, 0.414683, 1.512052
+  A-nccl-nx16384-ng4-r3  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 4, 1, 0.414863, 1.511747
+  A-nccl_graphs-nx16384-ng4-r1  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 4, 1, 0.418438, 1.512384
+  A-nccl_graphs-nx16384-ng4-r2  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 4, 1, 0.401514, 1.511660
+  A-nccl_graphs-nx16384-ng4-r3  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 4, 1, 0.431798, 1.512946
+  A-nccl_overlap-nx16384-ng4-r1  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 4, 1, 0.405227, 1.512615
+  A-nccl_overlap-nx16384-ng4-r2  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 4, 1, 0.408067, 1.511602
+  A-nccl_overlap-nx16384-ng4-r3  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 4, 1, 0.404330, 1.512701
+  A-nvshmem-nx16384-ng4-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 4, 1, 0.468812, 1.769973
+  A-nvshmem-nx16384-ng4-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 4, 1, 0.469389, 1.766749
+  A-nvshmem-nx16384-ng4-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 4, 1, 0.467778, 1.765884
+  A-nvshmem_block-nx16384-ng4-r1  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 4, 1, 0.481198, 1.771618
+  A-nvshmem_block_nbsync-nx16384-ng4-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 4, 1, 0.477639, 1.771863
+  A-nvshmem_block-nx16384-ng4-r2  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 4, 1, 0.478402, 1.766411
+  A-nvshmem_block_nbsync-nx16384-ng4-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 4, 1, 0.476300, 1.770197
+  A-nvshmem_block-nx16384-ng4-r3  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 4, 1, 0.478034, 1.768015
+  A-nvshmem_block_nbsync-nx16384-ng4-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 4, 1, 0.478176, 1.765891
+  A-mpi-nx16384-ng8-r1  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 8, 1, 2.148494, 1.513995
+  A-mpi-nx16384-ng8-r2  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 8, 1, 2.182797, 1.511418
+  A-mpi-nx16384-ng8-r3  extra=''
+    raw: mpi, 16384, 16384, 1000, 1, 8, 1, 2.244274, 1.512236
+  A-mpi_overlap-nx16384-ng8-r1  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 8, 1, 2.086954, 1.512924
+  A-mpi_overlap-nx16384-ng8-r2  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 8, 1, 2.041677, 1.512670
+  A-mpi_overlap-nx16384-ng8-r3  extra=''
+    raw: mpi_overlap, 16384, 16384, 1000, 1, 8, 1, 1.964907, 1.511838
+  A-nccl-nx16384-ng8-r1  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.235646, 1.512686
+  A-nccl-nx16384-ng8-r2  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.232290, 1.511716
+  A-nccl-nx16384-ng8-r3  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.232931, 1.511570
+  A-nccl_graphs-nx16384-ng8-r1  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.220867, 1.511242
+  A-nccl_graphs-nx16384-ng8-r2  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.220434, 1.512669
+  A-nccl_graphs-nx16384-ng8-r3  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.218439, 1.518253
+  A-nccl_overlap-nx16384-ng8-r1  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 8, 1, 0.220602, 1.512684
+  A-nccl_overlap-nx16384-ng8-r2  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 8, 1, 0.221165, 1.520173
+  A-nccl_overlap-nx16384-ng8-r3  extra=''
+    raw: nccl_overlap, 16384, 16384, 1000, 1, 8, 1, 0.223234, 1.511612
+  A-nvshmem-nx16384-ng8-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.253210, 1.779605
+  A-nvshmem-nx16384-ng8-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.253629, 1.771779
+  A-nvshmem-nx16384-ng8-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.256074, 1.775615
+  A-nvshmem_block-nx16384-ng8-r1  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 8, 1, 0.260605, 1.770243
+  A-nvshmem_block_nbsync-nx16384-ng8-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.257299, 1.778699
+  A-nvshmem_block-nx16384-ng8-r2  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 8, 1, 0.259917, 1.778234
+  A-nvshmem_block_nbsync-nx16384-ng8-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.257799, 1.772052
+  A-nvshmem_block-nx16384-ng8-r3  extra=' -use_block_comm'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm, 16384, 16384, 1000, 1, 8, 1, 0.259891, 1.771668
+  A-nvshmem_block_nbsync-nx16384-ng8-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.257141, 1.769575
+  B-nccl-nx2048-ng8-r1  extra=''
+    raw: nccl, 2048, 16384, 1000, 1, 8, 1, 0.055798, 0.207030
+  B-nccl-nx2048-ng8-r2  extra=''
+    raw: nccl, 2048, 16384, 1000, 1, 8, 1, 0.055558, 0.206834
+  B-nccl-nx2048-ng8-r3  extra=''
+    raw: nccl, 2048, 16384, 1000, 1, 8, 1, 0.055687, 0.205733
+  B-nccl_graphs-nx2048-ng8-r1  extra=''
+    raw: nccl_graphs, 2048, 16384, 1000, 1, 8, 1, 0.126832, 0.205290
+  B-nccl_graphs-nx2048-ng8-r2  extra=''
+    raw: nccl_graphs, 2048, 16384, 1000, 1, 8, 1, 0.101322, 0.211711
+  B-nccl_graphs-nx2048-ng8-r3  extra=''
+    raw: nccl_graphs, 2048, 16384, 1000, 1, 8, 1, 0.102311, 0.208139
+  B-nvshmem-nx2048-ng8-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 2048, 16384, 1000, 1, 8, 1, 0.051958, 0.234547
+  B-nvshmem-nx2048-ng8-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 2048, 16384, 1000, 1, 8, 1, 0.052253, 0.235592
+  B-nvshmem-nx2048-ng8-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 2048, 16384, 1000, 1, 8, 1, 0.051741, 0.233965
+  B-nvshmem_block_nbsync-nx2048-ng8-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 2048, 16384, 1000, 1, 8, 1, 0.053431, 0.236002
+  B-nvshmem_block_nbsync-nx2048-ng8-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 2048, 16384, 1000, 1, 8, 1, 0.053040, 0.234102
+  B-nvshmem_block_nbsync-nx2048-ng8-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 2048, 16384, 1000, 1, 8, 1, 0.055828, 0.234054
+  B-nccl-nx4096-ng8-r1  extra=''
+    raw: nccl, 4096, 16384, 1000, 1, 8, 1, 0.084564, 0.394419
+  B-nccl-nx4096-ng8-r2  extra=''
+    raw: nccl, 4096, 16384, 1000, 1, 8, 1, 0.083461, 0.393329
+  B-nccl-nx4096-ng8-r3  extra=''
+    raw: nccl, 4096, 16384, 1000, 1, 8, 1, 0.081356, 0.394539
+  B-nccl_graphs-nx4096-ng8-r1  extra=''
+    raw: nccl_graphs, 4096, 16384, 1000, 1, 8, 1, 0.079008, 0.394087
+  B-nccl_graphs-nx4096-ng8-r2  extra=''
+    raw: nccl_graphs, 4096, 16384, 1000, 1, 8, 1, 0.129139, 0.392265
+  B-nccl_graphs-nx4096-ng8-r3  extra=''
+    raw: nccl_graphs, 4096, 16384, 1000, 1, 8, 1, 0.077311, 0.391911
+  B-nvshmem-nx4096-ng8-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 4096, 16384, 1000, 1, 8, 1, 0.089810, 0.452612
+  B-nvshmem-nx4096-ng8-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 4096, 16384, 1000, 1, 8, 1, 0.089107, 0.452813
+  B-nvshmem-nx4096-ng8-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 4096, 16384, 1000, 1, 8, 1, 0.088216, 0.452168
+  B-nvshmem_block_nbsync-nx4096-ng8-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 4096, 16384, 1000, 1, 8, 1, 0.091842, 0.452603
+  B-nvshmem_block_nbsync-nx4096-ng8-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 4096, 16384, 1000, 1, 8, 1, 0.086096, 0.450655
+  B-nvshmem_block_nbsync-nx4096-ng8-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 4096, 16384, 1000, 1, 8, 1, 0.086691, 0.451300
+  B-nccl-nx8192-ng8-r1  extra=''
+    raw: nccl, 8192, 16384, 1000, 1, 8, 1, 0.134387, 0.763390
+  B-nccl-nx8192-ng8-r2  extra=''
+    raw: nccl, 8192, 16384, 1000, 1, 8, 1, 0.140528, 0.765261
+  B-nccl-nx8192-ng8-r3  extra=''
+    raw: nccl, 8192, 16384, 1000, 1, 8, 1, 0.137389, 0.762933
+  B-nccl_graphs-nx8192-ng8-r1  extra=''
+    raw: nccl_graphs, 8192, 16384, 1000, 1, 8, 1, 0.127295, 0.767393
+  B-nccl_graphs-nx8192-ng8-r2  extra=''
+    raw: nccl_graphs, 8192, 16384, 1000, 1, 8, 1, 0.126631, 0.765140
+  B-nccl_graphs-nx8192-ng8-r3  extra=''
+    raw: nccl_graphs, 8192, 16384, 1000, 1, 8, 1, 0.151467, 0.766422
+  B-nvshmem-nx8192-ng8-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 8192, 16384, 1000, 1, 8, 1, 0.146072, 0.894287
+  B-nvshmem-nx8192-ng8-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 8192, 16384, 1000, 1, 8, 1, 0.143179, 0.892709
+  B-nvshmem-nx8192-ng8-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 8192, 16384, 1000, 1, 8, 1, 0.143571, 0.893773
+  B-nvshmem_block_nbsync-nx8192-ng8-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 8192, 16384, 1000, 1, 8, 1, 0.145804, 0.894415
+  B-nvshmem_block_nbsync-nx8192-ng8-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 8192, 16384, 1000, 1, 8, 1, 0.150961, 0.894016
+  B-nvshmem_block_nbsync-nx8192-ng8-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 8192, 16384, 1000, 1, 8, 1, 0.146817, 0.890712
+  B-nccl-nx16384-ng8-r1  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.234113, 1.512472
+  B-nccl-nx16384-ng8-r2  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.234344, 1.511556
+  B-nccl-nx16384-ng8-r3  extra=''
+    raw: nccl, 16384, 16384, 1000, 1, 8, 1, 0.239810, 1.512698
+  B-nccl_graphs-nx16384-ng8-r1  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.254050, 1.511519
+  B-nccl_graphs-nx16384-ng8-r2  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.219410, 1.518085
+  B-nccl_graphs-nx16384-ng8-r3  extra=''
+    raw: nccl_graphs, 16384, 16384, 1000, 1, 8, 1, 0.216278, 1.512500
+  B-nvshmem-nx16384-ng8-r1  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.253067, 1.769289
+  B-nvshmem-nx16384-ng8-r2  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.258085, 1.770782
+  B-nvshmem-nx16384-ng8-r3  extra=''
+    raw: NVSHMEM v3.6.5
+nvshmem, 16384, 16384, 1000, 1, 8, 1, 0.254050, 1.771670
+  B-nvshmem_block_nbsync-nx16384-ng8-r1  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.257434, 1.771761
+  B-nvshmem_block_nbsync-nx16384-ng8-r2  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.260338, 1.778439
+  B-nvshmem_block_nbsync-nx16384-ng8-r3  extra=' -use_block_comm -neighborhood_sync'
+    raw: NVSHMEM v3.6.5
+nvshmem-use_block_comm-neighborhood_sync, 16384, 16384, 1000, 1, 8, 1, 0.258177, 1.771629

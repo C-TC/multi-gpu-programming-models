@@ -1,0 +1,192 @@
+Testing with seed 0 ...
+Testing with seed 0 ...
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[layout] Kernel performance: 0.040 ms
+
+[layout] Kernel performance: 0.040 ms
+
+[testing] Running with BF16, without top-k (async=False, previous=False) ...Global rank: 11, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 10, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 14, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 8, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 15, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 13, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 9, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+Global rank: 12, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[testing] Running with BF16, without top-k (async=False, previous=False) ...NVSHMEM v3.6.5
+Global rank: 6, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 4, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 5, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 1, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 0, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 3, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 7, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+Global rank: 2, num_recv_tokens: -1, num_rdma_recv_tokens: -1
+moe_recv_expert_counter[0]: -1
+moe_recv_expert_counter[1]: -1
+moe_recv_expert_counter[2]: -1
+moe_recv_expert_counter[3]: -1
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank8]:[W504 18:52:04.757697856 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank0]:[W504 18:52:04.417035128 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0504 18:52:05.339000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029514 via signal SIGTERM
+W0504 18:52:05.340000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029515 via signal SIGTERM
+W0504 18:52:05.340000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029516 via signal SIGTERM
+W0504 18:52:05.340000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029517 via signal SIGTERM
+W0504 18:52:05.341000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029519 via signal SIGTERM
+W0504 18:52:05.341000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029520 via signal SIGTERM
+W0504 18:52:05.342000 2029030 torch/multiprocessing/spawn.py:175] Terminating process 2029521 via signal SIGTERM
+W0504 18:52:05.423000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735638 via signal SIGTERM
+W0504 18:52:05.423000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735639 via signal SIGTERM
+W0504 18:52:05.423000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735641 via signal SIGTERM
+W0504 18:52:05.424000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735642 via signal SIGTERM
+W0504 18:52:05.424000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735643 via signal SIGTERM
+W0504 18:52:05.424000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735644 via signal SIGTERM
+W0504 18:52:05.424000 1735156 torch/multiprocessing/spawn.py:175] Terminating process 1735645 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 393, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 2 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 339, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 138, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 377, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 490, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: DeepEP error: timeout (dispatch CPU)
+
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 393, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 4 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 339, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/tests/test_internode.py", line 138, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 377, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2/deep_ep/buffer.py", line 490, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+RuntimeError: DeepEP error: timeout (dispatch CPU)
+
+srun: error: h200-bar-200-051: task 1: Exited with exit code 1
+srun: error: h200-bar-199-173: task 0: Exited with exit code 1

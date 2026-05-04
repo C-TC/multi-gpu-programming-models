@@ -143,3 +143,56 @@ If this prints bandwidth tables and exits cleanly, IBGDA is healthy and DeepEP V
 | `NVSHMEM_REMOTE_TRANSPORT=ibrc` | Force fallback transport (won't work for V1 LL — see above) |
 | `NVSHMEM_IB_ENABLE_IBGDA=1` | Enable IBGDA (V1 LL does this automatically) |
 | `NVSHMEM_IBGDA_NUM_RC_PER_PE=N` | Per-PE QP count |
+
+---
+
+## Update: H200 cluster (2026-05-04) — same failure mode
+
+Re-ran the same scenarios on a different CoreWeave cluster (H200 SXM nodes,
+container `gpu_882f6e72.sqsh`, NVSHMEM 3.6.5 instead of 3.4.5). Despite the
+expectation that this fabric would have working IBGDA, the failure
+fingerprint is **identical** to the original H100 run:
+
+* V1 LL multi-node default config (no `--disable-nvlink`): NVSHMEM init
+  reports `init failed for transport: IBGDA` (transient warning) and then
+  fatally `[GPU N] Peer GPU 0 is not accessible, exiting`. Same topology
+  check failure as before.
+  See [v1_low_latency_2x8-newcluster-20260504.log](v1_low_latency_2x8-newcluster-20260504.log).
+* V1 LL multi-node with `--disable-nvlink` (i.e. `NVSHMEM_DISABLE_P2P=1`):
+  topology check is bypassed, IBGDA reports init OK, but the actual
+  kernel-side RDMA write hits `cudaErrorIllegalAddress` during
+  `low_latency_dispatch` — same fingerprint as on H100.
+  See [v1_low_latency_2x8_disable_nvlink-newcluster-20260504.log](v1_low_latency_2x8_disable_nvlink-newcluster-20260504.log).
+* Tried `NVSHMEM_IBGDA_NIC_HANDLER=mlx5` instead of `gpu`: same outcome.
+  See [v1_low_latency_2x8_ibgda_mlx5_handler-newcluster-20260504.log](v1_low_latency_2x8_ibgda_mlx5_handler-newcluster-20260504.log).
+* Tried a pre-V2 DeepEP commit (`92fe2de`, before the EPv2 release): the
+  Python `TypeError` for V1 internode HT is gone (so the legacy wrapper
+  path works), but the C++ `internode_dispatch` now blocks on
+  `RuntimeError: DeepEP error: timeout (dispatch CPU)` — the inter-node
+  NVSHMEM RDMA puts never make it across.
+  See [v1_internode_2x8_pre_v2_92fe2de-newcluster-20260504.log](v1_internode_2x8_pre_v2_92fe2de-newcluster-20260504.log).
+
+V2 NCCL Gin runs fine on the same allocation (62 GB/s SO BW at 2×8) — the
+IB hardware, drivers, and switches are healthy. The issue is specifically
+in NVSHMEM IBGDA's kernel-side RDMA path on these CoreWeave nodes,
+regardless of whether it's an H100 or H200 box.
+
+### What that suggests
+
+Both clusters share something at a layer below NVSHMEM — most likely the
+NIC firmware, DEVX permission policy, or a `gdrdrv` / `nvidia_peermem`
+configuration that NVSHMEM IBGDA relies on but NCCL does not. NCCL's
+GPU-Initiated Networking ("Gin") in NCCL 2.30+ takes a different path to
+the NIC (probably `mlx5dv_create_qp_ex` with explicit doorbell mapping)
+that this fabric *does* support. NVSHMEM's IBGDA implementation appears to
+rely on a code path the host stack here doesn't fully expose.
+
+If you have privileged access to the CoreWeave host:
+- Check NIC firmware: `mlxfwmanager --query` (need root)
+- Check IOMMU mode: should NOT be in passthrough mode for IBGDA
+- Check `nvidia_peermem` is loaded and `lsof /dev/gdrdrv` shows the GPU processes
+- Check if DEVX is enabled per-PF (`mlxconfig -d /dev/mst/mt4129_pciconf0 q | grep -i devx`)
+
+Without those, V1 LL multi-node and V1 internode HT will continue to be
+blocked. V2 NCCL Gin is the working alternative for inter-node EP on
+CoreWeave H100 / H200.

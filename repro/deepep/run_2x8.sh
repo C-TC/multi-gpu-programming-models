@@ -5,10 +5,15 @@
 set -u
 JOBID=${JOBID:?must set JOBID to your salloc job id}
 DEEP_EP=/mnt/vast/home/tiancheng.chen/workspace/DeepEP
+NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem}
+NCCL_PIP_LIB=/mnt/vast/home/tiancheng.chen/workspace/nccl-pip/nvidia/nccl/lib
+CONTAINER=${CONTAINER:-/mnt/vast/containers/gpu_882f6e72.sqsh}
+SRUN_CONTAINER_ARGS="--container-image=$CONTAINER --container-workdir=$DEEP_EP --container-mounts=/mnt/vast:/mnt/vast --container-remap-root --container-env=HOME"
+TAG=${TAG:-}
 OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
 NODES=$(squeue -j $JOBID -h -o "%N" | head -1)
 HEAD=$(scontrol show hostnames "$NODES" | head -1)
-echo "Job $JOBID nodes: $NODES; head: $HEAD"
+echo "Job $JOBID nodes: $NODES; head: $HEAD; tag=$TAG"
 
 # Per-srun setup that all ranks need.
 SETUP="
@@ -21,7 +26,8 @@ pip uninstall -y deep_ep > /dev/null 2>&1
 
 ENV="$SETUP
 export PYTHONPATH=$DEEP_EP
-export LD_LIBRARY_PATH=/usr/local/lib/python3.12/dist-packages/nvidia/nccl/lib:/usr/lib/x86_64-linux-gnu/nvshmem/13:/opt/nvshmem/lib:\$LD_LIBRARY_PATH
+export NVSHMEM_HOME=$NVSHMEM_HOME
+export LD_LIBRARY_PATH=$NCCL_PIP_LIB:$NVSHMEM_HOME/lib:\$LD_LIBRARY_PATH
 export NVSHMEM_SYMMETRIC_SIZE=8G
 export MASTER_ADDR=$HEAD
 export MASTER_PORT=29500
@@ -42,19 +48,19 @@ run_test() {
     local extra_env="$2"
     local cmd="$3"
     echo "=== $label ==="
-    srun --jobid=$JOBID --mpi=pmi2 -N 2 --ntasks-per-node=1 \
+    srun --jobid=$JOBID --mpi=pmi2 --overlap $SRUN_CONTAINER_ARGS -N 2 --ntasks-per-node=1 \
         bash -c "$ENV
 $extra_env
 cd $DEEP_EP && $cmd" \
-        > "$OUT/${label}.log" 2>&1
+        > "$OUT/${label}${TAG}.log" 2>&1
     local ec=$?
-    echo "  log: $OUT/${label}.log  (exit $ec)"
+    echo "  log: $OUT/${label}${TAG}.log  (exit $ec)"
     if [[ $ec -ne 0 ]]; then
         echo "  -- last 8 lines --"
-        tail -8 "$OUT/${label}.log" | sed 's/^/  | /'
+        tail -8 "$OUT/${label}${TAG}.log" | sed 's/^/  | /'
     else
         echo "  -- summary lines --"
-        grep -E '\* EP:   0/|@ EP:   0/|Best dispatch|Best combine|bandwidth:' "$OUT/${label}.log" | head -8 | sed 's/^/  | /'
+        grep -E '\* EP:   0/|@ EP:   0/|Best dispatch|Best combine|bandwidth:' "$OUT/${label}${TAG}.log" | head -8 | sed 's/^/  | /'
     fi
     echo
 }

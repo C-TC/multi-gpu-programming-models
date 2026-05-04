@@ -1,0 +1,400 @@
+Allocating buffer size: 2146.961792 MB ...
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 0 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 0 total 1/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 7 total 2/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 4 total 3/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 5 total 4/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 12 total 5/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 11 total 6/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 15 total 7/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 8 total 8/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 1 total 9/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 3 total 10/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 2 total 11/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 13 total 12/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 6 total 13/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 10 total 14/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 9 total 15/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:251: Received connect from rank 14 total 16/16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:253: COLLECTED ALL 16 HANDLES
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:269: SENT OUT ALL 16 HANDLES
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_root:281: DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 0 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 0 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: ra/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 7 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 7 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 7 nranks 16 size 28 - DONE
+Allocating buffer size: 2146.961792 MB ...
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 15 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 15 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 15 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 7 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 7 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 7 nranks 16 size 8 - DONE
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO PE 7 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 15 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 15 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 15 nranks 16 size 8 - DONE
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO PE 15 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 6 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 6 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 6 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 6 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 13 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 13 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 13 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 13 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 6 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 6 nranks 16 size 8 - DONE
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO PE 6 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO cudaDriverVersion 13000
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 13 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 13 nranks 16 size 8 - DONE
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO PE 13 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 5 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 5 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 5 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 5 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 5 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 12 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 12 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 12 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 12 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 12 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 12 nranks 16 size 8 - DONE
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO PE 12 (process) affinity to 128 CPUs:
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 5 nranks 16 size 8 - DONE
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO PE 5 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO cudaDriverVersion 13000
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 14 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 4 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 4 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 4 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 4 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 4 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 14 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 14 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 14 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 14 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 14 nranks 16 size 8 - DONE
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO PE 14 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 4 nranks 16 size 8 - DONE
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO PE 4 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO cudaDriverVersion 13000
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 11 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 11 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 11 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 11 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 11 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 11 nranks 16 size 8 - DONE
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO PE 11 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 1 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 1 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 1 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 1 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 1 nranks 16 size 8
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO cudaDriverVersion 13000
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 10 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 10 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 1 nranks 16 size 8 - DONE
+h200-bar-199-173:2031216:2031216 [1] NVSHMEM INFO PE 1 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO cudaDriverVersion 13000
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 10 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 10 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 10 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 10 nranks 16 size 8 - DONE
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO PE 10 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 3 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 3 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 3 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 3 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 3 nranks 16 size 8
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 3 nranks 16 size 8 - DONE
+h200-bar-199-173:2031218:2031218 [3] NVSHMEM INFO PE 3 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.196.173<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 8 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 8 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 8 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 8 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 8 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 2 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 2 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 2 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 2 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 2 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 2 nranks 16 size 8 - DONE
+h200-bar-199-173:2031217:2031217 [2] NVSHMEM INFO PE 2 (process) affinity to 128 CPUs:
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 8 nranks 16 size 8 - DONE
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO PE 8 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:172: UID bootstrap network is being initialized using:  eth0:172.16.42.142<0>
+
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-199-173:2031216:2031216 [1] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO [7] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO [6] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031218:2031218 [3] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO in get_cucontext, queried and saved context for device: 7 context: 0x47707ec0
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_net_init:180: UID bootstrap network using:  eth0:172.16.42.142<0>
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:696: rank 9 nranks 16
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 9 nranks 16 size 28
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 9 nranks 16 size 28 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:nvshmemi_bootstrap_plugin_init:773: rank 9 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 9 nranks 16 size 8
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO in get_cucontext, queried and saved context for device: 6 context: 0x148da890
+h200-bar-199-173:2031216:2031216 [1] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-199-173:2031217:2031217 [2] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-199-173:2031218:2031218 [3] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO [4] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO [5] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO in get_cucontext, queried and saved context for device: 4 context: 0x26dbdaa0
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO in get_cucontext, queried and saved context for device: 5 context: 0xa7daf70
+h200-bar-199-173:2031217:2031217 [2] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 9 nranks 16 size 8 - DONE
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO PE 9 (process) affinity to 128 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO cudaDriverVersion 13000
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO [6] Created stream 0x28fc2ef0 for device 6
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO [7] Created stream 0x5afbd910 for device 7
+h200-bar-199-173:2031221:2031221 [6] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO [4] Created stream 0x3b4bbc30 for device 4
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO [5] Created stream 0x1eed25d0 for device 5
+h200-bar-199-173:2031222:2031222 [7] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-199-173:2031216:2031216 [1] NVSHMEM INFO [1] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031219:2031219 [4] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-199-173:2031218:2031218 [3] NVSHMEM INFO [3] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031216:2031216 [1] NVSHMEM INFO in get_cucontext, queried and saved context for device: 1 context: 0xf0317e0
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO [15] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO [13] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-199-173:2031218:2031218 [3] NVSHMEM INFO in get_cucontext, queried and saved context for device: 3 context: 0x46ce4cf0
+h200-bar-199-173:2031220:2031220 [5] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+nk 0 nranks 16 - DONE
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 0 nranks 16 size 8
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 0 nranks 16 size 8 - DONE
+NVSHMEM v3.6.5
+NVSHMEM configuration:
+  CUDA API                     13010
+  CUDA Runtime                 13010
+  CUDA Driver                  13000
+  Build Timestamp              Mar 21 2026 08:24:37
+  Build Variables             
+	NVSHMEM_DEBUG=OFF NVSHMEM_DEVEL=OFF NVSHMEM_DEFAULT_PMI2=OFF
+	NVSHMEM_DEFAULT_PMIX=OFF NVSHMEM_DEFAULT_UCX=OFF
+	NVSHMEM_ENABLE_ALL_DEVICE_INLINING=OFF NVSHMEM_GPU_COLL_USE_LDST=OFF
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO in get_cucontext, queried and saved context for device: 7 context: 0x28062320
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO [12] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+	NVSHMEM_IBGDA_SUPPORT=ON NVSHMEM_IBGDA_SUPPORT_GPUMEM_ONLY=OFF
+	NVSHMEM_IBDEVX_SUPPORT=ON NVSHMEM_IBRC_SUPPORT=ON NVSHMEM_LIBFABRIC_SUPPORT=ON
+	NVSHMEM_MPI_SUPPORT=ON NVSHMEM_NVTX=ON NVSHMEM_PMIX_SUPPORT=ON
+	NVSHMEM_SHMEM_SUPPORT=ON NVSHMEM_TEST_STATIC_LIB=OFF
+	NVSHMEM_TIMEOUT_DEVICE_POLLING=OFF NVSHMEM_TRACE=OFF NVSHMEM_UCX_SUPPORT=ON
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO [10] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO in get_cucontext, queried and saved context for device: 5 context: 0x3c0ce5f0
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO [11] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO in get_cucontext, queried and saved context for device: 4 context: 0xe038720
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO in get_cucontext, queried and saved context for device: 2 context: 0x1e19ed50
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO in get_cucontext, queried and saved context for device: 3 context: 0x28e16360
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO [14] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO [8] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO in get_cucontext, queried and saved context for device: 6 context: 0x24f373d0
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO in get_cucontext, queried and saved context for device: 0 context: 0x2f2f8fb0
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO [13] Created stream 0x4f9c0140 for device 5
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO [15] Created stream 0x3c740300 for device 7
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO [11] Created stream 0x3d50aae0 for device 3
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO [10] Created stream 0x328eb480 for device 2
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO [12] Created stream 0x22721770 for device 4
+h200-bar-200-051:1737266:1737266 [2] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737267:1737267 [3] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO [9] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO in get_cucontext, queried and saved context for device: 1 context: 0x18bcfa10
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO [8] Created stream 0x43a598d0 for device 0
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO [14] Created stream 0x396240c0 for device 6
+h200-bar-200-051:1737264:1737264 [0] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO [9] Created stream 0x2d3278f0 for device 1
+h200-bar-200-051:1737265:1737265 [1] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 15 nranks 16 size 1
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 15 nranks 16 size 1 - DONE
+h200-bar-200-051:1737271:1737271 [7] NVSHMEM INFO NVLS: cuMulticast is not supported on CUDA or disabled by user
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 14 nranks 16 size 1
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 14 nranks 16 size 1 - DONE
+h200-bar-200-051:1737270:1737270 [6] NVSHMEM INFO NVLS: cuMulticast is not supported on CUDA or disabled by user
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 13 nranks 16 size 1
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 13 nranks 16 size 1 - DONE
+h200-bar-200-051:1737269:1737269 [5] NVSHMEM INFO NVLS: cuMulticast is not supported on CUDA or disabled by user
+
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:480: rank 12 nranks 16 size 1
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/modules/bootstrap/uid/bootstrap_uid.cpp:bootstrap_uid_allgather:503: rank 12 nranks 16 size 1 - DONE
+h200-bar-200-051:1737268:1737268 [4] NVSHMEM INFO NVLS: cuMulticast is not supported on CUDA or disabled by user

@@ -10,6 +10,7 @@
 set -u
 DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/DeepEP}
 OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
+TAG=${TAG:-}    # e.g. TAG=-newcluster-20260504 → log filenames get the suffix
 mkdir -p "$OUT"
 
 . "$(dirname "$0")/setup.sh"
@@ -19,11 +20,11 @@ cd "$DEEP_EP"
 run() {
     local label="$1"; shift
     echo "=== $label ==="
-    "$@" > "$OUT/${label}.log" 2>&1
+    "$@" > "$OUT/${label}${TAG}.log" 2>&1
     local ec=$?
-    echo "  exit=$ec  log: $OUT/${label}.log"
+    echo "  exit=$ec  log: $OUT/${label}${TAG}.log"
     if [[ $ec -eq 0 ]]; then
-        grep -E "Best (dispatch|combine)|EP:   0/8|bandwidth:" "$OUT/${label}.log" | head -6 | sed 's/^/  | /'
+        grep -E "Best (dispatch|combine)|EP:   0/8|bandwidth:" "$OUT/${label}${TAG}.log" | head -6 | sed 's/^/  | /'
     fi
     echo
 }

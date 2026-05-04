@@ -91,3 +91,44 @@ above the noise floor on this hardware.**
 bash repro/nccl_graph_ablation/run_big.sh        # 16384^2 sweep
 bash repro/nccl_graph_ablation/run_small.sh  # nx <= 512 sweep
 ```
+
+---
+
+## H200 cluster re-run (2026-05-04)
+
+CSVs: `results-graph-ablation-20260504-164458.csv` (big) and
+`results-graph-ablation-small-20260504-164915.csv` (small). Same workload
+as the original H100 run.
+
+### Big problem (16384², 1000 iter, 3 reps)
+
+| #GPU | mix=1 mean (s) | mix=0 mean (s) | Δ% (mean) |
+|---:|---:|---:|---:|
+| 1 | 1.5247 ± 0.0021 | 1.5227 ± 0.0027 | −0.13% |
+| 2 | 0.7717 ± 0.0003 | 0.7820 ± 0.0159 | +1.34% |
+| 4 | 0.4136 ± 0.0135 | 0.4241 ± 0.0163 | +2.54% |
+| 8 | 0.2198 ± 0.0026 | 0.2242 ± 0.0094 | +2.00% |
+
+Same shape as the original H100 result: noise dominates at 16384² where
+per-iter compute (~1.5 ms) >> per-launch bookkeeping savings (sub-µs). On
+H200 the small `mix=0 +2%` is unstable across reps (stdev ~0.01 s).
+
+### Small / latency-bound problem (5000 iter, min over 5 reps)
+
+| nx | #GPU | mix=1 min (s) | mix=0 min (s) | Δ% |
+|---:|---:|---:|---:|---:|
+| 128 | 4 | 0.1371 | 0.1356 | −1.07% |
+| 128 | 8 | 0.1381 | 0.1355 | −1.89% |
+| 512 | 4 | 0.1674 | 0.1708 | +2.00% |
+| 512 | 8 | 0.1470 | 0.1402 | −4.63% |
+
+Same pattern: marginal improvement at the smallest, latency-bound case
+(`nx=128`, ~1-2%); at `nx=512 / 8 GPU` the saving creeps up to ~5%, in line
+with the original H100 finding. No headline change.
+
+### Conclusion stays the same on H200
+
+* `NCCL_GRAPH_MIXING_SUPPORT=0` is safe to set for `nccl_graphs/jacobi`
+  (single communicator, no graph/non-graph mixing).
+* The improvement is sub-µs per launch — visible only when launch latency
+  dominates (small `nx` × many iter), in the noise otherwise.

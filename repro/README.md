@@ -52,25 +52,33 @@ repro/
 
 ## What's in each report
 
-| Report | Headline numbers |
+Two cluster runs are now in scope: the original CoreWeave **H100** run
+(jacobi REPORT_*.md as originally written, deepep/ logs without a `-newcluster`
+suffix) and the **H200** re-run on `gpu_882f6e72.sqsh` from 2026-05-04
+(`-newcluster-20260504` suffixed logs, REPORT_*.md updated in place to
+H200 numbers). Where they differ, both are noted.
+
+| Report | Headline numbers (H200 / H100) |
 |---|---|
-| [jacobi/results/REPORT_1NODE.md](jacobi/results/REPORT_1NODE.md) | 1-node 8 GPU 16384² 1000 iter: nccl_graphs **0.220 s**, nvshmem **0.252 s** (NCCL ~14% faster on NVLink-only) |
-| [jacobi/results/REPORT_2NODE.md](jacobi/results/REPORT_2NODE.md) | 2-node 4×4 GPU 16384² 1000 iter: NCCL **0.266 s**, NVSHMEM baseline **4.222 s** (16× slowdown without `-use_block_comm`!), NVSHMEM (-use_block_comm -nbsync) **0.285 s** (parity with NCCL) |
-| [nccl_graph_ablation/REPORT.md](nccl_graph_ablation/REPORT.md) | `NCCL_GRAPH_MIXING_SUPPORT=0` saves ~1 µs per graph launch — ≤ 5% effect at small nx, lost in noise at 16384² |
-| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM 322 GB/s vs V2 NCCL Gin 306 GB/s. Single-node LL: V2 75 µs vs V1 116 µs (V2 faster, but V1 IBGDA fell back to NVLink) |
+| [jacobi/results/REPORT_1NODE.md](jacobi/results/REPORT_1NODE.md) | 1-node 8 GPU 16384² 1000 iter: nccl_graphs **0.220 s** (both), nvshmem **0.254 s / 0.252 s** — NCCL ~6% faster on NVLink-only, no H100 vs H200 delta |
+| [jacobi/results/REPORT_2NODE.md](jacobi/results/REPORT_2NODE.md) | 2-node 4×4 GPU 16384² 1000 iter: NCCL **0.262 s / 0.266 s**, NVSHMEM baseline **5.742 s / 4.222 s** (20× slowdown without `-use_block_comm` on H200!), NVSHMEM (-use_block_comm -nbsync) **0.282 s / 0.285 s** (parity with NCCL on both) |
+| [nccl_graph_ablation/REPORT.md](nccl_graph_ablation/REPORT.md) | `NCCL_GRAPH_MIXING_SUPPORT=0` saves ~1 µs per graph launch — ≤ 5% effect at small nx, lost in noise at 16384² (same on H100 and H200) |
+| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM **319.82 GB/s** vs V2 NCCL Gin **304 GB/s** (H200 essentially identical to H100). 2-node 2×8 V2 ep SO BW **62 GB/s on H200** vs 58 GB/s on H100 (~7% better). V1 LL multi-node still blocked by NVSHMEM IBGDA (`cudaErrorIllegalAddress` in kernel) — same fingerprint on H200 as H100; see [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md). |
 
 ## Quick reproduce on this cluster
 
 ```bash
-# (mistral repo) get an 8-GPU H100 node with the standard container:
+# (mistral repo) get an 8-GPU H200 node with the standard container.
+# (On the H200 cluster `ggpus` defaults to partition=h200; on the older
+# H100 cluster it was partition=h100.)
 cd /mnt/vast/home/tiancheng.chen/workspace/mistral
 uv run python -m scripts.utils.cluster ggpus --with_container True --num_gpus 8 --exclusive True
 
 # Inside the container:
 cd /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models
 . repro/jacobi/setup_env.sh
-bash repro/jacobi/build_all.sh        # ~5 min
-bash repro/jacobi/run_sweep.sh        # ~25 min (1-node Sweep A+B)
+bash repro/jacobi/build_all.sh        # ~3 min
+bash repro/jacobi/run_sweep.sh        # ~30 min (1-node Sweep A+B)
 python3 repro/jacobi/analyze.py > repro/jacobi/results/REPORT_1NODE.md
 python3 repro/jacobi/plot_results.py
 ```
@@ -79,7 +87,8 @@ For 2-node and DeepEP runs, see the per-investigation READMEs.
 
 ## Branch
 
-This work lives on the `reproduction-h100-nvshmem-vs-nccl` branch. The only changes outside `repro/` are:
+This work lives on the `reproduction-h100-nvshmem-vs-nccl` branch. Changes
+outside `repro/` are kept minimal:
 
 * **C++14 → C++17** in every `Makefile` (CUDA 13's CCCL refuses to compile against C++14). One-liner:
   ```bash
@@ -87,3 +96,4 @@ This work lives on the `reproduction-h100-nvshmem-vs-nccl` branch. The only chan
       sed -i 's/-std=c++14/-std=c++17/g' "$d/Makefile"
   done
   ```
+* **`nvshmem/Makefile`**: replaced `-lnvshmem` with `-lnvshmem_host -lnvshmem_device`. NVSHMEM 3.x split the bundled library into a host shared library and a device static archive; the old `-lnvshmem` symbol no longer exists.

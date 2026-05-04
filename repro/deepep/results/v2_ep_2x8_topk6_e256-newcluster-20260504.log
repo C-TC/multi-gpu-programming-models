@@ -1,0 +1,100 @@
+Config:
+ > Ranks: 2 x 8
+ > Experts: 6/256
+ > Tokens: 4096 (max: 4096), hidden: 7168
+ > #SM: 32, #QPs: 16/16
+
+Config:
+ > Ranks: 2 x 8
+ > Experts: 6/256
+ > Tokens: 4088 (max: 4096), hidden: 7168
+ > #SM: 32, #QPs: 16/16
+
+Running all test cases:
+Running all test cases:
+ > Testing with do_handle_copy=1, expert_alignment=128, use_fp8_dispatch=1, num_bias=0, with_previous_event=0, async_with_compute_stream=0, allocate_on_comm_stream=0 ...
+ > Testing with do_handle_copy=1, expert_alignment=128, use_fp8_dispatch=1, num_bias=0, with_previous_event=0, async_with_compute_stream=0, allocate_on_comm_stream=0 ...
+   * EP:  10/16 | dispatch: 63 GB/s (SO), 167 GB/s (SU), 948.198 us, 158684640 bytes | copy: 2917 GB/s, 108.806 us
+   * EP:   3/16 | dispatch: 63 GB/s (SO), 165 GB/s (SU), 952.712 us, 157169448 bytes | copy: 3005 GB/s, 104.621 us
+   * EP:  14/16 | dispatch: 63 GB/s (SO), 165 GB/s (SU), 949.714 us, 157042560 bytes | copy: 3083 GB/s, 101.865 us
+   * EP:   6/16 | dispatch: 63 GB/s (SO), 166 GB/s (SU), 951.670 us, 157878528 bytes | copy: 2902 GB/s, 108.789 us
+   * EP:  15/16 | dispatch: 63 GB/s (SO), 164 GB/s (SU), 956.337 us, 157050024 bytes | copy: 2773 GB/s, 113.286 us
+   * EP:   4/16 | dispatch: 63 GB/s (SO), 168 GB/s (SU), 949.000 us, 159453432 bytes | copy: 2943 GB/s, 108.373 us
+   * EP:   2/16 | dispatch: 63 GB/s (SO), 167 GB/s (SU), 951.098 us, 159147408 bytes | copy: 2799 GB/s, 113.735 us
+   * EP:   8/16 | dispatch: 63 GB/s (SO), 165 GB/s (SU), 956.210 us, 158102448 bytes | copy: 2973 GB/s, 106.355 us
+   * EP:   7/16 | dispatch: 63 GB/s (SO), 165 GB/s (SU), 951.842 us, 156960456 bytes | copy: 2862 GB/s, 109.676 us
+   * EP:  13/16 | dispatch: 63 GB/s (SO), 167 GB/s (SU), 949.410 us, 158729424 bytes | copy: 2949 GB/s, 107.632 us
+   * EP:   1/16 | dispatch: 63 GB/s (SO), 166 GB/s (SU), 950.997 us, 157744176 bytes | copy: 2803 GB/s, 112.566 us
+   * EP:  11/16 | dispatch: 63 GB/s (SO), 164 GB/s (SU), 956.345 us, 156803712 bytes | copy: 2950 GB/s, 106.296 us
+   * EP:   5/16 | dispatch: 63 GB/s (SO), 168 GB/s (SU), 948.520 us, 158990664 bytes | copy: 3027 GB/s, 105.058 us
+   * EP:  12/16 | dispatch: 63 GB/s (SO), 167 GB/s (SU), 952.622 us, 159117552 bytes | copy: 2823 GB/s, 112.734 us
+   * EP:   0/16 | dispatch: 63 GB/s (SO), 166 GB/s (SU), 952.320 us, 158065128 bytes | copy: 2653 GB/s, 119.160 us
+   * EP:   9/16 | dispatch: 63 GB/s (SO), 165 GB/s (SU), 951.726 us, 157288872 bytes | copy: 2963 GB/s, 106.185 us
+   - EP:  10/16 | expanded dispatch: 63 GB/s (SO), 166 GB/s (SU), 953.074 us, 158684640 bytes | copy: 2775 GB/s, 126.682 us
+   - EP:   3/16 | expanded dispatch: 63 GB/s (SO), 165 GB/s (SU), 954.537 us, 157169448 bytes | copy: 2665 GB/s, 130.000 us
+   - EP:  15/16 | expanded dispatch: 62 GB/s (SO), 162 GB/s (SU), 966.796 us, 157050024 bytes | copy: 2568 GB/s, 135.098 us
+   - EP:   2/16 | expanded dispatch: 63 GB/s (SO), 167 GB/s (SU), 952.624 us, 159147408 bytes | copy: 2696 GB/s, 130.379 us
+   - EP:  14/16 | expanded dispatch: 63 GB/s (SO), 164 GB/s (SU), 957.997 us, 157042560 bytes | copy: 2666 GB/s, 130.196 us
+   - EP:  11/16 | expanded dispatch: 62 GB/s (SO), 162 GB/s (SU), 967.268 us, 156803712 bytes | copy: 2716 GB/s, 127.029 us
+   - EP:   6/16 | expanded dispatch: 63 GB/s (SO), 166 GB/s (SU), 953.225 us, 157878528 bytes | copy: 2809 GB/s, 124.797 us
+   - EP:   7/16 | expanded dispatch: 63 GB/s (SO), 165 GB/s (SU), 953.562 us, 156960456 bytes | copy: 2613 GB/s, 132.314 us
+   - EP:   1/16 | expanded dispatch: 63 GB/s (SO), 165 GB/s (SU), 954.080 us, 157744176 bytes | copy: 2505 GB/s, 137.930 us
+   - EP:   8/16 | expanded dispatch: 62 GB/s (SO), 163 GB/s (SU), 967.852 us, 158102448 bytes | copy: 2628 GB/s, 132.376 us
+   - EP:  13/16 | expanded dispatch: 63 GB/s (SO), 166 GB/s (SU), 955.335 us, 158729424 bytes | copy: 2521 GB/s, 139.690 us
+   - EP:  12/16 | expanded dispatch: 63 GB/s (SO), 166 GB/s (SU), 955.725 us, 159117552 bytes | copy: 2535 GB/s, 138.753 us
+   - EP:   0/16 | expanded dispatch: 63 GB/s (SO), 166 GB/s (SU), 954.181 us, 158065128 bytes | copy: 2469 GB/s, 141.398 us
+   - EP:   9/16 | expanded dispatch: 62 GB/s (SO), 163 GB/s (SU), 962.366 us, 157288872 bytes | copy: 2572 GB/s, 134.682 us
+   - EP:   4/16 | expanded dispatch: 63 GB/s (SO), 168 GB/s (SU), 951.182 us, 159453432 bytes | copy: 2553 GB/s, 137.593 us
+   - EP:   5/16 | expanded dispatch: 63 GB/s (SO), 167 GB/s (SU), 950.555 us, 158990664 bytes | copy: 2673 GB/s, 131.677 us
+   # EP:   3/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 910.933 us, 157169448 bytes | copy: 2865 GB/s, 109.700 us
+   # EP:  11/16 | cached dispatch: 66 GB/s (SO), 171 GB/s (SU), 916.229 us, 156803712 bytes | copy: 2978 GB/s, 105.294 us
+   # EP:   2/16 | cached dispatch: 66 GB/s (SO), 175 GB/s (SU), 908.594 us, 159147408 bytes | copy: 2800 GB/s, 113.660 us
+   # EP:   1/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 909.861 us, 157744176 bytes | copy: 2978 GB/s, 105.955 us
+   # EP:  14/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 909.416 us, 157042560 bytes | copy: 3032 GB/s, 103.584 us
+   # EP:   6/16 | cached dispatch: 66 GB/s (SO), 174 GB/s (SU), 909.549 us, 157878528 bytes | copy: 2987 GB/s, 105.709 us
+   # EP:   8/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 916.066 us, 158102448 bytes | copy: 2894 GB/s, 109.263 us
+   # EP:   7/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 908.125 us, 156960456 bytes | copy: 2888 GB/s, 108.717 us
+   # EP:  13/16 | cached dispatch: 66 GB/s (SO), 174 GB/s (SU), 911.407 us, 158729424 bytes | copy: 2968 GB/s, 106.959 us
+   # EP:   9/16 | cached dispatch: 66 GB/s (SO), 172 GB/s (SU), 914.303 us, 157288872 bytes | copy: 3041 GB/s, 103.441 us
+   # EP:   5/16 | cached dispatch: 66 GB/s (SO), 175 GB/s (SU), 907.578 us, 158990664 bytes | copy: 2958 GB/s, 107.503 us
+   # EP:   4/16 | cached dispatch: 66 GB/s (SO), 176 GB/s (SU), 905.393 us, 159453432 bytes | copy: 2954 GB/s, 107.968 us
+   # EP:  12/16 | cached dispatch: 66 GB/s (SO), 175 GB/s (SU), 910.586 us, 159117552 bytes | copy: 2995 GB/s, 106.239 us
+   # EP:   0/16 | cached dispatch: 66 GB/s (SO), 173 GB/s (SU), 911.128 us, 158065128 bytes | copy: 2821 GB/s, 112.076 us
+   # EP:  10/16 | cached dispatch: 66 GB/s (SO), 175 GB/s (SU), 907.053 us, 158684640 bytes | copy: 3044 GB/s, 104.252 us
+   # EP:  15/16 | cached dispatch: 66 GB/s (SO), 172 GB/s (SU), 915.484 us, 157050024 bytes | copy: 2936 GB/s, 106.976 us
+   @ EP:  11/16 | combine: 73 GB/s (SO), 189 GB/s (SU), 1597.000 us, 301674880 bytes | reduce: 3595 GB/s, 48.530 us
+   @ EP:   8/16 | combine: 72 GB/s (SO), 190 GB/s (SU), 1603.000 us, 304173520 bytes | reduce: 3613 GB/s, 48.326 us
+   @ EP:   2/16 | combine: 74 GB/s (SO), 194 GB/s (SU), 1576.000 us, 306183920 bytes | reduce: 3601 GB/s, 48.509 us
+   @ EP:   6/16 | combine: 73 GB/s (SO), 191 GB/s (SU), 1587.000 us, 303742720 bytes | reduce: 3595 GB/s, 48.595 us
+   @ EP:  14/16 | combine: 73 GB/s (SO), 191 GB/s (SU), 1579.000 us, 302134400 bytes | reduce: 3618 GB/s, 48.184 us
+   @ EP:  15/16 | combine: 73 GB/s (SO), 190 GB/s (SU), 1592.000 us, 302148760 bytes | reduce: 3601 GB/s, 48.353 us
+   @ EP:   7/16 | combine: 74 GB/s (SO), 192 GB/s (SU), 1571.000 us, 301976440 bytes | reduce: 3606 GB/s, 48.365 us
+   @ EP:  12/16 | combine: 72 GB/s (SO), 193 GB/s (SU), 1590.000 us, 306126480 bytes | reduce: 3602 GB/s, 48.276 us
+   @ EP:   1/16 | combine: 73 GB/s (SO), 192 GB/s (SU), 1583.000 us, 303484240 bytes | reduce: 3575 GB/s, 48.861 us
+   @ EP:  13/16 | combine: 73 GB/s (SO), 192 GB/s (SU), 1591.000 us, 305379760 bytes | reduce: 3591 GB/s, 48.540 us
+   @ EP:   9/16 | combine: 73 GB/s (SO), 191 GB/s (SU), 1583.000 us, 302608280 bytes | reduce: 3617 GB/s, 48.154 us
+   @ EP:   3/16 | combine: 74 GB/s (SO), 192 GB/s (SU), 1578.000 us, 302378520 bytes | reduce: 3612 GB/s, 48.399 us
+   @ EP:  10/16 | combine: 73 GB/s (SO), 193 GB/s (SU), 1581.000 us, 305293600 bytes | reduce: 3613 GB/s, 48.166 us
+   @ EP:   0/16 | combine: 73 GB/s (SO), 192 GB/s (SU), 1585.000 us, 304101720 bytes | reduce: 3598 GB/s, 48.594 us
+   @ EP:   4/16 | combine: 74 GB/s (SO), 195 GB/s (SU), 1573.000 us, 306772680 bytes | reduce: 3613 GB/s, 48.294 us
+   @ EP:   5/16 | combine: 74 GB/s (SO), 195 GB/s (SU), 1569.000 us, 305882360 bytes | reduce: 3601 GB/s, 48.429 us
+   + EP:   3/16 | reduced combine: 73 GB/s (SO), 191 GB/s (SU), 1585.000 us, 302378520 bytes | reduce: 3672 GB/s, 47.605 us
+   + EP:   7/16 | reduced combine: 73 GB/s (SO), 191 GB/s (SU), 1583.000 us, 301976440 bytes | reduce: 3659 GB/s, 47.669 us
+   + EP:   2/16 | reduced combine: 73 GB/s (SO), 193 GB/s (SU), 1584.000 us, 306183920 bytes | reduce: 3655 GB/s, 47.788 us
+   + EP:  11/16 | reduced combine: 73 GB/s (SO), 190 GB/s (SU), 1585.000 us, 301674880 bytes | reduce: 3659 GB/s, 47.676 us
+   + EP:   5/16 | reduced combine: 73 GB/s (SO), 193 GB/s (SU), 1581.000 us, 305882360 bytes | reduce: 3659 GB/s, 47.667 us
+   + EP:  14/16 | reduced combine: 73 GB/s (SO), 192 GB/s (SU), 1576.000 us, 302134400 bytes | reduce: 3670 GB/s, 47.493 us
+   + EP:   1/16 | reduced combine: 73 GB/s (SO), 192 GB/s (SU), 1580.000 us, 303484240 bytes | reduce: 3624 GB/s, 48.208 us
+   + EP:  15/16 | reduced combine: 73 GB/s (SO), 191 GB/s (SU), 1583.000 us, 302148760 bytes | reduce: 3664 GB/s, 47.525 us
+   + EP:   4/16 | reduced combine: 73 GB/s (SO), 194 GB/s (SU), 1583.000 us, 306772680 bytes | reduce: 3659 GB/s, 47.697 us
+   + EP:  10/16 | reduced combine: 73 GB/s (SO), 194 GB/s (SU), 1575.000 us, 305293600 bytes | reduce: 3672 GB/s, 47.397 us
+   + EP:   0/16 | reduced combine: 73 GB/s (SO), 191 GB/s (SU), 1594.000 us, 304101720 bytes | reduce: 3663 GB/s, 47.738 us
+   + EP:  13/16 | reduced combine: 73 GB/s (SO), 193 GB/s (SU), 1586.000 us, 305379760 bytes | reduce: 3650 GB/s, 47.754 us
+   + EP:   6/16 | reduced combine: 73 GB/s (SO), 190 GB/s (SU), 1596.000 us, 303742720 bytes | reduce: 3671 GB/s, 47.591 us
+   + EP:   8/16 | reduced combine: 73 GB/s (SO), 191 GB/s (SU), 1592.000 us, 304173520 bytes | reduce: 3675 GB/s, 47.512 us
+   + EP:  12/16 | reduced combine: 73 GB/s (SO), 194 GB/s (SU), 1580.000 us, 306126480 bytes | reduce: 3668 GB/s, 47.402 us
+   + EP:   9/16 | reduced combine: 73 GB/s (SO), 192 GB/s (SU), 1576.000 us, 302608280 bytes | reduce: 3672 GB/s, 47.440 us
+
+
+
+

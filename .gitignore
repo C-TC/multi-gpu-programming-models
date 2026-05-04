@@ -1,4 +1,18 @@
 *.o
-jacobi
 test-*.log
 .vscode
+
+# Sweep configs file (intermediate artifact)
+repro/jacobi/results/sweep2node-configs-*.txt
+
+# Built jacobi binaries (one per variant directory)
+/single_gpu/jacobi
+/mpi/jacobi
+/mpi_overlap/jacobi
+/multi_node_p2p/jacobi
+/multi_threaded_*/jacobi
+/nccl/jacobi
+/nccl_graphs/jacobi
+/nccl_overlap/jacobi
+/nvshmem/jacobi
+/single_threaded_copy/jacobi

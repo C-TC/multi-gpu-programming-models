@@ -1,0 +1,105 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Allocating buffer size: 477.10272 MB ...
+Allocating buffer size: 477.10272 MB ...
+[rank3]:[W504 18:41:52.867830115 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank6]:[W504 18:41:52.248927927 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+[rank5]:[W504 18:41:52.248957787 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank7]:[W504 18:41:52.248978171 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank4]:[W504 18:41:52.249508276 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank2]:[W504 18:41:52.908216249 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.6.5
+[rank0]:[W504 18:41:52.908754706 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank1]:[W504 18:41:52.909467493 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank0]:[W504 18:41:52.174650795 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank1]:[W504 18:41:52.181762187 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[h200-bar-199-173.slurm-bar-compute.tenant-slurm.svc.cluster.local]:49354, remote=[h200-bar-199-173.slurm-bar-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7b6b3d790008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7b6b60bdbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7b6b60bdd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7b6b60bddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7b6b60bdb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7b6b3e4a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7b6b3ccecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7b6b7589caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7b6b75929c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank1]:[W504 18:41:52.184366102 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 1] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+W0504 18:41:53.844000 2022608 torch/multiprocessing/spawn.py:175] Terminating process 2023106 via signal SIGTERM
+W0504 18:41:53.845000 2022608 torch/multiprocessing/spawn.py:175] Terminating process 2023107 via signal SIGTERM
+W0504 18:41:53.845000 2022608 torch/multiprocessing/spawn.py:175] Terminating process 2023109 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 2 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+W0504 18:41:53.946000 1729440 torch/multiprocessing/spawn.py:175] Terminating process 1729937 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 2 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+srun: error: h200-bar-200-051: task 1: Exited with exit code 1
+srun: error: h200-bar-199-173: task 0: Exited with exit code 1
