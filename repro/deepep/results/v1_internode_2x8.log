@@ -1,0 +1,545 @@
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+Testing with seed 0 ...
+Testing with seed 0 ...
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[config] num_tokens=4096, hidden=7168, num_topk_groups=2, num_topk=8
+[layout] Kernel performance: 0.040 ms
+
+[layout] Kernel performance: 0.041 ms
+
+[testing] Running with BF16, without top-k (async=False, previous=False) ...WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[testing] Running with BF16, without top-k (async=False, previous=False) ...NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank8]:[W504 13:35:30.588385524 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank0]:[W504 13:35:30.894881782 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank10]:[W504 13:35:30.230279750 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=76, addr=[slurm-h100-reserved-rno-204-111.slurm-compute.tenant-slurm.svc.cluster.local]:60806, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x74656e4e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7465919dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7465919dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7465919ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7465919db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x74656f2a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x74656daecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7465a669caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7465a6729c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank10]:[W504 13:35:30.233019354 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 10] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank4]:[W504 13:35:30.580562185 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57746, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7e75c78e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7e75eaddbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7e75eaddd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7e75eadddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7e75eaddb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7e75c86a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7e75c6eecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7e75ffa9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7e75ffb29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank3]:[W504 13:35:30.580561088 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57748, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x72f94f990008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x72f972ddbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x72f972ddd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x72f972dddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x72f972ddb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x72f9506a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x72f94eeecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x72f987a9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x72f987b29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank7]:[W504 13:35:30.580589076 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57700, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x742858390008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x74284f3dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x74284f3dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x74284f3ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x74284f3db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x74282cca6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x74282b4ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x74286409caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x742864129c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank3]:[W504 13:35:30.583357512 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 3] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank7]:[W504 13:35:30.583371846 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 7] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank4]:[W504 13:35:30.583373739 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 4] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank6]:[W504 13:35:30.580560978 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57718, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7a2313d90008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7a230addbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7a230addd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7a230adddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7a230addb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7a22e86a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7a22e6eecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7a231fa9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7a231fb29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank6]:[W504 13:35:30.583822079 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 6] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank1]:[W504 13:35:30.581223457 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57734, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x71130d0e6008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7113305dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7113305dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+[rank12]:[W504 13:35:30.325888172 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=76, addr=[slurm-h100-reserved-rno-204-111.slurm-compute.tenant-slurm.svc.cluster.local]:60814, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x704ceab90008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x704d0dfdbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x704d0dfdd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7113305ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7113305db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x71130dea6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x71130c6ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x71134529caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x711345329c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+frame #3: <unknown function> + 0x5dddc2a (0x704d0dfddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x704d0dfdb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x704ceb8a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x704cea0ecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x704d22c9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x704d22d29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank1]:[W504 13:35:30.584330146 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 1] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank12]:[W504 13:35:30.328679297 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 12] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank5]:[W504 13:35:30.581674754 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=77, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57714, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x78f1ba990008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x78f1ddddbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x78f1ddddd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x78f1dddddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x78f1ddddb359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x78f1bb6a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x78f1b9eecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x78f1f2a9caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x78f1f2b29c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank5]:[W504 13:35:30.584757204 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 5] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+[rank2]:[W504 13:35:30.584054241 TCPStore.cpp:125] [c10d] recvValue failed on SocketImpl(fd=76, addr=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:57764, remote=[slurm-h100-reserved-rno-199-197.slurm-compute.tenant-slurm.svc.cluster.local]:29500): Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+Exception raised from recvBytes at /opt/pytorch/pytorch/torch/csrc/distributed/c10d/Utils.hpp:697 (most recent call first):
+frame #0: c10::Error::Error(c10::SourceLocation, std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >) + 0x88 (0x7f0499590008 in /usr/local/lib/python3.12/dist-packages/torch/lib/libc10.so)
+frame #1: <unknown function> + 0x5ddbffe (0x7f04bc9dbffe in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #2: <unknown function> + 0x5ddd1e0 (0x7f04bc9dd1e0 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #3: <unknown function> + 0x5dddc2a (0x7f04bc9ddc2a in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #4: c10d::TCPStore::check(std::vector<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, std::allocator<std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> > > > const&) + 0x2a9 (0x7f04bc9db359 in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cpu.so)
+frame #5: c10d::ProcessGroupNCCL::HeartbeatMonitor::runLoop() + 0x38b (0x7f049a2a6c0b in /usr/local/lib/python3.12/dist-packages/torch/lib/libtorch_cuda.so)
+frame #6: <unknown function> + 0xecdb4 (0x7f0498aecdb4 in /usr/lib/x86_64-linux-gnu/libstdc++.so.6)
+frame #7: <unknown function> + 0x9caa4 (0x7f04d169caa4 in /usr/lib/x86_64-linux-gnu/libc.so.6)
+frame #8: <unknown function> + 0x129c6c (0x7f04d1729c6c in /usr/lib/x86_64-linux-gnu/libc.so.6)
+
+[rank2]:[W504 13:35:30.586646863 ProcessGroupNCCL.cpp:1815] [PG ID 0 PG GUID 0(default_pg) Rank 2] Failed to check the "should dump" flag on TCPStore, (maybe TCPStore server has shut down too early), with error: Failed to recv, got 0 bytes. Connection was likely closed. Did the remote server shutdown or crash?
+W0504 13:35:31.520000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599534 via signal SIGTERM
+W0504 13:35:31.521000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599535 via signal SIGTERM
+W0504 13:35:31.522000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599536 via signal SIGTERM
+W0504 13:35:31.524000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885104 via signal SIGTERM
+W0504 13:35:31.525000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885105 via signal SIGTERM
+W0504 13:35:31.526000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599537 via signal SIGTERM
+W0504 13:35:31.526000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599538 via signal SIGTERM
+W0504 13:35:31.527000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599539 via signal SIGTERM
+W0504 13:35:31.526000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885106 via signal SIGTERM
+W0504 13:35:31.528000 599105 torch/multiprocessing/spawn.py:175] Terminating process 599540 via signal SIGTERM
+W0504 13:35:31.529000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885107 via signal SIGTERM
+W0504 13:35:31.529000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885108 via signal SIGTERM
+W0504 13:35:31.534000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885109 via signal SIGTERM
+W0504 13:35:31.535000 1884675 torch/multiprocessing/spawn.py:175] Terminating process 1885110 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: internode_dispatch(): incompatible function arguments. The following argument types are supported:
+    1. (self: deep_ep._C.Buffer, arg0: torch.Tensor, arg1: torch.Tensor | None, arg2: torch.Tensor | None, arg3: torch.Tensor | None, arg4: torch.Tensor | None, arg5: torch.Tensor | None, arg6: torch.Tensor, arg7: torch.Tensor | None, arg8: typing.SupportsInt, arg9: typing.SupportsInt, arg10: torch.Tensor | None, arg11: torch.Tensor | None, arg12: torch.Tensor | None, arg13: torch.Tensor | None, arg14: typing.SupportsInt, arg15: typing.SupportsInt, arg16: deep_ep._C.Config, arg17: deep_ep._C.EventHandle | None, arg18: bool, arg19: bool) -> tuple[torch.Tensor, torch.Tensor | None, torch.Tensor | None, torch.Tensor | None, list[int], torch.Tensor, torch.Tensor, torch.Tensor | None, torch.Tensor, torch.Tensor | None, torch.Tensor, torch.Tensor | None, torch.Tensor | None, torch.Tensor | None, deep_ep._C.EventHandle | None]
+
+Invoked with: <deep_ep._C.Buffer object at 0x7fccfcd679b0>, tensor([[-1.1250,  0.0918,  1.1875,  ...,  0.5586,  1.5781,  1.8984],
+        [-0.3379,  1.1953, -1.4375,  ..., -1.1562, -0.3789,  0.3125],
+        [-0.0045,  0.4941,  0.7500,  ..., -0.4707, -1.4062, -0.6758],
+        ...,
+        [ 0.9688,  0.1992,  0.2295,  ...,  0.3555, -0.7227, -0.0032],
+        [-0.6445,  0.6250, -0.7617,  ...,  1.0625,  0.2793,  0.4980],
+        [-1.9531,  0.5469,  1.3203,  ..., -0.5312, -0.7773, -0.7344]],
+       device='cuda:0'), None, None, None, tensor([1693, 1716, 1735, 1695, 1743, 1720, 1755, 1757, 1741, 1676, 1775, 1703,
+        1675, 1693, 1731, 1795], device='cuda:0', dtype=torch.int32), tensor([4085, 4087], device='cuda:0', dtype=torch.int32), tensor([[False,  True,  True,  ...,  True, False, False],
+        [ True, False,  True,  ...,  True, False, False],
+        [False,  True, False,  ..., False, False, False],
+        ...,
+        [ True, False, False,  ..., False,  True, False],
+        [ True,  True, False,  ..., False,  True, False],
+        [False, False,  True,  ...,  True, False,  True]], device='cuda:0'), tensor([479, 507, 500, 500, 531, 498, 516, 512, 528, 515, 538, 497, 502, 513,
+        504, 481, 500, 520, 494, 548, 493, 526, 487, 550, 543, 518, 508, 503,
+        511, 498, 522, 567, 518, 498, 542, 519, 492, 504, 490, 493, 515, 518,
+        520, 554, 448, 515, 513, 525, 486, 519, 509, 481, 534, 480, 488, 490,
+        489, 555, 522, 500, 541, 572, 522, 507], device='cuda:0',
+       dtype=torch.int32), 0, 0, None, None, None, None, 1, <deep_ep._C.Config object at 0x7fc9d40b24b0>, None, False, False
+
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
+    ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
+    recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
+                                                                                               ^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
+    return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
+    recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
+                                                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: internode_dispatch(): incompatible function arguments. The following argument types are supported:
+    1. (self: deep_ep._C.Buffer, arg0: torch.Tensor, arg1: torch.Tensor | None, arg2: torch.Tensor | None, arg3: torch.Tensor | None, arg4: torch.Tensor | None, arg5: torch.Tensor | None, arg6: torch.Tensor, arg7: torch.Tensor | None, arg8: typing.SupportsInt, arg9: typing.SupportsInt, arg10: torch.Tensor | None, arg11: torch.Tensor | None, arg12: torch.Tensor | None, arg13: torch.Tensor | None, arg14: typing.SupportsInt, arg15: typing.SupportsInt, arg16: deep_ep._C.Config, arg17: deep_ep._C.EventHandle | None, arg18: bool, arg19: bool) -> tuple[torch.Tensor, torch.Tensor | None, torch.Tensor | None, torch.Tensor | None, list[int], torch.Tensor, torch.Tensor, torch.Tensor | None, torch.Tensor, torch.Tensor | None, torch.Tensor, torch.Tensor | None, torch.Tensor | None, torch.Tensor | None, deep_ep._C.EventHandle | None]
+
+Invoked with: <deep_ep._C.Buffer object at 0x7915c427eb30>, tensor([[-0.9258, -0.4258, -2.6406,  ..., -0.1553,  0.0322,  0.3496],
+        [-0.6016,  0.5156,  1.3047,  ...,  1.6641,  1.4453,  1.2578],
+        [ 1.3359,  1.9219,  0.8477,  ..., -0.6250,  1.4453, -0.1279],
+        ...,
+        [-0.4102, -0.8984,  0.6406,  ...,  0.0078,  0.8008,  0.9688],
+        [ 1.2344,  1.7734,  0.3867,  ...,  0.2637, -0.2969, -0.1187],
+        [-0.4668,  0.1377, -1.0938,  ...,  0.4922,  0.1060, -1.0234]],
+       device='cuda:0'), None, None, None, tensor([1755, 1682, 1721, 1690, 1685, 1769, 1757, 1760, 1718, 1661, 1702, 1737,
+        1760, 1719, 1712, 1736], device='cuda:0', dtype=torch.int32), tensor([4085, 4082], device='cuda:0', dtype=torch.int32), tensor([[False, False, False,  ...,  True,  True, False],
+        [ True, False, False,  ...,  True, False, False],
+        [False,  True,  True,  ...,  True, False,  True],
+        ...,
+        [ True, False,  True,  ..., False, False, False],
+        [ True, False,  True,  ...,  True,  True, False],
+        [False, False,  True,  ...,  True, False, False]], device='cuda:0'), tensor([530, 509, 517, 519, 479, 553, 484, 510, 503, 514, 517, 512, 521, 493,
+        522, 479, 480, 504, 526, 479, 529, 521, 543, 504, 508, 508, 520, 552,
+        540, 536, 502, 534, 529, 516, 475, 544, 499, 471, 505, 484, 487, 518,
+        520, 497, 521, 501, 552, 485, 520, 526, 500, 523, 530, 496, 544, 496,
+        508, 528, 515, 495, 506, 494, 545, 490], device='cuda:0',
+       dtype=torch.int32), 0, 0, None, None, None, None, 1, <deep_ep._C.Config object at 0x7913184f31f0>, None, False, False
+
+srun: error: slurm-h100-reserved-rno-204-111: task 1: Exited with exit code 1
+srun: error: slurm-h100-reserved-rno-199-197: task 0: Exited with exit code 1

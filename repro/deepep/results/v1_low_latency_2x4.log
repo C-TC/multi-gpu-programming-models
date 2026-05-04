@@ -1,0 +1,231 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Allocating buffer size: 477.10272 MB ...
+Allocating buffer size: 477.10272 MB ...
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+/dvs/p4/build/sw/rel/gpgpu/toolkit/r13.0/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:282: init failed for transport: IBGDA
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank5]:[W504 10:56:03.493327439 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank4]:[W504 10:56:03.494107462 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank6]:[W504 10:56:03.498113034 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank7]:[W504 10:56:03.500679634 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank2]:[W504 10:56:03.529564417 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+NVSHMEM v3.4.5
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp0 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp1 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp2 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp3 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp4 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp5 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp6 is not supported (expected HCA interface: mlx5). Skipping...
+
+WARN: device ibp7 is not supported (expected HCA interface: mlx5). Skipping...
+
+[rank1]:[W504 10:56:03.531080545 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+[rank0]:[W504 10:56:03.531081677 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+[rank3]:[W504 10:56:03.531090705 CUDAGuardImpl.h:122] Warning: CUDA warning: an illegal memory access was encountered (function destroyEvent)
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+WARNING: destroy() was not called before DeepEP buffer destruction, which can leak resources.
+[rank4]:[W504 10:56:03.826717367 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+[rank0]:[W504 10:56:03.863676588 ProcessGroupNCCL.cpp:1566] Warning: WARNING: destroy_process_group() was not called before program exit, which can leak resources. For more info, please see https://pytorch.org/docs/stable/distributed.html#shutdown (function operator())
+W0504 10:56:04.130000 3151530 torch/multiprocessing/spawn.py:175] Terminating process 3151894 via signal SIGTERM
+W0504 10:56:04.130000 3151530 torch/multiprocessing/spawn.py:175] Terminating process 3151896 via signal SIGTERM
+W0504 10:56:04.131000 3151530 torch/multiprocessing/spawn.py:175] Terminating process 3151897 via signal SIGTERM
+W0504 10:56:04.248000 214325 torch/multiprocessing/spawn.py:175] Terminating process 214690 via signal SIGTERM
+W0504 10:56:04.249000 214325 torch/multiprocessing/spawn.py:175] Terminating process 214692 via signal SIGTERM
+W0504 10:56:04.249000 214325 torch/multiprocessing/spawn.py:175] Terminating process 214693 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 1 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 1 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+    test_main(num_tokens,
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+    num_valid_tokens = recv_count.item()
+                       ^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+torch.AcceleratorError: CUDA error: an illegal memory access was encountered
+Search for `cudaErrorIllegalAddress' in https://docs.nvidia.com/cuda/cuda-runtime-api/group__CUDART__TYPES.html for more information.
+CUDA kernel errors might be asynchronously reported at some other API call, so the stacktrace below might be incorrect.
+For debugging consider passing CUDA_LAUNCH_BLOCKING=1
+Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
+
+
+srun: error: slurm-h100-reserved-rno-200-201: task 0: Exited with exit code 1
+srun: error: slurm-h100-reserved-rno-202-129: task 1: Exited with exit code 1

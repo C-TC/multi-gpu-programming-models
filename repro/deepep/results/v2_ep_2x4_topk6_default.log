@@ -1,0 +1,93 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+`destroy()` is not called before DeepEP elastic buffer destruction, which can leak resources.
+Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
+W0504 10:49:07.135000 205642 torch/multiprocessing/spawn.py:175] Terminating process 205997 via signal SIGTERM
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 1 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 121, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
+    test_dispatch_combine(buffer, args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
+    num_sms = buffer.get_theoretical_num_sms(num_experts, num_topk) if args.num_sms == 0 else args.num_sms
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
+    return _func(weakref.ref(self), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
+    return func(_self(), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
+    if self.num_scaleout_ranks > 1 and (rdma_traffic / rdma_gbs) > (nvlink_traffic / nvlink_gbs):
+                                        ~~~~~~~~~~~~~^~~~~~~~~~
+ZeroDivisionError: float division by zero
+
+Traceback (most recent call last):
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
+    torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
+    return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
+    while not context.join():
+              ^^^^^^^^^^^^^^
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 221, in join
+    raise ProcessRaisedException(msg, error_index, failed_process.pid)
+torch.multiprocessing.spawn.ProcessRaisedException: 
+
+-- Process 0 terminated with the following error:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
+    fn(i, *args)
+  File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 121, in decorate_context
+    return func(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
+    test_dispatch_combine(buffer, args)
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
+    num_sms = buffer.get_theoretical_num_sms(num_experts, num_topk) if args.num_sms == 0 else args.num_sms
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
+    return _func(weakref.ref(self), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
+    return func(_self(), *args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
+    if self.num_scaleout_ranks > 1 and (rdma_traffic / rdma_gbs) > (nvlink_traffic / nvlink_gbs):
+                                        ~~~~~~~~~~~~~^~~~~~~~~~
+ZeroDivisionError: float division by zero
+
+srun: error: slurm-h100-reserved-rno-200-201: task 0: Exited with exit code 1
+srun: error: slurm-h100-reserved-rno-202-129: task 1: Exited with exit code 1

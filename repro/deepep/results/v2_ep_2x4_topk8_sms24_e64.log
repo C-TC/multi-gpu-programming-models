@@ -1,0 +1,62 @@
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+WARNING: Running pip as the 'root' user can result in broken permissions and conflicting behaviour with the system package manager, possibly rendering your system unusable. It is recommended to use a virtual environment instead: https://pip.pypa.io/warnings/venv. Use the --root-user-action option if you know what you are doing and want to suppress this warning.
+Config:
+ > Ranks: 2 x 4
+ > Experts: 8/64
+ > Tokens: 4096 (max: 4096), hidden: 7168
+ > #SM: 24, #QPs: 8/8
+
+Config:
+ > Ranks: 2 x 4
+ > Experts: 8/64
+ > Tokens: 4092 (max: 4096), hidden: 7168
+ > #SM: 24, #QPs: 8/8
+
+Running all test cases:
+Running all test cases:
+ > Testing with do_handle_copy=1, expert_alignment=128, use_fp8_dispatch=1, num_bias=0, with_previous_event=0, async_with_compute_stream=0, allocate_on_comm_stream=0 ...
+ > Testing with do_handle_copy=1, expert_alignment=128, use_fp8_dispatch=1, num_bias=0, with_previous_event=0, async_with_compute_stream=0, allocate_on_comm_stream=0 ...
+   * EP:   0/8 | dispatch: 36 GB/s (SO), 98 GB/s (SU), 1701.000 us, 166420800 bytes | copy: 2267 GB/s, 146.788 us
+   * EP:   5/8 | dispatch: 35 GB/s (SO), 97 GB/s (SU), 1728.000 us, 167012352 bytes | copy: 2050 GB/s, 162.909 us
+   * EP:   6/8 | dispatch: 36 GB/s (SO), 96 GB/s (SU), 1721.000 us, 165896640 bytes | copy: 2219 GB/s, 149.557 us
+   * EP:   2/8 | dispatch: 36 GB/s (SO), 96 GB/s (SU), 1721.000 us, 165911616 bytes | copy: 2081 GB/s, 159.426 us
+   * EP:   1/8 | dispatch: 36 GB/s (SO), 98 GB/s (SU), 1706.000 us, 167641344 bytes | copy: 2230 GB/s, 150.341 us
+   * EP:   3/8 | dispatch: 36 GB/s (SO), 97 GB/s (SU), 1718.000 us, 166106304 bytes | copy: 2165 GB/s, 153.477 us
+   * EP:   7/8 | dispatch: 36 GB/s (SO), 97 GB/s (SU), 1716.000 us, 166525632 bytes | copy: 2163 GB/s, 153.994 us
+   * EP:   4/8 | dispatch: 35 GB/s (SO), 96 GB/s (SU), 1725.000 us, 165709440 bytes | copy: 2297 GB/s, 144.273 us
+   - EP:   0/8 | expanded dispatch: 36 GB/s (SO), 98 GB/s (SU), 1706.000 us, 166420800 bytes | copy: 2126 GB/s, 195.369 us
+   - EP:   2/8 | expanded dispatch: 35 GB/s (SO), 96 GB/s (SU), 1726.000 us, 165911616 bytes | copy: 1890 GB/s, 220.505 us
+   - EP:   3/8 | expanded dispatch: 36 GB/s (SO), 96 GB/s (SU), 1723.000 us, 166106304 bytes | copy: 1983 GB/s, 208.985 us
+   - EP:   1/8 | expanded dispatch: 36 GB/s (SO), 98 GB/s (SU), 1713.000 us, 167641344 bytes | copy: 1922 GB/s, 217.580 us
+   - EP:   5/8 | expanded dispatch: 35 GB/s (SO), 97 GB/s (SU), 1726.000 us, 167012352 bytes | copy: 1840 GB/s, 226.050 us
+   - EP:   4/8 | expanded dispatch: 35 GB/s (SO), 96 GB/s (SU), 1723.000 us, 165709440 bytes | copy: 1965 GB/s, 210.921 us
+   - EP:   6/8 | expanded dispatch: 36 GB/s (SO), 97 GB/s (SU), 1718.000 us, 165896640 bytes | copy: 2086 GB/s, 198.308 us
+   - EP:   7/8 | expanded dispatch: 36 GB/s (SO), 97 GB/s (SU), 1713.000 us, 166525632 bytes | copy: 1958 GB/s, 213.060 us
+   # EP:   2/8 | cached dispatch: 40 GB/s (SO), 108 GB/s (SU), 1536.000 us, 165911616 bytes | copy: 2198 GB/s, 150.970 us
+   # EP:   5/8 | cached dispatch: 40 GB/s (SO), 109 GB/s (SU), 1538.000 us, 167012352 bytes | copy: 2210 GB/s, 151.169 us
+   # EP:   3/8 | cached dispatch: 40 GB/s (SO), 108 GB/s (SU), 1534.000 us, 166106304 bytes | copy: 2398 GB/s, 138.519 us
+   # EP:   7/8 | cached dispatch: 40 GB/s (SO), 109 GB/s (SU), 1530.000 us, 166525632 bytes | copy: 2234 GB/s, 149.098 us
+   # EP:   0/8 | cached dispatch: 40 GB/s (SO), 109 GB/s (SU), 1521.000 us, 166420800 bytes | copy: 2164 GB/s, 153.824 us
+   # EP:   1/8 | cached dispatch: 40 GB/s (SO), 110 GB/s (SU), 1526.000 us, 167641344 bytes | copy: 2237 GB/s, 149.893 us
+   # EP:   6/8 | cached dispatch: 40 GB/s (SO), 108 GB/s (SU), 1535.000 us, 165896640 bytes | copy: 2360 GB/s, 140.580 us
+   # EP:   4/8 | cached dispatch: 40 GB/s (SO), 108 GB/s (SU), 1534.000 us, 165709440 bytes | copy: 2253 GB/s, 147.109 us
+   @ EP:   5/8 | combine: 79 GB/s (SO), 215 GB/s (SU), 1494.000 us, 320463872 bytes | reduce: 2675 GB/s, 65.827 us
+   @ EP:   7/8 | combine: 79 GB/s (SO), 217 GB/s (SU), 1475.000 us, 319529952 bytes | reduce: 2669 GB/s, 65.956 us
+   @ EP:   0/8 | combine: 79 GB/s (SO), 215 GB/s (SU), 1484.000 us, 319328800 bytes | reduce: 2653 GB/s, 66.468 us
+   @ EP:   2/8 | combine: 79 GB/s (SO), 214 GB/s (SU), 1488.000 us, 318351776 bytes | reduce: 2654 GB/s, 66.346 us
+   @ EP:   1/8 | combine: 78 GB/s (SO), 213 GB/s (SU), 1507.000 us, 321670784 bytes | reduce: 2659 GB/s, 66.248 us
+   @ EP:   3/8 | combine: 79 GB/s (SO), 216 GB/s (SU), 1479.000 us, 318725344 bytes | reduce: 2656 GB/s, 66.331 us
+   @ EP:   6/8 | combine: 79 GB/s (SO), 215 GB/s (SU), 1478.000 us, 318323040 bytes | reduce: 2674 GB/s, 65.833 us
+   @ EP:   4/8 | combine: 79 GB/s (SO), 215 GB/s (SU), 1482.000 us, 317963840 bytes | reduce: 2672 GB/s, 65.911 us
+   + EP:   5/8 | reduced combine: 84 GB/s (SO), 229 GB/s (SU), 1400.000 us, 320463872 bytes | reduce: 2700 GB/s, 65.233 us
+   + EP:   7/8 | reduced combine: 84 GB/s (SO), 230 GB/s (SU), 1389.000 us, 319529952 bytes | reduce: 2706 GB/s, 65.050 us
+   + EP:   6/8 | reduced combine: 84 GB/s (SO), 227 GB/s (SU), 1401.000 us, 318323040 bytes | reduce: 2696 GB/s, 65.291 us
+   + EP:   4/8 | reduced combine: 84 GB/s (SO), 228 GB/s (SU), 1396.000 us, 317963840 bytes | reduce: 2714 GB/s, 64.895 us
+   + EP:   2/8 | reduced combine: 84 GB/s (SO), 228 GB/s (SU), 1394.000 us, 318351776 bytes | reduce: 2680 GB/s, 65.702 us
+   + EP:   1/8 | reduced combine: 84 GB/s (SO), 230 GB/s (SU), 1399.000 us, 321670784 bytes | reduce: 2698 GB/s, 65.287 us
+
+   + EP:   0/8 | reduced combine: 85 GB/s (SO), 230 GB/s (SU), 1387.000 us, 319328800 bytes | reduce: 2692 GB/s, 65.518 us
+
+   + EP:   3/8 | reduced combine: 84 GB/s (SO), 229 GB/s (SU), 1393.000 us, 318725344 bytes | reduce: 2692 GB/s, 65.456 us
+
+
