@@ -63,7 +63,7 @@ H200 numbers). Where they differ, both are noted.
 | [jacobi/results/REPORT_1NODE.md](jacobi/results/REPORT_1NODE.md) | 1-node 8 GPU 16384² 1000 iter: nccl_graphs **0.220 s** (both), nvshmem **0.254 s / 0.252 s** — NCCL ~6% faster on NVLink-only, no H100 vs H200 delta |
 | [jacobi/results/REPORT_2NODE.md](jacobi/results/REPORT_2NODE.md) | 2-node 4×4 GPU 16384² 1000 iter: NCCL **0.262 s / 0.266 s**, NVSHMEM baseline **5.742 s / 4.222 s** (20× slowdown without `-use_block_comm` on H200!), NVSHMEM (-use_block_comm -nbsync) **0.282 s / 0.285 s** (parity with NCCL on both) |
 | [nccl_graph_ablation/REPORT.md](nccl_graph_ablation/REPORT.md) | `NCCL_GRAPH_MIXING_SUPPORT=0` saves ~1 µs per graph launch — ≤ 5% effect at small nx, lost in noise at 16384² (same on H100 and H200) |
-| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM **319.82 GB/s** vs V2 NCCL Gin **304 GB/s** (H200 essentially identical to H100). 2-node 2×8 V2 ep SO BW **62 GB/s on H200** vs 58 GB/s on H100 (~7% better). V1 LL multi-node still blocked by NVSHMEM IBGDA (`cudaErrorIllegalAddress` in kernel) — same fingerprint on H200 as H100; see [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md). |
+| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM **322 GB/s** vs V2 NCCL Gin **304 GB/s** (H200 essentially identical to H100). 2-node 2×8: **V1 NVSHMEM IBGDA wins on throughput** (78.5 GB/s SO HT dispatch) — works on H200 with mistral's recipe (DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty). V2 NCCL Gin still wins on latency (227 µs vs V1's 318 µs at 2×8). See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) "Update 3". |
 
 ## Quick reproduce on this cluster
 

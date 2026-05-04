@@ -1,0 +1,27 @@
+Allocating buffer size: 477.10272 MB ...
+Allocating buffer size: 477.10272 MB ...
+[rank 7] Dispatch + combine bandwidth: 69.46 GB/s, avg_t=317.43 us, min_t=314.75 us, max_t=320.61 us
+[rank 5] Dispatch + combine bandwidth: 69.45 GB/s, avg_t=317.49 us, min_t=315.23 us, max_t=321.50 us
+[rank 4] Dispatch + combine bandwidth: 69.43 GB/s, avg_t=317.56 us, min_t=313.82 us, max_t=323.62 us
+[rank 1] Dispatch + combine bandwidth: 69.35 GB/s, avg_t=317.95 us, min_t=313.86 us, max_t=332.10 us
+[rank 3] Dispatch + combine bandwidth: 69.35 GB/s, avg_t=317.95 us, min_t=314.24 us, max_t=332.64 us
+[rank 2] Dispatch + combine bandwidth: 69.30 GB/s, avg_t=318.16 us, min_t=314.46 us, max_t=335.74 us
+[rank 6] Dispatch + combine bandwidth: 69.49 GB/s, avg_t=317.30 us, min_t=315.55 us, max_t=318.78 us
+[rank 0] Dispatch + combine bandwidth: 69.34 GB/s, avg_t=318.00 us, min_t=314.46 us, max_t=335.10 us
+[rank 5] Dispatch bandwidth: 26.63 GB/s, avg_t=282.09 us | Combine bandwidth: 115.70 GB/s, avg_t=125.64 us
+[rank 1] Dispatch bandwidth: 114.35 GB/s, avg_t=65.69 us | Combine bandwidth: 42.70 GB/s, avg_t=340.47 us
+[rank 3] Dispatch bandwidth: 201.67 GB/s, avg_t=37.25 us | Combine bandwidth: 39.49 GB/s, avg_t=368.13 us
+[rank 7] Dispatch bandwidth: 29.00 GB/s, avg_t=258.99 us | Combine bandwidth: 98.53 GB/s, avg_t=147.53 us
+[rank 2] Dispatch bandwidth: 145.27 GB/s, avg_t=51.71 us | Combine bandwidth: 41.26 GB/s, avg_t=352.34 us
+[rank 6] Dispatch bandwidth: 30.11 GB/s, avg_t=249.45 us | Combine bandwidth: 91.98 GB/s, avg_t=158.05 us
+[rank 4] Dispatch bandwidth: 27.75 GB/s, avg_t=270.69 us | Combine bandwidth: 103.51 GB/s, avg_t=140.44 us
+[rank 0] Dispatch bandwidth: 203.03 GB/s, avg_t=37.00 us | Combine bandwidth: 38.98 GB/s, avg_t=372.91 us
+[rank 7] Dispatch send/recv time: 26.40 + 134.85 us | Combine send/recv time: 31.18 + 242.39 us
+[rank 6] Dispatch send/recv time: 26.57 + 97.93 us | Combine send/recv time: 30.85 + 218.59 us
+[rank 2] Dispatch send/recv time: 26.55 + 138.53 us | Combine send/recv time: 30.84 + 146.64 us
+[rank 5] Dispatch send/recv time: 25.94 + 159.82 us | Combine send/recv time: 30.79 + 284.56 us
+[rank 4] Dispatch send/recv time: 26.99 + 136.70 us | Combine send/recv time: 30.20 + 244.02 us
+[rank 3] Dispatch send/recv time: 27.12 + 110.38 us | Combine send/recv time: 32.01 + 106.32 us
+[rank 0] Dispatch send/recv time: 26.52 + 155.43 us | Combine send/recv time: 31.74 + 156.45 us
+[rank 1] Dispatch send/recv time: 26.86 + 10.99 us | Combine send/recv time: 32.44 + 10.58 us
+NVSHMEM v3.4.5

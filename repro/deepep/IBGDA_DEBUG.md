@@ -280,3 +280,64 @@ Other things tried, all still hit `cudaErrorIllegalAddress`:
   works fine on this fabric).
 * For our purposes, **V2 NCCL Gin is the working path** for inter-node EP
   on this cluster: 62 GB/s SO BW at 2×8, ~110 µs combine at 2×4 LL.
+
+---
+
+## Update 3: SOLVED — DeepEP V1 IBGDA fully working with mistral's recipe (2026-05-04)
+
+After being pointed at the internal NVSHMEM fork (`~/workspace/nvshmem`,
+branches `3.3.9-ibp` and `3.2.5-deepep-patched`) and the runtime install
+script (`~/workspace/mistral/runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh`),
+the actual working version combination on this cluster turned out to be:
+
+| Component | Value | Why |
+|---|---|---|
+| DeepEP commit | **`73b6ea4`** ("support hidden-dim 3072") | Pre-V2 layout; the V2 release `b306af0` regressed both V1 LL kernel (illegal address) and V1 internode HT Python wrapper (TypeError). Mistral's runtime defaults to this commit. |
+| NVSHMEM | **`nvidia-nvshmem-cu13==3.4.5`** | Has v1 device_state struct (matches DeepEP's bundled `ibgda_device.cuh`); newer 3.5+ switched to v2 layout. |
+| `NVSHMEM_HCA_PREFIX` | **empty string** | Bypasses NVSHMEM's IBGDA enumeration filter that defaults to `mlx5*`. This cluster's IB devices are named `ibp0..ibp7` via ibverbs, so the default filter rejects them all. |
+| Other env | `NVSHMEM_IB_ENABLE_IBGDA=1`, `NVSHMEM_DISABLE_NVLS=1`, `NVSHMEM_SYMMETRIC_SIZE=8G` | Standard IBGDA setup. |
+
+Wrap-up script: [`run_v1_mistral_recipe.sh`](run_v1_mistral_recipe.sh) —
+runs all four V1 tests using these versions.
+
+### Verified V1 cross-node numbers on H200 cluster (2-node × 8 GPU = 16 ranks)
+
+| Test | Result | Log |
+|---|---|---|
+| V1 intranode (1×8 GPU) | FP8 dispatch **322.59 GB/s NVL** / 497 µs; combine 323.75 GB/s / 960 µs | `v1_intranode_mistral_recipe-newcluster-20260504.log` |
+| V1 internode HT (2×8 GPU) | FP8 dispatch **78.50 GB/s RDMA**, 264 GB/s NVL / 769 µs; combine 63.12 GB/s RDMA, 212 GB/s NVL / 1855 µs | `v1_internode_2x8_mistral_recipe-newcluster-20260504.log` |
+| V1 LL (2×8 GPU = 16 ranks) | Dispatch+combine **69.4 GB/s, 318 µs** combined; per-op dispatch ~33-41 µs, combine ~450 µs | `v1_low_latency_2x8_mistral_recipe-newcluster-20260504.log` |
+| V1 LL (2×4 GPU = 8 ranks) | Same 69.4 GB/s, 318 µs | `v1_low_latency_2x4_mistral_recipe-newcluster-20260504.log` |
+
+### Why my earlier attempts failed
+
+* **V2 release `b306af0` + any NVSHMEM** — the V2 release shipped a regression
+  in the legacy V1 LL kernel that produces `cudaErrorIllegalAddress` regardless
+  of NVSHMEM version (we tested 3.3.9 / 3.3.20 / 3.4.5 / 3.6.5). Pre-V2
+  commit `73b6ea4` doesn't have this regression.
+* **V2 release `b306af0` + V1 internode HT** — separate `TypeError` from a
+  Python-wrapper / C++ binding signature mismatch in the V2 release. Pre-V2
+  commit doesn't have this either.
+* **NVSHMEM `mlx5*` filter** — without `NVSHMEM_HCA_PREFIX=`, NVSHMEM
+  silently filters out all `ibp*` devices on this cluster. The mistral
+  Dockerfile has the comment "CoreWeave cluster uses ibp devices, not
+  mlx5. Set this to empty so that NVSHMEM can detect both prefixes."
+* The **internal NVSHMEM fork** at `~/workspace/nvshmem` has branches
+  `3.3.9-ibp` and `3.2.5-deepep-patched` that patch the prefix check
+  in source. Either approach works — patching the source (the fork) or
+  setting the env var (mistral's recent approach with NVSHMEM 3.4.5+).
+
+### Comparison: V1 vs V2 NCCL Gin on this cluster (2-node × 8 GPU)
+
+| Mode | V1 (NVSHMEM IBGDA) | V2 (NCCL Gin) |
+|---|---|---|
+| HT dispatch (FP8, top-k=8) | **78.5 GB/s SO**, 769 µs | 62 GB/s SO, 980 µs |
+| HT combine | **63.1 GB/s SO**, 1855 µs | 70 GB/s SO, 1670 µs |
+| LL dispatch+combine | **318 µs total** (16 ranks) | 227 µs total (16 ranks) |
+
+**V1 wins on dispatch BW** (~25% faster) — NVSHMEM IBGDA's GPU-initiated
+RDMA path does have an edge for the high-throughput HT pattern. **V2
+wins on LL latency** (~30% lower) — NCCL Gin's lighter-weight device-side
+API has lower per-op overhead. So both backends are competitive: pick
+based on whether you're optimizing throughput (V1 NVSHMEM) or latency
+(V2 NCCL Gin).

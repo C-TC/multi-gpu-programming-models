@@ -327,3 +327,52 @@ IBGDA's specific path doesn't come through. See
 | V1 LL | ✓ (IBGDA→NVLink fallback) | ✗ IBGDA / cudaErrorIllegalAddress | ✗ IBGDA / cudaErrorIllegalAddress |
 | V2 HT (`test_ep`) | ✓ (24 SMs and 64 SMs) | ✓ (topk=6 + topk=8) | ✓ (topk=6 + topk=8) |
 | V2 LL (`test_ep` + `prefer_overlap=1`) | ✓ | ✓ **(new this run)** | ✓ |
+
+---
+
+## ✅ Update 3: V1 IBGDA fully working with mistral's recipe (2026-05-04)
+
+The "V1 multi-node — still blocked" section above is **now wrong**. After
+looking at the internal NVSHMEM fork (`~/workspace/nvshmem`, branches
+`3.3.9-ibp` and `3.2.5-deepep-patched`) and Mistral's
+[`runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh`](../../../mistral/runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh),
+we found the version combination that actually works on this cluster:
+
+* **DeepEP commit `73b6ea4`** (pre-V2 layout) — checkout via
+  `git checkout 73b6ea4` after a fresh clone. The V2 release `b306af0`
+  has regressions in both V1 LL and V1 internode HT.
+* **NVSHMEM 3.4.5** (`pip install --target=$PREFIX nvidia-nvshmem-cu13==3.4.5`).
+* **`NVSHMEM_HCA_PREFIX=`** (empty string) at runtime — bypasses the
+  default `mlx5*` device filter that rejects this cluster's `ibp*` device names.
+
+Run script: [`run_v1_mistral_recipe.sh`](run_v1_mistral_recipe.sh). It
+primes a named pyxis container, builds DeepEP-pre-v2 against NVSHMEM 3.4.5
+if needed, and runs all four V1 tests.
+
+### V1 results that now run (2-node × 8 GPU = 16 ranks unless noted)
+
+| Test | Result |
+|---|---|
+| **V1 HT intranode (1×8)** | FP8 dispatch 322.6 GB/s NVL / 497 µs; combine 323.8 GB/s / 960 µs |
+| **V1 HT internode (2×8)** | FP8 dispatch **78.5 GB/s RDMA**, 264 GB/s NVL / 769 µs; combine 63.1 GB/s RDMA, 212 GB/s NVL / 1855 µs |
+| **V1 LL (2×8)** | 69.4 GB/s combined, **318 µs end-to-end** (per-op dispatch ~33-41 µs, combine ~450 µs) |
+| **V1 LL (2×4 = 8 ranks)** | 69.4 GB/s, 318 µs (same as 2×8 — IBGDA bandwidth caps out) |
+
+### Updated final coverage matrix (H200 cluster, 2026-05-04)
+
+| Test | 1-node | 2-node × 4 | 2-node × 8 |
+|---|---|---|---|
+| V1 HT intranode | ✅ 322 GB/s | n/a | n/a |
+| V1 HT internode | n/a | ✗ test asserts 8 GPU/node | ✅ **78.5 GB/s SO** |
+| V1 LL | ✅ (NVLink fallback, 116 µs) | ✅ **318 µs** | ✅ **318 µs** |
+| V2 HT (`test_ep`) | ✅ (24 SMs and 64 SMs) | ✅ | ✅ 62 GB/s SO |
+| V2 LL (`test_ep` + `prefer_overlap=1`) | ✅ 76 µs | ✅ 110 µs | ✅ 227 µs |
+
+**V1 vs V2 head-to-head on this cluster (2-node × 8 GPU)**:
+* HT dispatch: V1 NVSHMEM IBGDA **78.5 GB/s SO** vs V2 NCCL Gin 62 GB/s
+  → V1 ~25% faster on throughput
+* LL latency: V1 NVSHMEM IBGDA 318 µs vs V2 NCCL Gin 227 µs
+  → V2 ~30% faster on latency
+
+So both backends are competitive on this cluster — pick V1 NVSHMEM for
+throughput, V2 NCCL Gin for latency.

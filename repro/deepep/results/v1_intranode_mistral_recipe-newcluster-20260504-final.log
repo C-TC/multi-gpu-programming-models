@@ -1,0 +1,3 @@
+slurmstepd: error: *** STEP 1420687.9 ON h200-bar-196-067 CANCELLED AT 2026-05-04T21:53:39 ***
+srun: error: h200-bar-196-067: task 0: Terminated
+srun: Force Terminated StepId=1420687.9

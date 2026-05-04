@@ -2,10 +2,10 @@
 
 This work was originally done on a CoreWeave H100 cluster (container
 `gpu_a4d0481d.sqsh`), and **re-run on a CoreWeave H200 cluster on
-2026-05-04** (container `gpu_882f6e72.sqsh`). The two clusters share the
-same NIC stack and exhibit the same NVSHMEM IBGDA failure mode (V1 LL
-multi-node and V1 internode HT remain blocked on both). This document
-captures the items to validate before running on a third cluster.
+2026-05-04** (container `gpu_882f6e72.sqsh`). On the H200 cluster, V1
+NVSHMEM IBGDA is **fully working** with the right version combo (DeepEP
+commit `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty) — see
+[deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) "Update 3" for details.
 
 **TL;DR for the H200 run** (notes captured 2026-05-04):
 * Container path / partition changed: `gpu_882f6e72.sqsh`, partition `h200`.
@@ -25,20 +25,17 @@ captures the items to validate before running on a third cluster.
   (`--container-name=X` only, no `--container-image=` again) — drops the
   per-call cost to ~11 s. All `run_2x*.sh` scripts use this now; the full
   51-run sweep takes ~30 min on the H200 cluster.
-* IBGDA *itself* works on this cluster — `nvshmem/jacobi` cross-node
-  with `NVSHMEM_IB_ENABLE_IBGDA=1` initialises IBGDA cleanly on all 16 PEs
-  and the per-element put benchmark completes (5.5 ms for 2048² × 50 iter).
-  The driver is correctly configured (`/proc/driver/nvidia/params` shows
-  `EnableStreamMemOPs:1` + `RegistryDwords="PeerMappingOverride=1;"`).
-  But **DeepEP V1 LL still hits `cudaErrorIllegalAddress`** in the LL
-  dispatch kernel even after IBGDA inits successfully — that's a
-  DeepEP-internal bug, not a cluster issue. See
-  [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) for the version matrix.
-* The H100 cluster's `NVSHMEM_HCA_LIST="mlx5_0,..."` baked into
-  `run_2x8.sh` was actually wrong on this cluster — `ibv_devinfo -l` here
-  returns `ibp0..ibp7` (the device names that match `/sys/class/infiniband`
-  are `mlx5_*` but ibverbs returns ibp* aliases). With no HCA_LIST
-  override, NVSHMEM auto-detects ibp* and IBGDA works.
+* IBGDA works on this cluster, AND DeepEP V1 LL works after combining
+  three things: (1) DeepEP commit `73b6ea4` instead of V2 release
+  `b306af0` (the V2 release regressed both V1 LL and V1 internode HT),
+  (2) NVSHMEM 3.4.5 (v1 device_state struct, matching DeepEP's bundled
+  `ibgda_device.cuh`), and (3) `NVSHMEM_HCA_PREFIX=` (empty string) to
+  bypass the default `mlx5*` IBGDA enumeration filter — this cluster's
+  IB devices are named `ibp0..ibp7` via `ibv_devinfo`. Run via
+  [`repro/deepep/run_v1_mistral_recipe.sh`](deepep/run_v1_mistral_recipe.sh).
+* The H100-cluster `NVSHMEM_HCA_LIST="mlx5_0,..."` baked into the original
+  `run_2x8.sh` doesn't help here — it can pick mlx5 names that don't match
+  what ibverbs reports. The right move is no HCA_LIST + `NVSHMEM_HCA_PREFIX=`.
 
 ## What to validate up front (≈30 min)
 
@@ -95,10 +92,10 @@ Status update from H200 re-run (2026-05-04):
 
 | Test | H100 result | H200 result | Notes |
 |---|---|---|---|
-| **V1 DeepEP internode HT** (V2 release `b306af0`) | ✗ TypeError in Python wrapper | ✗ same TypeError | Upstream bug; not cluster-dependent. |
-| **V1 DeepEP internode HT** (pre-V2 commit `92fe2de`) | not retried originally | ✗ `RuntimeError: DeepEP error: timeout (dispatch CPU)` — wrapper now matches but C++ NVSHMEM RDMA dispatch hangs | Same fundamental IBGDA-doesn't-work issue. Build needs `CPATH=/usr/local/cuda/include/cccl` for CCCL. |
-| **V1 DeepEP low-latency multi-node** | ✗ IBGDA init / `cudaErrorIllegalAddress` | ✗ same fingerprint on H200 (NVSHMEM 3.6.5) — see [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) | Both clusters share NIC/firmware path that NVSHMEM IBGDA can't use. |
-| **V2 DeepEP low-latency 2 nodes × 4 GPU** | (skipped) | ✓ collected (~110 µs combine, 33 GB/s SO) | Now in the H200 results. |
+| **V1 DeepEP internode HT** (V2 release `b306af0`) | ✗ TypeError in Python wrapper | ✗ same TypeError | Upstream bug in V2 release; use mistral-recipe (commit `73b6ea4`). |
+| **V1 DeepEP internode HT** (pre-V2 commit `73b6ea4`) | not retried originally | ✅ **78.5 GB/s SO BW**, 264 GB/s NVL, 769 µs FP8 dispatch | With NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty. |
+| **V1 DeepEP low-latency multi-node (mistral recipe)** | ✗ IBGDA init / `cudaErrorIllegalAddress` | ✅ **318 µs total** at 2×8, 69.4 GB/s combined | Same recipe: DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=`. |
+| **V2 DeepEP low-latency 2 nodes × 4 GPU** | (skipped) | ✅ collected (~110 µs combine, 33 GB/s SO) | Now in the H200 results. |
 
 ## What's portable as-is
 
