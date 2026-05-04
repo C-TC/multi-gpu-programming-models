@@ -18,13 +18,27 @@ captures the items to validate before running on a third cluster.
   (NVSHMEM 3 split; same fix needed on H100 or H200, already committed).
 * MPI lives at `/usr/local/mpi/bin/mpirun` here, not `/usr/bin/mpirun` —
   setup_env.sh updated.
-* `srun --container-image=...` cost ~45 s per call regardless of payload,
-  so the 2-node Jacobi sweep is again the most painful piece. The script
-  now supports `REPS=2` to halve the wall time at the cost of one rep.
-* IBGDA is **still broken** on this fabric — same `cudaErrorIllegalAddress`
-  in the LL kernel after the topology check is bypassed with
-  `NVSHMEM_DISABLE_P2P=1`. See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md)
-  for the H200-specific findings.
+* `srun --container-image=...` costs ~45 s per call (~30 s container
+  image load + ~15 s slurm step setup). The Jacobi 2-node sweep used to
+  inflate to ~75 min because of this. **Fix**: pass `--container-name=X`
+  on the first srun and reuse the named container on subsequent calls
+  (`--container-name=X` only, no `--container-image=` again) — drops the
+  per-call cost to ~11 s. All `run_2x*.sh` scripts use this now; the full
+  51-run sweep takes ~30 min on the H200 cluster.
+* IBGDA *itself* works on this cluster — `nvshmem/jacobi` cross-node
+  with `NVSHMEM_IB_ENABLE_IBGDA=1` initialises IBGDA cleanly on all 16 PEs
+  and the per-element put benchmark completes (5.5 ms for 2048² × 50 iter).
+  The driver is correctly configured (`/proc/driver/nvidia/params` shows
+  `EnableStreamMemOPs:1` + `RegistryDwords="PeerMappingOverride=1;"`).
+  But **DeepEP V1 LL still hits `cudaErrorIllegalAddress`** in the LL
+  dispatch kernel even after IBGDA inits successfully — that's a
+  DeepEP-internal bug, not a cluster issue. See
+  [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) for the version matrix.
+* The H100 cluster's `NVSHMEM_HCA_LIST="mlx5_0,..."` baked into
+  `run_2x8.sh` was actually wrong on this cluster — `ibv_devinfo -l` here
+  returns `ibp0..ibp7` (the device names that match `/sys/class/infiniband`
+  are `mlx5_*` but ibverbs returns ibp* aliases). With no HCA_LIST
+  override, NVSHMEM auto-detects ibp* and IBGDA works.
 
 ## What to validate up front (≈30 min)
 
@@ -114,3 +128,61 @@ NVSHMEM_SYMMETRIC_SIZE=4G mpirun --allow-run-as-root --oversubscribe -np 2 \
 ```
 
 Both should print a `nccl, ...` / `nvshmem, ...` CSV-style line in under a second. If either fails, the cluster setup needs more work before launching the full sweep.
+
+---
+
+## Update 2: per-srun overhead (2026-05-04)
+
+The original H100 writeup (and my first H200 attempt) accepted the
+~50 s/srun overhead as a fact of life and trimmed reps/configs around it.
+On reflection that's wrong — pyxis can keep the container alive across
+srun calls if you pass `--container-name`. The pattern:
+
+```bash
+# One-shot prime: loads the squashfs into pyxis as a named container (~30 s).
+srun --jobid=$JOBID --overlap \
+     --container-image=$CONTAINER \
+     --container-name=$NAME \
+     --container-mounts=/mnt/vast:/mnt/vast --container-remap-root \
+     -N 2 --ntasks-per-node=1 true
+
+# Subsequent calls: attach to the named container (~11 s instead of ~50 s).
+srun --jobid=$JOBID --overlap \
+     --container-name=$NAME \
+     --container-mounts=/mnt/vast:/mnt/vast \
+     -N 2 --ntasks-per-node=4 \
+     bash -c "..."
+```
+
+Confirmed timings on the H200 cluster:
+* First srun (loads container): ~32 s
+* Subsequent srun (attaches to named container): ~1.5 s for hostname,
+  ~11 s for an actual jacobi run including MPI_Init
+
+`run_sweep_2node.sh`, `run_2x4.sh`, and `run_2x8.sh` all use this pattern
+now. The 2-node Jacobi sweep dropped from a projected ~75 min (per-run
+container init) to ~30 min for 51 runs.
+
+If you're moving to a third cluster, run the Setup → Second srun timing
+test at the top of [`repro/jacobi/setup_env.sh`](jacobi/setup_env.sh) to
+confirm pyxis honours `--container-name`. Slurm builds without pyxis
+won't have the optimization.
+
+### Why we can't do "one srun for everything"
+
+The natural simplification — "just put all configs into one srun and
+loop" — doesn't work because srun's PMI2 server only supports ONE MPI
+session per step. The first `mpirun ./jacobi` succeeds; the second
+silently produces no output (PMI2 has finalized for those ranks). PMIx
+might allow multiple sessions but this OpenMPI 4.1.9a1 build doesn't
+ship with PMIx support (`OPAL ERROR: Unreachable in pmix3x_client.c`).
+
+To run multiple MPI apps from a single launcher, you'd need either:
+* A persistent ORTE/PRRTE daemon (`prte` standalone, OpenMPI ≥ 5).
+* `mpirun --mca plm rsh` with ssh between containers (this cluster's
+  containers don't have public-key auth set up; even after manually
+  installing keys, sshd refuses pubkey auth — likely a sshd_config issue).
+* Modifying the jacobi binary to do `MPI_Init` once, loop over configs
+  reading from stdin, and `MPI_Finalize` at the end. Invasive.
+
+The pyxis-name reuse is the cleanest workaround.

@@ -11,8 +11,17 @@ DEEP_EP=/mnt/vast/home/tiancheng.chen/workspace/DeepEP
 NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem}
 NCCL_PIP_LIB=/mnt/vast/home/tiancheng.chen/workspace/nccl-pip/nvidia/nccl/lib
 CONTAINER=${CONTAINER:-/mnt/vast/containers/gpu_882f6e72.sqsh}
-SRUN_CONTAINER_ARGS="--container-image=$CONTAINER --container-workdir=$DEEP_EP --container-mounts=/mnt/vast:/mnt/vast --container-remap-root --container-env=HOME"
+CONTAINER_NAME=${CONTAINER_NAME:-deepep_2x4_$JOBID}
 TAG=${TAG:-}
+
+echo "Priming container '$CONTAINER_NAME'..."
+srun --jobid=$JOBID --overlap \
+     --container-image=$CONTAINER --container-name=$CONTAINER_NAME \
+     --container-workdir=$DEEP_EP --container-mounts=/mnt/vast:/mnt/vast \
+     --container-remap-root --container-env=HOME \
+     -N 2 --ntasks-per-node=1 true
+
+SRUN_CONTAINER_ARGS="--container-name=$CONTAINER_NAME --container-mounts=/mnt/vast:/mnt/vast"
 OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
 NODES=$(squeue -j $JOBID -h -o "%N" | head -1)
 HEAD=$(scontrol show hostnames "$NODES" | head -1)
