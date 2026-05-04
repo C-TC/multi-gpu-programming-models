@@ -376,3 +376,26 @@ if needed, and runs all four V1 tests.
 
 So both backends are competitive on this cluster — pick V1 NVSHMEM for
 throughput, V2 NCCL Gin for latency.
+
+### Visual comparison (figures/)
+
+Three plots in [results/figures/](results/figures/):
+* `fig_ht_dispatch_bw.png` — HT dispatch BW, V1 NVSHMEM IBGDA vs V2 NCCL Gin at matched 24 SMs across 1×8 / 2×4 / 2×8
+* `fig_ht_combine_bw.png` — same for HT combine
+* `fig_ll_latency.png` — LL end-to-end latency (lower = better)
+
+**Caveat to read these plots with**: V1 and V2 are *different DeepEP kernel
+implementations* on top of *different transports* (NVSHMEM IBGDA vs NCCL Gin).
+A bar-height difference reflects (transport efficiency) ⊗ (kernel design)
+combined — e.g. V2 HT was redesigned around an analytical SM model, V1 LL
+was designed for the 0-SM IBGDA kernel-only path while V2 LL spends 32 SMs
+on a NCCL Gin device-side kernel. **You cannot read these plots as
+"NVSHMEM IBGDA is X% faster than NCCL Gin"** — that would require an
+isolated transport microbenchmark (e.g. raw `shmem_put_bw` vs
+`nccl-tests/alltoall`) which we did not run here.
+
+What the plots *do* show, factually: at this specific config (24 SMs FP8
+for HT, default LL params), DeepEP V1 has higher HT *dispatch* BW; V2 has
+higher HT *combine* BW at 2×4 and roughly ties at 2×8; and V2 has
+decisively lower LL latency at every scale. So neither is uniformly better —
+the choice depends on which op + scale you care about.
