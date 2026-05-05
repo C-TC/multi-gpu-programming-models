@@ -7,7 +7,54 @@ This directory reproduces the NVSHMEM micro-benchmarks from the thesis Chapter 4
 |---|---|---|
 | 4.1.1 | Point-to-point primitives | `shmem_{g,get,p,put,st,atomic}_bw` + `*_ping_pong_latency` over message-size, TPB, and CTA sweeps, intranode (1×2 NVL) and internode (2×1 IB) |
 | 4.1.2 | Collective primitives | `{alltoall,bcast,fcollect,reduction,reducescatter}_latency` over message-size + a 2/4/8-rank scaling pass at 64 KiB, intranode (1×8) and internode (2×8 = 16 ranks) |
-| 4.2.1 | NCCL vs NVSHMEM | NCCL `all_reduce_perf` and `alltoall_perf` (nccl-tests built with MPI=1) at the same scenarios, alongside the NVSHMEM 4.1.2 numbers |
+| 4.2.1 | NCCL vs NVSHMEM | All 5 nccl-tests collectives + NVSHMEM **device** kernel + NVSHMEM **host on_stream** for the same 5 ops, intra (1×8) and inter (2×8) |
+
+## API mapping — what each line in the plots is actually doing
+
+NVSHMEM has 3 layers per primitive: device (kernel-initiated, picks per-thread / warp / block scope), host on_stream (CPU enqueues a stream op), and host blocking (we did not run). Within device kernels, the perftest binaries iterate over scopes and datatypes; the plot script picks ONE configuration per binary so each curve is comparable.
+
+### Point-to-point (`shmem_*_bw` and `shmem_*_ping_pong_latency` under `device/pt-to-pt/`)
+
+| Plot label | Binary | What the kernel does |
+|---|---|---|
+| `g` | `shmem_g_bw` | `nvshmem_<int>_g`: per-thread scalar **get**. One word per thread. |
+| `get` | `shmem_get_bw` | `nvshmem_<int>_get`: **block-cooperative** bulk get; all threads in the block participate. |
+| `p` | `shmem_p_bw` | `nvshmem_<int>_p`: per-thread scalar **put**. One word per thread. |
+| `put` | `shmem_put_bw` | `nvshmem_<int>_put`: **block-cooperative** bulk put. |
+| `st` | `shmem_st_bw` | Direct CUDA store via mapped peer pointer (NVL only — no IB equivalent). |
+| `atomic` | `shmem_atomic_bw` | `nvshmem_<int>_atomic_inc`: block-coop atomic increment. |
+
+All `_bw` runs use 32 CTAs × 256 TPB by default; the TPB and CTA sweeps vary one of those at fixed 1 MiB.
+
+### Collectives — what each `_latency` binary contains
+
+Each device collective binary (`device/coll/<op>_latency`) loops over scopes and types and emits a separate sub-table per (type, scope). The plot script filters to a single config so each plot has one curve per binary.
+
+| Op | NVSHMEM device binary | NVSHMEM host on_stream binary | NCCL-tests binary | NVSHMEM scope chosen for plots | NVSHMEM auto-tuned ALGO |
+|---|---|---|---|---|---|
+| alltoall | `alltoall_latency` | `alltoall_on_stream` | `alltoall_perf` | block, 32-bit | (only one alltoall algo: flag-alltoall) |
+| broadcast | `bcast_latency` | `broadcast_on_stream` | `broadcast_perf` | block, 32-bit | `BCAST_ALGO=0` → autotuner; default tree (`BCAST_TREE_KVAL=2`) |
+| allgather | `fcollect_latency` | `fcollect_on_stream` | `all_gather_perf` | block, 32-bit | `FCOLLECT_ALGO=0` → autotuner; ring is the default in 3.x |
+| allreduce | `reduction_latency` | `reduction_on_stream` | `all_reduce_perf` | thread, int32+sum | `REDUCE_ALGO=0` → autotuner; below `REDUCE_NVLS_THRESHOLD=2 KiB` uses one-shot, above uses two-shot |
+| reducescatter | `reducescatter_latency` | `reducescatter_on_stream` | `reduce_scatter_perf` | thread, int32+sum | `REDUCESCATTER_ALGO=0` → autotuner |
+
+The reduction/reducescatter binaries in this build only emit **thread** scope rows (no warp/block). The non-reduction collectives emit thread/warp/block × 32-bit/64-bit; we filter to (block, 32-bit) for one curve.
+
+### Verifying NVSHMEM does NOT fall back to NCCL
+
+Our NVSHMEM build was configured with `NVSHMEM_USE_NCCL=OFF`. We verified at runtime:
+
+```
+$ nm -D $INST/lib/libnvshmem_host.so | grep -ci nccl    # → 0
+$ ldd $INST/lib/libnvshmem_host.so | grep -i nccl       # → (no output)
+$ NVSHMEM_DEBUG=INFO ... 2>&1 | grep ALGO
+NVSHMEM INFO ALGO: BCAST_ALGO set to 0
+NVSHMEM INFO ALGO: FCOLLECT_ALGO set to 0
+NVSHMEM INFO ALGO: REDUCE_ALGO set to 0 (0 -> 1)
+NVSHMEM INFO ALGO: REDUCESCATTER_ALGO set to 0
+```
+
+So every "NVSHMEM device" / "NVSHMEM host" line in the plots is pure NVSHMEM (its own tree/ring/flat algorithms), not NCCL.
 
 The thesis ran on Alps GH200 + Cray Slingshot. We ran on a CoreWeave H200 +
 ConnectX-7 IB cluster, container `gpu_882f6e72.sqsh`, NVSHMEM **3.3.9-ibp**
@@ -99,28 +146,60 @@ repro/thesis_microbench/
 ├── scripts/
 │   ├── build_nvshmem.sh           ← cmake build of NVSHMEM 3.3.9-ibp + perftest
 │   ├── run_4_1_1_p2p.sh           ← 6 P2P APIs × 3 sweeps × 2 scenarios
-│   ├── run_4_1_2_coll.sh          ← 5 collectives + rank-scaling
-│   └── run_4_2_1_nccl.sh          ← NCCL all_reduce_perf + alltoall_perf
-├── plot_results.py                ← parse perftest + nccl-tests logs → 11 figures
+│   ├── run_4_1_2_coll.sh          ← 5 NVSHMEM device collectives + rank-scaling
+│   ├── run_4_2_1_nccl.sh          ← initial NCCL all_reduce_perf + alltoall_perf
+│   └── run_4_2_1_extended.sh      ← all 5 NCCL collectives + 5 NVSHMEM host on_stream
+├── plot_results.py                ← parse perftest + nccl-tests logs → 16 figures
 └── results/
-    ├── *.log                      ← per-config raw output (~200 files)
-    └── figures/                   ← 11 PNG plots
+    ├── *.log                      ← per-config raw output (~220 files)
+    └── figures/                   ← 16 PNG plots
+        ├── p2p_*.png              ← 7 P2P plots (msg-size/TPB/CTA × intra/inter + ping-pong)
+        ├── coll_msgsize_*.png     ← 2 (intra 1×8, inter 2×8)
+        ├── coll_rank_scaling.png  ← rank-count scaling
+        ├── nccl_vs_nvshmem.png    ← combined alltoall+allreduce summary
+        └── compare_*.png          ← 5 per-collective comparison plots
+                                     (alltoall, allreduce/sum, broadcast, allgather/fcollect, reducescatter/sum)
 ```
 
 ## Headline numbers (H200, NVSHMEM 3.3.9-ibp)
 
-| Test | Intranode (1×2 NVL) | Internode (2×1 IB) |
+### P2P (intra = 1×2 NVL, inter = 2×1 IB IBGDA)
+
+| Test | Intra | Inter |
 |---|---|---|
 | `shmem_put_bw` peak (4 MiB, 32 CTAs × 256 TPB) | ~310 GB/s NVLink | ~47 GB/s ConnectX-7 |
 | `shmem_get_bw` peak | ~150 GB/s | ~42 GB/s |
 | `shmem_atomic_bw` peak | ~280 GB/s | (atomics intra only) |
 | `shmem_put_ping_pong_latency` (4 B) | ~3 µs | ~14 µs |
 
-| Collective (16-rank 2×8) | NVSHMEM block-scope | NCCL (-g 1, MPI=1) |
-|---|---|---|
-| `alltoall` @ 64 KiB | ~28 µs | ~38 µs |
-| `alltoall` @ 4 MiB | ~140 µs | ~110 µs |
-| `allreduce/reduction` @ 1 KiB | ~120 µs | ~25 µs |
+### Collectives — NVSHMEM device kernel vs NVSHMEM host on_stream vs NCCL
+
+All numbers are out-of-place latency at 64 KiB / 1 MiB; intranode = 8 ranks on 1 node, internode = 16 ranks on 2×8.
+
+| Op | Intra @ 64 KiB | Inter @ 64 KiB | Intra @ 1 MiB | Inter @ 1 MiB |
+|---|---|---|---|---|
+| **alltoall** — NVSHMEM device kernel | ~9 µs | ~28 µs | ~110 µs | ~250 µs |
+| **alltoall** — NVSHMEM host on_stream | ~30 µs | ~33 µs | ~80 µs | ~95 µs |
+| **alltoall** — NCCL | ~30 µs | ~30 µs | ~50 µs | ~58 µs |
+| **broadcast** — NVSHMEM device | ~5 µs | ~5 µs | ~110 µs | ~470 µs |
+| **broadcast** — NVSHMEM host on_stream | ~30 µs | ~33 µs | ~50 µs | ~80 µs |
+| **broadcast** — NCCL | ~25 µs | ~25 µs | ~30 µs | ~35 µs |
+| **allgather/fcollect** — NVSHMEM device | ~5 µs | ~14 µs | (binary cap) | ~70 µs |
+| **allgather** — NCCL | ~25 µs | ~28 µs | ~30 µs | ~50 µs |
+| **allreduce** — NVSHMEM device | ~25 µs (1 KiB max) | ~120 µs (1 KiB max) | (cap) | (cap) |
+| **allreduce** — NVSHMEM host on_stream | ~25 µs | ~75 µs | ~150 µs | ~600 µs |
+| **allreduce** — NCCL | ~10 µs | ~25 µs | ~50 µs | ~110 µs |
+| **reducescatter** — NVSHMEM device | (cap) | ~60 µs | (cap) | (cap) |
+| **reducescatter** — NCCL | ~30 µs | ~30 µs | ~30 µs | ~50 µs |
+
+(Numbers eyeballed off the per-collective `compare_*.png` figures; raw values in `results/*.log`.)
+
+**Takeaways**:
+
+* **Small-message latency** (≤ 16 KiB intra, ≤ 4 KiB inter): NVSHMEM **device** kernel wins by 2–5× for alltoall/broadcast/fcollect because the kernel never crosses the host launch boundary. This is the fast path NVSHMEM is designed for.
+* **Large-message bandwidth** (≥ 1 MiB): NCCL wins for ring/tree-friendly ops (allreduce, broadcast, alltoall inter) thanks to its tuned multi-stage ring + chunked schedule. NVSHMEM device collectives use simpler one-shot algorithms and do not chunk.
+* **NVSHMEM host on_stream** sits between the two: same algorithms as the device kernel but with a CPU launch per call, so it pays ~25 µs floor like NCCL but doesn't have NCCL's tuned algorithms.
+* **`allreduce`** stops at 1 KiB for the device binary because reduction's perftest is sized that way (we can re-run with `-e` to extend).
 
 ## Caveats
 

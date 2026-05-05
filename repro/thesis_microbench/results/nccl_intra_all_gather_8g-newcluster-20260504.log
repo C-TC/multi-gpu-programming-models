@@ -1,0 +1,47 @@
+# nccl-tests version 2.18.3 nccl-headers=23004 nccl-library=23004
+# Collective test starting: all_gather_perf
+# nThread 1 nGpus 8 minBytes 4 maxBytes 33554432 step: 2(factor) warmup iters: 5 iters: 20 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 1348600 on h200-bar-196-217 device  0 [0000:19:00] NVIDIA H200
+#  Rank  1 Group  0 Pid 1348600 on h200-bar-196-217 device  1 [0000:2d:00] NVIDIA H200
+#  Rank  2 Group  0 Pid 1348600 on h200-bar-196-217 device  2 [0000:3f:00] NVIDIA H200
+#  Rank  3 Group  0 Pid 1348600 on h200-bar-196-217 device  3 [0000:66:00] NVIDIA H200
+#  Rank  4 Group  0 Pid 1348600 on h200-bar-196-217 device  4 [0000:9b:00] NVIDIA H200
+#  Rank  5 Group  0 Pid 1348600 on h200-bar-196-217 device  5 [0000:ae:00] NVIDIA H200
+#  Rank  6 Group  0 Pid 1348600 on h200-bar-196-217 device  6 [0000:bf:00] NVIDIA H200
+#  Rank  7 Group  0 Pid 1348600 on h200-bar-196-217 device  7 [0000:e4:00] NVIDIA H200
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+           0             0     float    none      -1     1.06    0.00    0.00       0     1.04    0.00    0.00       0
+           0             0     float    none      -1     1.05    0.00    0.00       0     1.06    0.00    0.00       0
+           0             0     float    none      -1     1.05    0.00    0.00       0     1.06    0.00    0.00       0
+           0             0     float    none      -1     1.05    0.00    0.00       0     1.06    0.00    0.00       0
+           0             0     float    none      -1     1.06    0.00    0.00       0     1.04    0.00    0.00       0
+         128             4     float    none      -1    34.47    0.00    0.00       0    33.73    0.00    0.00       0
+         256             8     float    none      -1    33.81    0.01    0.01       0    33.86    0.01    0.01       0
+         512            16     float    none      -1    34.27    0.01    0.01       0    33.54    0.02    0.01       0
+        1024            32     float    none      -1    33.73    0.03    0.03       0    33.70    0.03    0.03       0
+        2048            64     float    none      -1    34.35    0.06    0.05       0    33.63    0.06    0.05       0
+        4096           128     float    none      -1    34.38    0.12    0.10       0    33.95    0.12    0.11       0
+        8192           256     float    none      -1    33.51    0.24    0.21       0    34.27    0.24    0.21       0
+       16384           512     float    none      -1    34.64    0.47    0.41       0    34.75    0.47    0.41       0
+       32768          1024     float    none      -1    35.16    0.93    0.82       0    35.25    0.93    0.81       0
+       65536          2048     float    none      -1    36.90    1.78    1.55       0    36.93    1.77    1.55       0
+      131072          4096     float    none      -1    38.42    3.41    2.99       0    39.42    3.33    2.91       0
+      262144          8192     float    none      -1    41.64    6.30    5.51       0    43.10    6.08    5.32       0
+      524288         16384     float    none      -1    44.62   11.75   10.28       0    40.30   13.01   11.38       0
+     1048576         32768     float    none      -1    41.87   25.04   21.91       0    41.57   25.22   22.07       0
+     2097152         65536     float    none      -1    42.86   48.93   42.81       0    45.03   46.58   40.76       0
+     4194304        131072     float    none      -1    43.53   96.36   84.31       0    43.60   96.21   84.18       0
+     8388608        262144     float    none      -1    46.33  181.07  158.44       0    46.35  180.98  158.36       0
+    16777216        524288     float    none      -1    66.09  253.86  222.13       0    65.58  255.84  223.86       0
+    33554432       1048576     float    none      -1   122.16  274.69  240.35       0   118.72  282.64  247.31       0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 33.1519 
+#
+# Collective test concluded: all_gather_perf
+#
+

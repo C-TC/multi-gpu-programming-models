@@ -58,19 +58,33 @@ def parse_size_bw(path: Path) -> list[tuple[int, float]]:
     rows = []
     in_table = False
     is_coll = False
-    # Two coll header layouts:
-    #   (A) alltoall/bcast/fcollect: size count type scope latency algbw busbw  (cols=7)
-    #       scope values: thread/warp/block
-    #   (B) reduction/reducescatter: size count type redop scope latency algbw busbw  (cols=8)
-    #       scope values: t/w/b
-    coll_layout = None  # "A" or "B"
+    # Three coll perftest header layouts:
+    #   (A) device alltoall/bcast/fcollect:
+    #       size count type scope latency algbw busbw  (7 cols)
+    #       type ∈ {32-bit, 64-bit}; scope ∈ {thread, warp, block}
+    #   (B) device reduction/reducescatter:
+    #       size count type redop scope latency algbw busbw  (8 cols)
+    #       type=int32, redop=sum, scope ∈ {t, w, b}
+    #   (C) host on_stream:
+    #       size count type latency min_lat max_lat algbw busbw  (8 cols, 'latency' instead of 'scope')
+    #       type=int (single)
+    coll_layout = None
     for line in path.read_text(errors="ignore").splitlines():
         if "size(B)" in line:
             in_table = True
             is_coll = "latency" in line
             if is_coll:
                 hdr = line.split()
-                coll_layout = "B" if "redop" in hdr else "A"
+                has_redop = "redop" in hdr
+                has_min_lat = "min_lat(us)" in line or any("min_lat" in h for h in hdr)
+                if has_redop and has_min_lat:
+                    coll_layout = "D"  # host on_stream reduction/reducescatter
+                elif has_redop:
+                    coll_layout = "B"  # device reduction/reducescatter
+                elif has_min_lat:
+                    coll_layout = "C"  # host on_stream alltoall/bcast/fcollect
+                else:
+                    coll_layout = "A"  # device alltoall/bcast/fcollect
             continue
         if in_table:
             f = line.split()
@@ -83,17 +97,22 @@ def parse_size_bw(path: Path) -> list[tuple[int, float]]:
             except ValueError:
                 continue
             if is_coll:
-                # Filter to a single (type, scope) so we get one curve per file.
                 if coll_layout == "A" and len(f) >= 5:
                     if f[2] != "32-bit" or f[3] != "block":
                         continue
                     rows.append((size, float(f[4])))
                 elif coll_layout == "B" and len(f) >= 6:
-                    # reduction/reducescatter: type=int32, redop=sum, scope='t' (thread-only is the
-                    # default for reductions in this perftest build).
                     if f[2] != "int32" or f[3] != "sum" or f[4] != "t":
                         continue
                     rows.append((size, float(f[5])))
+                elif coll_layout == "C" and len(f) >= 4:
+                    # size count type latency min_lat max_lat algbw busbw
+                    rows.append((size, float(f[3])))
+                elif coll_layout == "D" and len(f) >= 5:
+                    # size count type redop latency min_lat max_lat algbw busbw
+                    if f[3] != "sum":
+                        continue
+                    rows.append((size, float(f[4])))
             else:
                 if len(f) >= 3:
                     try:
@@ -119,6 +138,24 @@ COLLS = ["alltoall_latency", "bcast_latency", "fcollect_latency", "reduction_lat
 COLORS = plt.cm.tab10.colors
 
 
+# Friendly labels for each P2P binary -- includes API kind + scope hint.
+# The perftest binaries name their kernel:
+#   shmem_g_bw          -- nvshmem_g_<type>  (single-element get, scalar load)
+#   shmem_get_bw        -- nvshmem_<type>_get  (block-cooperative get, all threads in block participate)
+#   shmem_p_bw          -- nvshmem_p_<type>  (single-element put, scalar store)
+#   shmem_put_bw        -- nvshmem_<type>_put  (block-cooperative put)
+#   shmem_st_bw         -- direct CUDA store via mapped peer pointer (NVL only)
+#   shmem_atomic_bw     -- nvshmem_<type>_atomic_inc (block-cooperative atomic)
+P2P_LABEL = {
+    "shmem_g_bw": "g (single-elem get, scalar)",
+    "shmem_get_bw": "get (block-coop bulk)",
+    "shmem_p_bw": "p (single-elem put, scalar)",
+    "shmem_put_bw": "put (block-coop bulk)",
+    "shmem_st_bw": "st (direct store, NVL only)",
+    "shmem_atomic_bw": "atomic_inc (block-coop)",
+}
+
+
 def plot_p2p_msgsize(scenario: str):
     """scenario is 'intra' or 'inter'."""
     fig, ax = plt.subplots(figsize=(8, 5))
@@ -130,14 +167,17 @@ def plot_p2p_msgsize(scenario: str):
             continue
         any_data = True
         sizes, bws = zip(*rows)
-        ax.loglog(sizes, bws, marker="o", ms=3, label=api.replace("shmem_", "").replace("_bw", ""), color=COLORS[i])
+        ax.loglog(sizes, bws, marker="o", ms=3, label=P2P_LABEL.get(api, api), color=COLORS[i])
     if not any_data:
         plt.close(fig)
         return
     ax.set_xlabel("message size (B)")
     ax.set_ylabel("BW (GB/s)")
-    title = "intranode (1 node, 2 ranks, NVLink)" if scenario == "intra" else "internode (2 nodes, 1 rank each, IB)"
-    ax.set_title(f"4.1.1 P2P device BW vs message size — {title}\n(NVSHMEM 3.3.9-ibp on H200, 32 CTAs × 256 TPB)")
+    title = "intranode (1 node, 2 ranks, NVLink)" if scenario == "intra" else "internode (2 nodes, 1 rank each, IB IBGDA)"
+    ax.set_title(
+        f"4.1.1 P2P device BW vs message size — {title}\n"
+        f"NVSHMEM 3.3.9-ibp on H200; all *_bw kernels use 32 CTAs × 256 TPB; default datatype=int32"
+    )
     ax.grid(True, which="both", alpha=0.3)
     ax.legend(fontsize=9)
     fig.tight_layout()
@@ -225,6 +265,15 @@ def plot_p2p_pp_latency():
     plt.close(fig)
 
 
+COLL_LABEL = {
+    "alltoall_latency": "alltoall (32-bit, block scope)",
+    "bcast_latency": "bcast (32-bit, block scope)",
+    "fcollect_latency": "fcollect/allgather (32-bit, block scope)",
+    "reduction_latency": "reduction/allreduce (int32+sum, thread scope, ALGO autotuner)",
+    "reducescatter_latency": "reducescatter (int32+sum, thread scope)",
+}
+
+
 def plot_coll_msgsize(scenario: str, n_ranks: int):
     fig, ax = plt.subplots(figsize=(8, 5))
     plotted = False
@@ -235,16 +284,19 @@ def plot_coll_msgsize(scenario: str, n_ranks: int):
             continue
         plotted = True
         xs, ys = zip(*rows)
-        ax.loglog(xs, ys, marker="o", ms=3, label=c.replace("_latency", ""), color=COLORS[i])
+        ax.loglog(xs, ys, marker="o", ms=3, label=COLL_LABEL.get(c, c), color=COLORS[i])
     if not plotted:
         plt.close(fig)
         return
     ax.set_xlabel("message size (B)")
     ax.set_ylabel("latency (µs)")
     title = f"intranode 1×{n_ranks}" if scenario == "intra" else f"internode 2×{n_ranks // 2}"
-    ax.set_title(f"4.1.2 Collective latency vs message size — {title}")
+    ax.set_title(
+        f"4.1.2 NVSHMEM device collective latency vs message size — {title}\n"
+        f"alltoall/bcast/fcollect: block-scope kernel; reduction/reducescatter: thread-scope (only scope this build emits)"
+    )
     ax.grid(True, which="both", alpha=0.3)
-    ax.legend(fontsize=9)
+    ax.legend(fontsize=8)
     fig.tight_layout()
     fig.savefig(FIG / f"coll_msgsize_{scenario}_{n_ranks}r.png", dpi=150)
     plt.close(fig)
@@ -317,59 +369,107 @@ def parse_nccl_log(path: Path) -> list[tuple[int, float, float]]:
     return rows
 
 
-def plot_nccl_vs_nvshmem():
-    """4.2.1 NCCL vs NVSHMEM allreduce + alltoall (intra 8 GPU and inter 16 GPU)."""
+def _series(label, ls, marker, color):
+    return {"label": label, "ls": ls, "marker": marker, "color": color, "ms": 4}
+
+
+# Map "thesis collective name" -> (NVSHMEM device coll log basename, NVSHMEM host on_stream basename, NCCL binary basename)
+COLL_MAP = [
+    ("alltoall",       "alltoall_latency",       "alltoall_on_stream",       "alltoall"),
+    ("allreduce/sum",  "reduction_latency",      "reduction_on_stream",      "all_reduce"),
+    ("broadcast",      "bcast_latency",          "broadcast_on_stream",      "broadcast"),
+    ("allgather/fcollect", "fcollect_latency",   "fcollect_on_stream",       "all_gather"),
+    ("reducescatter/sum", "reducescatter_latency","reducescatter_on_stream", "reduce_scatter"),
+]
+
+
+def plot_per_collective_comparison(name: str, dev_base: str, host_base: str, nccl_base: str):
+    """Per-collective: 2 subplots (intra 8r, inter 16r). Each shows up to 3 series:
+       NVSHMEM device, NVSHMEM host on_stream, NCCL."""
     fig, axes = plt.subplots(1, 2, figsize=(14, 5))
-    pairings = [
-        ("intra", 8, "1×8 NVL", "alltoall"),
-        ("inter", 16, "2×8 NVL+IB", "alltoall"),
-    ]
-    # alltoall plot
-    ax = axes[0]
-    plotted = False
-    for scen, n, label, op in pairings:
-        # NVSHMEM -- coll latency (us)
-        nvs_log = RES / f"coll_{scen}_alltoall_latency_{n}r_msgsize{TAG}.log"
-        nvs = parse_size_bw(nvs_log)
-        nccl_label = "alltoall_8g" if scen == "intra" else "alltoall_2x8"
+    plotted_any = False
+    for ax, scen, n in [(axes[0], "intra", 8), (axes[1], "inter", 16)]:
+        # NVSHMEM device kernel
+        dev_log = RES / f"coll_{scen}_{dev_base}_{n}r_msgsize{TAG}.log"
+        dev_rows = parse_size_bw(dev_log)
+        # NVSHMEM host on_stream
+        host_log = RES / f"coll_{scen}_{host_base}_{n}r_msgsize{TAG}.log"
+        host_rows = parse_size_bw(host_log)
+        # NCCL
+        nccl_label = f"{nccl_base}_8g" if scen == "intra" else f"{nccl_base}_2x8"
         nccl_log = RES / f"nccl_{scen}_{nccl_label}{TAG}.log"
-        nccl = parse_nccl_log(nccl_log)
-        if nvs:
-            xs, ys = zip(*nvs)
-            ax.loglog(xs, ys, marker="o", ms=3, label=f"NVSHMEM {label}", linestyle="-")
-            plotted = True
-        if nccl:
-            xs = [r[0] for r in nccl]; ys = [r[1] for r in nccl]
-            ax.loglog(xs, ys, marker="s", ms=3, label=f"NCCL {label}", linestyle="--")
-            plotted = True
-    ax.set_xlabel("message size (B)")
-    ax.set_ylabel("latency (µs)")
-    ax.set_title("alltoall — NCCL vs NVSHMEM")
-    ax.grid(True, which="both", alpha=0.3)
-    ax.legend(fontsize=8)
+        nccl_rows = parse_nccl_log(nccl_log)
 
-    # allreduce plot
-    ax = axes[1]
-    for scen, n, label, _ in pairings:
-        nvs = parse_size_bw(RES / f"coll_{scen}_reduction_latency_{n}r_msgsize{TAG}.log")
-        nccl_label = "allreduce_8g" if scen == "intra" else "allreduce_2x8"
-        nccl = parse_nccl_log(RES / f"nccl_{scen}_{nccl_label}{TAG}.log")
-        if nvs:
-            xs, ys = zip(*nvs)
-            ax.loglog(xs, ys, marker="o", ms=3, label=f"NVSHMEM {label}", linestyle="-")
-        if nccl:
-            xs = [r[0] for r in nccl]; ys = [r[1] for r in nccl]
-            ax.loglog(xs, ys, marker="s", ms=3, label=f"NCCL {label}", linestyle="--")
-    ax.set_xlabel("message size (B)")
-    ax.set_ylabel("latency (µs)")
-    ax.set_title("allreduce / reduction — NCCL vs NVSHMEM")
-    ax.grid(True, which="both", alpha=0.3)
-    ax.legend(fontsize=8)
+        # Determine NVSHMEM dev sub-config label dynamically.
+        if dev_base in ("alltoall_latency", "bcast_latency", "fcollect_latency"):
+            nvs_dev_label = "NVSHMEM device kernel (block scope, 32-bit)"
+        else:
+            nvs_dev_label = "NVSHMEM device kernel (thread scope, int32+sum)"
 
+        if dev_rows:
+            xs, ys = zip(*dev_rows)
+            ax.loglog(xs, ys, marker="o", ms=4, color="tab:blue", linestyle="-",
+                      label=nvs_dev_label)
+            plotted_any = True
+        if host_rows:
+            xs, ys = zip(*host_rows)
+            ax.loglog(xs, ys, marker="^", ms=4, color="tab:orange", linestyle="-.",
+                      label="NVSHMEM host on_stream (CPU-initiated)")
+            plotted_any = True
+        if nccl_rows:
+            xs = [r[0] for r in nccl_rows]; ys = [r[1] for r in nccl_rows]
+            ax.loglog(xs, ys, marker="s", ms=4, color="tab:green", linestyle="--",
+                      label="NCCL (auto-tuner)")
+            plotted_any = True
+
+        scen_label = f"intranode 1×{n}" if scen == "intra" else f"internode 2×{n // 2}"
+        ax.set_title(f"{name} — {scen_label}")
+        ax.set_xlabel("message size (B)")
+        ax.set_ylabel("latency (µs)")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=8, loc="upper left")
+
+    if not plotted_any:
+        plt.close(fig)
+        return
+    fig.suptitle(f"4.2.1 NCCL vs NVSHMEM — {name} (H200, NVSHMEM 3.3.9-ibp; no NCCL fallback in this build)",
+                 y=1.02)
+    fig.tight_layout()
+    safe = name.replace("/", "_").replace(" ", "_")
+    fig.savefig(FIG / f"compare_{safe}.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_nccl_vs_nvshmem():
+    """Backward-compat: keep the old combined alltoall+allreduce 2-panel figure."""
+    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    plotted = False
+    for ax_idx, (name, dev_base, _, nccl_base) in enumerate(
+        [("alltoall", "alltoall_latency", "", "alltoall"),
+         ("allreduce", "reduction_latency", "", "all_reduce")]
+    ):
+        ax = axes[ax_idx]
+        for scen, n, label_short in [("intra", 8, "1×8 NVL"), ("inter", 16, "2×8 NVL+IB")]:
+            nvs = parse_size_bw(RES / f"coll_{scen}_{dev_base}_{n}r_msgsize{TAG}.log")
+            nccl_label = f"{nccl_base}_8g" if scen == "intra" else f"{nccl_base}_2x8"
+            nccl = parse_nccl_log(RES / f"nccl_{scen}_{nccl_label}{TAG}.log")
+            if nvs:
+                xs, ys = zip(*nvs)
+                ax.loglog(xs, ys, marker="o", ms=3, label=f"NVSHMEM device {label_short}", linestyle="-")
+                plotted = True
+            if nccl:
+                xs = [r[0] for r in nccl]; ys = [r[1] for r in nccl]
+                ax.loglog(xs, ys, marker="s", ms=3, label=f"NCCL {label_short}", linestyle="--")
+                plotted = True
+        ax.set_xlabel("message size (B)")
+        ax.set_ylabel("latency (µs)")
+        ax.set_title(f"{name} — NCCL vs NVSHMEM device kernel")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=8)
     if not plotted:
         plt.close(fig)
         return
-    fig.suptitle("4.2.1 NCCL vs NVSHMEM device collectives (H200, sum, float)", y=1.01)
+    fig.suptitle("4.2.1 NCCL vs NVSHMEM device collectives (H200, sum, float; 32-bit block scope)", y=1.02)
     fig.tight_layout()
     fig.savefig(FIG / "nccl_vs_nvshmem.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
@@ -387,5 +487,7 @@ plot_p2p_pp_latency()
 plot_coll_msgsize("intra", 8)
 plot_coll_msgsize("inter", 16)
 plot_coll_rank_scaling()
-plot_nccl_vs_nvshmem()
+plot_nccl_vs_nvshmem()  # combined 2-panel summary
+for entry in COLL_MAP:
+    plot_per_collective_comparison(*entry)
 print("Done.")
