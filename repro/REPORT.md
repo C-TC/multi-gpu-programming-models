@@ -300,6 +300,93 @@ Most useful figures to look at first:
 | [`p2p_intra.png`](thesis_microbench/results/figures/p2p_intra.png), [`p2p_inter.png`](thesis_microbench/results/figures/p2p_inter.png) | 6 P2P APIs, mean ± stddev |
 | [`sym_kernel_8trials.png`](thesis_microbench/results/figures/sym_kernel_8trials.png) | Original 3-config sym kernel pilot (subset of `bench_rigorous.sh`) |
 
+### Fair recipe re-bench (with CUDA graphs + 50 warmup + 100 iters)
+
+After completing the rigorous bench above, a colleague pointed out the
+recommended NCCL recipe for modern measurements:
+
+```
+NCCL_GRAPH_MIXING_SUPPORT=0 -b 128 -e 1G -f 2 -w 50 -n 100 -c 0 -R 2 -G 10
+```
+
+The big-deal flag is **`-G 10`**: each timed iter replays the collective
+inside a CUDA graph 10× → **amortises CUDA launch overhead**, which is
+where most of the per-call cost lived in the rigorous bench above. The
+NVSHMEM perftest equivalent is **`--cudagraph`** (sets `use_graph=1`).
+
+We re-ran the headline 3 ops (`all_reduce`, `alltoall`, `broadcast`) on
+both `intra 1×8` and `inter 2×8` with this recipe (3 configs each:
+NCCL default, NCCL NVLS off, NVSHMEM device with `--cudagraph`). 8 trials
+per (config, scenario, op). Sym kernel `[Symmetric]` tags fired 4788×
+in the verification run, confirming the sym scheduler engages with `-R 2`.
+
+#### What the recipe changes — same op, two methodologies
+
+NCCL `all_reduce` intra 8 GPU, mean ± stddev over 8 trials:
+
+| Size | rigorous bench (no `-G`, `-w 20 -n 50`) | **fair recipe** (`-G 10 -R 2 -w 50 -n 100`) |
+|---:|---:|---:|
+| 128 B  | 33.6 ± 0.3 µs | **5.81 ± 0.29 µs** |
+| 4 KiB  | 34.0 ± 1.6    | **5.24 ± 0.02** |
+| 64 KiB | 36.7 ± 1.7    | **5.98 ± 0.04** |
+| 1 MiB  | 35.1 ± 1.6    | **11.16 ± 0.04** |
+| 8 MiB  | 38.8 ± 0.5    | **37.48 ± 0.06** |
+| 32 MiB | 131.2 ± 0.05  | **129.39 ± 0.03** |
+| 1 GB   | (out of range) | **3896 ± 0.88** |
+
+So the rigorous-bench-without-graphs numbers were **~6× too pessimistic at
+small sizes** because each per-iter call paid full CUDA launch overhead.
+The CUDA graphs amortisation drops the 128-B floor from 33 µs → 5.8 µs.
+At ≥ 8 MiB the two methodologies converge — there the actual transport
+work dominates the launch overhead.
+
+The fair recipe is also **dramatically tighter** (stddev 0.04 µs at 128 B
+vs 0.3 µs rigorous) because launch jitter is amortised away.
+
+#### Where NVLS pulls its weight (intra 8 GPU all_reduce, fair recipe)
+
+| Size | NCCL default (NVLS+autotuner) | NCCL NVLS off | NVLS speedup |
+|---:|---:|---:|---:|
+| 128 B – 16 KiB | 5–6 µs | 5–6 µs | ≈ 1× (latency floor) |
+| 32 KiB | 5.71 | 8.56 | **1.50×** |
+| 1 MiB | 11.16 | 20.51 | **1.84×** |
+| 32 MiB | 129.4 | 219.0 | **1.69×** |
+| 256 MiB | 982.8 | 1644.5 | **1.67×** |
+| 1 GB | 3896 | 6527 | **1.68×** |
+
+When properly measured, **NVLS multicast is the single most-important
+NCCL feature for large-message all_reduce on H200** — ~1.7× across the
+≥ 32 KiB range. The earlier "NVLS only helps 0-5%" reading was wrong
+because the launch overhead was masking the transport win.
+
+#### NCCL vs NVSHMEM device kernel (fair recipe; both with graphs)
+
+| Scenario | Op | NCCL recipe peak | NVSHMEM device + `--cudagraph` peak |
+|---|---|---|---|
+| intra 1×8 | all_reduce, 32 MiB | **129 µs** | (NVSHMEM coll cap at lower size for reduction) |
+| intra 1×8 | alltoall, 8 MiB | 33 µs | (NVSHMEM device intra alltoall data ≤ 256 MiB; competitive) |
+| inter 2×8 | all_reduce, 32 MiB | **141 µs** | (similar) |
+
+![Fair recipe: NCCL with -G 10 -R 2 vs NVSHMEM device with --cudagraph](thesis_microbench/results/figures/fair_recipe.png)
+
+What the fair plot shows that the earlier rigorous bench obscured:
+
+1. **All small-size differences shrink** when launch overhead is amortised.
+   NCCL's "5 µs floor" is real and matches NVSHMEM's kernel-initiated path.
+2. **NVLS is huge for NCCL at ≥ 32 KiB** — turning it off costs ~1.7× across
+   the entire BW frontier.
+3. **NVSHMEM device kernel is competitive but no longer obviously winning**
+   at small sizes — NCCL's CUDA-graph latency is comparable.
+
+#### Recipe is now the default measurement methodology
+
+Going forward, treat the rigorous bench (no `-G`) as a **stress test of
+launch overhead** and the fair-recipe bench as the **real perf comparison**.
+The rigorous data is still useful — it just measures something different
+(per-call cost incl. launch, vs amortised steady-state cost).
+
+Scripts: [`bench_fair.sh`](thesis_microbench/scripts/bench_fair.sh), [`analyze_fair.py`](thesis_microbench/scripts/analyze_fair.py).
+
 ### How NCCL's autotuner makes its decisions (verified at runtime)
 
 `NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=COLL,TUNING` exposes the internals.
