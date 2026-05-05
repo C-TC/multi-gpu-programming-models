@@ -272,27 +272,52 @@ AllReduce: 33554432 Bytes -> Algo RING proto LL128   (was: NVLS Simple. Now best
 ```
 Result: large messages get RING LL128 (189 GB/s) instead of NVLS Simple (272 GB/s) → 200 GB/s vs 209 GB/s end-to-end at 32 MiB. Just an option removal.
 
-#### `NCCL_SYM_NOWIN_ENABLE=1`: a separate scheduler that bypasses the autotuner — **but doesn't always engage**
+#### `NCCL_SYM_NOWIN_ENABLE=1`: a separate scheduler that bypasses the autotuner
 
 NCCL 2.30 has `ncclSymmetricTaskScheduler` which runs **before** the regular autotuner. If a task qualifies (registered symmetric window OR `NCCL_SYM_NOWIN_ENABLE=1` plus other internal eligibility checks), it dispatches a `Kernel ncclSymk*` and never enters the autotuner table. Logs as `[Symmetric]: <bytes> -> Kernel <name>` instead of `Algo X proto Y`.
 
-In our config, **`NCCL_SYM_NOWIN_ENABLE=1` does NOT actually engage the symmetric scheduler** for nccl-tests's cudaMalloc'd buffers — every call still logs `Algo RING proto LL`. Even with `NCCL_DEBUG=TRACE NCCL_DEBUG_SUBSYS=COLL`, no `[Symmetric]` lines fire. Probably the eligibility check (cuMem support, NIC fusion, GIN, etc.) rejects this combination on this cluster. Re-running back-to-back, sym=0 vs sym=1 are **identical within noise** (~40 µs floor at 4 B – 8 KiB):
+`NCCL_SYM_NOWIN_ENABLE=1` is the easy switch but didn't actually engage the sym scheduler in our cluster (likely the cuMem/GIN/NIC-fusion eligibility check rejected it). The reliable way is **nccl-tests `-R 2`**, which calls `ncclMemAlloc + ncclCommWindowRegister(NCCL_WIN_COLL_SYMMETRIC)`. With `-R 2` we see (`NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=TUNING`):
 
 ```
-size  sym=0   sym=1
-4     40.4    41.1
-16    39.2    39.8
-64    40.1    41.1
-256   47.4    40.5
-1024  39.5    40.2
-4096  41.3    41.5
+AllReduce [Symmetric]: 1024 Bytes    -> Kernel AllReduce_AGxLLMC_R          nchannels 1 nthreads 512
+AllReduce [Symmetric]: 16384 Bytes   -> Kernel AllReduce_AGxLLMC_R          nchannels 6 nthreads 512
+AllReduce [Symmetric]: 32768 Bytes   -> Kernel AllReduce_RSxLDMC_AGxSTMC    nchannels 1 nthreads 512
+AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC    nchannels 1 nthreads 512
 ```
 
-(An earlier comparison reported a 1.2× speedup for sym=1 at small sizes; that was warm-cache noise from running sym=0 first then sym=1. Disregard.)
+Suffix decoder: `LL` = low-latency proto, `MC` = multicast, `LDMC` / `STMC` = LoaD-MultiCast / SToRe-MultiCast (NVLink-SHARP intrinsics). So sym kernels also use NVLS multicast — at small sizes via "AllGather LL Multicast Reduce", at medium/large via "ReduceScatter LDMC + AllGather STMC".
+
+#### Rigorous 8-trial comparison (overrides earlier `NCCL_SYM_NOWIN_ENABLE` claims)
+
+Earlier I claimed `NCCL_SYM_NOWIN_ENABLE=1` won 1.2× at small sizes. That was warm-cache noise. With proper warmup (100 warmup + 200 timed iters, 8 fresh trials per config, scripts/bench_sym_kernel.sh + scripts/analyze_sym_bench.py), the **real picture** is much more striking AND points the opposite direction in size:
+
+| Size | default (-R 0) | sym (-R 2) | NVLS off | sym/default | significance |
+|---|---|---|---|---|---|
+| 4 B | 33.18 ± 0.12 µs | 32.07 ± 1.41 µs | 33.32 ± 0.71 µs | 0.97× | not significant |
+| 1 KiB | 31.94 ± 0.15 | 32.23 ± 1.53 | 32.17 ± 0.56 | 1.01× | — |
+| 16 KiB | 33.84 ± 0.16 | 35.81 ± 1.65 | 34.01 ± 0.63 | 1.06× (sym slower) | weak |
+| 64 KiB | 34.37 ± 0.31 | 36.69 ± 1.70 | 34.62 ± 0.59 | 1.07× | weak |
+| 256 KiB | 35.63 ± 0.48 | 36.58 ± 1.40 | 35.98 ± 0.91 | 1.03× | not sig |
+| 1 MiB | 37.84 ± 0.36 | 35.14 ± 1.63 | 38.73 ± 1.48 | **0.93×** | z=-2.3 |
+| 2 MiB | 40.65 ± 0.08 | 34.83 ± 1.36 | 38.25 ± 0.63 | **0.86×** | z=-6.0 |
+| 4 MiB | 53.13 ± 0.09 | 34.65 ± 1.35 | 50.75 ± 0.16 | **0.65×** | z=-19 |
+| 8 MiB | 81.90 ± 0.10 | **38.82 ± 0.47** | 77.36 ± 0.11 | **0.47×** | z=-127 |
+| 16 MiB | 122.85 ± 0.22 | **70.02 ± 0.10** | 117.00 ± 0.41 | **0.57×** | z=-303 |
+| 32 MiB | 197.83 ± 0.21 | **131.19 ± 0.05** | 210.71 ± 1.92 | **0.66×** | z=-430 |
+
+**Takeaways**:
+
+1. **Small sizes (≤ 256 KiB)**: sym kernel is **not faster** — it's actually slightly slower in the 8-256 KiB range (the autotuner picks `Algo RING proto LL` while sym picks `AGxLLMC_R`; both are LL but the autotuner happens to be tighter on tiny payloads).
+2. **Medium-to-large (≥ 1 MiB)**: sym wins **5-50%**. At 8 MiB sym is **2.1× faster** than the legacy autotuner+NVLS path.
+3. **NVLS off** matches default at small sizes but is 5-10% slower at 4-32 MiB — the NVLS row in the cost table earns its keep at the large-message frontier.
+4. **Why sym scales so much better at large sizes**: it uses `RSxLDMC_AGxSTMC` (load-multicast + store-multicast over the registered symmetric window), which engages the H200 NVLink-SHARP multicast hardware more efficiently than the autotuner's `Algo NVLS proto SIMPLE` path (which has additional setup per call).
+
+Plot: `figures/sym_kernel_8trials.png`. Raw data: `results/bench_*_t*.log` (24 files: 8 trials × 3 configs).
 
 **TL;DR** for the user's mental model:
-* **NVLS** *is* "just one more entry in the autotuner's table". `NCCL_NVLS_ENABLE=0/1` adds/removes the NVLS row. Autotuner picks per call.
-* **Symmetric kernel** is *not* in the autotuner. It's a parallel scheduler that, if eligible, replaces the entire (algo, proto) dispatch with a `ncclSymk*` kernel. In our build/cluster the eligibility never triggered for cudaMalloc'd buffers; you'd need to call `ncclMemAlloc` + `ncclWindowAlloc` to actually exercise the sym path.
+* **NVLS** *is* "just one more entry in the autotuner's table". `NCCL_NVLS_ENABLE=0` removes the NVLS row. Autotuner picks per call.
+* **Symmetric kernel** is *not* in the autotuner. It's a parallel scheduler that replaces the entire (algo, proto) dispatch with a `ncclSymk*` kernel. The robust way to engage it is `ncclMemAlloc + ncclCommWindowRegister(NCCL_WIN_COLL_SYMMETRIC)` (nccl-tests `-R 2`); `NCCL_SYM_NOWIN_ENABLE=1` *should* do this for cudaMalloc'd buffers but our cluster's NCCL build doesn't honor it for the eligibility checks.
+* The sym kernel's win is **at large sizes (≥ 1 MiB), not small** — opposite of where you'd intuit a "lower overhead" kernel to help. The win comes from the multicast load/store patterns it can use against registered symmetric windows.
 
 ### NVLS (NCCL_NVLS_ENABLE / NVSHMEM_DISABLE_NVLS) impact
 

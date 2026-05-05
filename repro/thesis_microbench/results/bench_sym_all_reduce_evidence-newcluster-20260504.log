@@ -1,0 +1,629 @@
+# nccl-tests version 2.18.3 nccl-headers=23004 nccl-library=23004
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 8 minBytes 1024 maxBytes 1048576 step: 32(factor) warmup iters: 2 iters: 5 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 1368385 on h200-bar-201-247 device  0 [0000:19:00] NVIDIA H200
+#  Rank  1 Group  0 Pid 1368385 on h200-bar-201-247 device  1 [0000:2d:00] NVIDIA H200
+#  Rank  2 Group  0 Pid 1368385 on h200-bar-201-247 device  2 [0000:3f:00] NVIDIA H200
+#  Rank  3 Group  0 Pid 1368385 on h200-bar-201-247 device  3 [0000:66:00] NVIDIA H200
+#  Rank  4 Group  0 Pid 1368385 on h200-bar-201-247 device  4 [0000:9b:00] NVIDIA H200
+#  Rank  5 Group  0 Pid 1368385 on h200-bar-201-247 device  5 [0000:ae:00] NVIDIA H200
+#  Rank  6 Group  0 Pid 1368385 on h200-bar-201-247 device  6 [0000:bf:00] NVIDIA H200
+#  Rank  7 Group  0 Pid 1368385 on h200-bar-201-247 device  7 [0000:e4:00] NVIDIA H200
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO NCCL version 2.30.4+cuda13.2
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO NCCL git version HEAD 747384637
+h200-bar-201-247:1368385:1368640 [2] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO  Max NThreads |            512 |            640 |            512 |            512 |            640 |            512 |              0 |              0 |            640 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     7.2/ 141.0 |    15.9/ 331.2 |    11.8/ 360.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     7.2/ 141.0 |    15.9/ 331.2 |    11.8/ 360.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    10.8/ 161.1 |    27.3/ 378.5 |    32.2/ 411.4 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    10.8/ 161.1 |    27.3/ 378.5 |    32.2/ 411.4 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllReduce |    15.2/  43.6 |    31.5/ 128.8 |    64.4/ 165.6 |    15.0/  80.6 |    40.6/ 189.3 |    56.0/ 205.7 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO  Max NThreads |              0 |              0 |            640 |              0 |              0 |            640 |              0 |              0 |            640 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    25.0/ 208.2 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    25.0/ 208.2 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |    69.2/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    25.0/ 272.0 |     0.0/   0.0 |     0.0/   0.0 |    25.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Algorithm   |                             PAT                  |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO  Max NThreads |              0 |              0 |              0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-201-247:1368385:1368638 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400400 recvbuff 0x75f922600400 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00400 recvbuff 0x75f922c00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000400 recvbuff 0x75f923200400 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600400 recvbuff 0x75f923800400 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00400 recvbuff 0x75f923e00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200400 recvbuff 0x75f924400400 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800400 recvbuff 0x75f924a00400 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00400 recvbuff 0x75f925000400 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 512 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 512 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 512 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 512 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 512 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 512 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 512 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 512 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 2048 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 2 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400800 recvbuff 0x75f922600800 count 512 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00800 recvbuff 0x75f922c00800 count 512 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000800 recvbuff 0x75f923200800 count 512 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600800 recvbuff 0x75f923800800 count 512 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00800 recvbuff 0x75f923e00800 count 512 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200800 recvbuff 0x75f924400800 count 512 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800800 recvbuff 0x75f924a00800 count 512 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00800 recvbuff 0x75f925000800 count 512 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 2048 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 2 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 1024 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 1024 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 4096 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 4 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922401000 recvbuff 0x75f922601000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a01000 recvbuff 0x75f922c01000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923001000 recvbuff 0x75f923201000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923601000 recvbuff 0x75f923801000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c01000 recvbuff 0x75f923e01000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924201000 recvbuff 0x75f924401000 count 1024 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924801000 recvbuff 0x75f924a01000 count 1024 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e01000 recvbuff 0x75f925001000 count 1024 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 4096 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 4 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 2048 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 2048 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 8192 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 4 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922402000 recvbuff 0x75f922602000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a02000 recvbuff 0x75f922c02000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923002000 recvbuff 0x75f923202000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923602000 recvbuff 0x75f923802000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c02000 recvbuff 0x75f923e02000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924202000 recvbuff 0x75f924402000 count 2048 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924802000 recvbuff 0x75f924a02000 count 2048 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e02000 recvbuff 0x75f925002000 count 2048 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 8192 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 4 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 4096 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 4096 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 16384 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 6 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922404000 recvbuff 0x75f922604000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a04000 recvbuff 0x75f922c04000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923004000 recvbuff 0x75f923204000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923604000 recvbuff 0x75f923804000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c04000 recvbuff 0x75f923e04000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924204000 recvbuff 0x75f924404000 count 4096 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924804000 recvbuff 0x75f924a04000 count 4096 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e04000 recvbuff 0x75f925004000 count 4096 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 16384 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 6 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922408000 recvbuff 0x75f922608000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a08000 recvbuff 0x75f922c08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923008000 recvbuff 0x75f923208000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923608000 recvbuff 0x75f923808000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c08000 recvbuff 0x75f923e08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924208000 recvbuff 0x75f924408000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924808000 recvbuff 0x75f924a08000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e08000 recvbuff 0x75f925008000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 16384 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 16384 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 65536 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922410000 recvbuff 0x75f922610000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a10000 recvbuff 0x75f922c10000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923010000 recvbuff 0x75f923210000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923610000 recvbuff 0x75f923810000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c10000 recvbuff 0x75f923e10000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924210000 recvbuff 0x75f924410000 count 16384 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924810000 recvbuff 0x75f924a10000 count 16384 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e10000 recvbuff 0x75f925010000 count 16384 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 65536 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 32768 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 32768 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 131072 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922420000 recvbuff 0x75f922620000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a20000 recvbuff 0x75f922c20000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923020000 recvbuff 0x75f923220000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923620000 recvbuff 0x75f923820000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c20000 recvbuff 0x75f923e20000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924220000 recvbuff 0x75f924420000 count 32768 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924820000 recvbuff 0x75f924a20000 count 32768 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e20000 recvbuff 0x75f925020000 count 32768 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 131072 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 65536 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 65536 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 262144 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922440000 recvbuff 0x75f922640000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a40000 recvbuff 0x75f922c40000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923040000 recvbuff 0x75f923240000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923640000 recvbuff 0x75f923840000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c40000 recvbuff 0x75f923e40000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924240000 recvbuff 0x75f924440000 count 65536 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924840000 recvbuff 0x75f924a40000 count 65536 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e40000 recvbuff 0x75f925040000 count 65536 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 262144 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 131072 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 131072 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 524288 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922480000 recvbuff 0x75f922680000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a80000 recvbuff 0x75f922c80000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923080000 recvbuff 0x75f923280000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923680000 recvbuff 0x75f923880000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c80000 recvbuff 0x75f923e80000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924280000 recvbuff 0x75f924480000 count 131072 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924880000 recvbuff 0x75f924a80000 count 131072 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e80000 recvbuff 0x75f925080000 count 131072 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 524288 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+        1024           256     float     sum      -1h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400400 recvbuff 0x75f922600400 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00400 recvbuff 0x75f922c00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000400 recvbuff 0x75f923200400 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600400 recvbuff 0x75f923800400 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00400 recvbuff 0x75f923e00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200400 recvbuff 0x75f924400400 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800400 recvbuff 0x75f924a00400 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00400 recvbuff 0x75f925000400 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400800 recvbuff 0x75f922600800 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00800 recvbuff 0x75f922c00800 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000800 recvbuff 0x75f923200800 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600800 recvbuff 0x75f923800800 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00800 recvbuff 0x75f923e00800 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200800 recvbuff 0x75f924400800 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800800 recvbuff 0x75f924a00800 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00800 recvbuff 0x75f925000800 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400c00 recvbuff 0x75f922600c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00c00 recvbuff 0x75f922c00c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000c00 recvbuff 0x75f923200c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600c00 recvbuff 0x75f923800c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00c00 recvbuff 0x75f923e00c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200c00 recvbuff 0x75f924400c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800c00 recvbuff 0x75f924a00c00 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00c00 recvbuff 0x75f925000c00 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922401000 recvbuff 0x75f922601000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a01000 recvbuff 0x75f922c01000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923001000 recvbuff 0x75f923201000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923601000 recvbuff 0x75f923801000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c01000 recvbuff 0x75f923e01000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924201000 recvbuff 0x75f924401000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924801000 recvbuff 0x75f924a01000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e01000 recvbuff 0x75f925001000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+    53.46    0.02    0.03       0h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600400 recvbuff 0x75f922600400 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00400 recvbuff 0x75f922c00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200400 recvbuff 0x75f923200400 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800400 recvbuff 0x75f923800400 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00400 recvbuff 0x75f923e00400 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400400 recvbuff 0x75f924400400 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00400 recvbuff 0x75f924a00400 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000400 recvbuff 0x75f925000400 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600800 recvbuff 0x75f922600800 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00800 recvbuff 0x75f922c00800 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200800 recvbuff 0x75f923200800 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800800 recvbuff 0x75f923800800 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00800 recvbuff 0x75f923e00800 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400800 recvbuff 0x75f924400800 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00800 recvbuff 0x75f924a00800 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000800 recvbuff 0x75f925000800 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600c00 recvbuff 0x75f922600c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00c00 recvbuff 0x75f922c00c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200c00 recvbuff 0x75f923200c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800c00 recvbuff 0x75f923800c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00c00 recvbuff 0x75f923e00c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400c00 recvbuff 0x75f924400c00 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00c00 recvbuff 0x75f924a00c00 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000c00 recvbuff 0x75f925000c00 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922601000 recvbuff 0x75f922601000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c01000 recvbuff 0x75f922c01000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923201000 recvbuff 0x75f923201000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923801000 recvbuff 0x75f923801000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e01000 recvbuff 0x75f923e01000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924401000 recvbuff 0x75f924401000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a01000 recvbuff 0x75f924a01000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925001000 recvbuff 0x75f925001000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 256 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 256 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 256 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 256 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 256 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 256 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 256 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1024 Bytes -> Kernel AllReduce_AGxLLMC_R nchannels 1 nthreads 512 nWorks 1
+    51.51    0.02    0.03       0
+       32768          8192     float     sum      -1h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922408000 recvbuff 0x75f922608000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a08000 recvbuff 0x75f922c08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923008000 recvbuff 0x75f923208000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923608000 recvbuff 0x75f923808000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c08000 recvbuff 0x75f923e08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924208000 recvbuff 0x75f924408000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924808000 recvbuff 0x75f924a08000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e08000 recvbuff 0x75f925008000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922410000 recvbuff 0x75f922610000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a10000 recvbuff 0x75f922c10000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923010000 recvbuff 0x75f923210000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923610000 recvbuff 0x75f923810000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c10000 recvbuff 0x75f923e10000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924210000 recvbuff 0x75f924410000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924810000 recvbuff 0x75f924a10000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e10000 recvbuff 0x75f925010000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922418000 recvbuff 0x75f922618000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a18000 recvbuff 0x75f922c18000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923018000 recvbuff 0x75f923218000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923618000 recvbuff 0x75f923818000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c18000 recvbuff 0x75f923e18000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924218000 recvbuff 0x75f924418000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924818000 recvbuff 0x75f924a18000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e18000 recvbuff 0x75f925018000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922420000 recvbuff 0x75f922620000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a20000 recvbuff 0x75f922c20000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923020000 recvbuff 0x75f923220000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923620000 recvbuff 0x75f923820000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c20000 recvbuff 0x75f923e20000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924220000 recvbuff 0x75f924420000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924820000 recvbuff 0x75f924a20000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e20000 recvbuff 0x75f925020000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+    53.73    0.61    1.07       0h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922608000 recvbuff 0x75f922608000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c08000 recvbuff 0x75f922c08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923208000 recvbuff 0x75f923208000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923808000 recvbuff 0x75f923808000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e08000 recvbuff 0x75f923e08000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924408000 recvbuff 0x75f924408000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a08000 recvbuff 0x75f924a08000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925008000 recvbuff 0x75f925008000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922610000 recvbuff 0x75f922610000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c10000 recvbuff 0x75f922c10000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923210000 recvbuff 0x75f923210000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923810000 recvbuff 0x75f923810000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e10000 recvbuff 0x75f923e10000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924410000 recvbuff 0x75f924410000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a10000 recvbuff 0x75f924a10000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925010000 recvbuff 0x75f925010000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922618000 recvbuff 0x75f922618000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c18000 recvbuff 0x75f922c18000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923218000 recvbuff 0x75f923218000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923818000 recvbuff 0x75f923818000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e18000 recvbuff 0x75f923e18000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924418000 recvbuff 0x75f924418000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a18000 recvbuff 0x75f924a18000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925018000 recvbuff 0x75f925018000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922620000 recvbuff 0x75f922620000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c20000 recvbuff 0x75f922c20000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923220000 recvbuff 0x75f923220000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923820000 recvbuff 0x75f923820000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e20000 recvbuff 0x75f923e20000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924420000 recvbuff 0x75f924420000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a20000 recvbuff 0x75f924a20000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925020000 recvbuff 0x75f925020000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 8192 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 8192 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 8192 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 32768 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+    52.86    0.62    1.08       0
+     1048576        262144     float     sum      -1h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922400000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922a00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923000000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923600000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923c00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924200000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924800000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924e00000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+    54.21   19.34   33.85       0h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922600000 recvbuff 0x75f922600000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa38dcf0 [nranks=8] stream 0x6474f518c170
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f922c00000 recvbuff 0x75f922c00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa4b2b70 [nranks=8] stream 0x6474f5a141a0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923200000 recvbuff 0x75f923200000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa5d8880 [nranks=8] stream 0x6474f65b3d30
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923800000 recvbuff 0x75f923800000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa7042b0 [nranks=8] stream 0x6474f71ccc80
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f923e00000 recvbuff 0x75f923e00000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa82fd80 [nranks=8] stream 0x6474f7d39d60
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924400000 recvbuff 0x75f924400000 count 262144 datatype 7 op 0 root 0 comm 0x6474fa95b870 [nranks=8] stream 0x6474f884a650
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f924a00000 recvbuff 0x75f924a00000 count 262144 datatype 7 op 0 root 0 comm 0x6474faa87380 [nranks=8] stream 0x6474f94f8fd0
+h200-bar-201-247:1368385:1368385 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x75f925000000 recvbuff 0x75f925000000 count 262144 datatype 7 op 0 root 0 comm 0x6474fabb2e90 [nranks=8] stream 0x6474fa0517d0
+h200-bar-201-247:1368385:1368385 [0] NCCL INFO AllReduce [Symmetric]: 1048576 Bytes -> Kernel AllReduce_RSxLDMC_AGxSTMC nchannels 1 nthreads 512 nWorks 1
+    53.01   19.78   34.62       0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 11.7812 
+#
+# Collective test concluded: all_reduce_perf
+#
+
