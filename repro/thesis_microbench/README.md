@@ -57,9 +57,48 @@ NVSHMEM INFO ALGO: REDUCESCATTER_ALGO set to 0
 So every "NVSHMEM device" / "NVSHMEM host" line in the plots is pure NVSHMEM (its own tree/ring/flat algorithms), not NCCL.
 
 The thesis ran on Alps GH200 + Cray Slingshot. We ran on a CoreWeave H200 +
-ConnectX-7 IB cluster, container `gpu_882f6e72.sqsh`, NVSHMEM **3.3.9-ibp**
-(internal fork at `~/workspace/nvshmem` on branch `3.3.9-ibp`, which adds
-`ibp*` device-name detection on top of upstream 3.3.9).
+ConnectX-7 IB cluster, container `gpu_882f6e72.sqsh`.
+
+### Versions
+
+| Library | Version | Source |
+|---|---|---|
+| **NVSHMEM** | **3.3.9-ibp** | internal fork `~/workspace/nvshmem`, commit `4bc54ac` (= upstream `8a43de2 NVSHMEM 3.3.9` + `4bc54ac Detect ibp devices`). Built with `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default). |
+| **NCCL** | **2.30.4+cuda13.2** | pip wheel `nvidia-nccl-cu13==2.30.4` at `~/workspace/nccl-pip/nvidia/nccl/`. |
+| **nccl-tests** | upstream HEAD on `2026-05-04` | built with `MPI=1 MPI_HOME=/usr/local/mpi NCCL_HOME=<above>` against the wheel above. |
+| **CUDA** | 13.0.88 | container's `/usr/local/cuda` |
+| **PyTorch** | (not used for these benches) | |
+
+### What's NVLS / what's "symmetric kernel"?
+
+H200 has hardware **NVLink-SHARP multicast** ("NVLS"). Both NCCL and NVSHMEM detect this and
+will use multicast paths for some collectives by default; we verified at runtime:
+
+```
+NCCL INFO NVLS multicast support is available on dev 0..7
+NCCL INFO NVLS tuning: nChannels 16 chunkSize 131072 treeMaxChunkSize 131072
+```
+
+NCCL 2.30 also has a separate "**symmetric memory**" code path. When NCCL's communicator
+exposes a symmetric memory window (similar to NVSHMEM's symmetric heap), tasks can be
+converted into symmetric kernels (`ncclSymmetricTaskScheduler`, `[Symmetric]` log tag)
+that bypass the legacy ring/tree dispatch entirely. nccl-tests by default uses
+`cudaMalloc`'d buffers (no window registration), so symmetric kernels are off — unless
+you set **`NCCL_SYM_NOWIN_ENABLE=1`**, which lets NCCL convert non-window buffers to
+symmetric tasks at runtime.
+
+The `compare_*.png` figures show six series so the four configurations stand on their own:
+
+| Series | Env | What it is |
+|---|---|---|
+| NVSHMEM device (default) | `NVSHMEM_DISABLE_NVLS=0` | NVSHMEM kernel-initiated coll, NVLS allowed |
+| NVSHMEM device (NVLS off) | `NVSHMEM_DISABLE_NVLS=1` | Same kernel, NVLS multicast disabled |
+| NVSHMEM host on_stream | (default) | CPU-initiated stream-ordered coll, NVLS allowed |
+| NCCL default | (defaults: `NVLS_ENABLE=1`, `SYM_NOWIN_ENABLE=0`) | Auto-tuner with NVLS available, no sym kernel |
+| NCCL sym | `NCCL_SYM_NOWIN_ENABLE=1` | Same, but auto-promote cudaMalloc buffers to symmetric tasks |
+| NCCL no-NVLS | `NCCL_NVLS_ENABLE=0` | Auto-tuner without NVLS multicast |
+
+Run scripts: `run_4_2_1_sym.sh`, `run_4_2_1_nvls.sh`, `run_4_1_2_nvshmem_nvls.sh`.
 
 ## Reproduce
 
@@ -200,6 +239,39 @@ All numbers are out-of-place latency at 64 KiB / 1 MiB; intranode = 8 ranks on 1
 * **Large-message bandwidth** (≥ 1 MiB): NCCL wins for ring/tree-friendly ops (allreduce, broadcast, alltoall inter) thanks to its tuned multi-stage ring + chunked schedule. NVSHMEM device collectives use simpler one-shot algorithms and do not chunk.
 * **NVSHMEM host on_stream** sits between the two: same algorithms as the device kernel but with a CPU launch per call, so it pays ~25 µs floor like NCCL but doesn't have NCCL's tuned algorithms.
 * **`allreduce`** stops at 1 KiB for the device binary because reduction's perftest is sized that way (we can re-run with `-e` to extend).
+
+### Symmetric kernel (NCCL_SYM_NOWIN_ENABLE) impact
+
+For all_reduce intra-node 8 GPU, sym=on (`NCCL_SYM_NOWIN_ENABLE=1`) wins consistently 1.15-1.20× at small-to-medium sizes:
+
+| Size | sym=0 (default) | sym=1 (NCCL_SYM_NOWIN_ENABLE=1) | Speedup |
+|---|---|---|---|
+| 4 B | 42.7 µs | 34.1 µs | 1.25× |
+| 64 B | 40.4 µs | 33.9 µs | 1.19× |
+| 1 KiB | 40.6 µs | 34.4 µs | 1.18× |
+| 64 KiB | 45.4 µs | 37.2 µs | 1.22× |
+| 1 MiB | 49.9 µs | 41.6 µs | 1.20× |
+| 8 MiB | 82.8 µs | 82.9 µs | 1.00× (BW-bound) |
+| 32 MiB | 198 µs | 198 µs | 1.00× |
+
+The symmetric kernel removes ~6-8 µs of launch-boundary overhead per call, which dominates at small/medium sizes but is invisible once the BW frontier is hit.
+
+### NVLS (NCCL_NVLS_ENABLE / NVSHMEM_DISABLE_NVLS) impact
+
+NCCL on H200 (intra 8 GPU):
+
+| Op | NVLS off (NCCL_NVLS_ENABLE=0) | NVLS on (default) | NVLS speedup |
+|---|---|---|---|
+| broadcast 1 KiB | 40.0 µs | 32.2 µs | **1.24×** |
+| broadcast 1 MiB | 45.9 µs | 38.5 µs | **1.19×** |
+| broadcast 32 MiB | 127 µs | 127 µs | ~1.00× (BW frontier) |
+| all_reduce 1 KiB | 34.6 µs | 40.6 µs | 0.85× ← NVLS slower! |
+| all_reduce 1 MiB | 41.3 µs | 48.1 µs | 0.86× |
+| all_reduce 32 MiB | 209 µs | 200 µs | 1.05× |
+
+So **NVLS helps broadcast a lot, but the NCCL auto-tuner picks a sub-optimal NVLS-allreduce path for 8-GPU H200 at small-to-medium sizes** — the LL/Simple ring path is faster there. At 32 MiB NVLS catches up. Worth knowing if you're tuning a model that does lots of small allreduces.
+
+NVSHMEM device collectives in our build are essentially **insensitive to NVSHMEM_DISABLE_NVLS** for `bcast` at block scope (1.0× across all sizes) — meaning the NVSHMEM `bcast_latency` device binary is *not* picking up NVLS multicast even when it's available. The kernel uses a tree-based broadcast that doesn't engage the multicast hardware. For `reduction` and `alltoall` the same is true (within noise). This is consistent with NVSHMEM 3.3.9 only enabling NVLS for specific code paths (`REDUCE_NVLS_THRESHOLD` for one-shot allreduce, `FCOLLECT_NVLS_THRESHOLD` for fcollect) that the perftest binaries don't always exercise.
 
 ## Caveats
 

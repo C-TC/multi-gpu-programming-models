@@ -23,3 +23,4 @@ nccl-tests/
 # Python cache
 __pycache__/
 *.pyc
+*.debug

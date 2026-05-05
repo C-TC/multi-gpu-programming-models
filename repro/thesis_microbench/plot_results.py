@@ -384,56 +384,76 @@ COLL_MAP = [
 
 
 def plot_per_collective_comparison(name: str, dev_base: str, host_base: str, nccl_base: str):
-    """Per-collective: 2 subplots (intra 8r, inter 16r). Each shows up to 3 series:
-       NVSHMEM device, NVSHMEM host on_stream, NCCL."""
-    fig, axes = plt.subplots(1, 2, figsize=(14, 5))
+    """Per-collective: 2 subplots (intra 8r, inter 16r). Each shows up to 5 series:
+       NVSHMEM device (default = NVLS on),
+       NVSHMEM device with NVSHMEM_DISABLE_NVLS=1 (NVLS off),
+       NVSHMEM host on_stream (default),
+       NCCL default (NCCL_NVLS_ENABLE=1, NCCL_SYM_NOWIN_ENABLE=0),
+       NCCL with NCCL_SYM_NOWIN_ENABLE=1 (sym kernels for cudaMalloc'd bufs),
+       NCCL with NCCL_NVLS_ENABLE=0 (NVLS off)."""
+    fig, axes = plt.subplots(1, 2, figsize=(15, 6))
     plotted_any = False
     for ax, scen, n in [(axes[0], "intra", 8), (axes[1], "inter", 16)]:
-        # NVSHMEM device kernel
-        dev_log = RES / f"coll_{scen}_{dev_base}_{n}r_msgsize{TAG}.log"
-        dev_rows = parse_size_bw(dev_log)
+        # NVSHMEM device kernel (default = NVLS on)
+        dev_rows = parse_size_bw(RES / f"coll_{scen}_{dev_base}_{n}r_msgsize{TAG}.log")
+        # NVSHMEM device kernel with NVLS off
+        dev_nvls_off_rows = parse_size_bw(RES / f"coll_{scen}_{dev_base}_{n}r_msgsize_nvls1{TAG}.log")
         # NVSHMEM host on_stream
-        host_log = RES / f"coll_{scen}_{host_base}_{n}r_msgsize{TAG}.log"
-        host_rows = parse_size_bw(host_log)
-        # NCCL
+        host_rows = parse_size_bw(RES / f"coll_{scen}_{host_base}_{n}r_msgsize{TAG}.log")
+        # NCCL default (NVLS+ring autotuner)
         nccl_label = f"{nccl_base}_8g" if scen == "intra" else f"{nccl_base}_2x8"
-        nccl_log = RES / f"nccl_{scen}_{nccl_label}{TAG}.log"
-        nccl_rows = parse_nccl_log(nccl_log)
+        nccl_rows = parse_nccl_log(RES / f"nccl_{scen}_{nccl_label}{TAG}.log")
+        # NCCL with sym kernel
+        nccl_sym_rows = parse_nccl_log(RES / f"nccl_{scen}_{nccl_label}_sym1{TAG}.log")
+        # NCCL with NVLS off
+        nccl_nvls_off_rows = parse_nccl_log(RES / f"nccl_{scen}_{nccl_label}_nvls0{TAG}.log")
 
-        # Determine NVSHMEM dev sub-config label dynamically.
         if dev_base in ("alltoall_latency", "bcast_latency", "fcollect_latency"):
-            nvs_dev_label = "NVSHMEM device kernel (block scope, 32-bit)"
+            nvs_label = "NVSHMEM device (block, 32-bit, NVLS on)"
+            nvs_off_label = "NVSHMEM device (NVLS off via NVSHMEM_DISABLE_NVLS=1)"
         else:
-            nvs_dev_label = "NVSHMEM device kernel (thread scope, int32+sum)"
+            nvs_label = "NVSHMEM device (thread, int32+sum, NVLS on)"
+            nvs_off_label = "NVSHMEM device (NVLS off)"
 
         if dev_rows:
             xs, ys = zip(*dev_rows)
-            ax.loglog(xs, ys, marker="o", ms=4, color="tab:blue", linestyle="-",
-                      label=nvs_dev_label)
-            plotted_any = True
+            ax.loglog(xs, ys, marker="o", ms=3, color="tab:blue", linestyle="-",
+                      label=nvs_label); plotted_any = True
+        if dev_nvls_off_rows:
+            xs, ys = zip(*dev_nvls_off_rows)
+            ax.loglog(xs, ys, marker="o", ms=3, mfc="none", color="tab:cyan", linestyle="-",
+                      label=nvs_off_label); plotted_any = True
         if host_rows:
             xs, ys = zip(*host_rows)
-            ax.loglog(xs, ys, marker="^", ms=4, color="tab:orange", linestyle="-.",
-                      label="NVSHMEM host on_stream (CPU-initiated)")
-            plotted_any = True
+            ax.loglog(xs, ys, marker="^", ms=3, color="tab:orange", linestyle="-.",
+                      label="NVSHMEM host on_stream"); plotted_any = True
         if nccl_rows:
             xs = [r[0] for r in nccl_rows]; ys = [r[1] for r in nccl_rows]
-            ax.loglog(xs, ys, marker="s", ms=4, color="tab:green", linestyle="--",
-                      label="NCCL (auto-tuner)")
-            plotted_any = True
+            ax.loglog(xs, ys, marker="s", ms=3, color="tab:green", linestyle="--",
+                      label="NCCL default (NVLS on, sym off)"); plotted_any = True
+        if nccl_sym_rows:
+            xs = [r[0] for r in nccl_sym_rows]; ys = [r[1] for r in nccl_sym_rows]
+            ax.loglog(xs, ys, marker="s", ms=3, mfc="none", color="tab:olive", linestyle=":",
+                      label="NCCL sym (NCCL_SYM_NOWIN_ENABLE=1)"); plotted_any = True
+        if nccl_nvls_off_rows:
+            xs = [r[0] for r in nccl_nvls_off_rows]; ys = [r[1] for r in nccl_nvls_off_rows]
+            ax.loglog(xs, ys, marker="x", ms=4, color="tab:red", linestyle="--",
+                      label="NCCL no-NVLS (NCCL_NVLS_ENABLE=0)"); plotted_any = True
 
         scen_label = f"intranode 1×{n}" if scen == "intra" else f"internode 2×{n // 2}"
         ax.set_title(f"{name} — {scen_label}")
         ax.set_xlabel("message size (B)")
         ax.set_ylabel("latency (µs)")
         ax.grid(True, which="both", alpha=0.3)
-        ax.legend(fontsize=8, loc="upper left")
+        ax.legend(fontsize=7, loc="upper left")
 
     if not plotted_any:
         plt.close(fig)
         return
-    fig.suptitle(f"4.2.1 NCCL vs NVSHMEM — {name} (H200, NVSHMEM 3.3.9-ibp; no NCCL fallback in this build)",
-                 y=1.02)
+    fig.suptitle(
+        f"4.2.1 NCCL vs NVSHMEM — {name}\n"
+        f"NVSHMEM 3.3.9-ibp (NVSHMEM_USE_NCCL=OFF) vs NCCL 2.30.4 (cu13 wheel) on H200; H200 has NVLink-SHARP multicast",
+        y=1.04, fontsize=10)
     fig.tight_layout()
     safe = name.replace("/", "_").replace(" ", "_")
     fig.savefig(FIG / f"compare_{safe}.png", dpi=150, bbox_inches="tight")
