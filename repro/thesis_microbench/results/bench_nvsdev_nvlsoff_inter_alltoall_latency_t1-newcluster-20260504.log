@@ -1,0 +1,158 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+64          16        32-bit    thread    46.371841         0.001         0.001       
+128         32        32-bit    thread    46.626558         0.003         0.003       
+256         64        32-bit    thread    46.485758         0.006         0.005       
+512         128       32-bit    thread    50.399361         0.010         0.010       
+1024        256       32-bit    thread    51.569281         0.020         0.019       
+2048        512       32-bit    thread    54.174080         0.038         0.035       
+4096        1024      32-bit    thread    59.903998         0.068         0.064       
+8192        2048      32-bit    thread    70.878081         0.116         0.108       
+16384       4096      32-bit    thread    93.520002         0.175         0.164       
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+64          16        32-bit    warp      26.320000         0.002         0.002       
+128         32        32-bit    warp      26.809599         0.005         0.004       
+256         64        32-bit    warp      26.151040         0.010         0.009       
+512         128       32-bit    warp      28.452480         0.018         0.017       
+1024        256       32-bit    warp      28.456321         0.036         0.034       
+2048        512       32-bit    warp      29.775360         0.069         0.064       
+4096        1024      32-bit    warp      27.792640         0.147         0.138       
+8192        2048      32-bit    warp      28.094721         0.292         0.273       
+16384       4096      32-bit    warp      29.920640         0.548         0.513       
+32768       8192      32-bit    warp      32.715521         1.002         0.939       
+65536       16384     32-bit    warp      38.942721         1.683         1.578       
+131072      32768     32-bit    warp      50.890241         2.576         2.415       
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+64          16        32-bit    block     27.620480         0.002         0.002       
+128         32        32-bit    block     25.823359         0.005         0.005       
+256         64        32-bit    block     25.862401         0.010         0.009       
+512         128       32-bit    block     25.525761         0.020         0.019       
+1024        256       32-bit    block     25.985279         0.039         0.037       
+2048        512       32-bit    block     25.495679         0.080         0.075       
+4096        1024      32-bit    block     25.489280         0.161         0.151       
+8192        2048      32-bit    block     25.683839         0.319         0.299       
+16384       4096      32-bit    block     25.684481         0.638         0.598       
+32768       8192      32-bit    block     25.499520         1.285         1.205       
+65536       16384     32-bit    block     25.984640         2.522         2.364       
+131072      32768     32-bit    block     26.804481         4.890         4.584       
+262144      65536     32-bit    block     32.234881         8.132         7.624       
+524288      131072    32-bit    block     40.103679         13.073        12.256      
+1048576     262144    32-bit    block     53.994241         19.420        18.206      
+2097152     524288    32-bit    block     80.054398         26.197        24.559      
+4194304     1048576   32-bit    block     128.702717        32.589        30.552      
+8388608     2097152   32-bit    block     228.658562        36.686        34.393      
+16777216    4194304   32-bit    block     429.029770        39.105        36.661      
+33554432    8388608   32-bit    block     1246.540833       26.918        25.236      
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         16        64-bit    thread    44.825602         0.003         0.003       
+256         32        64-bit    thread    45.830402         0.006         0.005       
+512         64        64-bit    thread    50.080638         0.010         0.010       
+1024        128       64-bit    thread    50.247040         0.020         0.019       
+2048        256       64-bit    thread    52.846718         0.039         0.036       
+4096        512       64-bit    thread    58.785281         0.070         0.065       
+8192        1024      64-bit    thread    69.889278         0.117         0.110       
+16384       2048      64-bit    thread    149.688959        0.109         0.103       
+32768       4096      64-bit    thread    136.413441        0.240         0.225       
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         16        64-bit    warp      25.835519         0.005         0.005       
+256         32        64-bit    warp      25.489919         0.010         0.009       
+512         64        64-bit    warp      27.790720         0.018         0.017       
+1024        128       64-bit    warp      27.792640         0.037         0.035       
+2048        256       64-bit    warp      27.982719         0.073         0.069       
+4096        512       64-bit    warp      27.959039         0.147         0.137       
+8192        1024      64-bit    warp      28.439679         0.288         0.270       
+16384       2048      64-bit    warp      30.071681         0.545         0.511       
+32768       4096      64-bit    warp      33.529601         0.977         0.916       
+65536       8192      64-bit    warp      38.441601         1.705         1.598       
+131072      16384     64-bit    warp      50.720639         2.584         2.423       
+262144      32768     64-bit    warp      75.791998         3.459         3.243       
+#alltoall_device
+size(B)     count     type      scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         16        64-bit    block     26.148479         0.005         0.005       
+256         32        64-bit    block     26.172800         0.010         0.009       
+512         64        64-bit    block     25.660801         0.020         0.019       
+1024        128       64-bit    block     25.806720         0.040         0.037       
+2048        256       64-bit    block     25.658240         0.080         0.075       
+4096        512       64-bit    block     25.651841         0.160         0.150       
+8192        1024      64-bit    block     25.671680         0.319         0.299       
+16384       2048      64-bit    block     25.819521         0.635         0.595       
+32768       4096      64-bit    block     27.626240         1.186         1.112       
+65536       8192      64-bit    block     26.154881         2.506         2.349       
+131072      16384     64-bit    block     26.688640         4.911         4.604       
+262144      32768     64-bit    block     32.227840         8.134         7.626       
+524288      65536     64-bit    block     39.915521         13.135        12.314      
+1048576     131072    64-bit    block     53.517442         19.593        18.369      
+2097152     262144    64-bit    block     80.388479         26.088        24.457      
+4194304     524288    64-bit    block     129.379196        32.419        30.393      
+8388608     1048576   64-bit    block     226.722565        36.999        34.687      
+16777216    2097152   64-bit    block     426.075516        39.376        36.915      
+33554432    4194304   64-bit    block     1240.746918       27.044        25.354      
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 4 mype_node: 4 device name: NVIDIA H200 bus id: 155 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 2 mype_node: 2 device name: NVIDIA H200 bus id: 63 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 3 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 9 mype_node: 1 device name: NVIDIA H200 bus id: 45 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 6 mype_node: 6 device name: NVIDIA H200 bus id: 191 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 7 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 5 mype_node: 5 device name: NVIDIA H200 bus id: 174 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 8 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 13 mype_node: 5 device name: NVIDIA H200 bus id: 174 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 11 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 12 mype_node: 4 device name: NVIDIA H200 bus id: 155 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 15 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 14 mype_node: 6 device name: NVIDIA H200 bus id: 191 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 10 mype_node: 2 device name: NVIDIA H200 bus id: 63 

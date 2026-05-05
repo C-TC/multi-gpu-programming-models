@@ -177,26 +177,32 @@ python3 repro/thesis_microbench/plot_results.py
   `--container-mounts=/mnt/vast:/mnt/vast,/etc/slurm:/etc/slurm` so the slurm
   client inside the container can reach the controller config.
 
-## Files
+## Files (rigorous re-bench, 2026-05-05)
 
 ```
 repro/thesis_microbench/
 ├── README.md                      ← this file
 ├── scripts/
 │   ├── build_nvshmem.sh           ← cmake build of NVSHMEM 3.3.9-ibp + perftest
-│   ├── run_4_1_1_p2p.sh           ← 6 P2P APIs × 3 sweeps × 2 scenarios
-│   ├── run_4_1_2_coll.sh          ← 5 NVSHMEM device collectives + rank-scaling
-│   ├── run_4_2_1_nccl.sh          ← initial NCCL all_reduce_perf + alltoall_perf
-│   └── run_4_2_1_extended.sh      ← all 5 NCCL collectives + 5 NVSHMEM host on_stream
-├── plot_results.py                ← parse perftest + nccl-tests logs → 16 figures
+│   ├── bench_rigorous.sh          ← unified rigorous bench: 8 trials × (20 warmup + 50 timed iters)
+│   │                                NCCL 5 ops × {default, sym -R 2, NVLS off}
+│   │                                NVSHMEM device 5 ops × {NVLS on, NVLS off}
+│   │                                NVSHMEM P2P 6 APIs (intra+inter)
+│   ├── analyze_rigorous.py        ← parse all bench logs → mean ± stddev tables + plots
+│   └── (older single-trial sweep scripts kept for reference)
+├── plot_results.py                ← legacy single-trial plot script (superseded by analyze_rigorous.py)
 └── results/
-    ├── *.log                      ← per-config raw output (~220 files)
-    └── figures/                   ← 16 PNG plots
-        ├── p2p_*.png              ← 7 P2P plots (msg-size/TPB/CTA × intra/inter + ping-pong)
-        ├── coll_msgsize_*.png     ← 2 (intra 1×8, inter 2×8)
-        ├── coll_rank_scaling.png  ← rank-count scaling
-        ├── nccl_vs_nvshmem.png    ← combined alltoall+allreduce summary
-        └── compare_*.png          ← 5 per-collective comparison plots
+    ├── bench_<config>_<scenario>_<op>_t<trial>{TAG}.log   ← raw per-trial output
+    │                              (NCCL 240 + NVSHMEM device ~110 + P2P ~88)
+    ├── probe_*.log                ← NCCL_DEBUG cost-table captures (autotuner internals)
+    └── figures/
+        ├── compare_<op>.png       ← 5 per-collective comparisons (alltoall, all_reduce, broadcast, all_gather, reduce_scatter)
+        │                            Each: 2 subplots (intra 1×8, inter 2×8); up to 5 lines per subplot
+        │                            with mean ± stddev errorbars over 8 trials
+        ├── p2p_intra.png          ← 6 NVSHMEM P2P APIs intra-node, mean ± stddev
+        ├── p2p_inter.png          ← 6 P2P APIs inter-node (g/p/atomic capped at 1 MiB)
+        └── sym_kernel_8trials.png ← original 3-config sym kernel pilot (subset of bench above)
+```
                                      (alltoall, allreduce/sum, broadcast, allgather/fcollect, reducescatter/sum)
 ```
 

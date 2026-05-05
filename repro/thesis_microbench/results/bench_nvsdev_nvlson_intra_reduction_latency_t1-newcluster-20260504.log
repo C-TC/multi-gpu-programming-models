@@ -1,0 +1,726 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     sum       t         13.427199         0.000         0.001       
+8           2         int32     sum       t         12.652799         0.001         0.001       
+16          4         int32     sum       t         12.940800         0.001         0.002       
+32          8         int32     sum       t         14.380801         0.002         0.004       
+64          16        int32     sum       t         17.011200         0.004         0.007       
+128         32        int32     sum       t         19.379200         0.007         0.012       
+256         64        int32     sum       t         27.558401         0.009         0.016       
+512         128       int32     sum       t         43.820801         0.012         0.020       
+1024        256       int32     sum       t         76.652801         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     prod      t         12.729600         0.000         0.001       
+8           2         int32     prod      t         12.691200         0.001         0.001       
+16          4         int32     prod      t         12.665600         0.001         0.002       
+32          8         int32     prod      t         14.387199         0.002         0.004       
+64          16        int32     prod      t         16.102400         0.004         0.007       
+128         32        int32     prod      t         19.417600         0.007         0.012       
+256         64        int32     prod      t         27.404800         0.009         0.016       
+512         128       int32     prod      t         45.459199         0.011         0.020       
+1024        256       int32     prod      t         78.214401         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     and       t         12.755200         0.000         0.001       
+8           2         int32     and       t         12.896000         0.001         0.001       
+16          4         int32     and       t         12.627199         0.001         0.002       
+32          8         int32     and       t         14.355201         0.002         0.004       
+64          16        int32     and       t         16.051200         0.004         0.007       
+128         32        int32     and       t         19.340800         0.007         0.012       
+256         64        int32     and       t         27.692801         0.009         0.016       
+512         128       int32     and       t         45.376000         0.011         0.020       
+1024        256       int32     and       t         76.704001         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     or        t         12.601601         0.000         0.001       
+8           2         int32     or        t         12.774400         0.001         0.001       
+16          4         int32     or        t         12.825599         0.001         0.002       
+32          8         int32     or        t         14.272000         0.002         0.004       
+64          16        int32     or        t         16.051200         0.004         0.007       
+128         32        int32     or        t         19.174400         0.007         0.012       
+256         64        int32     or        t         27.552000         0.009         0.016       
+512         128       int32     or        t         45.222399         0.011         0.020       
+1024        256       int32     or        t         78.272003         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     xor       t         14.393599         0.000         0.000       
+8           2         int32     xor       t         12.710400         0.001         0.001       
+16          4         int32     xor       t         12.908800         0.001         0.002       
+32          8         int32     xor       t         14.521600         0.002         0.004       
+64          16        int32     xor       t         16.076800         0.004         0.007       
+128         32        int32     xor       t         19.334400         0.007         0.012       
+256         64        int32     xor       t         27.660799         0.009         0.016       
+512         128       int32     xor       t         44.025600         0.012         0.020       
+1024        256       int32     xor       t         78.521597         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     min       t         12.620801         0.000         0.001       
+8           2         int32     min       t         12.697600         0.001         0.001       
+16          4         int32     min       t         12.729600         0.001         0.002       
+32          8         int32     min       t         14.508800         0.002         0.004       
+64          16        int32     min       t         15.827200         0.004         0.007       
+128         32        int32     min       t         19.366400         0.007         0.012       
+256         64        int32     min       t         27.456000         0.009         0.016       
+512         128       int32     min       t         45.695999         0.011         0.020       
+1024        256       int32     min       t         78.483200         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     max       t         14.304000         0.000         0.000       
+8           2         int32     max       t         12.665600         0.001         0.001       
+16          4         int32     max       t         12.768000         0.001         0.002       
+32          8         int32     max       t         14.348800         0.002         0.004       
+64          16        int32     max       t         16.166399         0.004         0.007       
+128         32        int32     max       t         19.308800         0.007         0.012       
+256         64        int32     max       t         27.532801         0.009         0.016       
+512         128       int32     max       t         45.382401         0.011         0.020       
+1024        256       int32     max       t         76.812798         0.013         0.023       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     sum       t         12.806401         0.001         0.001       
+16          2         int64     sum       t         12.755200         0.001         0.002       
+32          4         int64     sum       t         12.659200         0.003         0.004       
+64          8         int64     sum       t         14.284800         0.004         0.008       
+128         16        int64     sum       t         17.036800         0.008         0.013       
+256         32        int64     sum       t         24.352001         0.011         0.018       
+512         64        int64     sum       t         35.968000         0.014         0.025       
+1024        128       int64     sum       t         60.172802         0.017         0.030       
+2048        256       int64     sum       t         109.331203        0.019         0.033       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     prod      t         12.953600         0.001         0.001       
+16          2         int64     prod      t         12.793601         0.001         0.002       
+32          4         int64     prod      t         14.272000         0.002         0.004       
+64          8         int64     prod      t         14.316800         0.004         0.008       
+128         16        int64     prod      t         17.606400         0.007         0.013       
+256         32        int64     prod      t         24.300800         0.011         0.018       
+512         64        int64     prod      t         35.916799         0.014         0.025       
+1024        128       int64     prod      t         60.204798         0.017         0.030       
+2048        256       int64     prod      t         111.091197        0.018         0.032       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     and       t         12.672000         0.001         0.001       
+16          2         int64     and       t         12.710400         0.001         0.002       
+32          4         int64     and       t         12.684800         0.003         0.004       
+64          8         int64     and       t         14.380801         0.004         0.008       
+128         16        int64     and       t         17.644800         0.007         0.013       
+256         32        int64     and       t         22.732800         0.011         0.020       
+512         64        int64     and       t         35.673600         0.014         0.025       
+1024        128       int64     and       t         58.713597         0.017         0.031       
+2048        256       int64     and       t         107.718396        0.019         0.033       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     or        t         12.736000         0.001         0.001       
+16          2         int64     or        t         12.819199         0.001         0.002       
+32          4         int64     or        t         13.043199         0.002         0.004       
+64          8         int64     or        t         14.399999         0.004         0.008       
+128         16        int64     or        t         17.651200         0.007         0.013       
+256         32        int64     or        t         24.096000         0.011         0.019       
+512         64        int64     or        t         35.827199         0.014         0.025       
+1024        128       int64     or        t         58.617598         0.017         0.031       
+2048        256       int64     or        t         106.188798        0.019         0.034       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     xor       t         12.831999         0.001         0.001       
+16          2         int64     xor       t         12.652799         0.001         0.002       
+32          4         int64     xor       t         12.748800         0.003         0.004       
+64          8         int64     xor       t         14.560001         0.004         0.008       
+128         16        int64     xor       t         17.504001         0.007         0.013       
+256         32        int64     xor       t         24.217600         0.011         0.018       
+512         64        int64     xor       t         35.552001         0.014         0.025       
+1024        128       int64     xor       t         58.694398         0.017         0.031       
+2048        256       int64     xor       t         107.801604        0.019         0.033       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     min       t         14.246400         0.001         0.001       
+16          2         int64     min       t         12.736000         0.001         0.002       
+32          4         int64     min       t         12.825599         0.002         0.004       
+64          8         int64     min       t         14.572801         0.004         0.008       
+128         16        int64     min       t         17.772800         0.007         0.013       
+256         32        int64     min       t         24.044800         0.011         0.019       
+512         64        int64     min       t         36.723199         0.014         0.024       
+1024        128       int64     min       t         60.364801         0.017         0.030       
+2048        256       int64     min       t         111.974394        0.018         0.032       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     max       t         12.710400         0.001         0.001       
+16          2         int64     max       t         12.646399         0.001         0.002       
+32          4         int64     max       t         14.278400         0.002         0.004       
+64          8         int64     max       t         14.521600         0.004         0.008       
+128         16        int64     max       t         17.683201         0.007         0.013       
+256         32        int64     max       t         24.307200         0.011         0.018       
+512         64        int64     max       t         35.731199         0.014         0.025       
+1024        128       int64     max       t         60.217601         0.017         0.030       
+2048        256       int64     max       t         111.212802        0.018         0.032       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     sum       w         12.793601         0.000         0.001       
+8           2         int32     sum       w         12.844799         0.001         0.001       
+16          4         int32     sum       w         12.710400         0.001         0.002       
+32          8         int32     sum       w         12.672000         0.003         0.004       
+64          16        int32     sum       w         12.921600         0.005         0.009       
+128         32        int32     sum       w         12.857600         0.010         0.017       
+256         64        int32     sum       w         14.342400         0.018         0.031       
+512         128       int32     sum       w         16.076800         0.032         0.056       
+1024        256       int32     sum       w         20.883200         0.049         0.086       
+2048        512       int32     sum       w         29.158401         0.070         0.123       
+4096        1024      int32     sum       w         42.329600         0.097         0.169       
+8192        2048      int32     sum       w         73.388797         0.112         0.195       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     prod      w         14.304000         0.000         0.000       
+8           2         int32     prod      w         12.755200         0.001         0.001       
+16          4         int32     prod      w         13.811199         0.001         0.002       
+32          8         int32     prod      w         12.748800         0.003         0.004       
+64          16        int32     prod      w         12.780800         0.005         0.009       
+128         32        int32     prod      w         12.672000         0.010         0.018       
+256         64        int32     prod      w         14.284800         0.018         0.031       
+512         128       int32     prod      w         16.128001         0.032         0.056       
+1024        256       int32     prod      w         19.462401         0.053         0.092       
+2048        512       int32     prod      w         29.068801         0.070         0.123       
+4096        1024      int32     prod      w         42.361599         0.097         0.169       
+8192        2048      int32     prod      w         73.420799         0.112         0.195       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     and       w         12.966400         0.000         0.001       
+8           2         int32     and       w         12.883200         0.001         0.001       
+16          4         int32     and       w         12.672000         0.001         0.002       
+32          8         int32     and       w         12.652799         0.003         0.004       
+64          16        int32     and       w         12.934400         0.005         0.009       
+128         32        int32     and       w         12.755200         0.010         0.018       
+256         64        int32     and       w         14.662400         0.017         0.031       
+512         128       int32     and       w         16.108800         0.032         0.056       
+1024        256       int32     and       w         19.225600         0.053         0.093       
+2048        512       int32     and       w         29.139200         0.070         0.123       
+4096        1024      int32     and       w         42.387199         0.097         0.169       
+8192        2048      int32     and       w         74.809599         0.110         0.192       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     or        w         14.355201         0.000         0.000       
+8           2         int32     or        w         12.672000         0.001         0.001       
+16          4         int32     or        w         12.825599         0.001         0.002       
+32          8         int32     or        w         12.947200         0.002         0.004       
+64          16        int32     or        w         12.710400         0.005         0.009       
+128         32        int32     or        w         12.723200         0.010         0.018       
+256         64        int32     or        w         14.368001         0.018         0.031       
+512         128       int32     or        w         16.102400         0.032         0.056       
+1024        256       int32     or        w         19.584000         0.052         0.092       
+2048        512       int32     or        w         28.966400         0.071         0.124       
+4096        1024      int32     or        w         42.259201         0.097         0.170       
+8192        2048      int32     or        w         73.312002         0.112         0.196       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     xor       w         12.633599         0.000         0.001       
+8           2         int32     xor       w         12.915200         0.001         0.001       
+16          4         int32     xor       w         12.768000         0.001         0.002       
+32          8         int32     xor       w         12.736000         0.003         0.004       
+64          16        int32     xor       w         12.774400         0.005         0.009       
+128         32        int32     xor       w         12.748800         0.010         0.018       
+256         64        int32     xor       w         14.483200         0.018         0.031       
+512         128       int32     xor       w         16.614400         0.031         0.054       
+1024        256       int32     xor       w         19.436800         0.053         0.092       
+2048        512       int32     xor       w         29.177600         0.070         0.123       
+4096        1024      int32     xor       w         42.406401         0.097         0.169       
+8192        2048      int32     xor       w         73.286402         0.112         0.196       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     min       w         14.355201         0.000         0.000       
+8           2         int32     min       w         13.676800         0.001         0.001       
+16          4         int32     min       w         12.704000         0.001         0.002       
+32          8         int32     min       w         13.478400         0.002         0.004       
+64          16        int32     min       w         12.787201         0.005         0.009       
+128         32        int32     min       w         12.768000         0.010         0.018       
+256         64        int32     min       w         14.368001         0.018         0.031       
+512         128       int32     min       w         15.795200         0.032         0.057       
+1024        256       int32     min       w         19.417600         0.053         0.092       
+2048        512       int32     min       w         29.241601         0.070         0.123       
+4096        1024      int32     min       w         42.278400         0.097         0.170       
+8192        2048      int32     min       w         73.241597         0.112         0.196       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     max       w         12.691200         0.000         0.001       
+8           2         int32     max       w         12.819199         0.001         0.001       
+16          4         int32     max       w         12.672000         0.001         0.002       
+32          8         int32     max       w         12.524800         0.003         0.004       
+64          16        int32     max       w         12.716800         0.005         0.009       
+128         32        int32     max       w         12.883200         0.010         0.017       
+256         64        int32     max       w         15.859200         0.016         0.028       
+512         128       int32     max       w         15.993600         0.032         0.056       
+1024        256       int32     max       w         20.857599         0.049         0.086       
+2048        512       int32     max       w         28.966400         0.071         0.124       
+4096        1024      int32     max       w         42.278400         0.097         0.170       
+8192        2048      int32     max       w         73.446399         0.112         0.195       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     sum       w         12.697600         0.001         0.001       
+16          2         int64     sum       w         12.768000         0.001         0.002       
+32          4         int64     sum       w         12.716800         0.003         0.004       
+64          8         int64     sum       w         12.819199         0.005         0.009       
+128         16        int64     sum       w         12.953600         0.010         0.017       
+256         32        int64     sum       w         12.825599         0.020         0.035       
+512         64        int64     sum       w         14.425600         0.035         0.062       
+1024        128       int64     sum       w         15.852800         0.065         0.113       
+2048        256       int64     sum       w         21.164800         0.097         0.169       
+4096        512       int64     sum       w         29.286399         0.140         0.245       
+8192        1024      int64     sum       w         43.891200         0.187         0.327       
+16384       2048      int64     sum       w         74.988800         0.218         0.382       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     prod      w         14.278400         0.001         0.001       
+16          2         int64     prod      w         12.889600         0.001         0.002       
+32          4         int64     prod      w         12.921600         0.002         0.004       
+64          8         int64     prod      w         12.684800         0.005         0.009       
+128         16        int64     prod      w         12.908800         0.010         0.017       
+256         32        int64     prod      w         12.806401         0.020         0.035       
+512         64        int64     prod      w         14.585599         0.035         0.061       
+1024        128       int64     prod      w         16.032000         0.064         0.112       
+2048        256       int64     prod      w         20.902400         0.098         0.171       
+4096        512       int64     prod      w         29.158401         0.140         0.246       
+8192        1024      int64     prod      w         43.961599         0.186         0.326       
+16384       2048      int64     prod      w         75.078398         0.218         0.382       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     and       w         12.825599         0.001         0.001       
+16          2         int64     and       w         12.812801         0.001         0.002       
+32          4         int64     and       w         12.838399         0.002         0.004       
+64          8         int64     and       w         12.838399         0.005         0.009       
+128         16        int64     and       w         12.812801         0.010         0.017       
+256         32        int64     and       w         12.620801         0.020         0.035       
+512         64        int64     and       w         14.502400         0.035         0.062       
+1024        128       int64     and       w         15.948801         0.064         0.112       
+2048        256       int64     and       w         21.132800         0.097         0.170       
+4096        512       int64     and       w         27.603200         0.148         0.260       
+8192        1024      int64     and       w         43.795201         0.187         0.327       
+16384       2048      int64     and       w         74.912000         0.219         0.383       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     or        w         12.556800         0.001         0.001       
+16          2         int64     or        w         12.921600         0.001         0.002       
+32          4         int64     or        w         12.831999         0.002         0.004       
+64          8         int64     or        w         12.723200         0.005         0.009       
+128         16        int64     or        w         13.631999         0.009         0.016       
+256         32        int64     or        w         12.684800         0.020         0.035       
+512         64        int64     or        w         14.572801         0.035         0.061       
+1024        128       int64     or        w         16.204800         0.063         0.111       
+2048        256       int64     or        w         21.004800         0.098         0.171       
+4096        512       int64     or        w         29.062399         0.141         0.247       
+8192        1024      int64     or        w         43.788800         0.187         0.327       
+16384       2048      int64     or        w         75.065601         0.218         0.382       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     xor       w         12.972800         0.001         0.001       
+16          2         int64     xor       w         12.684800         0.001         0.002       
+32          4         int64     xor       w         13.068800         0.002         0.004       
+64          8         int64     xor       w         14.297600         0.004         0.008       
+128         16        int64     xor       w         12.716800         0.010         0.018       
+256         32        int64     xor       w         12.940800         0.020         0.035       
+512         64        int64     xor       w         14.425600         0.035         0.062       
+1024        128       int64     xor       w         15.948801         0.064         0.112       
+2048        256       int64     xor       w         20.768000         0.099         0.173       
+4096        512       int64     xor       w         27.756801         0.148         0.258       
+8192        1024      int64     xor       w         576.480007        0.014         0.025       
+16384       2048      int64     xor       w         74.995202         0.218         0.382       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     min       w         14.412799         0.001         0.001       
+16          2         int64     min       w         12.736000         0.001         0.002       
+32          4         int64     min       w         12.947200         0.002         0.004       
+64          8         int64     min       w         12.793601         0.005         0.009       
+128         16        int64     min       w         12.793601         0.010         0.018       
+256         32        int64     min       w         12.672000         0.020         0.035       
+512         64        int64     min       w         14.451200         0.035         0.062       
+1024        128       int64     min       w         16.115201         0.064         0.111       
+2048        256       int64     min       w         21.017601         0.097         0.171       
+4096        512       int64     min       w         29.139200         0.141         0.246       
+8192        1024      int64     min       w         43.820801         0.187         0.327       
+16384       2048      int64     min       w         76.755202         0.213         0.374       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     max       w         12.844799         0.001         0.001       
+16          2         int64     max       w         14.393599         0.001         0.002       
+32          4         int64     max       w         12.831999         0.002         0.004       
+64          8         int64     max       w         12.639999         0.005         0.009       
+128         16        int64     max       w         12.793601         0.010         0.018       
+256         32        int64     max       w         12.819199         0.020         0.035       
+512         64        int64     max       w         14.822400         0.035         0.060       
+1024        128       int64     max       w         15.948801         0.064         0.112       
+2048        256       int64     max       w         20.915200         0.098         0.171       
+4096        512       int64     max       w         29.183999         0.140         0.246       
+8192        1024      int64     max       w         43.993601         0.186         0.326       
+16384       2048      int64     max       w         76.614398         0.214         0.374       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     sum       b         14.502400         0.000         0.000       
+8           2         int32     sum       b         7.750400          0.001         0.002       
+16          4         int32     sum       b         8.025600          0.002         0.003       
+32          8         int32     sum       b         8.044800          0.004         0.007       
+64          16        int32     sum       b         7.820800          0.008         0.014       
+128         32        int32     sum       b         7.769600          0.016         0.029       
+256         64        int32     sum       b         7.910400          0.032         0.057       
+512         128       int32     sum       b         7.852800          0.065         0.114       
+1024        256       int32     sum       b         9.459200          0.108         0.189       
+2048        512       int32     sum       b         12.761600         0.160         0.281       
+4096        1024      int32     sum       b         17.727999         0.231         0.404       
+8192        2048      int32     sum       b         22.560000         0.363         0.635       
+16384       4096      int32     sum       b         57.171202         0.287         0.502       
+32768       8192      int32     sum       b         106.310403        0.308         0.539       
+65536       16384     int32     sum       b         207.763195        0.315         0.552       
+131072      32768     int32     sum       b         410.803223        0.319         0.558       
+262144      65536     int32     sum       b         814.182377        0.322         0.563       
+524288      131072    int32     sum       b         1623.404884       0.323         0.565       
+1048576     262144    int32     sum       b         3237.292862       0.324         0.567       
+2097152     524288    int32     sum       b         6471.263885       0.324         0.567       
+4194304     1048576   int32     sum       b         12934.976196      0.324         0.567       
+8388608     2097152   int32     sum       b         25855.160522      0.324         0.568       
+16777216    4194304   int32     sum       b         53513.055420      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     prod      b         15.993600         0.000         0.000       
+8           2         int32     prod      b         7.801600          0.001         0.002       
+16          4         int32     prod      b         7.910400          0.002         0.004       
+32          8         int32     prod      b         8.000000          0.004         0.007       
+64          16        int32     prod      b         7.987200          0.008         0.014       
+128         32        int32     prod      b         7.737600          0.017         0.029       
+256         64        int32     prod      b         6.924800          0.037         0.065       
+512         128       int32     prod      b         7.737600          0.066         0.116       
+1024        256       int32     prod      b         9.440000          0.108         0.190       
+2048        512       int32     prod      b         12.448000         0.165         0.288       
+4096        1024      int32     prod      b         17.670400         0.232         0.406       
+8192        2048      int32     prod      b         22.649600         0.362         0.633       
+16384       4096      int32     prod      b         56.934398         0.288         0.504       
+32768       8192      int32     prod      b         106.143999        0.309         0.540       
+65536       16384     int32     prod      b         207.750392        0.315         0.552       
+131072      32768     int32     prod      b         409.312010        0.320         0.560       
+262144      65536     int32     prod      b         815.532780        0.321         0.563       
+524288      131072    int32     prod      b         1625.036812       0.323         0.565       
+1048576     262144    int32     prod      b         3238.937759       0.324         0.567       
+2097152     524288    int32     prod      b         6476.735687       0.324         0.567       
+4194304     1048576   int32     prod      b         12939.910889      0.324         0.567       
+8388608     2097152   int32     prod      b         25888.146973      0.324         0.567       
+16777216    4194304   int32     prod      b         53511.761475      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     and       b         14.745601         0.000         0.000       
+8           2         int32     and       b         7.891200          0.001         0.002       
+16          4         int32     and       b         7.756800          0.002         0.004       
+32          8         int32     and       b         7.840000          0.004         0.007       
+64          16        int32     and       b         7.820800          0.008         0.014       
+128         32        int32     and       b         7.846400          0.016         0.029       
+256         64        int32     and       b         7.993600          0.032         0.056       
+512         128       int32     and       b         7.872000          0.065         0.114       
+1024        256       int32     and       b         9.446400          0.108         0.190       
+2048        512       int32     and       b         12.678400         0.162         0.283       
+4096        1024      int32     and       b         17.798400         0.230         0.403       
+8192        2048      int32     and       b         22.656000         0.362         0.633       
+16384       4096      int32     and       b         57.017601         0.287         0.503       
+32768       8192      int32     and       b         106.079996        0.309         0.541       
+65536       16384     int32     and       b         207.667208        0.316         0.552       
+131072      32768     int32     and       b         411.104012        0.319         0.558       
+262144      65536     int32     and       b         813.836765        0.322         0.564       
+524288      131072    int32     and       b         1623.219109       0.323         0.565       
+1048576     262144    int32     and       b         3235.532761       0.324         0.567       
+2097152     524288    int32     and       b         6470.066833       0.324         0.567       
+4194304     1048576   int32     and       b         12936.735535      0.324         0.567       
+8388608     2097152   int32     and       b         25858.047485      0.324         0.568       
+16777216    4194304   int32     and       b         53505.572510      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     or        b         14.732800         0.000         0.000       
+8           2         int32     or        b         7.955200          0.001         0.002       
+16          4         int32     or        b         8.038400          0.002         0.003       
+32          8         int32     or        b         7.801600          0.004         0.007       
+64          16        int32     or        b         7.731200          0.008         0.014       
+128         32        int32     or        b         7.910400          0.016         0.028       
+256         64        int32     or        b         7.859200          0.033         0.057       
+512         128       int32     or        b         8.364800          0.061         0.107       
+1024        256       int32     or        b         9.337600          0.110         0.192       
+2048        512       int32     or        b         12.652799         0.162         0.283       
+4096        1024      int32     or        b         17.727999         0.231         0.404       
+8192        2048      int32     or        b         22.604799         0.362         0.634       
+16384       4096      int32     or        b         57.049602         0.287         0.503       
+32768       8192      int32     or        b         106.041598        0.309         0.541       
+65536       16384     int32     or        b         205.952001        0.318         0.557       
+131072      32768     int32     or        b         409.139204        0.320         0.561       
+262144      65536     int32     or        b         813.030434        0.322         0.564       
+524288      131072    int32     or        b         1621.798325       0.323         0.566       
+1048576     262144    int32     or        b         3234.560013       0.324         0.567       
+2097152     524288    int32     or        b         6467.123413       0.324         0.567       
+4194304     1048576   int32     or        b         12921.714783      0.325         0.568       
+8388608     2097152   int32     or        b         25854.168701      0.324         0.568       
+16777216    4194304   int32     or        b         53426.904297      0.314         0.550       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     xor       b         14.630400         0.000         0.000       
+8           2         int32     xor       b         8.179200          0.001         0.002       
+16          4         int32     xor       b         7.744000          0.002         0.004       
+32          8         int32     xor       b         7.942400          0.004         0.007       
+64          16        int32     xor       b         8.019200          0.008         0.014       
+128         32        int32     xor       b         7.737600          0.017         0.029       
+256         64        int32     xor       b         7.859200          0.033         0.057       
+512         128       int32     xor       b         7.769600          0.066         0.115       
+1024        256       int32     xor       b         9.580800          0.107         0.187       
+2048        512       int32     xor       b         12.716800         0.161         0.282       
+4096        1024      int32     xor       b         17.324799         0.236         0.414       
+8192        2048      int32     xor       b         22.688000         0.361         0.632       
+16384       4096      int32     xor       b         57.100803         0.287         0.502       
+32768       8192      int32     xor       b         106.291199        0.308         0.539       
+65536       16384     int32     xor       b         206.054401        0.318         0.557       
+131072      32768     int32     xor       b         409.068823        0.320         0.561       
+262144      65536     int32     xor       b         813.932800        0.322         0.564       
+524288      131072    int32     xor       b         1623.443222       0.323         0.565       
+1048576     262144    int32     xor       b         3238.873672       0.324         0.567       
+2097152     524288    int32     xor       b         6464.857483       0.324         0.568       
+4194304     1048576   int32     xor       b         12931.449890      0.324         0.568       
+8388608     2097152   int32     xor       b         25847.219849      0.325         0.568       
+16777216    4194304   int32     xor       b         53488.757324      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     min       b         14.336000         0.000         0.000       
+8           2         int32     min       b         7.884800          0.001         0.002       
+16          4         int32     min       b         7.872000          0.002         0.004       
+32          8         int32     min       b         7.878400          0.004         0.007       
+64          16        int32     min       b         8.038400          0.008         0.014       
+128         32        int32     min       b         7.916800          0.016         0.028       
+256         64        int32     min       b         7.897600          0.032         0.057       
+512         128       int32     min       b         7.808000          0.066         0.115       
+1024        256       int32     min       b         9.427200          0.109         0.190       
+2048        512       int32     min       b         12.825599         0.160         0.279       
+4096        1024      int32     min       b         17.664000         0.232         0.406       
+8192        2048      int32     min       b         22.656000         0.362         0.633       
+16384       4096      int32     min       b         56.992000         0.287         0.503       
+32768       8192      int32     min       b         104.588795        0.313         0.548       
+65536       16384     int32     min       b         207.897592        0.315         0.552       
+131072      32768     int32     min       b         409.407997        0.320         0.560       
+262144      65536     int32     min       b         813.887978        0.322         0.564       
+524288      131072    int32     min       b         1621.753693       0.323         0.566       
+1048576     262144    int32     min       b         3233.990479       0.324         0.567       
+2097152     524288    int32     min       b         6471.590424       0.324         0.567       
+4194304     1048576   int32     min       b         12929.101562      0.324         0.568       
+8388608     2097152   int32     min       b         25865.560913      0.324         0.568       
+16777216    4194304   int32     min       b         53466.534424      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+4           1         int32     max       b         14.892800         0.000         0.000       
+8           2         int32     max       b         8.044800          0.001         0.002       
+16          4         int32     max       b         7.859200          0.002         0.004       
+32          8         int32     max       b         7.936000          0.004         0.007       
+64          16        int32     max       b         7.865600          0.008         0.014       
+128         32        int32     max       b         7.833600          0.016         0.029       
+256         64        int32     max       b         7.993600          0.032         0.056       
+512         128       int32     max       b         7.897600          0.065         0.113       
+1024        256       int32     max       b         9.465600          0.108         0.189       
+2048        512       int32     max       b         12.710400         0.161         0.282       
+4096        1024      int32     max       b         17.862400         0.229         0.401       
+8192        2048      int32     max       b         23.033600         0.356         0.622       
+16384       4096      int32     max       b         56.998402         0.287         0.503       
+32768       8192      int32     max       b         106.201601        0.309         0.540       
+65536       16384     int32     max       b         205.983996        0.318         0.557       
+131072      32768     int32     max       b         409.203196        0.320         0.561       
+262144      65536     int32     max       b         814.175987        0.322         0.563       
+524288      131072    int32     max       b         1623.353577       0.323         0.565       
+1048576     262144    int32     max       b         3237.548828       0.324         0.567       
+2097152     524288    int32     max       b         6468.230438       0.324         0.567       
+4194304     1048576   int32     max       b         12936.755371      0.324         0.567       
+8388608     2097152   int32     max       b         25861.361694      0.324         0.568       
+16777216    4194304   int32     max       b         53510.992432      0.314         0.549       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     sum       b         14.598399         0.001         0.001       
+16          2         int64     sum       b         7.840000          0.002         0.004       
+32          4         int64     sum       b         7.904000          0.004         0.007       
+64          8         int64     sum       b         7.987200          0.008         0.014       
+128         16        int64     sum       b         6.272000          0.020         0.036       
+256         32        int64     sum       b         7.808000          0.033         0.057       
+512         64        int64     sum       b         7.692800          0.067         0.116       
+1024        128       int64     sum       b         8.473600          0.121         0.211       
+2048        256       int64     sum       b         11.187200         0.183         0.320       
+4096        512       int64     sum       b         16.134401         0.254         0.444       
+8192        1024      int64     sum       b         17.612800         0.465         0.814       
+16384       2048      int64     sum       b         22.732800         0.721         1.261       
+32768       4096      int64     sum       b         81.548798         0.402         0.703       
+65536       8192      int64     sum       b         157.094395        0.417         0.730       
+131072      16384     int64     sum       b         310.950398        0.422         0.738       
+262144      32768     int64     sum       b         620.601606        0.422         0.739       
+524288      65536     int64     sum       b         1231.916809       0.426         0.745       
+1048576     131072    int64     sum       b         2455.673599       0.427         0.747       
+2097152     262144    int64     sum       b         4903.276825       0.428         0.748       
+4194304     524288    int64     sum       b         9815.411377       0.427         0.748       
+8388608     1048576   int64     sum       b         19616.613770      0.428         0.748       
+16777216    2097152   int64     sum       b         40501.620483      0.414         0.725       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     prod      b         14.803199         0.001         0.001       
+16          2         int64     prod      b         7.801600          0.002         0.004       
+32          4         int64     prod      b         7.916800          0.004         0.007       
+64          8         int64     prod      b         6.355200          0.010         0.018       
+128         16        int64     prod      b         7.916800          0.016         0.028       
+256         32        int64     prod      b         7.872000          0.033         0.057       
+512         64        int64     prod      b         7.833600          0.065         0.114       
+1024        128       int64     prod      b         9.388800          0.109         0.191       
+2048        256       int64     prod      b         11.155200         0.184         0.321       
+4096        512       int64     prod      b         16.012800         0.256         0.448       
+8192        1024      int64     prod      b         19.411200         0.422         0.739       
+16384       2048      int64     prod      b         22.534400         0.727         1.272       
+32768       4096      int64     prod      b         81.388801         0.403         0.705       
+65536       8192      int64     prod      b         158.508801        0.413         0.724       
+131072      16384     int64     prod      b         313.529611        0.418         0.732       
+262144      32768     int64     prod      b         620.768023        0.422         0.739       
+524288      65536     int64     prod      b         1238.368034       0.423         0.741       
+1048576     131072    int64     prod      b         2467.129517       0.425         0.744       
+2097152     262144    int64     prod      b         4929.695892       0.425         0.744       
+4194304     524288    int64     prod      b         9858.329773       0.425         0.745       
+8388608     1048576   int64     prod      b         19706.707764      0.426         0.745       
+16777216    2097152   int64     prod      b         40734.533691      0.412         0.721       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     and       b         14.752001         0.001         0.001       
+16          2         int64     and       b         7.916800          0.002         0.004       
+32          4         int64     and       b         8.025600          0.004         0.007       
+64          8         int64     and       b         8.019200          0.008         0.014       
+128         16        int64     and       b         7.808000          0.016         0.029       
+256         32        int64     and       b         6.393600          0.040         0.070       
+512         64        int64     and       b         8.115200          0.063         0.110       
+1024        128       int64     and       b         9.548800          0.107         0.188       
+2048        256       int64     and       b         11.136000         0.184         0.322       
+4096        512       int64     and       b         16.019200         0.256         0.447       
+8192        1024      int64     and       b         20.985600         0.390         0.683       
+16384       2048      int64     and       b         22.515200         0.728         1.273       
+32768       4096      int64     and       b         79.942399         0.410         0.717       
+65536       8192      int64     and       b         156.934404        0.418         0.731       
+131072      16384     int64     and       b         309.350395        0.424         0.741       
+262144      32768     int64     and       b         614.099216        0.427         0.747       
+524288      65536     int64     and       b         1221.779156       0.429         0.751       
+1048576     131072    int64     and       b         2437.631989       0.430         0.753       
+2097152     262144    int64     and       b         4867.334366       0.431         0.754       
+4194304     524288    int64     and       b         9728.633881       0.431         0.754       
+8388608     1048576   int64     and       b         19452.499390      0.431         0.755       
+16777216    2097152   int64     and       b         40234.246826      0.417         0.730       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     or        b         14.560001         0.001         0.001       
+16          2         int64     or        b         7.910400          0.002         0.004       
+32          4         int64     or        b         7.763200          0.004         0.007       
+64          8         int64     or        b         7.756800          0.008         0.014       
+128         16        int64     or        b         7.782400          0.016         0.029       
+256         32        int64     or        b         7.846400          0.033         0.057       
+512         64        int64     or        b         7.782400          0.066         0.115       
+1024        128       int64     or        b         9.414400          0.109         0.190       
+2048        256       int64     or        b         11.161600         0.183         0.321       
+4096        512       int64     or        b         16.121601         0.254         0.445       
+8192        1024      int64     or        b         17.529599         0.467         0.818       
+16384       2048      int64     or        b         22.649600         0.723         1.266       
+32768       4096      int64     or        b         79.961598         0.410         0.717       
+65536       8192      int64     or        b         157.068801        0.417         0.730       
+131072      16384     int64     or        b         309.164810        0.424         0.742       
+262144      32768     int64     or        b         614.022398        0.427         0.747       
+524288      65536     int64     or        b         1223.379230       0.429         0.750       
+1048576     131072    int64     or        b         2439.315224       0.430         0.752       
+2097152     262144    int64     or        b         4865.715027       0.431         0.754       
+4194304     524288    int64     or        b         9733.574677       0.431         0.754       
+8388608     1048576   int64     or        b         19452.665710      0.431         0.755       
+16777216    2097152   int64     or        b         40230.950928      0.417         0.730       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     xor       b         14.591999         0.001         0.001       
+16          2         int64     xor       b         7.916800          0.002         0.004       
+32          4         int64     xor       b         7.820800          0.004         0.007       
+64          8         int64     xor       b         7.846400          0.008         0.014       
+128         16        int64     xor       b         7.718400          0.017         0.029       
+256         32        int64     xor       b         7.923200          0.032         0.057       
+512         64        int64     xor       b         7.769600          0.066         0.115       
+1024        128       int64     xor       b         9.376000          0.109         0.191       
+2048        256       int64     xor       b         11.033600         0.186         0.325       
+4096        512       int64     xor       b         15.955199         0.257         0.449       
+8192        1024      int64     xor       b         19.289599         0.425         0.743       
+16384       2048      int64     xor       b         22.457600         0.730         1.277       
+32768       4096      int64     xor       b         79.820800         0.411         0.718       
+65536       8192      int64     xor       b         155.398405        0.422         0.738       
+131072      16384     int64     xor       b         309.337592        0.424         0.742       
+262144      32768     int64     xor       b         612.460804        0.428         0.749       
+524288      65536     int64     xor       b         1221.798420       0.429         0.751       
+1048576     131072    int64     xor       b         2436.031914       0.430         0.753       
+2097152     262144    int64     xor       b         4861.049652       0.431         0.755       
+4194304     524288    int64     xor       b         9718.879700       0.432         0.755       
+8388608     1048576   int64     xor       b         19429.670715      0.432         0.756       
+16777216    2097152   int64     xor       b         40176.858521      0.418         0.731       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     min       b         14.566401         0.001         0.001       
+16          2         int64     min       b         7.872000          0.002         0.004       
+32          4         int64     min       b         7.782400          0.004         0.007       
+64          8         int64     min       b         7.756800          0.008         0.014       
+128         16        int64     min       b         7.750400          0.017         0.029       
+256         32        int64     min       b         7.852800          0.033         0.057       
+512         64        int64     min       b         7.827200          0.065         0.114       
+1024        128       int64     min       b         9.523200          0.108         0.188       
+2048        256       int64     min       b         11.769600         0.174         0.305       
+4096        512       int64     min       b         15.923201         0.257         0.450       
+8192        1024      int64     min       b         17.651200         0.464         0.812       
+16384       2048      int64     min       b         22.604799         0.725         1.268       
+32768       4096      int64     min       b         81.555200         0.402         0.703       
+65536       8192      int64     min       b         158.681595        0.413         0.723       
+131072      16384     int64     min       b         312.467194        0.419         0.734       
+262144      32768     int64     min       b         620.607996        0.422         0.739       
+524288      65536     int64     min       b         1238.323212       0.423         0.741       
+1048576     131072    int64     min       b         2465.529633       0.425         0.744       
+2097152     262144    int64     min       b         4922.899246       0.426         0.745       
+4194304     524288    int64     min       b         9846.374512       0.426         0.745       
+8388608     1048576   int64     min       b         19676.882935      0.426         0.746       
+16777216    2097152   int64     min       b         40650.994873      0.413         0.722       
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+8           1         int64     max       b         14.547201         0.001         0.001       
+16          2         int64     max       b         7.942400          0.002         0.004       
+32          4         int64     max       b         7.846400          0.004         0.007       
+64          8         int64     max       b         7.808000          0.008         0.014       
+128         16        int64     max       b         7.814400          0.016         0.029       
+256         32        int64     max       b         7.756800          0.033         0.058       
+512         64        int64     max       b         7.782400          0.066         0.115       
+1024        128       int64     max       b         9.478400          0.108         0.189       
+2048        256       int64     max       b         11.449600         0.179         0.313       
+4096        512       int64     max       b         15.936001         0.257         0.450       
+8192        1024      int64     max       b         19.219200         0.426         0.746       
+16384       2048      int64     max       b         22.649600         0.723         1.266       
+32768       4096      int64     max       b         81.497598         0.402         0.704       
+65536       8192      int64     max       b         158.656001        0.413         0.723       
+131072      16384     int64     max       b         312.537599        0.419         0.734       
+262144      32768     int64     max       b         620.582390        0.422         0.739       
+524288      65536     int64     max       b         1238.156796       0.423         0.741       
+1048576     131072    int64     max       b         2467.110443       0.425         0.744       
+2097152     262144    int64     max       b         4927.923203       0.426         0.745       
+4194304     524288    int64     max       b         9846.419525       0.426         0.745       
+8388608     1048576   int64     max       b         19683.097839      0.426         0.746       
+16777216    2097152   int64     max       b         40676.333618      0.412         0.722       
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 5 mype_node: 5 device name: NVIDIA H200 bus id: 174 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 4 mype_node: 4 device name: NVIDIA H200 bus id: 155 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 7 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 6 mype_node: 6 device name: NVIDIA H200 bus id: 191 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 3 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 2 mype_node: 2 device name: NVIDIA H200 bus id: 63 

@@ -1,0 +1,36 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+Size(Bytes) 		 BWGB/sec
+#shmem_st_bw
+size(B)     scope     BW (GB/sec)     
+4           None      0.003099        
+8           None      0.006071        
+16          None      0.012413        
+32          None      0.024390        
+64          None      0.048924        
+128         None      0.098328        
+256         None      0.195790        
+512         None      0.387785        
+1024        None      0.774069        
+2048        None      1.535509        
+4096        None      3.082852        
+8192        None      6.060606        
+16384       None      12.075471       
+32768       None      22.088007       
+65536       None      43.779392       
+131072      None      78.648232       
+262144      None      127.800316      
+524288      None      183.842026      
+1048576     None      240.905746      
+2097152     None      282.482758      
+4194304     None      310.420593      
+8388608     None      326.577789      
+16777216    None      334.260773      
+33554432    None      329.084778      
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
