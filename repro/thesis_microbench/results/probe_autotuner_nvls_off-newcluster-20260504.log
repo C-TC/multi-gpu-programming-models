@@ -1,0 +1,270 @@
+# nccl-tests version 2.18.3 nccl-headers=23004 nccl-library=23004
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 8 minBytes 1024 maxBytes 33554432 step: 32(factor) warmup iters: 0 iters: 1 agg iters: 1 validation: 1 graph: 0 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2411591 on h200-bar-202-131 device  0 [0000:19:00] NVIDIA H200
+#  Rank  1 Group  0 Pid 2411591 on h200-bar-202-131 device  1 [0000:2d:00] NVIDIA H200
+#  Rank  2 Group  0 Pid 2411591 on h200-bar-202-131 device  2 [0000:3f:00] NVIDIA H200
+#  Rank  3 Group  0 Pid 2411591 on h200-bar-202-131 device  3 [0000:66:00] NVIDIA H200
+#  Rank  4 Group  0 Pid 2411591 on h200-bar-202-131 device  4 [0000:9b:00] NVIDIA H200
+#  Rank  5 Group  0 Pid 2411591 on h200-bar-202-131 device  5 [0000:ae:00] NVIDIA H200
+#  Rank  6 Group  0 Pid 2411591 on h200-bar-202-131 device  6 [0000:bf:00] NVIDIA H200
+#  Rank  7 Group  0 Pid 2411591 on h200-bar-202-131 device  7 [0000:e4:00] NVIDIA H200
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO NCCL version 2.30.4+cuda13.2
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO NCCL git version HEAD 747384637
+h200-bar-202-131:2411591:2411856 [6] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO  Max NThreads |            512 |            640 |            512 |            512 |            640 |            512 |              0 |              0 |            640 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     7.2/ 141.0 |    15.9/ 331.2 |    11.8/ 360.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     7.2/ 141.0 |    15.9/ 331.2 |    11.8/ 360.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    10.8/ 161.1 |    27.3/ 378.5 |    32.2/ 411.4 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |    10.8/ 161.1 |    27.3/ 378.5 |    32.2/ 411.4 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllReduce |    15.2/  43.6 |    31.5/ 128.8 |    64.4/ 165.6 |    15.0/  80.6 |    40.6/ 189.3 |    56.0/ 205.7 |     5.6/   0.0 |     5.6/   0.0 |    44.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO  Max NThreads |              0 |              0 |            640 |              0 |              0 |            640 |              0 |              0 |            640 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |    69.2/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Algorithm   |                             PAT                  |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO  Max NThreads |              0 |              0 |              0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+h200-bar-202-131:2411591:2411850 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+#
+#                                                              out-of-place                       in-place          
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong 
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)         
+        1024           256     float     sum      -1h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   154.23    0.01    0.01       0h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 256 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 256 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 256 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 256 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 256 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 256 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 256 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 256 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+    82.19    0.01    0.02       0
+       32768          8192     float     sum      -1h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+    87.35    0.38    0.66       0h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8192 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8192 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8192 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8192 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8192 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8192 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 32768 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+    88.01    0.37    0.65       0
+     1048576        262144     float     sum      -1h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+    92.14   11.38   19.91       0h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 262144 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 262144 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 262144 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 262144 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 262144 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 262144 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 1048576 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..23}
+    96.50   10.87   19.02       0
+    33554432       8388608     float     sum      -1h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6a800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da87a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8da00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da93a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daa9a00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daafa00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab5a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dabba00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+   260.05  129.03  225.80       0h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da6c800000 recvbuff 0x70da6c800000 count 8388608 datatype 7 op 0 root 0 comm 0x607918ae5e00 [nranks=8] stream 0x6079138e4150
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da89a00000 recvbuff 0x70da89a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918c0ac80 [nranks=8] stream 0x6079141e1760
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da8fa00000 recvbuff 0x70da8fa00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918d30580 [nranks=8] stream 0x607914d0bdd0
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70da95a00000 recvbuff 0x70da95a00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918e5bf10 [nranks=8] stream 0x607915924d20
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70daaba00000 recvbuff 0x70daaba00000 count 8388608 datatype 7 op 0 root 0 comm 0x607918f879e0 [nranks=8] stream 0x607916472660
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab1a00000 recvbuff 0x70dab1a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079190b34d0 [nranks=8] stream 0x607916faaf30
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dab7a00000 recvbuff 0x70dab7a00000 count 8388608 datatype 7 op 0 root 0 comm 0x6079191defe0 [nranks=8] stream 0x607917bf8680
+h200-bar-202-131:2411591:2411591 [7] NCCL INFO AllReduce: opCount 0 sendbuff 0x70dacfc00000 recvbuff 0x70dacfc00000 count 8388608 datatype 7 op 0 root 0 comm 0x60791930aaf0 [nranks=8] stream 0x607918727dc0
+h200-bar-202-131:2411591:2411591 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..23}
+   270.33  124.12  217.22       0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 60.4114 
+#
+# Collective test concluded: all_reduce_perf
+#
+

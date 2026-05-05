@@ -240,21 +240,59 @@ All numbers are out-of-place latency at 64 KiB / 1 MiB; intranode = 8 ranks on 1
 * **NVSHMEM host on_stream** sits between the two: same algorithms as the device kernel but with a CPU launch per call, so it pays ~25 µs floor like NCCL but doesn't have NCCL's tuned algorithms.
 * **`allreduce`** stops at 1 KiB for the device binary because reduction's perftest is sized that way (we can re-run with `-e` to extend).
 
-### Symmetric kernel (NCCL_SYM_NOWIN_ENABLE) impact
+### NCCL autotuner internals (and where sym kernel / NVLS fit)
 
-For all_reduce intra-node 8 GPU, sym=on (`NCCL_SYM_NOWIN_ENABLE=1`) wins consistently 1.15-1.20× at small-to-medium sizes:
+`NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=COLL,TUNING` reveals the model. At `ncclCommInit`, NCCL builds a static **(7 algorithm × 3 protocol) cost table** per collective, where each cell is `(latency_us / bandwidth_GBps)` from a topology probe + calibration constants.
 
-| Size | sym=0 (default) | sym=1 (NCCL_SYM_NOWIN_ENABLE=1) | Speedup |
-|---|---|---|---|
-| 4 B | 42.7 µs | 34.1 µs | 1.25× |
-| 64 B | 40.4 µs | 33.9 µs | 1.19× |
-| 1 KiB | 40.6 µs | 34.4 µs | 1.18× |
-| 64 KiB | 45.4 µs | 37.2 µs | 1.22× |
-| 1 MiB | 49.9 µs | 41.6 µs | 1.20× |
-| 8 MiB | 82.8 µs | 82.9 µs | 1.00× (BW-bound) |
-| 32 MiB | 198 µs | 198 µs | 1.00× |
+For our 8-GPU H200 default config (raw output in `results/probe_autotuner_default-newcluster-20260504.log`), the AllReduce row of the table is:
 
-The symmetric kernel removes ~6-8 µs of launch-boundary overhead per call, which dominates at small/medium sizes but is invisible once the BW frontier is hit.
+```
+Algorithm   |        Tree         |        Ring         |     CollNetDirect    |     CollNetChain     |        NVLS          |       NVLSTree       |        PAT
+Protocol    |  LL  | LL128 | Simple|  LL  | LL128 | Simple|  LL  | LL128 | Simple|  LL  | LL128 | Simple|  LL  | LL128 | Simple|  LL  | LL128 | Simple|  LL  | LL128 | Simple
+AllReduce   |15.2/43.6|31.5/128.8|64.4/165.6|15.0/80.6|40.6/189.3|56.0/205.7|5.6/0|5.6/0|44.0/0|0/0|0/0|69.2/0|0/0|0/0|25.0/272.0|0/0|0/0|25.0/0|0/0|0/0|0/0
+```
+
+Per call, the autotuner picks the (algo, proto) that minimizes `latency + size/bandwidth` for the message size. Verified picks for our 8-GPU AllReduce default run:
+
+| Size | Picked |
+|---|---|
+| ≤ 32 KiB | **`Algo RING proto LL`** (lowest latency floor: 15 µs at 0 BW) |
+| 256 KiB | `Algo RING proto LL` (still latency-dominant) |
+| 1 MiB | `Algo RING proto LL` (BW: 80.6 GB/s on 23 channels) |
+| ≥ 2 MiB | **`Algo NVLS proto SIMPLE`** (272 GB/s, accepts 25 µs floor) |
+
+Crossover at ~1 MiB.
+
+#### `NCCL_NVLS_ENABLE=0`: removes one option from the table
+
+NCCL_NVLS_ENABLE=0 zeros out the NVLS row. Autotuner picks among the rest. Per-call evidence (probe `_nvls_off`):
+```
+AllReduce: 1024 Bytes -> Algo RING proto LL          (same as default)
+AllReduce: 33554432 Bytes -> Algo RING proto LL128   (was: NVLS Simple. Now best left = RING LL128)
+```
+Result: large messages get RING LL128 (189 GB/s) instead of NVLS Simple (272 GB/s) → 200 GB/s vs 209 GB/s end-to-end at 32 MiB. Just an option removal.
+
+#### `NCCL_SYM_NOWIN_ENABLE=1`: a separate scheduler that bypasses the autotuner — **but doesn't always engage**
+
+NCCL 2.30 has `ncclSymmetricTaskScheduler` which runs **before** the regular autotuner. If a task qualifies (registered symmetric window OR `NCCL_SYM_NOWIN_ENABLE=1` plus other internal eligibility checks), it dispatches a `Kernel ncclSymk*` and never enters the autotuner table. Logs as `[Symmetric]: <bytes> -> Kernel <name>` instead of `Algo X proto Y`.
+
+In our config, **`NCCL_SYM_NOWIN_ENABLE=1` does NOT actually engage the symmetric scheduler** for nccl-tests's cudaMalloc'd buffers — every call still logs `Algo RING proto LL`. Even with `NCCL_DEBUG=TRACE NCCL_DEBUG_SUBSYS=COLL`, no `[Symmetric]` lines fire. Probably the eligibility check (cuMem support, NIC fusion, GIN, etc.) rejects this combination on this cluster. Re-running back-to-back, sym=0 vs sym=1 are **identical within noise** (~40 µs floor at 4 B – 8 KiB):
+
+```
+size  sym=0   sym=1
+4     40.4    41.1
+16    39.2    39.8
+64    40.1    41.1
+256   47.4    40.5
+1024  39.5    40.2
+4096  41.3    41.5
+```
+
+(An earlier comparison reported a 1.2× speedup for sym=1 at small sizes; that was warm-cache noise from running sym=0 first then sym=1. Disregard.)
+
+**TL;DR** for the user's mental model:
+* **NVLS** *is* "just one more entry in the autotuner's table". `NCCL_NVLS_ENABLE=0/1` adds/removes the NVLS row. Autotuner picks per call.
+* **Symmetric kernel** is *not* in the autotuner. It's a parallel scheduler that, if eligible, replaces the entire (algo, proto) dispatch with a `ncclSymk*` kernel. In our build/cluster the eligibility never triggered for cudaMalloc'd buffers; you'd need to call `ncclMemAlloc` + `ncclWindowAlloc` to actually exercise the sym path.
 
 ### NVLS (NCCL_NVLS_ENABLE / NVSHMEM_DISABLE_NVLS) impact
 
