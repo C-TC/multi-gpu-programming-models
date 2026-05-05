@@ -286,10 +286,201 @@ def text_table_for_op(op: str, scen: str = "intra"):
         print(f"{sz:>10} | " + " | ".join(c if len(c) >= 14 else f"{c:>14}" for c in cells))
 
 
+def plot_overview_per_scenario(scen: str, n_ranks: int):
+    """All 5 collectives × 3 NCCL configs in a 5-panel grid for one scenario.
+    Lets you eyeball which collective benefits most from sym kernel / NVLS."""
+    fig, axes = plt.subplots(1, 5, figsize=(22, 5), sharey=False)
+    plotted_any = False
+    for idx, op in enumerate(NCCL_OPS):
+        ax = axes[idx]
+        for cfg, label, color, ls in [
+            ("nccl_default", "NCCL default", "tab:green", "-"),
+            ("nccl_sym",     "NCCL sym (-R 2)", "tab:blue", "-"),
+            ("nccl_nvlsoff", "NCCL NVLS off", "tab:red", "--"),
+        ]:
+            d = collect_trials(f"bench_{cfg}_{scen}_{op}", parse_nccl)
+            if not d: continue
+            sizes = sorted(d.keys())
+            means = [stats(d[s])[0] for s in sizes]
+            sds = [stats(d[s])[1] for s in sizes]
+            ax.errorbar(sizes, means, yerr=sds, marker="o", ms=3, capsize=2,
+                        label=label, color=color, linestyle=ls)
+            plotted_any = True
+        # Add NVSHMEM device on top
+        nvs_op = NVS_DEV_OPS.get(op)
+        if nvs_op:
+            d = collect_trials(f"bench_nvsdev_nvlson_{scen}_{nvs_op}", parse_nvshmem_coll)
+            if d:
+                sizes = sorted(d.keys())
+                means = [stats(d[s])[0] for s in sizes]
+                sds = [stats(d[s])[1] for s in sizes]
+                ax.errorbar(sizes, means, yerr=sds, marker="s", ms=3, capsize=2,
+                            label="NVSHMEM device", color="tab:purple", linestyle=":")
+        ax.set_xscale("log"); ax.set_yscale("log")
+        ax.set_title(op)
+        ax.set_xlabel("size (B)");
+        if idx == 0: ax.set_ylabel("latency (µs)")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=7)
+    if not plotted_any:
+        plt.close(fig); return
+    scen_label = f"intranode 1×{n_ranks}" if scen == "intra" else f"internode 2×{n_ranks // 2}"
+    fig.suptitle(f"All 5 NCCL collectives — {scen_label} (mean ± stddev, 8 trials each)", y=1.04, fontsize=11)
+    fig.tight_layout()
+    fig.savefig(FIG / f"overview_{scen}.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_sym_speedup_summary():
+    """For each NCCL op + scenario, show sym/default speedup ratio across sizes.
+    Heatmap-like grid: rows=ops, cols=sizes, color=speedup."""
+    fig, axes = plt.subplots(2, 1, figsize=(13, 7), sharex=True)
+    for ax_idx, scen in enumerate(["intra", "inter"]):
+        ax = axes[ax_idx]
+        for op in NCCL_OPS:
+            d_def = collect_trials(f"bench_nccl_default_{scen}_{op}", parse_nccl)
+            d_sym = collect_trials(f"bench_nccl_sym_{scen}_{op}", parse_nccl)
+            sizes = sorted(set(d_def.keys()) & set(d_sym.keys()))
+            ratios = []
+            for sz in sizes:
+                m_def, _ = stats(d_def.get(sz, []))
+                m_sym, _ = stats(d_sym.get(sz, []))
+                if m_def and m_sym:
+                    ratios.append(m_sym / m_def)
+                else:
+                    ratios.append(float("nan"))
+            ax.plot(sizes, ratios, marker="o", ms=4, label=op)
+        ax.axhline(1.0, color="gray", linestyle=":", linewidth=0.8)
+        ax.set_xscale("log")
+        ax.set_ylabel(f"sym/default ratio\n(< 1 = sym faster)")
+        ax.set_title(f"{scen}node — NCCL sym kernel (-R 2) speedup vs default (-R 0)")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=9, ncol=5)
+    axes[1].set_xlabel("message size (B)")
+    fig.suptitle("Where does the symmetric kernel help? (intra and inter, 5 collectives)", y=0.995, fontsize=11)
+    fig.tight_layout()
+    fig.savefig(FIG / "sym_speedup_summary.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_nvls_impact():
+    """For each NCCL op + scenario, show nvls_off/default ratio across sizes.
+    Quantifies how much NVLS multicast contributes to NCCL on H200."""
+    fig, axes = plt.subplots(2, 1, figsize=(13, 7), sharex=True)
+    for ax_idx, scen in enumerate(["intra", "inter"]):
+        ax = axes[ax_idx]
+        for op in NCCL_OPS:
+            d_def = collect_trials(f"bench_nccl_default_{scen}_{op}", parse_nccl)
+            d_off = collect_trials(f"bench_nccl_nvlsoff_{scen}_{op}", parse_nccl)
+            sizes = sorted(set(d_def.keys()) & set(d_off.keys()))
+            ratios = []
+            for sz in sizes:
+                m_def, _ = stats(d_def.get(sz, []))
+                m_off, _ = stats(d_off.get(sz, []))
+                if m_def and m_off:
+                    ratios.append(m_off / m_def)
+                else:
+                    ratios.append(float("nan"))
+            ax.plot(sizes, ratios, marker="o", ms=4, label=op)
+        ax.axhline(1.0, color="gray", linestyle=":", linewidth=0.8)
+        ax.set_xscale("log")
+        ax.set_ylabel(f"NVLS_off/default ratio\n(> 1 = NVLS helps)")
+        ax.set_title(f"{scen}node — NCCL NVLS multicast contribution (NCCL_NVLS_ENABLE=0 vs default)")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=9, ncol=5)
+    axes[1].set_xlabel("message size (B)")
+    fig.suptitle("Where does NVLink-SHARP help? (intra: yes for some ops; inter: not applicable, ~1×)", y=0.995, fontsize=11)
+    fig.tight_layout()
+    fig.savefig(FIG / "nvls_impact.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_nvshmem_nvls_impact():
+    """NVSHMEM device collectives: NVLS off / NVLS on ratio."""
+    fig, axes = plt.subplots(2, 1, figsize=(13, 7), sharex=True)
+    nvs_ops = list(NVS_DEV_OPS.values())
+    for ax_idx, scen in enumerate(["intra", "inter"]):
+        ax = axes[ax_idx]
+        for op in nvs_ops:
+            d_on = collect_trials(f"bench_nvsdev_nvlson_{scen}_{op}", parse_nvshmem_coll)
+            d_off = collect_trials(f"bench_nvsdev_nvlsoff_{scen}_{op}", parse_nvshmem_coll)
+            sizes = sorted(set(d_on.keys()) & set(d_off.keys()))
+            ratios = []
+            for sz in sizes:
+                m_on, _ = stats(d_on.get(sz, []))
+                m_off, _ = stats(d_off.get(sz, []))
+                if m_on and m_off:
+                    ratios.append(m_off / m_on)
+                else:
+                    ratios.append(float("nan"))
+            ax.plot(sizes, ratios, marker="o", ms=4, label=op.replace("_latency", ""))
+        ax.axhline(1.0, color="gray", linestyle=":", linewidth=0.8)
+        ax.set_xscale("log")
+        ax.set_ylabel(f"NVLS_off/NVLS_on ratio\n(> 1 = NVLS helps NVSHMEM)")
+        ax.set_title(f"{scen}node — NVSHMEM device collective: NVSHMEM_DISABLE_NVLS=1 vs default")
+        ax.grid(True, which="both", alpha=0.3)
+        ax.legend(fontsize=9, ncol=5)
+    axes[1].set_xlabel("message size (B)")
+    fig.suptitle("NVSHMEM device collectives: do they actually use NVLS? (most: no — perftest's block-scope kernels don't engage multicast)",
+                 y=0.995, fontsize=11)
+    fig.tight_layout()
+    fig.savefig(FIG / "nvshmem_nvls_impact.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
+def plot_grand_summary():
+    """One figure summarising NCCL default vs NCCL sym vs NVSHMEM device for all 5 collectives,
+    intra and inter — 10 panels total. Lets you scan everything at once."""
+    fig, axes = plt.subplots(2, 5, figsize=(22, 9), sharey="row")
+    for col, op in enumerate(NCCL_OPS):
+        for row, (scen, scen_label) in enumerate([("intra", "intra 1×8"), ("inter", "inter 2×8")]):
+            ax = axes[row, col]
+            for cfg, label, color, ls in [
+                ("nccl_default", "NCCL default (NVLS+autotuner)", "tab:green", "-"),
+                ("nccl_sym",     "NCCL sym (-R 2)", "tab:blue", "-"),
+                ("nccl_nvlsoff", "NCCL NVLS off", "tab:red", "--"),
+            ]:
+                d = collect_trials(f"bench_{cfg}_{scen}_{op}", parse_nccl)
+                if not d: continue
+                sizes = sorted(d.keys())
+                means = [stats(d[s])[0] for s in sizes]
+                sds = [stats(d[s])[1] for s in sizes]
+                ax.errorbar(sizes, means, yerr=sds, marker="o", ms=2, capsize=1, lw=0.8,
+                            label=label, color=color, linestyle=ls)
+            nvs_op = NVS_DEV_OPS.get(op)
+            if nvs_op:
+                d = collect_trials(f"bench_nvsdev_nvlson_{scen}_{nvs_op}", parse_nvshmem_coll)
+                if d:
+                    sizes = sorted(d.keys())
+                    means = [stats(d[s])[0] for s in sizes]
+                    sds = [stats(d[s])[1] for s in sizes]
+                    ax.errorbar(sizes, means, yerr=sds, marker="s", ms=2, capsize=1, lw=0.8,
+                                label="NVSHMEM device", color="tab:purple", linestyle=":")
+            ax.set_xscale("log"); ax.set_yscale("log")
+            if row == 0: ax.set_title(op, fontsize=10)
+            if col == 0: ax.set_ylabel(f"{scen_label}\nlatency (µs)")
+            if row == 1: ax.set_xlabel("size (B)")
+            ax.grid(True, which="both", alpha=0.3)
+            if row == 0 and col == 0:
+                ax.legend(fontsize=7, loc="upper left")
+    fig.suptitle("Grand summary: NCCL 2.30.4 vs NVSHMEM 3.3.9-ibp on H200 — all 5 collectives × {intra, inter}\n"
+                 "8 trials × (20 warmup + 50 timed iters) per data point; errorbars = stddev",
+                 y=0.995, fontsize=11)
+    fig.tight_layout()
+    fig.savefig(FIG / "grand_summary.png", dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+
 if __name__ == "__main__":
     print(f"Analyzing rigorous bench data in {RES}")
     for op in NCCL_OPS:
         plot_collective_comparison(op)
         text_table_for_op(op, "intra")
     plot_p2p_summary()
+    plot_overview_per_scenario("intra", 8)
+    plot_overview_per_scenario("inter", 16)
+    plot_sym_speedup_summary()
+    plot_nvls_impact()
+    plot_nvshmem_nvls_impact()
+    plot_grand_summary()
     print(f"\nPlots: {FIG}")
