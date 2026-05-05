@@ -1,5 +1,9 @@
 # Reproduction work — NCCL vs NVSHMEM on H100/H200
 
+> **Want a single consolidated report?** → [`REPORT.md`](REPORT.md)
+> covers all four investigations, headline numbers, plot pointers, and
+> the most useful figures.
+
 Four independent investigations, each in its own subdirectory:
 
 | Subdir | Investigation | Status |
