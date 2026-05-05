@@ -68,6 +68,8 @@ NCCL (graphs) is **~6% faster than NVSHMEM** at 8 GPU. The difference
 is the same on H100. (`nccl_overlap` and `nccl_graphs` are within noise of
 each other at this scale; the graph-launch overhead saving doesn't show.)
 
+![Jacobi 1-node runtime vs GPU count](jacobi/results/figures/fig_a_runtime_vs_gpu_1node.png)
+
 ### Internode 2 × 4 = 8 ranks, nx=ny=16384, niter=1000
 
 | Variant | runtime (s) |
@@ -82,6 +84,9 @@ each other at this scale; the graph-launch overhead saving doesn't show.)
 non-blocking sync** (`-use_block_comm -nbsync`). With default flags, every
 boundary tile triggers a per-element `nvshmem_p` over IB → 20× slower
 than NCCL. Same shape on H100 (ratio 4.2 / 0.27 vs H200's 5.7 / 0.29).
+
+![Jacobi 2-node runtime vs GPU count — note nvshmem default off the chart](jacobi/results/figures/fig_a_runtime_vs_gpu_2node.png)
+![NVSHMEM block-comm + nbsync ablation](jacobi/results/figures/fig_nvshmem_block_ablation.png)
 
 Detail + nx-axis sweeps + figures: [`jacobi/results/REPORT_1NODE.md`](jacobi/results/REPORT_1NODE.md), [`jacobi/results/REPORT_2NODE.md`](jacobi/results/REPORT_2NODE.md), [`jacobi/results/figures/`](jacobi/results/figures/) (6 PNGs).
 
@@ -160,6 +165,9 @@ difference reflects `(transport efficiency) ⊗ (kernel design)` combined.
 Don't read this as "NVSHMEM IBGDA is X% faster than NCCL Gin" — that
 question is what the thesis-ch-4 microbenchmarks below answer.
 
+![DeepEP HT dispatch BW: V1 vs V2](deepep/results/figures/fig_ht_dispatch_bw.png)
+![DeepEP LL latency: V1 vs V2](deepep/results/figures/fig_ll_latency.png)
+
 Detail + 3 comparison figures: [`deepep/README.md`](deepep/README.md), [`deepep/IBGDA_DEBUG.md`](deepep/IBGDA_DEBUG.md), [`deepep/results/figures/`](deepep/results/figures/).
 
 ---
@@ -186,7 +194,8 @@ mean ± stddev over 8 trials each:
 | `st`        | mapped-store via peer pointer       | ~280 GB/s NVLink | n/a (NVL only) |
 | `atomic_inc`| block-coop atomic increment         | ~280 GB/s | (intra only — no IB IBGDA fast path for atomic in this build) |
 
-Plots: [`thesis_microbench/results/figures/p2p_intra.png`](thesis_microbench/results/figures/p2p_intra.png), [`p2p_inter.png`](thesis_microbench/results/figures/p2p_inter.png).
+![NVSHMEM P2P intranode (NVLink)](thesis_microbench/results/figures/p2p_intra.png)
+![NVSHMEM P2P internode (IB IBGDA)](thesis_microbench/results/figures/p2p_inter.png)
 
 ### 4.1.2 — Collective primitives
 
@@ -237,6 +246,13 @@ NVSHMEM_DEBUG=INFO output: BCAST_ALGO=0 (autotuner), REDUCE_ALGO=0 (autotuner) .
 | 16 MiB | 122.9 ± 0.2   | **70.0 ± 0.1** | 117.0 ± 0.4 | — | 0.57 |
 | 32 MiB | 197.8 ± 0.2   | **131.2 ± 0.05** | 210.7 ± 1.9 | — | 0.66 |
 
+#### Grand summary — single image to scan everything
+
+10 panels (5 collectives × {intra 1×8, inter 2×8}). Each panel has up to
+4 implementations side-by-side with mean ± stddev errorbars over 8 trials:
+
+![Grand summary across all 5 collectives × intra/inter](thesis_microbench/results/figures/grand_summary.png)
+
 #### What the comparison plots show
 
 1. **Small messages (≤ 256 KiB intra)**: **NVSHMEM device kernel wins** by 2-5×
@@ -245,15 +261,29 @@ NVSHMEM_DEBUG=INFO output: BCAST_ALGO=0 (autotuner), REDUCE_ALGO=0 (autotuner) .
 2. **Medium-to-large (≥ 1 MiB)**: **NCCL with `-R 2` (sym kernel) wins by 1.5-2×**
    over NCCL default for `all_reduce`. The win comes from `ncclSymk*`'s
    `LDMC/STMC` multicast intrinsics applied to registered symmetric windows.
-3. **NVLS contribution** is op-dependent (see [`figures/nvls_impact.png`](thesis_microbench/results/figures/nvls_impact.png)):
+
+   ![Per-collective: where the sym kernel helps](thesis_microbench/results/figures/sym_speedup_summary.png)
+
+3. **NVLS contribution** is op-dependent:
    * intra: 0–5% across most ops at the autotuner's chosen sizes
    * **inter `broadcast` and `all_gather` at large sizes**: NVLS-off is
      **~2× SLOWER** — NCCL's NVLS-tree path is unexpectedly important cross-node
+
+   ![NCCL NVLS off/default ratio](thesis_microbench/results/figures/nvls_impact.png)
+
 4. **NVSHMEM's own NVLS knob** (`NVSHMEM_DISABLE_NVLS=1`) is a no-op for
    the perftest binaries' default block-scope kernels — they don't engage
-   multicast (see [`figures/nvshmem_nvls_impact.png`](thesis_microbench/results/figures/nvshmem_nvls_impact.png)).
-   `REDUCE_NVLS_THRESHOLD` / `FCOLLECT_NVLS_THRESHOLD` env vars gate NVLS for
-   specific code paths the perftest doesn't always exercise.
+   multicast. `REDUCE_NVLS_THRESHOLD` / `FCOLLECT_NVLS_THRESHOLD` env vars
+   gate NVLS for specific code paths the perftest doesn't always exercise.
+
+   ![NVSHMEM NVLS off/default ratio — flat ~1× confirms no engagement](thesis_microbench/results/figures/nvshmem_nvls_impact.png)
+
+#### Per-collective deep dive — `all_reduce` (the headline op)
+
+![all_reduce intra and inter, 4 implementations each](thesis_microbench/results/figures/compare_all_reduce.png)
+
+This is the figure behind the headline-numbers table above. Note the
+crossover at ~1 MiB intra where NCCL sym (-R 2) starts pulling away.
 
 Detail + 14 figures + per-trial raw logs: [`thesis_microbench/README.md`](thesis_microbench/README.md), [`thesis_microbench/results/figures/`](thesis_microbench/results/figures/).
 
