@@ -1,0 +1,8 @@
+srun: error: h200-bar-202-059: task 0: Segmentation fault
+srun: forcing job termination
+srun: forcing job termination
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+srun: got SIGCONT
+slurmstepd: error: *** STEP 1420886.170 ON h200-bar-202-059 CANCELLED AT 2026-05-05T00:17:17 ***
+srun: error: h200-bar-202-059: task 1: Killed
+srun: Force Terminated StepId=1420886.170

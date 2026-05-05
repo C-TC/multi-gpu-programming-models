@@ -16,3 +16,10 @@ repro/jacobi/results/sweep2node-configs-*.txt
 /nccl_overlap/jacobi
 /nvshmem/jacobi
 /single_threaded_copy/jacobi
+
+# nccl-tests is a clone of NVIDIA/nccl-tests + build artifacts; rebuild on demand.
+nccl-tests/
+
+# Python cache
+__pycache__/
+*.pyc

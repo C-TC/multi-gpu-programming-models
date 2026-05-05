@@ -1,0 +1,31 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 1048576, step_factor: 2, iterations: 500, warmup iterations: 50, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+Note: This test measures full round-trip latency
+#shmem_ping_pong_lat
+size(B)     scope     latency (us)    
+4           None      4.846720        
+8           None      4.836544        
+16          None      4.833152        
+32          None      4.874496        
+64          None      4.901568        
+128         None      4.926912        
+256         None      4.938816        
+512         None      4.897280        
+1024        None      5.102912        
+2048        None      5.698432        
+4096        None      6.743297        
+8192        None      8.814784        
+16384       None      11.598784       
+32768       None      19.466944       
+65536       None      32.957825       
+131072      None      62.030209       
+262144      None      119.031105      
+524288      None      234.133499      
+1048576     None      464.297974      
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 1048576, step_factor: 2, iterations: 500, warmup iterations: 50, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 

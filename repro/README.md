@@ -1,12 +1,13 @@
-# Reproduction work — NCCL vs NVSHMEM on H100
+# Reproduction work — NCCL vs NVSHMEM on H100/H200
 
-Three independent investigations, each in its own subdirectory:
+Four independent investigations, each in its own subdirectory:
 
 | Subdir | Investigation | Status |
 |---|---|---|
 | [jacobi/](jacobi/) | Reproducing the Jacobi NCCL-vs-NVSHMEM benchmark from §4.2.2 of [`../ETH_Zürich_CADMO_Thesis_Template_v2.pdf`](../ETH_Zürich_CADMO_Thesis_Template_v2.pdf), 1-node and 2-node | ✅ done |
 | [nccl_graph_ablation/](nccl_graph_ablation/) | Effect of `NCCL_GRAPH_MIXING_SUPPORT=0` on `nccl_graphs/jacobi` latency | ✅ done |
 | [deepep/](deepep/) | DeepEP V1 (NVSHMEM) vs V2 (NCCL Gin) high-throughput + low-latency, 1-node and 2-node | ⚠️ partial — see [deepep/README.md](deepep/README.md) and [IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) for what's blocked on this cluster |
+| [thesis_microbench/](thesis_microbench/) | Thesis Chapter 4 micro-benches (4.1.1 P2P, 4.1.2 collectives, 4.2.1 NCCL vs NVSHMEM) on H200 with NVSHMEM 3.3.9-ibp from internal fork | ✅ done (1×8 + 2×8 only — `dev` qos caps at 16 GPU) |
 
 If you're moving to a different cluster, **start with [NEXT_CLUSTER.md](NEXT_CLUSTER.md)** — it lists the cluster prerequisites that must hold for everything here to run, and the items that were blocked on the current cluster so you know what to validate first.
 
