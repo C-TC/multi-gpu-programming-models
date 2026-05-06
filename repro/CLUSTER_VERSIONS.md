@@ -45,6 +45,29 @@ between 2026-05-04 and 2026-05-05.
 | **NVSHMEM (thesis micro-benches)** | **3.3.9-ibp** (commit `4bc54ac` on internal fork) | Source: `~/workspace/nvshmem` branch `3.3.9-ibp` = upstream NVSHMEM 3.3.9 + 1 commit `Detect ibp devices` (patches `ibgda.cpp` to accept `ibp*` device names alongside `mlx5*`). Built by us with: `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default), `NVSHMEM_MPI_SUPPORT=OFF`, `CMAKE_CUDA_ARCHITECTURES=90`. Verified at runtime: `nm -D libnvshmem_host.so | grep -ci nccl` → 0; no NCCL fallback. Install at `~/workspace/nvshmem-3.3.9-ibp-build/install`. |
 | **NVSHMEM (jacobi)** | 3.6.5 | pip wheel `nvidia-nvshmem-cu13` (used `NVSHMEM_HOME=...` to point env at it) |
 | **NVSHMEM (DeepEP V1 path)** | 3.4.5 | pip wheel `nvidia-nvshmem-cu13==3.4.5` (specific version required to match DeepEP V1's bundled `ibgda_device.cuh` v1 device_state struct) |
+
+### Why three NVSHMEM versions?
+
+The three NVSHMEM versions in the table are *not* mix-and-match — each
+investigation had a hard constraint that pinned its choice. None of the
+versions can substitute for each other in their respective roles.
+
+| Investigation | NVSHMEM | Why this version specifically |
+|---|---|---|
+| **Jacobi** | **3.6.5** (pip wheel) | `nvshmem/jacobi` is a self-contained C++ program — it just needs *any* working NVSHMEM 3.x runtime. The container's bundled `/opt/nvshmem` was unusable (broken `nvshmem.h` symlink to `/usr/include/nvshmem_13/` which didn't exist), so we pip-installed `nvidia-nvshmem-cu13` and got 3.6.5 (whatever was current). 3.4.5 or 3.3.9 would also work. |
+| **DeepEP V1 path** | **3.4.5** (pip wheel, pinned exactly) | DeepEP V1's bundled `csrc/kernels/internode_ll.cu` calls into NVSHMEM IBGDA device kernels via a fixed `nvshmemi_ibgda_device_state_t` struct layout. **NVSHMEM 3.5 changed that struct (v1 → v2 layout)**; using anything ≥ 3.5 silently corrupts memory in the kernel-side RDMA path. We discovered this by tracing what mistral's `runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh` was doing — they pin `NVSHMEM_VER="3.4.5"` for exactly this reason. We adopted the same recipe. (3.4.x is the only 3.x line with v1 layout that also has the `device_state` fields DeepEP V1 expects.) |
+| **Thesis micro-benches** | **3.3.9-ibp** (built from internal fork) | We needed to **build perftest binaries from source** (the pip wheels ship only the runtime libs, not perftest). The internal fork at `~/workspace/nvshmem` already had the `Detect ibp devices` commit that patches `ibgda.cpp` to accept this cluster's `ibp0..ibp7` IB device names (the upstream filter is `mlx5*` only, which fails on this fabric). We picked branch `3.3.9-ibp` — could equally have applied the same patch on top of 3.4.5 source, but the fork branch was already there and tested. The `-ibp` suffix is the patch tag, not a separate NVSHMEM release. |
+
+So in short:
+* **3.6.5**: convenience (pip), no functional constraint, jacobi doesn't care.
+* **3.4.5**: hard ABI requirement from DeepEP V1's IBGDA device-side code.
+* **3.3.9-ibp**: needed source build for perftest + the cluster-specific `ibp*` device-name patch already lived on this branch in the internal fork.
+
+If you were starting fresh today and only doing the thesis micro-benches +
+jacobi (no DeepEP V1), you could collapse to a single NVSHMEM build —
+`3.6.5 source + ibp patch + perftest enabled` would cover both. The DeepEP
+V1 investigation is the only one that *requires* a separate, pinned
+NVSHMEM version.
 | **Hydra launcher** | mpich-4.0.2 (`nvshmrun.hydra`) | built from upstream via NVSHMEM's `scripts/install_hydra.sh`; needed for single-node sanity tests inside container |
 
 ## Test harnesses
