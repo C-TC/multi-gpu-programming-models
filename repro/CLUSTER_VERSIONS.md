@@ -42,7 +42,7 @@ between 2026-05-04 and 2026-05-05.
 | Component | Version | Source / build flags |
 |---|---|---|
 | **NCCL** | **2.30.4 + cuda13.2** (`NCCL git version HEAD 747384637`) | pip wheel `nvidia-nccl-cu13==2.30.4` at `~/workspace/nccl-pip/nvidia/nccl/lib/`. Container shipped 2.28.8; pip-overrode for all measurements. |
-| **NVSHMEM (thesis micro-benches)** | **3.3.9-ibp** (commit `4bc54ac` on internal fork) | Source: `~/workspace/nvshmem` branch `3.3.9-ibp` = upstream NVSHMEM 3.3.9 + 1 commit `Detect ibp devices` (patches `ibgda.cpp` to accept `ibp*` device names alongside `mlx5*`). Built by us with: `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default), `NVSHMEM_MPI_SUPPORT=OFF`, `CMAKE_CUDA_ARCHITECTURES=90`. Verified at runtime: `nm -D libnvshmem_host.so | grep -ci nccl` → 0; no NCCL fallback. Install at `~/workspace/nvshmem-3.3.9-ibp-build/install`. |
+| **NVSHMEM (thesis micro-benches)** | **3.3.9** + 4-line patch | Public NVSHMEM 3.3.9 source release from <https://developer.nvidia.com/nvshmem-downloads> (NVIDIA-distributed tarball, internal commit hash `e91f4bd5238a147f18d30791f43e0aeff0097a51` per `version.txt`). One 4-line patch applied to `src/modules/transport/ibgda/ibgda.cpp` to accept `ibp*` IB device names (see "Patch" below). Built with: `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default), `NVSHMEM_MPI_SUPPORT=OFF`, `CMAKE_CUDA_ARCHITECTURES=90`. Verified at runtime: `nm -D libnvshmem_host.so | grep -ci nccl` → 0; no NCCL fallback. |
 | **NVSHMEM (jacobi)** | 3.6.5 | pip wheel `nvidia-nvshmem-cu13` (used `NVSHMEM_HOME=...` to point env at it) |
 | **NVSHMEM (DeepEP V1 path)** | 3.4.5 | pip wheel `nvidia-nvshmem-cu13==3.4.5` (specific version required to match DeepEP V1's bundled `ibgda_device.cuh` v1 device_state struct) |
 
@@ -55,19 +55,44 @@ versions can substitute for each other in their respective roles.
 | Investigation | NVSHMEM | Why this version specifically |
 |---|---|---|
 | **Jacobi** | **3.6.5** (pip wheel) | `nvshmem/jacobi` is a self-contained C++ program — it just needs *any* working NVSHMEM 3.x runtime. The container's bundled `/opt/nvshmem` was unusable (broken `nvshmem.h` symlink to `/usr/include/nvshmem_13/` which didn't exist), so we pip-installed `nvidia-nvshmem-cu13` and got 3.6.5 (whatever was current). 3.4.5 or 3.3.9 would also work. |
-| **DeepEP V1 path** | **3.4.5** (pip wheel, pinned exactly) | DeepEP V1's bundled `csrc/kernels/internode_ll.cu` calls into NVSHMEM IBGDA device kernels via a fixed `nvshmemi_ibgda_device_state_t` struct layout. **NVSHMEM 3.5 changed that struct (v1 → v2 layout)**; using anything ≥ 3.5 silently corrupts memory in the kernel-side RDMA path. We discovered this by tracing what mistral's `runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh` was doing — they pin `NVSHMEM_VER="3.4.5"` for exactly this reason. We adopted the same recipe. (3.4.x is the only 3.x line with v1 layout that also has the `device_state` fields DeepEP V1 expects.) |
-| **Thesis micro-benches** | **3.3.9-ibp** (built from internal fork) | We needed to **build perftest binaries from source** (the pip wheels ship only the runtime libs, not perftest). The internal fork at `~/workspace/nvshmem` already had the `Detect ibp devices` commit that patches `ibgda.cpp` to accept this cluster's `ibp0..ibp7` IB device names (the upstream filter is `mlx5*` only, which fails on this fabric). We picked branch `3.3.9-ibp` — could equally have applied the same patch on top of 3.4.5 source, but the fork branch was already there and tested. The `-ibp` suffix is the patch tag, not a separate NVSHMEM release. |
+| **DeepEP V1 path** | **3.4.5** (pip wheel, pinned exactly) | DeepEP V1's bundled `csrc/kernels/internode_ll.cu` and `csrc/kernels/ibgda_device.cuh` call into NVSHMEM's IBGDA device kernels using a fixed `nvshmemi_ibgda_device_state_t` struct layout. **NVSHMEM 3.5 changed that struct (v1 → v2 layout)**; building DeepEP V1 against any NVSHMEM ≥ 3.5 silently corrupts memory in the kernel-side RDMA path. NVSHMEM 3.4.5 is the latest release that retains the v1 struct layout DeepEP V1 was written against. (Reproducible from public sources: clone `deepseek-ai/DeepEP` at commit `73b6ea4`, inspect the bundled `ibgda_device.cuh`, then compare against NVSHMEM 3.4.x vs 3.5.x release tarball headers.) |
+| **Thesis micro-benches** | **3.3.9** + 4-line patch (built from source) | The pip wheels ship only the runtime libs, not the perftest binaries we needed (`shmem_*_bw`, `shmem_*_latency`, etc.). So we built from the public NVSHMEM 3.3.9 source release (downloaded tarball) and applied a 4-line patch to `src/modules/transport/ibgda/ibgda.cpp` so the IBGDA device-name filter accepts this cluster's `ibp0..ibp7` IB devices alongside `mlx5*`. The patch is reproduced in full in the "IBP device-name patch" section below — small enough to inline in a paper appendix. |
 
 So in short:
 * **3.6.5**: convenience (pip), no functional constraint, jacobi doesn't care.
-* **3.4.5**: hard ABI requirement from DeepEP V1's IBGDA device-side code.
-* **3.3.9-ibp**: needed source build for perftest + the cluster-specific `ibp*` device-name patch already lived on this branch in the internal fork.
+* **3.4.5**: hard ABI requirement from DeepEP V1's IBGDA device-side code (public DeepEP V1 commits ≤ `73b6ea4` predate the v2 device_state).
+* **3.3.9 + patch**: built from source so we get perftest binaries, plus a 4-line cluster-specific device-name patch (reproduced below).
 
 If you were starting fresh today and only doing the thesis micro-benches +
 jacobi (no DeepEP V1), you could collapse to a single NVSHMEM build —
 `3.6.5 source + ibp patch + perftest enabled` would cover both. The DeepEP
-V1 investigation is the only one that *requires* a separate, pinned
+V1 investigation is the only one that *requires* a separately pinned
 NVSHMEM version.
+
+### IBP device-name patch (reproduce)
+
+The single patch we applied on top of NVSHMEM 3.3.9 source. Lines 3712-3715
+of `src/modules/transport/ibgda/ibgda.cpp`:
+
+```diff
+@@ -3709,10 +3709,10 @@ int nvshmemt_init(nvshmem_transport_t *t, struct nvshmemi_cuda_fn_table *table,
+         const char *name = ftable.get_device_name(device->dev);
+         NVSHMEMI_NULL_ERROR_JMP(name, status, NVSHMEMX_ERROR_INTERNAL, out,
+                                 "ibv_get_device_name failed \n");
+-        if (!strstr(name, "mlx5")) {
++        if (!strstr(name, "mlx5") && !strstr(name, "ibp")) {
+             ftable.close_device(device->context);
+             device->context = NULL;
+-            NVSHMEMI_WARN_PRINT("device %s is not enumerated as an mlx5 device. Skipping...\n",
++            NVSHMEMI_WARN_PRINT("device %s is not enumerated as an mlx5 or ibp device. Skipping...\n",
+                                 name);
+             continue;
+         }
+```
+
+Equivalent runtime workaround (no rebuild) is **`NVSHMEM_HCA_PREFIX=`** (empty
+string) which bypasses the default `mlx5` prefix filter — but the source
+patch is more explicit about which devices we expect.
 | **Hydra launcher** | mpich-4.0.2 (`nvshmrun.hydra`) | built from upstream via NVSHMEM's `scripts/install_hydra.sh`; needed for single-node sanity tests inside container |
 
 ## Test harnesses
@@ -77,7 +102,7 @@ NVSHMEM version.
 | **nccl-tests** | upstream HEAD as of 2026-05-04 (`f727aa2 NCCL_TESTS_VERSION 2.18.3`) | Built with `MPI=1 MPI_HOME=/usr/local/mpi NCCL_HOME=$NCCL_PIP CUDA_HOME=/usr/local/cuda make -j 8 NVCC_GENCODE="-gencode=arch=compute_90,code=sm_90"`. The version-2.18.3 number on the binary is the `nccl-tests` repo's own version, not NCCL's; the linked NCCL is 2.30.4 (verified by `nccl-headers=23004 nccl-library=23004` in test output). |
 | **NVSHMEM perftest** | bundled with the 3.3.9-ibp build | Both device (`device/pt-to-pt/`, `device/coll/`) and host on_stream (`host/coll/`) variants used. |
 | **PyTorch (DeepEP V2 only)** | 2.10.0a0+b558c986e8.nv25.11 | container's pre-installed nvidia PyTorch build |
-| **DeepEP** | commit `73b6ea4` (V1 mistral recipe) and `b306af0` (V2 release) | Both at `~/workspace/DeepEP-pre-v2` (V1) and `~/workspace/DeepEP` (V2) |
+| **DeepEP** | commit `73b6ea4` (V1, pre-V2) and `b306af0` (V2 release `[Public release 26/04] EPv2`) | Both from public `deepseek-ai/DeepEP` GitHub repo. `73b6ea4` (PR #458 "support hidden-dim 3072") is the last commit before the V2 layout transition; we use it because it has the V1 IBGDA kernels intact. `b306af0` (PR #605) is the public V2 release. |
 
 ## RDMA / networking userland
 
@@ -112,8 +137,11 @@ For both methodologies:
 > and confirmed active) and Mellanox ConnectX-7 InfiniBand cross-node
 > (8 NICs/node, 400 Gb/s each). Software: CUDA 13.0.88, NCCL 2.30.4
 > (`nvidia-nccl-cu13` pip wheel; container's stock 2.28.8 was overridden),
-> NVSHMEM 3.3.9-ibp (built from an internal fork of upstream NVSHMEM 3.3.9
-> with a 1-commit patch to accept `ibp*` IB device names; built with
+> NVSHMEM 3.3.9 (publicly-released NVIDIA source tarball,
+> [developer.nvidia.com/nvshmem-downloads](https://developer.nvidia.com/nvshmem-downloads),
+> with a 4-line patch to `src/modules/transport/ibgda/ibgda.cpp` extending
+> the IBGDA device-name filter from `mlx5*` to also accept `ibp*`; the
+> patch is reproduced in full in our methodology appendix; built with
 > `NVSHMEM_USE_NCCL=OFF` so there is no NCCL fallback in the NVSHMEM hot
 > path; verified at runtime via `nm` on the resulting `libnvshmem_host.so`).
 > NCCL collectives were exercised through nccl-tests (upstream HEAD, built

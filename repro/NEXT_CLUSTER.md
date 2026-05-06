@@ -92,9 +92,9 @@ Status update from H200 re-run (2026-05-04):
 
 | Test | H100 result | H200 result | Notes |
 |---|---|---|---|
-| **V1 DeepEP internode HT** (V2 release `b306af0`) | ✗ TypeError in Python wrapper | ✗ same TypeError | Upstream bug in V2 release; use mistral-recipe (commit `73b6ea4`). |
+| **V1 DeepEP internode HT** (V2 release `b306af0`) | ✗ TypeError in Python wrapper | ✗ same TypeError | Upstream regression in V2 release; use the version-pinning recipe — pre-V2 commit `73b6ea4` (PR #458). |
 | **V1 DeepEP internode HT** (pre-V2 commit `73b6ea4`) | not retried originally | ✅ **78.5 GB/s SO BW**, 264 GB/s NVL, 769 µs FP8 dispatch | With NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty. |
-| **V1 DeepEP low-latency multi-node (mistral recipe)** | ✗ IBGDA init / `cudaErrorIllegalAddress` | ✅ **318 µs total** at 2×8, 69.4 GB/s combined | Same recipe: DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=`. |
+| **V1 DeepEP low-latency multi-node (version-pinning recipe)** | ✗ IBGDA init / `cudaErrorIllegalAddress` | ✅ **318 µs total** at 2×8, 69.4 GB/s combined | Same recipe: DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` (all public). |
 | **V2 DeepEP low-latency 2 nodes × 4 GPU** | (skipped) | ✅ collected (~110 µs combine, 33 GB/s SO) | Now in the H200 results. |
 
 ## What's portable as-is

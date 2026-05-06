@@ -1,11 +1,12 @@
 #!/bin/bash
-# DeepEP V1 (legacy NVSHMEM) tests using the **working** version combination
-# we discovered after looking at mistral's `runtime/vllm-internal/tools/ep_kernels/`:
+# DeepEP V1 (legacy NVSHMEM) tests using the **working** version-pinning recipe
+# (all components are public; see ../CLUSTER_VERSIONS.md for provenance):
 #
-#   * DeepEP commit `73b6ea4` (pre-V2 layout: csrc/kernels/, deep_ep/buffer.py,
-#     tests/test_*.py — no `legacy/` subdir). The V2 release `b306af0` regressed
-#     the V1 LL kernel (cudaErrorIllegalAddress) and the V1 internode wrapper
-#     (TypeError); 73b6ea4 has neither regression.
+#   * DeepEP commit `73b6ea4` (PR #458 in public deepseek-ai/DeepEP — pre-V2
+#     layout: csrc/kernels/, deep_ep/buffer.py, tests/test_*.py — no
+#     `legacy/` subdir). The V2 release `b306af0` regressed the V1 LL kernel
+#     (cudaErrorIllegalAddress) and the V1 internode wrapper (TypeError);
+#     73b6ea4 has neither regression.
 #   * NVSHMEM 3.4.5 (cu13 wheel, install with `pip install nvidia-nvshmem-cu13==3.4.5`).
 #     The reason this version specifically: NVSHMEM 3.4.5 has v1 device_state
 #     struct layout (matching DeepEP's bundled ibgda_device.cuh), while

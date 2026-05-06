@@ -330,24 +330,31 @@ IBGDA's specific path doesn't come through. See
 
 ---
 
-## ✅ Update 3: V1 IBGDA fully working with mistral's recipe (2026-05-04)
+## ✅ Update 3: V1 IBGDA fully working — version-pinning recipe (2026-05-04)
 
-The "V1 multi-node — still blocked" section above is **now wrong**. After
-looking at the internal NVSHMEM fork (`~/workspace/nvshmem`, branches
-`3.3.9-ibp` and `3.2.5-deepep-patched`) and Mistral's
-[`runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh`](../../../mistral/runtime/vllm-internal/tools/ep_kernels/install_python_libraries.sh),
-we found the version combination that actually works on this cluster:
+The "V1 multi-node — still blocked" section above is **now wrong**. The
+combination that actually works on this cluster is reproducible from
+public sources:
 
-* **DeepEP commit `73b6ea4`** (pre-V2 layout) — checkout via
-  `git checkout 73b6ea4` after a fresh clone. The V2 release `b306af0`
-  has regressions in both V1 LL and V1 internode HT.
+* **DeepEP commit `73b6ea4`** (PR #458 "support hidden-dim 3072" in public
+  `deepseek-ai/DeepEP`) — the last pre-V2-layout commit with V1 IBGDA
+  kernels intact. The V2 release `b306af0` regressed both V1 LL and V1
+  internode HT (the V2 release was scoped to V2; V1 paths regressed
+  silently). Checkout via `git checkout 73b6ea4` after a fresh clone.
 * **NVSHMEM 3.4.5** (`pip install --target=$PREFIX nvidia-nvshmem-cu13==3.4.5`).
+  This specific version is required because DeepEP V1's bundled
+  `csrc/kernels/ibgda_device.cuh` uses the v1 `nvshmemi_ibgda_device_state_t`
+  struct layout; NVSHMEM 3.5 changed it to v2 and silently corrupts memory
+  in the kernel-side RDMA path. 3.4.5 is the last 3.x release with the v1
+  layout.
 * **`NVSHMEM_HCA_PREFIX=`** (empty string) at runtime — bypasses the
-  default `mlx5*` device filter that rejects this cluster's `ibp*` device names.
+  default `mlx5*` device filter that rejects this cluster's `ibp*` device
+  names. (Equivalent source patch in [`../CLUSTER_VERSIONS.md`](../CLUSTER_VERSIONS.md).)
 
-Run script: [`run_v1_mistral_recipe.sh`](run_v1_mistral_recipe.sh). It
-primes a named pyxis container, builds DeepEP-pre-v2 against NVSHMEM 3.4.5
-if needed, and runs all four V1 tests.
+Run script: [`run_v1_mistral_recipe.sh`](run_v1_mistral_recipe.sh) (kept
+the filename for git-history continuity; the recipe itself only references
+public sources). It primes a named pyxis container, builds DeepEP at
+`73b6ea4` against NVSHMEM 3.4.5 if needed, and runs all four V1 tests.
 
 ### V1 results that now run (2-node × 8 GPU = 16 ranks unless noted)
 

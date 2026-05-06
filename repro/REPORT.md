@@ -29,9 +29,9 @@ the older H100 cluster where applicable; numbers below are H200 unless noted).
 | CUDA | 13.0.88 |
 | OpenMPI | 4.1.9a1 (system at `/usr/local/mpi`; libopenmpi-dev installed for `mpi.h`) |
 | NCCL | **2.30.4** + cuda13.2 (pip wheel `nvidia-nccl-cu13==2.30.4`); container shipped with 2.28.8 (older runs) |
-| NVSHMEM | **3.3.9-ibp** for thesis micro-benches (internal fork at `~/workspace/nvshmem`, branch `3.3.9-ibp`, commit `4bc54ac` = upstream 3.3.9 + `Detect ibp devices`); 3.4.5 (pip wheel) for DeepEP V1; 3.6.5 (pip wheel) for jacobi |
+| NVSHMEM | **3.3.9** + 4-line patch for thesis micro-benches (built from public NVIDIA source tarball; patch extends IBGDA device-name filter from `mlx5*` to also accept `ibp*` — see [`CLUSTER_VERSIONS.md`](CLUSTER_VERSIONS.md) for the diff); 3.4.5 (pip wheel) for DeepEP V1; 3.6.5 (pip wheel) for jacobi. See [`CLUSTER_VERSIONS.md`](CLUSTER_VERSIONS.md) "Why three NVSHMEM versions?" |
 | nccl-tests | upstream HEAD as of 2026-05-04, built with `MPI=1` against the NCCL pip wheel |
-| DeepEP | commit `73b6ea4` (pre-V2; mistral recipe) for V1 IBGDA path; `b306af0` (V2 release) for V2 NCCL Gin path |
+| DeepEP | commit `73b6ea4` (pre-V2, public `deepseek-ai/DeepEP` PR #458) for V1 IBGDA path; `b306af0` (V2 release, PR #605 "[Public release 26/04] EPv2") for V2 NCCL Gin path |
 
 Quotas: dev qos caps a single user at 16 GPU = 2 nodes. The cross-node
 data is therefore all 2×8.
@@ -175,7 +175,7 @@ Detail + 3 comparison figures: [`deepep/README.md`](deepep/README.md), [`deepep/
 ## 4. Thesis Chapter 4 micro-benchmarks
 
 This is where the *isolated* NCCL vs NVSHMEM transport comparison lives.
-Built NVSHMEM perftest from the internal fork (3.3.9-ibp), built nccl-tests
+Built NVSHMEM perftest from public NVSHMEM 3.3.9 source + 4-line `ibp`-device patch, built nccl-tests
 with MPI=1 against NCCL 2.30.4. Re-ran the whole thing rigorously
 **8 trials × (20 warmup + 50 timed iters)** per data point on 2026-05-05
 after the user pointed out the earlier single-trial sweep was noisy.

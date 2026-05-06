@@ -63,7 +63,7 @@ ConnectX-7 IB cluster, container `gpu_882f6e72.sqsh`.
 
 | Library | Version | Source |
 |---|---|---|
-| **NVSHMEM** | **3.3.9-ibp** | internal fork `~/workspace/nvshmem`, commit `4bc54ac` (= upstream `8a43de2 NVSHMEM 3.3.9` + `4bc54ac Detect ibp devices`). Built with `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default). |
+| **NVSHMEM** | **3.3.9** + 4-line patch | Public NVSHMEM 3.3.9 source release from <https://developer.nvidia.com/nvshmem-downloads>, with a 4-line patch to `src/modules/transport/ibgda/ibgda.cpp` to extend the IBGDA device-name filter from `mlx5*` to also accept `ibp*` (this cluster's IB devices report as `ibp0..ibp7` to ibverbs). Patch text in [`../CLUSTER_VERSIONS.md`](../CLUSTER_VERSIONS.md). Built with `NVSHMEM_USE_NCCL=OFF`, `NVSHMEM_IBGDA_SUPPORT=ON`, `NVSHMEM_IBRC_SUPPORT=ON`, `NVSHMEM_NVLS_SUPPORT=ON` (default). Equivalent runtime workaround (no rebuild): `NVSHMEM_HCA_PREFIX=` (empty). |
 | **NCCL** | **2.30.4+cuda13.2** | pip wheel `nvidia-nccl-cu13==2.30.4` at `~/workspace/nccl-pip/nvidia/nccl/`. |
 | **nccl-tests** | upstream HEAD on `2026-05-04` | built with `MPI=1 MPI_HOME=/usr/local/mpi NCCL_HOME=<above>` against the wheel above. |
 | **CUDA** | 13.0.88 | container's `/usr/local/cuda` |

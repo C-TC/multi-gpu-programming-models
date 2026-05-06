@@ -11,7 +11,7 @@ Four independent investigations, each in its own subdirectory:
 | [jacobi/](jacobi/) | Reproducing the Jacobi NCCL-vs-NVSHMEM benchmark from §4.2.2 of [`../ETH_Zürich_CADMO_Thesis_Template_v2.pdf`](../ETH_Zürich_CADMO_Thesis_Template_v2.pdf), 1-node and 2-node | ✅ done |
 | [nccl_graph_ablation/](nccl_graph_ablation/) | Effect of `NCCL_GRAPH_MIXING_SUPPORT=0` on `nccl_graphs/jacobi` latency | ✅ done |
 | [deepep/](deepep/) | DeepEP V1 (NVSHMEM) vs V2 (NCCL Gin) high-throughput + low-latency, 1-node and 2-node | ⚠️ partial — see [deepep/README.md](deepep/README.md) and [IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) for what's blocked on this cluster |
-| [thesis_microbench/](thesis_microbench/) | Thesis Chapter 4 micro-benches (4.1.1 P2P, 4.1.2 collectives, 4.2.1 NCCL vs NVSHMEM) on H200 with NVSHMEM 3.3.9-ibp from internal fork | ✅ done (1×8 + 2×8 only — `dev` qos caps at 16 GPU) |
+| [thesis_microbench/](thesis_microbench/) | Thesis Chapter 4 micro-benches (4.1.1 P2P, 4.1.2 collectives, 4.2.1 NCCL vs NVSHMEM) on H200 with NVSHMEM 3.3.9 (public source) + 4-line `ibp` device patch | ✅ done (1×8 + 2×8 only — `dev` qos caps at 16 GPU) |
 
 If you're moving to a different cluster, **start with [NEXT_CLUSTER.md](NEXT_CLUSTER.md)** — it lists the cluster prerequisites that must hold for everything here to run, and the items that were blocked on the current cluster so you know what to validate first.
 
@@ -68,7 +68,7 @@ H200 numbers). Where they differ, both are noted.
 | [jacobi/results/REPORT_1NODE.md](jacobi/results/REPORT_1NODE.md) | 1-node 8 GPU 16384² 1000 iter: nccl_graphs **0.220 s** (both), nvshmem **0.254 s / 0.252 s** — NCCL ~6% faster on NVLink-only, no H100 vs H200 delta |
 | [jacobi/results/REPORT_2NODE.md](jacobi/results/REPORT_2NODE.md) | 2-node 4×4 GPU 16384² 1000 iter: NCCL **0.262 s / 0.266 s**, NVSHMEM baseline **5.742 s / 4.222 s** (20× slowdown without `-use_block_comm` on H200!), NVSHMEM (-use_block_comm -nbsync) **0.282 s / 0.285 s** (parity with NCCL on both) |
 | [nccl_graph_ablation/REPORT.md](nccl_graph_ablation/REPORT.md) | `NCCL_GRAPH_MIXING_SUPPORT=0` saves ~1 µs per graph launch — ≤ 5% effect at small nx, lost in noise at 16384² (same on H100 and H200) |
-| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM **322 GB/s** vs V2 NCCL Gin **304 GB/s** (H200 essentially identical to H100). 2-node 2×8: **V1 NVSHMEM IBGDA wins on throughput** (78.5 GB/s SO HT dispatch) — works on H200 with mistral's recipe (DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty). V2 NCCL Gin still wins on latency (227 µs vs V1's 318 µs at 2×8). See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) "Update 3". |
+| [deepep/README.md](deepep/README.md) | Single-node 8 GPU HT @ 24 SMs: V1 NVSHMEM **322 GB/s** vs V2 NCCL Gin **304 GB/s** (H200 essentially identical to H100). 2-node 2×8: **V1 NVSHMEM IBGDA wins on throughput** (78.5 GB/s SO HT dispatch) — works on H200 with the version-pinning recipe (DeepEP `73b6ea4` + NVSHMEM 3.4.5 + `NVSHMEM_HCA_PREFIX=` empty; `73b6ea4` and 3.4.5 are both public — see [`CLUSTER_VERSIONS.md`](CLUSTER_VERSIONS.md) "Why three NVSHMEM versions?"). V2 NCCL Gin still wins on latency (227 µs vs V1's 318 µs at 2×8). See [deepep/IBGDA_DEBUG.md](deepep/IBGDA_DEBUG.md) "Update 3". |
 
 ## Quick reproduce on this cluster
 
