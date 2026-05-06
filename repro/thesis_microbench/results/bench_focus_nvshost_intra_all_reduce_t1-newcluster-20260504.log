@@ -1,0 +1,53 @@
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 5 mype_node: 5 device name: NVIDIA H200 bus id: 174 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 2 mype_node: 2 device name: NVIDIA H200 bus id: 63 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 4 mype_node: 4 device name: NVIDIA H200 bus id: 155 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 7 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 3 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 6 mype_node: 6 device name: NVIDIA H200 bus id: 191 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#reduction_on_stream
+size(B)     count     type      redop     latency(us)       min_lat(us)       max_lat(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        int       sum       6925.577641       6925.578          6925.578          0.000         0.000       
+256         64        int       sum       6233.863354       6233.863          6233.863          0.000         0.000       
+512         128       int       sum       6926.158428       6926.158          6926.158          0.000         0.000       
+1024        256       int       sum       6926.732540       6926.733          6926.733          0.000         0.000       
+2048        512       int       sum       6926.412106       6926.412          6926.412          0.000         0.001       
+4096        1024      int       sum       9004.315376       9004.315          9004.315          0.000         0.001       
+8192        2048      int       sum       9005.430222       9005.430          9005.430          0.001         0.002       
+16384       4096      int       sum       47775.962830      47775.963         47775.963         0.000         0.001       
+32768       8192      int       sum       84466.201782      84466.202         84466.202         0.000         0.001       
+65536       16384     int       sum       168276.138306     168276.138        168276.138        0.000         0.001       
+131072      32768     int       sum       335815.643311     335815.643        335815.643        0.000         0.001       
+262144      65536     int       sum       47794.353485      47794.353         47794.353         0.005         0.010       
+524288      131072    int       sum       83811.073303      83811.073         83811.073         0.006         0.011       
+1048576     262144    int       sum       168341.033936     168341.034        168341.034        0.006         0.011       
+2097152     524288    int       sum       337231.781006     337231.781        337231.781        0.006         0.011       
+4194304     1048576   int       sum       647745.544434     647745.544        647745.544        0.006         0.011       
+8388608     2097152   int       sum       1344706.176758    1344706.177       1344706.177       0.006         0.011       
+16777216    4194304   int       sum       2610350.341797    2610350.342       2610350.342       0.006         0.011       

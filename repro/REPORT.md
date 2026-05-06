@@ -378,6 +378,14 @@ pure NVSHMEM (no NCCL fallback).
 | 32 MiB | **129.39 ± 0.03** | 219.01 ± 0.33 | (cap) | 7641.29 ± 6.87 |
 | 1 GiB | **3896.03 ± 0.88** | 6526.69 ± 8.56 | (cap) | (cap) |
 
+> **Heads-up on the NVSHMEM device column above.** The original `bench_fair.sh`
+> used the perftest's default scope (thread `t`), which limits to ≤ 1 KiB —
+> hence the `(cap)` rows. The follow-up [`bench_allreduce_focused.sh`](thesis_microbench/scripts/bench_allreduce_focused.sh)
+> + [`analyze_focus.py`](thesis_microbench/scripts/analyze_focus.py) re-runs the
+> same comparison but extracts the `int32-sum-block` row (block scope) so
+> NVSHMEM device extends to 256 MiB intra and 16 MiB inter. See the new
+> figure below this one.
+
 `alltoall` intra 8 GPU H200, mean ± stddev (μs):
 
 | Size | NCCL recipe | NCCL NVLS off | NVSHMEM device | NVSHMEM host on_stream |
@@ -388,6 +396,80 @@ pure NVSHMEM (no NCCL fallback).
 | 32 MiB | **109.20 ± 2.40** | 109.43 ± 2.78 | 3364.40 ± 0.71 | 897.78 ± 0.22 |
 
 ![Fair recipe: NCCL vs NVSHMEM device kernel vs NVSHMEM host on_stream](thesis_microbench/results/figures/fair_recipe.png)
+
+#### Focused all_reduce comparison (4 configs side-by-side)
+
+After the first reviewer pass, three issues with the `fair_recipe` plot above
+became apparent for `all_reduce` specifically: (a) the NVSHMEM device line was
+**thread-scope** rather than block-scope (parser bug — the perftest binary
+`reduction_latency` always iterates all 2 dtypes × 7 redops × 3 scopes per size
+and the original parser picked the wrong row), (b) NVSHMEM curves stopped at
+1 KiB (thread-scope `ELEM_COMP`), and (c) there was no **NCCL legacy ring**
+config to compare against the symmetric-kernel + NVLS recipe.
+
+[`bench_allreduce_focused.sh`](thesis_microbench/scripts/bench_allreduce_focused.sh)
+collects all four configs cleanly, 8 trials each, with parser fixed:
+
+| Config | Args | Note |
+|---|---|---|
+| `focus_nccl` | NCCL recipe `-w 50 -n 100 -c 0 -R 2 -G 10`, `NCCL_GRAPH_MIXING_SUPPORT=0` | symmetric-kernel + NVLS auto |
+| `focus_nccl_ring` | same + `NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring` | force the legacy ring algorithm, no NVLS multicast |
+| `focus_nvsdev` | `reduction_latency --cudagraph -n 10 -w 3` | parser extracts `int32-sum-block` row |
+| `focus_nvshost` | `reduction_on_stream --cudagraph -n 10 -w 3` (intra to 16 MiB; inter to 64 KiB) | parser extracts `int-sum` row |
+
+Some practical limits to call out (these shape the size ranges in the plot):
+
+* `reduction_latency` always runs `thread → warp → block` serially across all
+  redops × dtypes per size. Cross-node, even with `-e 16 MiB -n 10 -w 3`, the
+  thread+warp pass eats > 5 minutes before block scope starts — so we reuse the
+  rigorous-bench `bench_nvsdev_nvlson_inter_reduction_latency_t1-5` logs
+  (block scope already there, 5 trials × 23 sizes to 16 MiB) for `nvsdev_inter`.
+* Host on_stream sum reduction without NCCL fallback hits a naive RDMA path:
+  intra 16 MiB ≈ **2.6 s/call**, inter 64 KiB ≈ **880 ms/call**. We cap the
+  ranges accordingly so the bench finishes in the slurmstep timeout.
+
+![Focused all_reduce: NCCL recipe / legacy ring / NVSHMEM device block / NVSHMEM host on_stream](thesis_microbench/results/figures/focus_all_reduce.png)
+
+`all_reduce` mean ± stddev (μs):
+
+| Size | NCCL recipe | NCCL legacy ring | NVSHMEM device block | NVSHMEM host on_stream |
+|---:|---:|---:|---:|---:|
+| **intra 1×8** | | | | |
+| 128 B | 5.97 ± 0.28 | 5.56 ± 0.24 | 6.44 ± 0.34 | ~1500 ± noisy |
+| 1 KiB | 5.13 ± 0.04 | 5.05 ± 0.03 | 8.34 ± 0.43 | ~1500 ± noisy |
+| 64 KiB | 5.94 ± 0.03 | 8.87 ± 0.03 | 205.1 ± 0.33 | 42 134 ± 77 636 |
+| 1 MiB | 11.13 ± 0.08 | 20.39 ± 0.17 | 3 227.4 ± 4.2 | 42 247 ± 77 826 |
+| 16 MiB | 68.13 ± 0.04 | 114.83 ± 0.27 | 53 425 ± 161 | 653 238 ± 1.2 M |
+| 256 MiB | **982.8 ± 0.10** | 1 638.8 ± 4.3 | 450 629 ± 2 434 | (cap) |
+| 1 GiB | **3 896.4 ± 0.81** | 6 489.9 ± 17 | (cap) | (cap) |
+| **inter 2×8** | | | | |
+| 128 B | 23.74 ± 0.07 | 40.05 ± 0.26 | 23.39 ± 0.90 | 20.37 ± 0.42 |
+| 1 KiB | 24.99 ± 0.27 | 44.13 ± 0.18 | 54.00 ± 0.72 | 51.33 ± 0.24 |
+| 64 KiB | 31.03 ± 0.09 | 53.20 ± 0.39 | 2 292.3 ± 16.5 | 2 097.2 ± 16.8 |
+| 1 MiB | 62.68 ± 0.48 | 105.29 ± 1.08 | 36 726 ± 478 | (cap) |
+| 16 MiB | 134.6 ± 1.1 | 256.7 ± 0.3 | 586 396 ± 4 792 | (cap) |
+| 256 MiB | **1 137.3 ± 1.0** | 1 666.8 ± 1.0 | (cap) | (cap) |
+| 1 GiB | **4 260.5 ± 1.4** | 5 950.4 ± 3.1 | (cap) | (cap) |
+
+Quick read on the four configs:
+
+1. **NCCL recipe wins everywhere ≥ 16 KiB**, intra and inter, by ~1.6× over
+   the legacy ring (NVLS multicast is the deciding factor at large sizes).
+2. **NCCL legacy ring** is competitive at small sizes intra-node but loses
+   ~1.6× at large sizes — same conclusion as the NVLS-off ablation, just
+   under explicit `NCCL_ALGO=Ring`.
+3. **NVSHMEM device block** is competitive at the smallest sizes intra-node
+   (within ~1.5× of NCCL up to 1 KiB) but the ring/tree it uses doesn't
+   engage NVLink-SHARP, so it falls behind by ~500× at large sizes intra
+   and ~4 000× at large sizes inter.
+4. **NVSHMEM host on_stream** is consistently slow because there is no NCCL
+   fallback in this build (intentional, for a clean "pure NVSHMEM" measure).
+   The host falls back to an RDMA + CPU-staged path that sums one rank at a
+   time. The huge stddevs at small intra sizes (~1.5 ms ± 2.9 ms) reflect
+   real run-to-run variability of this code path; the inter numbers up to
+   64 KiB are tighter.
+
+Scripts: [`bench_allreduce_focused.sh`](thesis_microbench/scripts/bench_allreduce_focused.sh), [`analyze_focus.py`](thesis_microbench/scripts/analyze_focus.py).
 
 What the fair plot shows that the earlier rigorous bench obscured:
 

@@ -51,7 +51,7 @@ def parse_nccl(path: Path) -> dict[int, float]:
 def parse_nvshmem_coll(path: Path) -> dict[int, float]:
     """Handle all 4 NVSHMEM coll perftest layouts:
        A) device alltoall/bcast/fcollect: size count type scope latency algbw busbw  (filter: 32-bit, block)
-       B) device reduction/reducescatter: size count type redop scope latency algbw busbw  (filter: int32 sum t)
+       B) device reduction/reducescatter: size count type redop scope latency algbw busbw  (filter: int32 sum b)
        C) host on_stream alltoall/bcast/fcollect: size count type latency min_lat max_lat algbw busbw  (filter: type=int)
        D) host on_stream reduction/reducescatter: size count type redop latency min_lat max_lat algbw busbw (int sum)"""
     if not path.exists():
@@ -86,7 +86,7 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
                 continue
             if layout == "A" and len(f) >= 5 and f[2] == "32-bit" and f[3] == "block":
                 rows[size] = float(f[4])
-            elif layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "t":
+            elif layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "b":
                 rows[size] = float(f[5])
             elif layout == "C" and len(f) >= 4 and f[2] == "int":
                 rows[size] = float(f[3])

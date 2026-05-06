@@ -90,7 +90,7 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
                 continue
             if layout == "A" and len(f) >= 5 and f[2] == "32-bit" and f[3] == "block":
                 rows[size] = float(f[4])
-            elif layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "t":
+            elif layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "b":
                 rows[size] = float(f[5])
             elif layout == "C" and len(f) >= 4 and f[2] == "int":
                 rows[size] = float(f[3])
