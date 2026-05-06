@@ -49,7 +49,11 @@ def parse_nccl(path: Path) -> dict[int, float]:
 
 
 def parse_nvshmem_coll(path: Path) -> dict[int, float]:
-    """Same as in analyze_rigorous; pick (block, 32-bit) for non-reduction; (thread, int32+sum) for reduction."""
+    """Handle all 4 NVSHMEM coll perftest layouts:
+       A) device alltoall/bcast/fcollect: size count type scope latency algbw busbw  (filter: 32-bit, block)
+       B) device reduction/reducescatter: size count type redop scope latency algbw busbw  (filter: int32 sum t)
+       C) host on_stream alltoall/bcast/fcollect: size count type latency min_lat max_lat algbw busbw  (filter: type=int)
+       D) host on_stream reduction/reducescatter: size count type redop latency min_lat max_lat algbw busbw (int sum)"""
     if not path.exists():
         return {}
     rows = {}
@@ -59,7 +63,16 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
         if "size(B)" in line:
             in_table = True
             hdr = line.split()
-            layout = "B" if "redop" in hdr else "A"
+            has_redop = "redop" in hdr
+            has_min_lat = "min_lat(us)" in line or any("min_lat" in h for h in hdr)
+            if has_redop and has_min_lat:
+                layout = "D"
+            elif has_redop:
+                layout = "B"
+            elif has_min_lat:
+                layout = "C"
+            else:
+                layout = "A"
             continue
         if in_table:
             f = line.split()
@@ -75,6 +88,10 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
                 rows[size] = float(f[4])
             elif layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "t":
                 rows[size] = float(f[5])
+            elif layout == "C" and len(f) >= 4 and f[2] == "int":
+                rows[size] = float(f[3])
+            elif layout == "D" and len(f) >= 5 and f[2] == "int" and f[3] == "sum":
+                rows[size] = float(f[4])
     return rows
 
 
@@ -101,9 +118,10 @@ def plot_fair():
         for row, (scen, scen_label) in enumerate([("intra", "intranode 1×8"), ("inter", "internode 2×8")]):
             ax = axes[row, col]
             for prefix, label, color, ls in [
-                (f"bench_fair_nccl_{scen}_{op}",         f"NCCL recipe (-R 2 -G 10 -c 0)",       "tab:blue",  "-"),
-                (f"bench_fair_nccl_nvlsoff_{scen}_{op}", f"NCCL recipe + NVLS off",              "tab:red",   "--"),
-                (f"bench_fair_nvshmem_{scen}_{op}",      f"NVSHMEM device + --cudagraph",        "tab:purple","-"),
+                (f"bench_fair_nccl_{scen}_{op}",              "NCCL recipe (-R 2 -G 10 -c 0)",          "tab:blue",   "-"),
+                (f"bench_fair_nccl_nvlsoff_{scen}_{op}",      "NCCL recipe + NVLS off",                 "tab:red",    "--"),
+                (f"bench_fair_nvshmem_{scen}_{op}",           "NVSHMEM device + --cudagraph",           "tab:purple", "-"),
+                (f"bench_fair_nvshmem_host_{scen}_{op}",      "NVSHMEM host on_stream + --cudagraph",   "tab:orange", "-."),
             ]:
                 parser = parse_nvshmem_coll if "nvshmem" in prefix else parse_nccl
                 d = collect(prefix, parser)
@@ -120,10 +138,12 @@ def plot_fair():
             if row == 1: ax.set_xlabel("size (B)")
             ax.grid(True, which="both", alpha=0.3)
             if row == 0 and col == 0:
-                ax.legend(fontsize=8, loc="upper left")
-    fig.suptitle("Fair recipe: NCCL (-R 2 -G 10 -c 0 -w 50 -n 100, GRAPH_MIXING_SUPPORT=0)\n"
-                 "vs NVSHMEM device coll (--cudagraph -w 50 -n 100) — 8 trials, mean ± stddev",
-                 y=0.995, fontsize=11)
+                ax.legend(fontsize=7, loc="upper left")
+    fig.suptitle(
+        "Fair recipe — NCCL (-R 2 -G 10 -c 0 -w 50 -n 100, GRAPH_MIXING_SUPPORT=0) vs\n"
+        "NVSHMEM device kernel (--cudagraph) and NVSHMEM host on_stream (--cudagraph) — 8 trials, mean ± stddev\n"
+        "NVSHMEM built with NVSHMEM_USE_NCCL=OFF (no NCCL fallback in NVSHMEM hot path; verified via nm + ldd)",
+        y=0.995, fontsize=10)
     fig.tight_layout()
     fig.savefig(FIG / "fair_recipe.png", dpi=150, bbox_inches="tight")
     plt.close(fig)
@@ -138,7 +158,8 @@ def text_table():
             cols = [
                 (f"bench_fair_nccl_{scen}_{op}", parse_nccl, "NCCL"),
                 (f"bench_fair_nccl_nvlsoff_{scen}_{op}", parse_nccl, "NCCL_nvlsoff"),
-                (f"bench_fair_nvshmem_{scen}_{op}", parse_nvshmem_coll, "NVSHMEM"),
+                (f"bench_fair_nvshmem_{scen}_{op}", parse_nvshmem_coll, "NVSdev"),
+                (f"bench_fair_nvshmem_host_{scen}_{op}", parse_nvshmem_coll, "NVShost"),
             ]
             data = [(label, collect(prefix, parser)) for prefix, parser, label in cols]
             sizes = sorted({sz for _, d in data for sz in d})

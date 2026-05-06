@@ -359,24 +359,53 @@ NCCL feature for large-message all_reduce on H200** — ~1.7× across the
 ≥ 32 KiB range. The earlier "NVLS only helps 0-5%" reading was wrong
 because the launch overhead was masking the transport win.
 
-#### NCCL vs NVSHMEM device kernel (fair recipe; both with graphs)
+#### NCCL vs NVSHMEM device kernel vs NVSHMEM host on_stream (fair recipe)
 
-| Scenario | Op | NCCL recipe peak | NVSHMEM device + `--cudagraph` peak |
-|---|---|---|---|
-| intra 1×8 | all_reduce, 32 MiB | **129 µs** | (NVSHMEM coll cap at lower size for reduction) |
-| intra 1×8 | alltoall, 8 MiB | 33 µs | (NVSHMEM device intra alltoall data ≤ 256 MiB; competitive) |
-| inter 2×8 | all_reduce, 32 MiB | **141 µs** | (similar) |
+All three with the equivalent graph-amortised methodology (NCCL `-G 10 -R 2 -c 0`,
+NVSHMEM `--cudagraph`), 8 trials, mean ± stddev. NVSHMEM was built with
+`NVSHMEM_USE_NCCL=OFF`; runtime check `nm -D libnvshmem_host.so | grep -ci nccl`
+returns `0` and `ldd ... | grep nccl` is empty, so the NVSHMEM lines below are
+pure NVSHMEM (no NCCL fallback).
 
-![Fair recipe: NCCL with -G 10 -R 2 vs NVSHMEM device with --cudagraph](thesis_microbench/results/figures/fair_recipe.png)
+`all_reduce` intra 8 GPU H200, mean ± stddev (μs) over 8 trials per config:
+
+| Size | NCCL recipe | NCCL NVLS off | NVSHMEM device | NVSHMEM host on_stream |
+|---:|---:|---:|---:|---:|
+| 128 B | 5.81 ± 0.29 | 5.65 ± 0.31 | 18.55 ± 0.15 | 7.89 ± 0.16 |
+| 1 KiB | 5.10 ± 0.03 | 5.15 ± 0.25 | 76.44 ± 0.74 | 9.71 ± 0.11 |
+| 16 KiB | 5.50 ± 0.02 | 6.07 ± 0.04 | (cap) | 57.15 ± 0.07 |
+| 1 MiB | 11.16 ± 0.04 | 20.51 ± 0.03 | (cap) | 216.10 ± 0.27 |
+| 32 MiB | **129.39 ± 0.03** | 219.01 ± 0.33 | (cap) | 7641.29 ± 6.87 |
+| 1 GiB | **3896.03 ± 0.88** | 6526.69 ± 8.56 | (cap) | (cap) |
+
+`alltoall` intra 8 GPU H200, mean ± stddev (μs):
+
+| Size | NCCL recipe | NCCL NVLS off | NVSHMEM device | NVSHMEM host on_stream |
+|---:|---:|---:|---:|---:|
+| 128 B | 6.26 ± 0.25 | 6.27 ± 0.21 | 7.44 ± 0.04 | 8.96 ± 0.05 |
+| 32 KiB | 6.47 ± 0.03 | 6.49 ± 0.01 | 8.13 ± 0.04 | 11.11 ± 0.01 |
+| 1 MiB | 14.70 ± 0.04 | 14.72 ± 0.03 | 56.83 ± 0.02 | 30.10 ± 0.02 |
+| 32 MiB | **109.20 ± 2.40** | 109.43 ± 2.78 | 3364.40 ± 0.71 | 897.78 ± 0.22 |
+
+![Fair recipe: NCCL vs NVSHMEM device kernel vs NVSHMEM host on_stream](thesis_microbench/results/figures/fair_recipe.png)
 
 What the fair plot shows that the earlier rigorous bench obscured:
 
 1. **All small-size differences shrink** when launch overhead is amortised.
    NCCL's "5 µs floor" is real and matches NVSHMEM's kernel-initiated path.
 2. **NVLS is huge for NCCL at ≥ 32 KiB** — turning it off costs ~1.7× across
-   the entire BW frontier.
-3. **NVSHMEM device kernel is competitive but no longer obviously winning**
-   at small sizes — NCCL's CUDA-graph latency is comparable.
+   the entire BW frontier (intra-node) for `all_reduce`.
+3. **NCCL is the fastest at every size** for the operations measured here
+   (with the recipe). NVSHMEM device matches at small `alltoall` only.
+4. **NVSHMEM host on_stream is consistently slow**, especially for `all_reduce`
+   at large sizes (60× slower than NCCL at 32 MiB) — it uses simple
+   recursive doubling without chunking, so the ring/tree NCCL path wins
+   easily.
+5. **NVSHMEM device coll's `reduction_latency` perftest** caps out at small
+   sizes because it iterates over 5 dtypes × 5 reduce ops × 3 scopes per
+   size — the heavy internal sub-loop hits our 90 s/trial timeout for
+   sizes > 1 KiB. The numbers we have at small sizes are real (slower than
+   NCCL) but the large-message picture for this op is incomplete.
 
 #### Recipe is now the default measurement methodology
 

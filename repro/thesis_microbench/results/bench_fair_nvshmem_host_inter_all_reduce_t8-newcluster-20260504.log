@@ -1,0 +1,7 @@
+srun: forcing job termination
+srun: got SIGCONT
+srun: Job step aborted: Waiting up to 32 seconds for job step to finish.
+slurmstepd: error: *** STEP 1433944.17 ON h200-bar-200-199 CANCELLED AT 2026-05-06T12:23:18 ***
+srun: error: h200-bar-200-199: tasks 0-7: Killed
+srun: error: h200-bar-200-231: tasks 8-15: Killed
+srun: Force Terminated StepId=1433944.17
