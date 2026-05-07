@@ -95,7 +95,7 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
                 and f[4] == "b"
             ):
                 rows[size] = float(f[5])
-            elif layout == "D" and len(f) >= 5 and f[2] == "int" and f[3] == "sum":
+            elif layout == "D" and len(f) >= 5 and f[2] in ("int", "float") and f[3] == "sum":
                 rows[size] = float(f[4])
     return rows
 

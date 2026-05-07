@@ -24,7 +24,7 @@ NCCL_PIP=${NCCL_PIP:-/mnt/vast/home/tiancheng.chen/workspace/nccl-pip/nvidia/ncc
 NCCL_TESTS=${NCCL_TESTS:-/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/nccl-tests/build}
 TAG=${TAG:--newcluster-20260504}
 N_TRIAL=${N_TRIAL:-8}
-TIMEOUT=${TIMEOUT:-360}
+TIMEOUT=${TIMEOUT:-900}
 OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/thesis_microbench/results
 mkdir -p "$OUT"
 
@@ -74,22 +74,22 @@ run_one "focus_nccl_ring_inter_all_reduce"     2 8 "$RING_ENV" "$NBIN $NCCL_ARGS
 NV_ENV="export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;"
 DEV_BIN="$INST/bin/perftest/device/coll/reduction_focus"
 DEV_ARGS_INTRA="-b 128 -e 2147483648 -n 100 -w 50 --cudagraph"  # -e 2 GiB → samples up to 1 GiB
-DEV_ARGS_INTER="-b 128 -e 268435456 -n 5 -w 2 --cudagraph"      # cross-node sum is bandwidth-limited
+DEV_ARGS_INTER="-b 128 -e 2147483648 -n 5 -w 2 --cudagraph"     # full 1 GiB range; ~500 s/trial inter
 run_one "focus_nvsdev_intra_all_reduce"        1 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS_INTRA"
 run_one "focus_nvsdev_inter_all_reduce"        2 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS_INTER"
 
-# ---------- 4. NVSHMEM host on_stream all_reduce (stream-ordered) ----------
-# Host-init reduction in NVSHMEM 3.3.9 (with NVSHMEM_USE_NCCL=OFF) is ~10000× slower
-# per byte than device kernel-init for cross-node sum reduction (no NCCL fallback;
-# host falls back to a naive RDMA path with per-rank CPU staging). Concretely:
-#   intra 16 MiB ~ 2.6 s/call          → -e 16 MiB feasible (~2 min/trial)
-#   inter  4 KiB ~ 13 ms,
-#   inter 16 KiB ~ 180 ms,
-#   inter 64 KiB ~ 880 ms              → -e 64 KiB feasible (~30 s/trial)
-# Larger inter sizes hit the 5 min slurmstep timeout and get killed.
+# ---------- 4. NVSHMEM host on_stream all_reduce (stream-ordered, float-sum, NVLS-eligible) ----------
+# Critical: host on_stream picks NVLS multi-CTA when (a) team has nvls_rsc_base_ptr
+# (true on H200 — see NVSHMEM init log "NVLS: supported" + "NVLS Resource Created"),
+# (b) dtype is float/half/bfloat (eligible at the device-side dispatch in reduce.cuh
+# line ~1592: `is_float_v`), and (c) op is sum. The earlier `int` runs missed (b)
+# and went down a slow non-NVLS path. With `-d float -o sum`:
+#   intra 1 GiB hits 264 GB/s (~equiv to NCCL recipe 270 GB/s)
+#   inter is still RDMA-proxy slow (no NVLS cross-node — NVSwitch is intra-node only,
+#   and NVSHMEM_USE_NCCL=OFF removes the NCCL fallback) — ~0.03 GB/s past 16 KiB.
 HOST_BIN="$INST/bin/perftest/host/coll/reduction_on_stream"
-HOST_ARGS_INTRA="-b 128 -e 16777216 -n 10 -w 3 --cudagraph"
-HOST_ARGS_INTER="-b 128 -e 65536 -n 5 -w 2 --cudagraph"
+HOST_ARGS_INTRA="-b 128 -e 1073741824 -n 50 -w 20 --cudagraph -d float -o sum"
+HOST_ARGS_INTER="-b 128 -e 16777216 -n 10 -w 3 --cudagraph -d float -o sum"
 run_one "focus_nvshost_intra_all_reduce"       1 8 "$NV_ENV" "$HOST_BIN $HOST_ARGS_INTRA"
 run_one "focus_nvshost_inter_all_reduce"       2 8 "$NV_ENV" "$HOST_BIN $HOST_ARGS_INTER"
 
