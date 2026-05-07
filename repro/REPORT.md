@@ -441,23 +441,36 @@ Two methodology notes:
    3 GB/s @ 128 MiB. The default auto-pick already takes two-shot for large
    sizes; the bottleneck is single-CTA, not algorithm choice.
 
-3. **Cross-node range limit on host on_stream — same code as device-block
-   beyond this cap.** Inter `nvshost` is capped at 16 MiB. Tried to push to
-   1 GiB on two fresh allocs; both timed out at ≥ 1500 s with 0 data rows.
-   Reading the source explains why the missing rows would land exactly on
-   the device-block line anyway: `rdxn_on_stream_kernel` body is just
-   `nvshmemi_reduce_threadgroup<TYPE, OP, NVSHMEMI_THREADGROUP_BLOCK>(team_dups[blockIdx.x], ...)`,
-   and for cross-node `TEAM_WORLD` the team has `nvls_rsc_base_ptr == NULL`
-   so `reduce_common.cuh:51-63` keeps `num_blocks = 1` regardless of size
-   (the `else` branch for non-NVLS path doesn't grow num_blocks). With
-   num_blocks=1, blockIdx.x=0 and `team_dups[0] = team_idx` (same team) →
-   the on_stream wrapper makes ONE call into the same `nvshmemi_reduce_threadgroup<...,BLOCK>`
-   function that the device-block API calls directly. That's why on the
-   inter plot, the host-on_stream and device-block lines literally overlap
-   on every sample we DID capture (within 5%, see table) — they're the
-   same source code lines. Cross-node, NVSHMEM with `NVSHMEM_USE_NCCL=OFF`
+3. **Cross-node `nvshost` extends to 1 GiB without `--cudagraph`.** On the
+   first inter sweep with `--cudagraph` to 2 GiB, the bench hung past 16 MiB
+   and srun timed out at 1500 s. Root cause is in the perftest wrapper, not
+   NVSHMEM: `RUN_RDXN_GRAPH` ([`coll_test.h:200-256`](https://github.com/NVIDIA/nvshmem))
+   captures `iters + warmup_iters` reductions into a single CUDA graph, then
+   launches the graph **twice** (warmup launch + timed launch, lines 234 and
+   239). At 36 s/call cross-node 1 GiB × `(5+2)*2 = 14` calls per size,
+   the largest sizes alone exceed the slurmstep timeout. Without
+   `--cudagraph` the perftest takes the `RUN_RDXN_STREAM` path
+   ([`coll_test.h:258-292`](https://github.com/NVIDIA/nvshmem)) which does
+   one launch per timed iter — 17 min/trial cross-node, completes cleanly.
+   The cross-node per-call latencies are identical between the two modes
+   (graph mode just amortizes launch overhead, which is sub-µs vs 36 s
+   execution per call cross-node), so dropping `--cudagraph` for inter
+   doesn't change the comparison.
+
+4. **Empirical confirmation that cross-node `nvshost` and `nvsdev` execute
+   the same code.** With the full inter sweep collected, the two columns
+   agree within 0.05% at every size ≥ 1 MiB (1 GiB intra: 36464348 vs
+   36459033 µs, Δ = 0.01%). This matches the source-code analysis: for
+   cross-node `TEAM_WORLD` the team has `nvls_rsc_base_ptr == NULL`, so
+   `reduce_common.cuh:51-63` keeps `num_blocks = 1` (the `else` branch
+   for non-NVLS doesn't grow num_blocks). With num_blocks=1, blockIdx.x=0
+   and `team_dups[0] = team_idx` (initialized that way), so the
+   on_stream wrapper makes one call into the same
+   `nvshmemi_reduce_threadgroup<TYPE, OP, BLOCK>` function the device-block
+   API calls directly. Cross-node, NVSHMEM with `NVSHMEM_USE_NCCL=OFF`
    falls back to a naive RDMA + CPU-staged proxy (~0.03 GB/s past 16 KiB);
-   real cross-node workloads leave `NVSHMEM_USE_NCCL=ON` and route through NCCL.
+   real cross-node workloads leave `NVSHMEM_USE_NCCL=ON` and route reductions
+   through NCCL.
 
 ![Focused all_reduce: NCCL recipe / legacy ring / NVSHMEM device block / NVSHMEM host on_stream](thesis_microbench/results/figures/focus_all_reduce.png)
 
@@ -474,14 +487,14 @@ Two methodology notes:
 | 256 MiB | **982.8 ± 0.10** | 1 638.8 ± 4.3 | 10 786 ± 28 | 1 026.5 ± 2.2 |
 | 1 GiB | **3 896.4 ± 0.81** | 6 489.9 ± 17 | 43 070 ± 75 | 4 071.8 ± 9.8 |
 | **inter 2×8** | | | | |
-| 128 B | 23.74 ± 0.07 | 40.05 ± 0.26 | 57.99 ± 9.80 | 41.18 ± 0.22 |
-| 1 KiB | **24.99 ± 0.27** | 44.13 ± 0.18 | 192.0 ± 0.8 | 202.4 ± 0.2 |
-| 64 KiB | **31.03 ± 0.09** | 53.20 ± 0.39 | 2 248 ± 20 | 2 223 ± 8 |
-| 1 MiB | **62.68 ± 0.48** | 105.29 ± 1.08 | 35 415 ± 237 | 35 510 ± 87 |
-| 16 MiB | **134.6 ± 1.1** | 256.7 ± 0.3 | 567 644 ± 2 735 | 568 469 ± 1 728 |
-| 128 MiB | — | — | 4 557 957 ± 22 360 | (cap) |
-| 256 MiB | **1 137.3 ± 1.0** | 1 666.8 ± 1.0 | 9 114 315 ± 41 550 | (cap) |
-| 1 GiB | **4 260.5 ± 1.4** | 5 950.4 ± 3.1 | 36 464 348 ± 187 854 | (cap) |
+| 128 B | 23.74 ± 0.07 | 40.05 ± 0.26 | 57.99 ± 9.80 | 48.64 ± 5.61 |
+| 1 KiB | **24.99 ± 0.27** | 44.13 ± 0.18 | 192.0 ± 0.8 | 209.78 ± 0.74 |
+| 64 KiB | **31.03 ± 0.09** | 53.20 ± 0.39 | 2 248 ± 20 | 2 324 ± 149 |
+| 1 MiB | **62.68 ± 0.48** | 105.29 ± 1.08 | 35 415 ± 237 | 35 886 ± 460 |
+| 16 MiB | **134.6 ± 1.1** | 256.7 ± 0.3 | 567 644 ± 2 735 | 567 808 ± 3 800 |
+| 128 MiB | — | — | 4 557 957 ± 22 360 | 4 551 460 ± 27 219 |
+| 256 MiB | **1 137.3 ± 1.0** | 1 666.8 ± 1.0 | 9 114 315 ± 41 550 | 9 114 263 ± 62 429 |
+| 1 GiB | **4 260.5 ± 1.4** | 5 950.4 ± 3.1 | 36 464 348 ± 187 854 | 36 459 033 ± 240 611 |
 
 Quick read on the four configs:
 
