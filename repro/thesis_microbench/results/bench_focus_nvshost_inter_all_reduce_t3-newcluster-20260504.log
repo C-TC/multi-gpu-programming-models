@@ -1,48 +1,7 @@
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 13 mype_node: 5 device name: NVIDIA H200 bus id: 174 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
 mype: 10 mype_node: 2 device name: NVIDIA H200 bus id: 63 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 15 mype_node: 7 device name: NVIDIA H200 bus id: 228 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 12 mype_node: 4 device name: NVIDIA H200 bus id: 155 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 9 mype_node: 1 device name: NVIDIA H200 bus id: 45 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-NVSHMEM v3.3.9
-mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
-#reduction_on_stream
-size(B)     count     type      redop     latency(us)       min_lat(us)       max_lat(us)       algbw(GB/s)   busbw(GB/s) 
-128         32        float     sum       41.457232         41.457            41.457            0.003         0.006       
-256         64        float     sum       63.830152         63.830            63.830            0.004         0.008       
-512         128       float     sum       108.935386        108.935           108.935           0.005         0.009       
-1024        256       float     sum       202.695385        202.695           202.695           0.005         0.009       
-2048        512       float     sum       394.343376        394.343           394.343           0.005         0.010       
-4096        1024      float     sum       48.915692         48.916            48.916            0.084         0.157       
-8192        2048      float     sum       52.169845         52.170            52.170            0.157         0.294       
-16384       4096      float     sum       621.088028        621.088           621.088           0.026         0.049       
-32768       8192      float     sum       1123.246789       1123.247          1123.247          0.029         0.055       
-65536       16384     float     sum       2226.013422       2226.013          2226.013          0.029         0.055       
-131072      32768     float     sum       4455.138683       4455.139          4455.139          0.029         0.055       
-262144      65536     float     sum       8890.186310       8890.186          8890.186          0.029         0.055       
-524288      131072    float     sum       17771.854401      17771.854         17771.854         0.030         0.055       
-1048576     262144    float     sum       35462.192535      35462.193         35462.193         0.030         0.055       
-2097152     524288    float     sum       70921.195984      70921.196         70921.196         0.030         0.055       
-4194304     1048576   float     sum       141856.674194     141856.674        141856.674        0.030         0.055       
-8388608     2097152   float     sum       283366.424561     283366.425        283366.425        0.030         0.056       
-16777216    4194304   float     sum       568361.572266     568361.572        568361.572        0.030         0.055       
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
@@ -50,23 +9,15 @@ mype: 8 mype_node: 0 device name: NVIDIA H200 bus id: 25
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 11 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+mype: 13 mype_node: 5 device name: NVIDIA H200 bus id: 174 
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
+mype: 9 mype_node: 1 device name: NVIDIA H200 bus id: 45 
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 5 mype_node: 5 device name: NVIDIA H200 bus id: 174 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 3 mype_node: 3 device name: NVIDIA H200 bus id: 102 
-Runtime options after parsing command line arguments 
-min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
-Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 4 mype_node: 4 device name: NVIDIA H200 bus id: 155 
+mype: 12 mype_node: 4 device name: NVIDIA H200 bus id: 155 
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
@@ -74,7 +25,44 @@ mype: 14 mype_node: 6 device name: NVIDIA H200 bus id: 191
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
-mype: 7 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+mype: 11 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 15 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#reduction_on_stream
+size(B)     count     type      redop     latency(us)       min_lat(us)       max_lat(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       41.097846         41.098            41.098            0.003         0.006       
+256         64        float     sum       63.591383         63.591            63.591            0.004         0.008       
+512         128       float     sum       110.414773        110.415           110.415           0.005         0.009       
+1024        256       float     sum       202.830777        202.831           202.831           0.005         0.009       
+2048        512       float     sum       388.477534        388.478           388.478           0.005         0.010       
+4096        1024      float     sum       48.994463         48.994            48.994            0.084         0.157       
+8192        2048      float     sum       53.912617         53.913            53.913            0.152         0.285       
+16384       4096      float     sum       652.120590        652.121           652.121           0.025         0.047       
+32768       8192      float     sum       1185.710788       1185.711          1185.711          0.028         0.052       
+65536       16384     float     sum       2353.819132       2353.819          2353.819          0.028         0.052       
+131072      32768     float     sum       4678.402424       4678.402          4678.402          0.028         0.053       
+262144      65536     float     sum       9344.795227       9344.795          9344.795          0.028         0.053       
+524288      131072    float     sum       18810.651779      18810.652         18810.652         0.028         0.052       
+1048576     262144    float     sum       37580.776215      37580.776         37580.776         0.028         0.052       
+2097152     524288    float     sum       75260.955811      75260.956         75260.956         0.028         0.052       
+4194304     1048576   float     sum       149981.231689     149981.232        149981.232        0.028         0.052       
+8388608     2097152   float     sum       299973.571777     299973.572        299973.572        0.028         0.052       
+16777216    4194304   float     sum       601689.819336     601689.819        601689.819        0.028         0.052       
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 5 mype_node: 5 device name: NVIDIA H200 bus id: 174 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 
 Runtime options after parsing command line arguments 
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
@@ -83,3 +71,15 @@ Runtime options after parsing command line arguments
 min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
 mype: 6 mype_node: 6 device name: NVIDIA H200 bus id: 191 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 3 mype_node: 3 device name: NVIDIA H200 bus id: 102 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 7 mype_node: 7 device name: NVIDIA H200 bus id: 228 
+Runtime options after parsing command line arguments 
+min_size: 128, max_size: 16777216, step_factor: 2, iterations: 10, warmup iterations: 3, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 4 mype_node: 4 device name: NVIDIA H200 bus id: 155 

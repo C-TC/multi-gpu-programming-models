@@ -441,11 +441,23 @@ Two methodology notes:
    3 GB/s @ 128 MiB. The default auto-pick already takes two-shot for large
    sizes; the bottleneck is single-CTA, not algorithm choice.
 
-3. **Cross-node range limit on host on_stream.** NVSwitch / NVLS is intra-node
-   only. Cross-node, NVSHMEM with `NVSHMEM_USE_NCCL=OFF` falls back to a naive
-   RDMA + CPU-staged proxy path (~0.03 GB/s past 16 KiB) so we cap inter at
-   16 MiB. Device block cross-node uses the same RDMA path and goes all the
-   way to 1 GiB (it just takes ~36 s/call).
+3. **Cross-node range limit on host on_stream — same code as device-block
+   beyond this cap.** Inter `nvshost` is capped at 16 MiB. Tried to push to
+   1 GiB on two fresh allocs; both timed out at ≥ 1500 s with 0 data rows.
+   Reading the source explains why the missing rows would land exactly on
+   the device-block line anyway: `rdxn_on_stream_kernel` body is just
+   `nvshmemi_reduce_threadgroup<TYPE, OP, NVSHMEMI_THREADGROUP_BLOCK>(team_dups[blockIdx.x], ...)`,
+   and for cross-node `TEAM_WORLD` the team has `nvls_rsc_base_ptr == NULL`
+   so `reduce_common.cuh:51-63` keeps `num_blocks = 1` regardless of size
+   (the `else` branch for non-NVLS path doesn't grow num_blocks). With
+   num_blocks=1, blockIdx.x=0 and `team_dups[0] = team_idx` (same team) →
+   the on_stream wrapper makes ONE call into the same `nvshmemi_reduce_threadgroup<...,BLOCK>`
+   function that the device-block API calls directly. That's why on the
+   inter plot, the host-on_stream and device-block lines literally overlap
+   on every sample we DID capture (within 5%, see table) — they're the
+   same source code lines. Cross-node, NVSHMEM with `NVSHMEM_USE_NCCL=OFF`
+   falls back to a naive RDMA + CPU-staged proxy (~0.03 GB/s past 16 KiB);
+   real cross-node workloads leave `NVSHMEM_USE_NCCL=ON` and route through NCCL.
 
 ![Focused all_reduce: NCCL recipe / legacy ring / NVSHMEM device block / NVSHMEM host on_stream](thesis_microbench/results/figures/focus_all_reduce.png)
 

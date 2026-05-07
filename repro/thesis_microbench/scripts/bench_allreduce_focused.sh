@@ -89,6 +89,14 @@ run_one "focus_nvsdev_inter_all_reduce"        2 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS
 #   and NVSHMEM_USE_NCCL=OFF removes the NCCL fallback) — ~0.03 GB/s past 16 KiB.
 HOST_BIN="$INST/bin/perftest/host/coll/reduction_on_stream"
 HOST_ARGS_INTRA="-b 128 -e 1073741824 -n 50 -w 20 --cudagraph -d float -o sum"
+# Inter capped at 16 MiB. Larger sizes hang the on_stream binary cross-node
+# (verified at 256 MiB / 1 GiB on two fresh allocations: srun timed out at
+# 1500 s with 0 data rows). The on_stream kernel ends up calling the same
+# `nvshmemi_reduce_threadgroup<...,BLOCK>` as the device-block API for the
+# inter case (no NVLS resource on cross-node TEAM_WORLD → num_blocks stays 1
+# in `reduce_common.cuh:51`), so the missing inter rows would overlap exactly
+# with `focus_nvsdev_inter_*` which IS captured to 1 GiB. Code path is
+# literally identical, verified by reading `rdxn_on_stream_kernel` body.
 HOST_ARGS_INTER="-b 128 -e 16777216 -n 10 -w 3 --cudagraph -d float -o sum"
 run_one "focus_nvshost_intra_all_reduce"       1 8 "$NV_ENV" "$HOST_BIN $HOST_ARGS_INTRA"
 run_one "focus_nvshost_inter_all_reduce"       2 8 "$NV_ENV" "$HOST_BIN $HOST_ARGS_INTER"
