@@ -1,0 +1,232 @@
+13c13,25
+< #define CUMODULE_NAME "reduction_latency.cubin"
+---
+> /* Stripped-down reduction perftest: only float-sum-block scope, no inner
+>  * dtype/redop/scope iteration. Used to fairly compare against NCCL's
+>  * all_reduce(float, sum) which engages NVLink-SHARP (LDMC/STMC) on H200.
+>  *
+>  * Original `reduction_latency.cu` always iterates 2 dtypes (int32, int64) ×
+>  * 7 redops × 3 scopes (thread, warp, block) per size, which (a) takes too
+>  * long for cross-node sweeps and (b) is restricted to integer types so
+>  * NVSHMEM never engages the multicast path. This file only does float-sum
+>  * with block scope so the binary completes in the slurmstep timeout AND
+>  * the path NVSHMEM picks for sum-on-float can engage NVLS where available.
+>  */
+> 
+> #define CUMODULE_NAME "reduction_focus.cubin"
+17c29
+< #define LARGEST_DT int64_t
+---
+> #define LARGEST_DT float
+59,83c71,74
+< #define CALL_RDXN_OPS_ALL_TG(TYPENAME, TYPE)                     \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, sum, INT_MAX, INT_MAX)  \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, prod, INT_MAX, INT_MAX) \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, and, INT_MAX, INT_MAX)  \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, or, INT_MAX, INT_MAX)   \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, xor, INT_MAX, INT_MAX)  \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, min, INT_MAX, INT_MAX)  \
+<     CALL_RDXN(x, _block, TYPENAME, TYPE, max, INT_MAX, INT_MAX)  \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, sum, warpSize, 4096)     \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, prod, warpSize, 4096)    \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, and, warpSize, 4096)     \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, or, warpSize, 4096)      \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, xor, warpSize, 4096)     \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, min, warpSize, 4096)     \
+<     CALL_RDXN(x, _warp, TYPENAME, TYPE, max, warpSize, 4096)     \
+<     CALL_RDXN(, , TYPENAME, TYPE, sum, 1, 512)                   \
+<     CALL_RDXN(, , TYPENAME, TYPE, prod, 1, 512)                  \
+<     CALL_RDXN(, , TYPENAME, TYPE, and, 1, 512)                   \
+<     CALL_RDXN(, , TYPENAME, TYPE, or, 1, 512)                    \
+<     CALL_RDXN(, , TYPENAME, TYPE, xor, 1, 512)                   \
+<     CALL_RDXN(, , TYPENAME, TYPE, min, 1, 512)                   \
+<     CALL_RDXN(, , TYPENAME, TYPE, max, 1, 512)
+< 
+< CALL_RDXN_OPS_ALL_TG(int32, int32_t)
+< CALL_RDXN_OPS_ALL_TG(int64, int64_t)
+---
+> /* Only float-sum-block. Float supports sum/prod/min/max in NVSHMEM
+>  * (and/or/xor are bitwise — integer-only). We only need sum.
+>  */
+> CALL_RDXN(x, _block, float, float, sum, INT_MAX, INT_MAX)
+136,144d126
+< #define RUN_ITERS(TYPENAME, TYPE, GROUP, ELEM_COMP)       \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, sum, ELEM_COMP);  \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, prod, ELEM_COMP); \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, and, ELEM_COMP);  \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, or, ELEM_COMP);   \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, xor, ELEM_COMP);  \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, min, ELEM_COMP);  \
+<     RUN_ITERS_OP(TYPENAME, TYPE, GROUP, max, ELEM_COMP);
+< 
+157,248d138
+<     double *h_prod_lat = (double *)h_tables[2];
+<     double *h_and_lat = (double *)h_tables[3];
+<     double *h_or_lat = (double *)h_tables[4];
+<     double *h_xor_lat = (double *)h_tables[5];
+<     double *h_min_lat = (double *)h_tables[6];
+<     double *h_max_lat = (double *)h_tables[7];
+< 
+<     // if (!mype) printf("Transfer size in bytes and latency of thread/warp/block variants of all
+<     // operations of reduction API in us\n");
+<     if (run_options.run_thread) {
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int32_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int32_t));
+<         RUN_ITERS(int32, int32_t, , 512);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int32-sum-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int32-prod-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int32-and-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int32-or-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int32-xor-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int32-min-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int32-max-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+< 
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int64_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int64_t));
+<         RUN_ITERS(int64, int64_t, , 512);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int64-sum-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int64-prod-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int64-and-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int64-or-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int64-xor-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int64-min-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int64-max-t", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+<     }
+< 
+<     if (run_options.run_warp) {
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int32_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int32_t));
+<         RUN_ITERS(int32, int32_t, _warp, 4096);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int32-sum-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int32-prod-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int32-and-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int32-or-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int32-xor-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int32-min-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int32-max-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+< 
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int64_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int64_t));
+<         RUN_ITERS(int64, int64_t, _warp, 4096);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int64-sum-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int64-prod-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int64-and-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int64-or-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int64-xor-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int64-min-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int64-max-w", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+<     }
+250,289c140,146
+<     if (run_options.run_block) {
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int32_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int32_t));
+<         RUN_ITERS(int32, int32_t, _block, max_elems);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int32-sum-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int32-prod-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int32-and-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int32-or-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int32-xor-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int32-min-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int32-max-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+< 
+<         min_elems = max(static_cast<size_t>(1), min_size / sizeof(int64_t));
+<         max_elems = max(static_cast<size_t>(1), max_size / sizeof(int64_t));
+<         RUN_ITERS(int64, int64_t, _block, max_elems);
+<         if (!mype) {
+<             print_table_v1("device_reduction", "int64-sum-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_sum_lat, j);
+<             print_table_v1("device_reduction", "int64-prod-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_prod_lat, j);
+<             print_table_v1("device_reduction", "int64-and-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_and_lat, j);
+<             print_table_v1("device_reduction", "int64-or-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_or_lat, j);
+<             print_table_v1("device_reduction", "int64-xor-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_xor_lat, j);
+<             print_table_v1("device_reduction", "int64-min-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_min_lat, j);
+<             print_table_v1("device_reduction", "int64-max-b", "size (Bytes)", "latency", "us", '-',
+<                            size_arr, h_max_lat, j);
+<         }
+---
+>     /* Only float-sum-block. */
+>     min_elems = max(static_cast<size_t>(1), min_size / sizeof(float));
+>     max_elems = max(static_cast<size_t>(1), max_size / sizeof(float));
+>     RUN_ITERS_OP(float, float, _block, sum, max_elems);
+>     if (!mype) {
+>         print_table_v1("device_reduction", "float-sum-b", "size (Bytes)", "latency", "us", '-',
+>                        size_arr, h_sum_lat, j);
+301,303c158,160
+<     int *h_buffer = NULL;
+<     int *d_source, *d_dest;
+<     int *h_source, *h_dest;
+---
+>     float *h_buffer = NULL;
+>     float *d_source, *d_dest;
+>     float *h_source, *h_dest;
+309c166,168
+<     run_options.run_thread = run_options.run_warp = run_options.run_block = 1;
+---
+>     /* Only run_block matters; the others are unused but kept for API parity. */
+>     run_options.run_thread = run_options.run_warp = 0;
+>     run_options.run_block = 1;
+326a186,187
+>     /* Only need 2 tables: size_arr + h_sum_lat. Allocate the original 8 to
+>      * stay compatible with utils.cu's table layout. */
+338,339c199,200
+<     h_source = (int32_t *)h_buffer;
+<     h_dest = (int32_t *)&h_source[max_size / sizeof(int32_t)];
+---
+>     h_source = h_buffer;
+>     h_dest = &h_source[max_size / sizeof(float)];
+341,342c202,203
+<     d_source = (int32_t *)nvshmem_align(getpagesize(), max_size);
+<     d_dest = (int32_t *)nvshmem_align(getpagesize(), max_size);
+---
+>     d_source = (float *)nvshmem_align(getpagesize(), max_size);
+>     d_dest = (float *)nvshmem_align(getpagesize(), max_size);

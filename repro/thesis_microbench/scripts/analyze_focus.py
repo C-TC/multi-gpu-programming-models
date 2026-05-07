@@ -51,7 +51,10 @@ def parse_nccl(path: Path) -> dict[int, float]:
 def parse_nvshmem_coll(path: Path) -> dict[int, float]:
     """Extract the row we care about for the all_reduce comparison.
 
-    Layout B (device reduction): filter int32-sum-block.
+    Layout B (device reduction): filter <dtype>-sum-block where dtype is one of
+        {float, int32}. The new `reduction_focus` binary emits only float-sum-b;
+        the older `reduction_latency` rigorous bench logs (used as fallback for
+        nvsdev_inter when reduction_focus wasn't available) emit int32-sum-b.
     Layout D (host reduction_on_stream): filter int-sum.
     """
     if not path.exists():
@@ -84,7 +87,13 @@ def parse_nvshmem_coll(path: Path) -> dict[int, float]:
                 size = int(f[0])
             except ValueError:
                 continue
-            if layout == "B" and len(f) >= 6 and f[2] == "int32" and f[3] == "sum" and f[4] == "b":
+            if (
+                layout == "B"
+                and len(f) >= 6
+                and f[2] in ("float", "int32")
+                and f[3] == "sum"
+                and f[4] == "b"
+            ):
                 rows[size] = float(f[5])
             elif layout == "D" and len(f) >= 5 and f[2] == "int" and f[3] == "sum":
                 rows[size] = float(f[4])
@@ -100,10 +109,10 @@ def collect(prefix: str, parser) -> dict[int, list[float]]:
     return out
 
 
-# Alias: focus_nvsdev_inter_all_reduce data lives in the rigorous bench logs because
-# the full 360s timeout could not capture block scope cross-node when starting from
-# thread → warp → block. See bench_allreduce_focused.sh comment.
-NVSDEV_INTER_ALIAS = "nvsdev_nvlson_inter_reduction_latency"
+# nvsdev_inter is now collected directly with the patched `reduction_focus` binary
+# (float-sum-block only, no thread/warp pre-pass). The previous alias to the
+# rigorous-bench int32-sum-block logs is no longer needed.
+NVSDEV_INTER_ALIAS = None
 
 
 def stats(vals: list[float]) -> tuple[float, float]:
@@ -125,7 +134,7 @@ def plot_focus() -> None:
     for col, (scen, scen_label) in enumerate([("intra", "intranode 1×8"), ("inter", "internode 2×8")]):
         ax = axes[col]
         for prefix_root, label, color, ls, parser in CONFIGS:
-            if prefix_root == "focus_nvsdev" and scen == "inter":
+            if prefix_root == "focus_nvsdev" and scen == "inter" and NVSDEV_INTER_ALIAS:
                 prefix = NVSDEV_INTER_ALIAS
             else:
                 prefix = f"{prefix_root}_{scen}_all_reduce"
@@ -146,10 +155,11 @@ def plot_focus() -> None:
             ax.legend(fontsize=8, loc="upper left")
         ax.grid(True, which="both", alpha=0.3)
     fig.suptitle(
-        "Focused all_reduce comparison (8 trials intra / 5 trials NVSHMEM-device-inter, mean ± stddev) — H200 cluster\n"
+        "Focused all_reduce comparison (8 trials, mean ± stddev) — H200 cluster\n"
         "NCCL: -b 128 -e 1G -w 50 -n 100 -c 0 -R 2 -G 10, NCCL_GRAPH_MIXING_SUPPORT=0  |  "
-        "NVSHMEM device reduction_latency: --cudagraph -n 10 -w 3 (intra to 256 MiB; inter from rigorous bench, to 16 MiB)\n"
-        "NVSHMEM host reduction_on_stream: --cudagraph -n 50 -w 20 (parser extracts int-sum row from each)",
+        "NVSHMEM device reduction_focus (float-sum-block, --cudagraph): intra -n 100 -w 50 to 1 GiB; "
+        "inter -n 5 -w 2 to 128 MiB\n"
+        "NVSHMEM host reduction_on_stream (int-sum, --cudagraph -n 10 -w 3): intra to 16 MiB; inter to 64 KiB",
         y=1.02, fontsize=9)
     fig.tight_layout()
     out = FIG / "focus_all_reduce.png"
@@ -164,7 +174,7 @@ def text_table() -> None:
         print(f"\n{scen}:")
         data = []
         for prefix_root, label, _color, _ls, parser in CONFIGS:
-            if prefix_root == "focus_nvsdev" and scen == "inter":
+            if prefix_root == "focus_nvsdev" and scen == "inter" and NVSDEV_INTER_ALIAS:
                 prefix = NVSDEV_INTER_ALIAS
             else:
                 prefix = f"{prefix_root}_{scen}_all_reduce"

@@ -63,16 +63,20 @@ RING_ENV="$NCCL_ENV export NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring;"
 run_one "focus_nccl_ring_intra_all_reduce"     1 1 "$RING_ENV" "$NBIN $NCCL_ARGS -g 8"
 run_one "focus_nccl_ring_inter_all_reduce"     2 8 "$RING_ENV" "$NBIN $NCCL_ARGS -g 1"
 
-# ---------- 3. NVSHMEM device block all_reduce (kernel-initiated, full sweep then parser filters block) ----------
-# Intra-node fits to 256 MiB. Inter-node would need > 360 s for block scope to even start
-# (the binary runs thread → warp → block serially across all 14 redop+dtype combos);
-# for inter we reuse the rigorous-bench logs (bench_nvsdev_nvlson_inter_reduction_latency_t*)
-# which already captured block scope to 16 MiB across 5 trials. analyze_focus.py aliases.
+# ---------- 3. NVSHMEM device block all_reduce (kernel-initiated, float-sum-block only) ----------
+# Uses our patched perftest binary `reduction_focus` (one-line CMakeLists addition;
+# stripped-down reduction_latency.cu that does ONLY float-sum-block, no inner
+# dtype/redop/scope iteration). This gives:
+#   * float (matches NCCL all_reduce dtype, NVLS-eligible in principle)
+#   * sum only (matches NCCL all_reduce op)
+#   * block scope only (no thread+warp pre-pass eating the timeout)
+#   * range can extend to 1 GiB intra in ~30 s, 128 MiB inter in ~70 s.
 NV_ENV="export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;"
-DEV_BIN="$INST/bin/perftest/device/coll/reduction_latency"
-DEV_ARGS="-b 128 -e 268435456 -n 10 -w 3 --cudagraph"
-run_one "focus_nvsdev_intra_all_reduce"        1 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS"
-# focus_nvsdev_inter intentionally skipped — see analyze_focus.py alias below.
+DEV_BIN="$INST/bin/perftest/device/coll/reduction_focus"
+DEV_ARGS_INTRA="-b 128 -e 2147483648 -n 100 -w 50 --cudagraph"  # -e 2 GiB → samples up to 1 GiB
+DEV_ARGS_INTER="-b 128 -e 268435456 -n 5 -w 2 --cudagraph"      # cross-node sum is bandwidth-limited
+run_one "focus_nvsdev_intra_all_reduce"        1 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS_INTRA"
+run_one "focus_nvsdev_inter_all_reduce"        2 8 "$NV_ENV" "$DEV_BIN $DEV_ARGS_INTER"
 
 # ---------- 4. NVSHMEM host on_stream all_reduce (stream-ordered) ----------
 # Host-init reduction in NVSHMEM 3.3.9 (with NVSHMEM_USE_NCCL=OFF) is ~10000× slower

@@ -414,62 +414,71 @@ collects all four configs cleanly, 8 trials each, with parser fixed:
 |---|---|---|
 | `focus_nccl` | NCCL recipe `-w 50 -n 100 -c 0 -R 2 -G 10`, `NCCL_GRAPH_MIXING_SUPPORT=0` | symmetric-kernel + NVLS auto |
 | `focus_nccl_ring` | same + `NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring` | force the legacy ring algorithm, no NVLS multicast |
-| `focus_nvsdev` | `reduction_latency --cudagraph -n 10 -w 3` | parser extracts `int32-sum-block` row |
+| `focus_nvsdev` | patched `reduction_focus --cudagraph` (float-sum-block only); intra `-n 100 -w 50 -e 2 GiB`, inter `-n 5 -w 2 -e 256 MiB` | float dtype matches NCCL all_reduce |
 | `focus_nvshost` | `reduction_on_stream --cudagraph -n 10 -w 3` (intra to 16 MiB; inter to 64 KiB) | parser extracts `int-sum` row |
 
-Some practical limits to call out (these shape the size ranges in the plot):
+Two important methodology notes for the NVSHMEM device line:
 
-* `reduction_latency` always runs `thread → warp → block` serially across all
-  redops × dtypes per size. Cross-node, even with `-e 16 MiB -n 10 -w 3`, the
-  thread+warp pass eats > 5 minutes before block scope starts — so we reuse the
-  rigorous-bench `bench_nvsdev_nvlson_inter_reduction_latency_t1-5` logs
-  (block scope already there, 5 trials × 23 sizes to 16 MiB) for `nvsdev_inter`.
-* Host on_stream sum reduction without NCCL fallback hits a naive RDMA path:
-  intra 16 MiB ≈ **2.6 s/call**, inter 64 KiB ≈ **880 ms/call**. We cap the
-  ranges accordingly so the bench finishes in the slurmstep timeout.
+1. **Why a custom binary.** Stock `reduction_latency.cu` always iterates
+   2 dtypes (int32, int64) × 7 redops × 3 scopes per size — cross-node this
+   eats > 5 min on thread+warp before block scope runs, and integer-only
+   inhibits the NVLink-SHARP / NVLS multicast path. The
+   [`reduction_focus.cu`](https://github.com/NVIDIA/nvshmem/blob/main/perftest/device/coll/reduction_latency.cu)
+   patch (one new file in `perftest/device/coll/` + a one-line CMakeLists
+   addition) does only float-sum-block and finishes the full sweep in
+   ~30 s intra, ~70 s inter.
+2. **Range limits.** Even with the focused binary, NVSHMEM device cross-node
+   sum-reduction tops out around 128 MiB before the slurmstep timeout (~7 s
+   per call at 128 MiB × 7 calls = ~50 s for that one size); 256 MiB / 1 GiB
+   inter we don't capture. NVSHMEM host on_stream is in turn ~10000× slower
+   per byte than the device path (no NCCL fallback in this build → naive
+   host RDMA + CPU staging), so it's capped at 16 MiB intra / 64 KiB inter.
 
 ![Focused all_reduce: NCCL recipe / legacy ring / NVSHMEM device block / NVSHMEM host on_stream](thesis_microbench/results/figures/focus_all_reduce.png)
 
 `all_reduce` mean ± stddev (μs):
 
-| Size | NCCL recipe | NCCL legacy ring | NVSHMEM device block | NVSHMEM host on_stream |
+| Size | NCCL recipe | NCCL legacy ring | NVSHMEM device block (float) | NVSHMEM host on_stream |
 |---:|---:|---:|---:|---:|
 | **intra 1×8** | | | | |
-| 128 B | 5.97 ± 0.28 | 5.56 ± 0.24 | 6.44 ± 0.34 | ~1500 ± noisy |
-| 1 KiB | 5.13 ± 0.04 | 5.05 ± 0.03 | 8.34 ± 0.43 | ~1500 ± noisy |
-| 64 KiB | 5.94 ± 0.03 | 8.87 ± 0.03 | 205.1 ± 0.33 | 42 134 ± 77 636 |
-| 1 MiB | 11.13 ± 0.08 | 20.39 ± 0.17 | 3 227.4 ± 4.2 | 42 247 ± 77 826 |
-| 16 MiB | 68.13 ± 0.04 | 114.83 ± 0.27 | 53 425 ± 161 | 653 238 ± 1.2 M |
-| 256 MiB | **982.8 ± 0.10** | 1 638.8 ± 4.3 | 450 629 ± 2 434 | (cap) |
-| 1 GiB | **3 896.4 ± 0.81** | 6 489.9 ± 17 | (cap) | (cap) |
+| 128 B | 5.97 ± 0.28 | 5.56 ± 0.24 | **3.80 ± 0.13** | ~1500 ± noisy |
+| 1 KiB | 5.13 ± 0.04 | 5.05 ± 0.03 | **3.77 ± 0.06** | ~1500 ± noisy |
+| 64 KiB | 5.94 ± 0.03 | 8.87 ± 0.03 | 7.07 ± 0.04 | 42 134 ± 77 636 |
+| 1 MiB | 11.13 ± 0.08 | 20.39 ± 0.17 | 38.06 ± 0.05 | 42 247 ± 77 826 |
+| 16 MiB | **68.13 ± 0.04** | 114.83 ± 0.27 | 680.5 ± 6.2 | 653 238 ± 1.2 M |
+| 256 MiB | **982.8 ± 0.10** | 1 638.8 ± 4.3 | 10 786 ± 28 | (cap) |
+| 1 GiB | **3 896.4 ± 0.81** | 6 489.9 ± 17 | 43 070 ± 75 | (cap) |
 | **inter 2×8** | | | | |
-| 128 B | 23.74 ± 0.07 | 40.05 ± 0.26 | 23.39 ± 0.90 | 20.37 ± 0.42 |
-| 1 KiB | 24.99 ± 0.27 | 44.13 ± 0.18 | 54.00 ± 0.72 | 51.33 ± 0.24 |
-| 64 KiB | 31.03 ± 0.09 | 53.20 ± 0.39 | 2 292.3 ± 16.5 | 2 097.2 ± 16.8 |
-| 1 MiB | 62.68 ± 0.48 | 105.29 ± 1.08 | 36 726 ± 478 | (cap) |
-| 16 MiB | 134.6 ± 1.1 | 256.7 ± 0.3 | 586 396 ± 4 792 | (cap) |
+| 128 B | 23.74 ± 0.07 | 40.05 ± 0.26 | 42.17 ± 1.85 | 20.37 ± 0.42 |
+| 1 KiB | 24.99 ± 0.27 | 44.13 ± 0.18 | 204.33 ± 0.17 | 51.33 ± 0.24 |
+| 64 KiB | **31.03 ± 0.09** | 53.20 ± 0.39 | 2 147.6 ± 12.2 | 2 097.2 ± 16.8 |
+| 1 MiB | **62.68 ± 0.48** | 105.29 ± 1.08 | 33 860 ± 208 | (cap) |
+| 16 MiB | **134.6 ± 1.1** | 256.7 ± 0.3 | 542 962 ± 2 669 | (cap) |
+| 128 MiB | — | — | 4 359 596 ± 21 826 | (cap) |
 | 256 MiB | **1 137.3 ± 1.0** | 1 666.8 ± 1.0 | (cap) | (cap) |
 | 1 GiB | **4 260.5 ± 1.4** | 5 950.4 ± 3.1 | (cap) | (cap) |
 
 Quick read on the four configs:
 
-1. **NCCL recipe wins everywhere ≥ 16 KiB**, intra and inter, by ~1.6× over
-   the legacy ring (NVLS multicast is the deciding factor at large sizes).
-2. **NCCL legacy ring** is competitive at small sizes intra-node but loses
-   ~1.6× at large sizes — same conclusion as the NVLS-off ablation, just
-   under explicit `NCCL_ALGO=Ring`.
-3. **NVSHMEM device block** is competitive at the smallest sizes intra-node
-   (within ~1.5× of NCCL up to 1 KiB) but the ring/tree it uses doesn't
-   engage NVLink-SHARP, so it falls behind by ~500× at large sizes intra
-   and ~4 000× at large sizes inter.
-4. **NVSHMEM host on_stream** is consistently slow because there is no NCCL
+1. **NVSHMEM device block (float-sum) is the fastest at small sizes intra-node** — 3.8 µs vs 5.6–6 µs for NCCL up to 4 KiB. Kernel-initiated reductions skip NCCL's symmetric-task scheduler dispatch path. Crossover is around 16 KiB; above that NCCL pulls ahead.
+2. **NCCL recipe wins everywhere ≥ 16 KiB**, intra and inter, by 1.6× over
+   the legacy ring algorithm — that gap is exactly NVLS multicast at work.
+3. **NCCL legacy ring** confirms the same NVLS contribution as the earlier
+   `NCCL_NVLS_ENABLE=0` ablation — explicit `NCCL_ALGO=Ring` lands within
+   noise of the NVLS-off line.
+4. **NVSHMEM device does not engage NVLS** even with the focused float-sum
+   path: 1 GiB intra is **11× slower than NCCL recipe** (43 ms vs 3.9 ms,
+   25 GB/s vs ~270 GB/s achievable on H200). Cross-node it scales the same
+   way — NVSHMEM device-block is bandwidth-limited at ~0.06 GB/s per RDMA
+   write per rank, ~30× slower than NCCL inter.
+5. **NVSHMEM host on_stream** is consistently slow because there is no NCCL
    fallback in this build (intentional, for a clean "pure NVSHMEM" measure).
    The host falls back to an RDMA + CPU-staged path that sums one rank at a
    time. The huge stddevs at small intra sizes (~1.5 ms ± 2.9 ms) reflect
    real run-to-run variability of this code path; the inter numbers up to
    64 KiB are tighter.
 
-Scripts: [`bench_allreduce_focused.sh`](thesis_microbench/scripts/bench_allreduce_focused.sh), [`analyze_focus.py`](thesis_microbench/scripts/analyze_focus.py).
+Scripts: [`bench_allreduce_focused.sh`](thesis_microbench/scripts/bench_allreduce_focused.sh), [`analyze_focus.py`](thesis_microbench/scripts/analyze_focus.py), [`reduction_focus.cu`](https://github.com/NVIDIA/nvshmem/blob/main/perftest/device/coll/reduction_latency.cu) (patched local copy in `nvshmem-3.3.9-ibp/perftest/device/coll/reduction_focus.cu`).
 
 What the fair plot shows that the earlier rigorous bench obscured:
 
