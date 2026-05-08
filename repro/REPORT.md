@@ -577,6 +577,38 @@ Two important asymmetries about how `NCCL_NVLS_ENABLE` and `NCCL_SYM_NOWIN_ENABL
 
 Raw NCCL_DEBUG captures with cost tables: [`thesis_microbench/results/probe_autotuner_*.log`](thesis_microbench/results/).
 
+#### Why is recipe so much faster than legacy ring CROSS-NODE? (`NCCL_DEBUG_SUBSYS=ALL` probe)
+
+Inter-node 2×8 H200, recipe vs legacy ring:
+
+| Size | Recipe (autotuner pick) | Recipe latency | Legacy ring (forced) | Ring latency | Speedup |
+|---|---|---:|---|---:|---:|
+| 128 B | `TREE LL` (1 ch) | 23.7 µs | `RING LL` (1 ch) | 40.1 µs | 1.69× |
+| 64 KiB | `TREE LL` (16 ch) | 31.0 µs | `RING LL` (1 ch) | 53.2 µs | 1.72× |
+| 1 MiB | `TREE LL128` (16 ch) | 62.7 µs | `RING LL128` (16 ch) | 105.3 µs | 1.68× |
+| **2 MiB** | **`NVLS_TREE SIMPLE` (6 ch)** | 68.2 µs | `RING LL128` (16 ch) | 145.3 µs | 2.13× |
+| 16 MiB | `NVLS_TREE SIMPLE` (6 ch) | 134.6 µs | `RING LL128` (16 ch) | 256.7 µs | 1.91× |
+| 256 MiB | `NVLS_TREE SIMPLE` (6 ch) | 1 137 µs | `RING SIMPLE` (16 ch) | 1 667 µs | 1.47× |
+| 1 GiB | `NVLS_TREE SIMPLE` (6 ch) | 4 261 µs | `RING SIMPLE` (16 ch) | 5 950 µs | 1.40× |
+
+The autotuner switches to **`NVLS_TREE` at ~2 MiB** (probe logs in [`thesis_microbench/results/nccl_tuning_probe/`](thesis_microbench/results/nccl_tuning_probe/)). NVLS_TREE is a hybrid:
+
+1. **Intra-node phase 1** — NVLS multicast reduce-scatter on the local 8 GPUs through NVSwitch SHARP (`multimem.ld_reduce` / `multimem.st` PTX, ≥ 270 GB/s)
+2. **Inter-node phase 2** — TREE pattern over IB: each node's "leader" rank sends only its `1/N`-fragment to the peer node
+3. **Intra-node phase 3** — NVLS multicast all-gather to spread the reduced result back across the 8 local GPUs
+
+The IB-traffic ratio per rank is the killer: Ring carries `2(N-1)/N ≈ 1.9 ×` the buffer over IB per rank; NVLS_TREE carries only `1/N ≈ 1/16 ×` the buffer. **~30× less IB traffic** at the wire (or equivalently ~30× higher achievable BW), capped in practice by the intra-node NVLS phase and IB latency.
+
+Other enablers verified at runtime in `nccl_inter_trace.log`:
+* `NET/IB : GPU Direct RDMA (nvidia-peermem) enabled` + `(DMABUF) enabled` — IB writes go straight to GPU memory, no host bounce.
+* `Symmetric VA size=140GB` — NCCL pre-maps a uniform virtual address space across all 16 ranks at init. With `-R 2` (`ncclMemAlloc + ncclCommWindowRegister`), `ncclSymmetricTaskScheduler` engages and dispatches a `ncclSymk*` kernel that addresses peer GPUs through this VA directly.
+
+To isolate the symmetric-kernel contribution from the algorithm choice:
+* Recipe with `-R 2` at 16 MiB inter: 134.6 µs (`NVLS_TREE`, 6 channels — sym-kernel path)
+* Recipe with `-R 0` at 16 MiB inter: 155.3 µs (`NVLS_TREE`, 16 channels — autotuner path)
+
+So the **algorithm switch (Ring → NVLS_TREE) is the dominant ~1.9× win**, and the **symmetric kernel (`-R 2`) adds ~1.15× on top**. Combined: ~2.2× recipe vs legacy ring at 16 MiB inter.
+
 ### Earlier mis-readings, now corrected
 
 This investigation went through two corrections worth flagging:
