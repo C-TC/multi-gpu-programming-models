@@ -6,8 +6,8 @@
 # Output: $WORKSPACE/install/{lib,bin/perftest/...}
 
 set -eu
-SRC=${SRC:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp}
-WORKSPACE=${WORKSPACE:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp-build}
+SRC=${SRC:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp}
+WORKSPACE=${WORKSPACE:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp-build}
 
 mkdir -p "$WORKSPACE"
 

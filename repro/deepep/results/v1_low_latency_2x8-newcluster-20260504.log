@@ -18,7 +18,7 @@ Allocating buffer size: 2146.961792 MB ...
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 11] Peer GPU 0 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -26,7 +26,7 @@ Allocating buffer size: 2146.961792 MB ...
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 15] Peer GPU 0 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -34,7 +34,7 @@ Allocating buffer size: 2146.961792 MB ...
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:283: init failed for transport: IBGDA
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:283: init failed for transport: IBGDA
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:283: init failed for transport: IBGDA
@@ -45,7 +45,7 @@ Allocating buffer size: 2146.961792 MB ...
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:283: init failed for transport: IBGDA
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/transport/transport.cpp:nvshmemi_transport_init:283: init failed for transport: IBGDA
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 8] Peer GPU 0 is not accessible, exiting ... 
@@ -55,7 +55,7 @@ Allocating buffer size: 2146.961792 MB ...
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 9] Peer GPU 0 is not accessible, exiting /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 12] Peer GPU 0 is not accessible, exiting... 
  ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
@@ -70,8 +70,8 @@ nvshmem common init failed
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 
 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 13] Peer GPU 0 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -79,7 +79,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 4] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -87,7 +87,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 2] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -95,7 +95,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 3] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -103,7 +103,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 6] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -111,7 +111,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 0] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -119,7 +119,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 1] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -127,7 +127,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 7] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -135,7 +135,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/topo/topo.cpp:489: [GPU 5] Peer GPU 8 is not accessible, exiting ... 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/host/init/init.cu:1132: non-zero status: 3 building transport map failed 
 
@@ -143,7 +143,7 @@ nvshmem_internal_init_thread failed
 
 /dvs/p4/build/sw/rel/gpgpu/toolkit/r13.1/main_nvshmem/src/device/init/init_device.cu:196: non-zero status: 7 nvshmem_internal_init_thread failed 
 
-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem/include/host/nvshmemx_api.h:64: non-zero status: 7: No space left on device, exiting... aborting due to error in nvshmemi_init_thread 
 NVSHMEM v3.6.5
 W0504 18:30:51.137000 2004465 torch/multiprocessing/spawn.py:175] Terminating process 2004963 via signal SIGTERM
 W0504 18:30:51.138000 2004465 torch/multiprocessing/spawn.py:175] Terminating process 2004964 via signal SIGTERM
@@ -157,7 +157,7 @@ W0504 18:30:51.294000 1711402 torch/multiprocessing/spawn.py:175] Terminating pr
 W0504 18:30:51.294000 1711402 torch/multiprocessing/spawn.py:175] Terminating process 1711909 via signal SIGTERM
 W0504 18:30:51.294000 1711402 torch/multiprocessing/spawn.py:175] Terminating process 1711910 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -169,7 +169,7 @@ Traceback (most recent call last):
     raise ProcessExitedException(
 torch.multiprocessing.spawn.ProcessExitedException: process 7 terminated with exit code 255
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")

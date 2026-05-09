@@ -327,7 +327,7 @@ W0504 20:24:42.612000 2388879 torch/multiprocessing/spawn.py:175] Terminating pr
 W0504 20:24:42.612000 2388879 torch/multiprocessing/spawn.py:175] Terminating process 2389383 via signal SIGTERM
 W0504 20:24:42.612000 2388879 torch/multiprocessing/spawn.py:175] Terminating process 2389384 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -343,9 +343,9 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
     test_main(num_tokens,
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
     num_valid_tokens = recv_count.item()
                        ^^^^^^^^^^^^^^^^^
   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__
@@ -360,7 +360,7 @@ Compile with `TORCH_USE_CUDA_DSA` to enable device-side assertions.
 
 W0504 20:24:43.090000 1702037 torch/multiprocessing/spawn.py:175] Terminating process 1702542 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -376,9 +376,9 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 271, in test_loop
     test_main(num_tokens,
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 117, in test_main
     num_valid_tokens = recv_count.item()
                        ^^^^^^^^^^^^^^^^^
   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_device.py", line 103, in __torch_function__

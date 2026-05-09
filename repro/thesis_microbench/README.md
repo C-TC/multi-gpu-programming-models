@@ -108,7 +108,7 @@ unset SLURM_JOB_ID
 srun -N 2 --cpus-per-gpu 16 --gpus-per-node 8 --time 3:00:00 \
      --partition h200 --qos=dev --exclusive --mem 0 \
      --container-image /mnt/vast/containers/gpu_882f6e72.sqsh \
-     --container-workdir /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models \
+     --container-workdir /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models \
      --container-env HOME --container-remap-root \
      --container-mounts /mnt/vast:/mnt/vast --pty /bin/bash
 # (Note the JOBID; you'll use it in steps below.)
@@ -118,17 +118,17 @@ srun -N 2 --cpus-per-gpu 16 --gpus-per-node 8 --time 3:00:00 \
 #    but no unsuffixed .so symlink, and is missing libopenmpi-dev headers.
 apt-get install -y libopenmpi-dev slurm-client
 ln -sf /usr/lib/x86_64-linux-gnu/libmlx5.so.1 /usr/lib/x86_64-linux-gnu/libmlx5.so
-git -C /mnt/vast/home/tiancheng.chen/workspace/nvshmem worktree add \
-    /mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp 3.3.9-ibp
+git -C /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem worktree add \
+    /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp 3.3.9-ibp
 bash repro/thesis_microbench/scripts/build_nvshmem.sh   # ~10 min
-bash /mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp/scripts/install_hydra.sh \
-     /tmp/hydra_src /mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp-build/install
+bash /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp/scripts/install_hydra.sh \
+     /tmp/hydra_src /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp-build/install
 
 # 3. (From the LOGIN NODE) prime a named pyxis container on both nodes,
 #    then run the three sweeps.  Each call below takes the JOBID + CNAME.
 JOBID=<from step 1>
 CNAME=thmicro_$JOBID
-INST=/mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp-build/install
+INST=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp-build/install
 CONT=/mnt/vast/containers/gpu_882f6e72.sqsh
 
 srun --jobid=$JOBID --overlap \
@@ -142,7 +142,7 @@ JOBID=$JOBID CNAME=$CNAME INST=$INST bash repro/thesis_microbench/scripts/run_4_
 
 # nccl-tests need to be built with MPI=1 against NCCL ≥ 2.30.4:
 cd nccl-tests && make clean && \
-   MPI=1 MPI_HOME=/usr/local/mpi NCCL_HOME=/mnt/vast/home/tiancheng.chen/workspace/nccl-pip/nvidia/nccl \
+   MPI=1 MPI_HOME=/usr/local/mpi NCCL_HOME=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nccl-pip/nvidia/nccl \
    CUDA_HOME=/usr/local/cuda make -j 8 NVCC_GENCODE="-gencode=arch=compute_90,code=sm_90"
 JOBID=$JOBID CNAME=$CNAME INST=$INST bash repro/thesis_microbench/scripts/run_4_2_1_nccl.sh  # ~5 min
 

@@ -21,7 +21,7 @@ NPN=${NPN:-4}
 REPS=${REPS:-3}
 CONTAINER=${CONTAINER:-/mnt/vast/containers/gpu_882f6e72.sqsh}
 CONTAINER_NAME=${CONTAINER_NAME:-jacobi_sweep_$JOBID}
-REPO=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models
+REPO=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models
 NODES=$(squeue -j $JOBID -h -o "%N" | head -1)
 HEAD=$(scontrol show hostnames "$NODES" | head -1)
 echo "Job $JOBID nodes: $NODES; head: $HEAD; ntasks-per-node=$NPN; container_name=$CONTAINER_NAME"

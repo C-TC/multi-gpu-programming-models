@@ -60,7 +60,7 @@ W0504 18:25:30.419000 1690801 torch/multiprocessing/spawn.py:175] Terminating pr
 W0504 18:25:30.421000 1690801 torch/multiprocessing/spawn.py:175] Terminating process 1691312 via signal SIGTERM
 W0504 18:25:30.421000 1690801 torch/multiprocessing/spawn.py:175] Terminating process 1691313 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -76,16 +76,16 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
     ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
     recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
                                                                                                ^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
     return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
     recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: internode_dispatch(): incompatible function arguments. The following argument types are supported:
@@ -113,7 +113,7 @@ Invoked with: <deep_ep._C.Buffer object at 0x741a556ef830>, tensor([[-0.2969,  2
        dtype=torch.int32), 0, 0, None, None, None, None, 1, <deep_ep._C.Config object at 0x7419c0328030>, None, False, False
 
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -129,16 +129,16 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 341, in test_loop
     ref_hash += test_main(args, i, local_rank, num_local_ranks, num_ranks, num_nodes, rank, buffer, group,
                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 140, in test_main
     recv_x, recv_topk_idx, recv_topk_weights, recv_num_tokens_per_expert_list, handle, event = buffer.dispatch(
                                                                                                ^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 380, in dispatch
     return self.internode_dispatch(x, handle, num_tokens_per_rank, num_tokens_per_rdma_rank, is_token_in_rank,
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 495, in internode_dispatch
     recv_src_meta, send_rdma_head, send_nvl_head, event = self.runtime.internode_dispatch(
                                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: internode_dispatch(): incompatible function arguments. The following argument types are supported:

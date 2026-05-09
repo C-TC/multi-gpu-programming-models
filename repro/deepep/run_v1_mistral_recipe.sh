@@ -24,10 +24,10 @@ set -u
 JOBID=${JOBID:?must set JOBID to your salloc job id}
 CONTAINER=${CONTAINER:-/mnt/vast/containers/gpu_882f6e72.sqsh}
 CONTAINER_NAME=${CONTAINER_NAME:-deepep_v1_$JOBID}
-DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/DeepEP-pre-v2}
-NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip-3.4.5/nvidia/nvshmem}
+DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP-pre-v2}
+NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip-3.4.5/nvidia/nvshmem}
 TAG=${TAG:-}
-OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
+OUT=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/results
 NODES=$(squeue -j $JOBID -h -o "%N" | head -1)
 HEAD=$(scontrol show hostnames "$NODES" | head -1)
 mkdir -p "$OUT"

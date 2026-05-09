@@ -6,7 +6,7 @@
 # Run from inside the container at the repo root.
 
 set -u
-REPO=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models
+REPO=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models
 cd "$REPO"
 . repro/jacobi/setup_env.sh
 

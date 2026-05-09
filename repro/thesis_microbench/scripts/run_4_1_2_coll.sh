@@ -8,9 +8,9 @@
 set -u
 JOBID=${JOBID:?must set JOBID}
 CNAME=${CNAME:-thmicro_$JOBID}
-INST=${INST:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp-build/install}
+INST=${INST:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp-build/install}
 TAG=${TAG:--newcluster-20260504}
-OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/thesis_microbench/results
+OUT=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/thesis_microbench/results
 mkdir -p "$OUT"
 
 COLL=$INST/bin/perftest/device/coll

@@ -3,8 +3,8 @@
 
 set -u
 JOBID=${JOBID:?must set JOBID}
-DEEP_EP=/mnt/vast/home/tiancheng.chen/workspace/DeepEP
-OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
+DEEP_EP=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP
+OUT=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/results
 NODES=$(squeue -j $JOBID -h -o "%N" | head -1)
 HEAD=$(scontrol show hostnames "$NODES" | head -1)
 

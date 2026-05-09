@@ -367,7 +367,7 @@ W0504 20:08:24.047000 2380881 torch/multiprocessing/spawn.py:175] Terminating pr
 W0504 20:08:24.048000 2380881 torch/multiprocessing/spawn.py:175] Terminating process 2381393 via signal SIGTERM
 W0504 20:08:24.048000 2380881 torch/multiprocessing/spawn.py:175] Terminating process 2381395 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -375,7 +375,7 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 321, in start_processes
     while not context.join():
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
               ^^^^^^^^^^^^^^
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 210, in join

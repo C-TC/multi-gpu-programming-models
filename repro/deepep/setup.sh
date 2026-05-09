@@ -14,8 +14,8 @@
 # After sourcing this, $PYTHONPATH points at the local DeepEP checkout; you can run
 # `python3 tests/...` or `python3 tests/elastic/test_ep.py ...` directly.
 
-DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/DeepEP}
-NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem}
+DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP}
+NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem}
 
 # 1. NCCL ABI ≥ 2.30.4 (V2 requirement)
 pip install --quiet --no-deps 'nvidia-nccl-cu13>=2.30.4' 2>&1 | tail -1 >/dev/null

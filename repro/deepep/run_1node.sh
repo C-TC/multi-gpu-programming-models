@@ -8,8 +8,8 @@
 # Outputs land in repro/deepep/results/.
 
 set -u
-DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/DeepEP}
-OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/results
+DEEP_EP=${DEEP_EP:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP}
+OUT=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/results
 TAG=${TAG:-}    # e.g. TAG=-newcluster-20260504 → log filenames get the suffix
 mkdir -p "$OUT"
 

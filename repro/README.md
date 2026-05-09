@@ -80,7 +80,7 @@ cd /mnt/vast/home/tiancheng.chen/workspace/mistral
 uv run python -m scripts.utils.cluster ggpus --with_container True --num_gpus 8 --exclusive True
 
 # Inside the container:
-cd /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models
+cd /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models
 . repro/jacobi/setup_env.sh
 bash repro/jacobi/build_all.sh        # ~3 min
 bash repro/jacobi/run_sweep.sh        # ~30 min (1-node Sweep A+B)

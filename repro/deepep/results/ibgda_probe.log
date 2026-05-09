@@ -1,7 +1,7 @@
 === HOSTNAME ===
 slurm-h100-reserved-rno-199-197
 === ibstat HCAs ===
-/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/probe_ibgda.sh: line 6: ibstat: command not found
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/probe_ibgda.sh: line 6: ibstat: command not found
 === ibv_devices ===
     device          	   node GUID
     ------          	----------------
@@ -43,7 +43,7 @@ uverbs8
 === /dev/gdrdrv ===
 crw-rw-rw- 1 nobody nogroup 505, 0 Apr 29 15:09 /dev/gdrdrv
 === nvidia-peermem (newer way) ===
-/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/probe_ibgda.sh: line 16: modinfo: command not found
+/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/probe_ibgda.sh: line 16: modinfo: command not found
 === devx access ===
 ibp0
 ibp1

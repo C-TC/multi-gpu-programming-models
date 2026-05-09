@@ -35,7 +35,7 @@ W0504 10:47:51.401000 204695 torch/multiprocessing/spawn.py:175] Terminating pro
 W0504 10:47:51.401000 204695 torch/multiprocessing/spawn.py:175] Terminating process 205052 via signal SIGTERM
 W0504 10:47:51.405000 204695 torch/multiprocessing/spawn.py:175] Terminating process 205053 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -51,16 +51,16 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 327, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 327, in test_loop
     buffer = deep_ep.Buffer(group,
              ^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 92, in __init__
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 92, in __init__
     self.runtime = _C.Buffer(self.rank, self.group_size, num_nvl_bytes, num_rdma_bytes, low_latency_mode,
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Assertion exception (/mnt/vast/home/tiancheng.chen/workspace/DeepEP/csrc/legacy/buffer.hpp:116): num_ranks > LEGACY_NUM_MAX_NVL_PEERS or low_latency_mode
+RuntimeError: Assertion exception (/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/csrc/legacy/buffer.hpp:116): num_ranks > LEGACY_NUM_MAX_NVL_PEERS or low_latency_mode
 
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 395, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -76,13 +76,13 @@ torch.multiprocessing.spawn.ProcessRaisedException:
 Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 95, in _wrap
     fn(i, *args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_internode.py", line 327, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_internode.py", line 327, in test_loop
     buffer = deep_ep.Buffer(group,
              ^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/legacy.py", line 92, in __init__
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/legacy.py", line 92, in __init__
     self.runtime = _C.Buffer(self.rank, self.group_size, num_nvl_bytes, num_rdma_bytes, low_latency_mode,
                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-RuntimeError: Assertion exception (/mnt/vast/home/tiancheng.chen/workspace/DeepEP/csrc/legacy/buffer.hpp:116): num_ranks > LEGACY_NUM_MAX_NVL_PEERS or low_latency_mode
+RuntimeError: Assertion exception (/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/csrc/legacy/buffer.hpp:116): num_ranks > LEGACY_NUM_MAX_NVL_PEERS or low_latency_mode
 
 srun: error: slurm-h100-reserved-rno-202-129: task 1: Exited with exit code 1
 srun: error: slurm-h100-reserved-rno-200-201: task 0: Exited with exit code 1

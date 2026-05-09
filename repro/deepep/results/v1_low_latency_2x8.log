@@ -368,7 +368,7 @@ W0504 13:40:42.029000 1905874 torch/multiprocessing/spawn.py:175] Terminating pr
 W0504 13:40:42.029000 1905874 torch/multiprocessing/spawn.py:175] Terminating process 1906307 via signal SIGTERM
 W0504 13:40:42.029000 1905874 torch/multiprocessing/spawn.py:175] Terminating process 1906309 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -380,7 +380,7 @@ Traceback (most recent call last):
     raise ProcessExitedException(
 torch.multiprocessing.spawn.ProcessExitedException: process 0 terminated with exit code 255
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/legacy/test_low_latency.py", line 332, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")

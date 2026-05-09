@@ -8,7 +8,7 @@ export MPI_HOME=${MPI_HOME:-/usr/local/mpi}               # Open MPI 4.1.9a1 her
 # NVSHMEM 3.6.5 from pip wheel — /opt/nvshmem on this container has a broken
 # header symlink (points at /usr/include/nvshmem_13/ which doesn't exist), so
 # we install nvidia-nvshmem-cu13 to a workspace prefix instead.
-export NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-pip/nvidia/nvshmem}
+export NVSHMEM_HOME=${NVSHMEM_HOME:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-pip/nvidia/nvshmem}
 
 # Build flags consumed by the variant Makefiles.
 export GENCODE_SM90=1                                     # H100/H200 share sm_90

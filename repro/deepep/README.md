@@ -22,7 +22,7 @@ V2 README: *"High-throughput and low-latency APIs unified into a single ElasticB
 
 ## Setup
 
-* Repo: [/mnt/vast/home/tiancheng.chen/workspace/DeepEP](/mnt/vast/home/tiancheng.chen/workspace/DeepEP) at commit `b306af0` (the V2 release).
+* Repo: [/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP](/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP) at commit `b306af0` (the V2 release).
 * Build: `NVSHMEM_DIR=/opt/nvshmem TORCH_CUDA_ARCH_LIST="9.0" python3 setup.py build`. Symlinked `_C.cpython-312-x86_64-linux-gnu.so` into `deep_ep/`.
 * Container deps:
   - **Pip-installed `nvidia-nccl-cu13==2.30.4`** (V2 README requirement; container shipped with NCCL 2.29.3).
@@ -196,7 +196,7 @@ The illegal address from inside the LL kernel is most likely a NIC firmware / `g
 One-time build of `deep_ep_cpp.so` (V1 NVSHMEM + V2 NCCL Gin both included):
 
 ```bash
-cd /mnt/vast/home/tiancheng.chen/workspace/DeepEP
+cd /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP
 NVSHMEM_DIR=/opt/nvshmem TORCH_CUDA_ARCH_LIST="9.0" python3 setup.py build
 ```
 
@@ -210,7 +210,7 @@ cd /mnt/vast/home/tiancheng.chen/workspace/mistral
 uv run python -m scripts.utils.cluster ggpus --with_container True --num_gpus 8 --exclusive True
 
 # Inside the container:
-cd /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models
+cd /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models
 bash repro/deepep/run_1node.sh    # runs all 6 single-node tests, ~15 min
 ```
 
@@ -227,7 +227,7 @@ uv run python -m scripts.utils.cluster ggpus_custom \
     --num_gpus 8 --num_nodes 2 --exclusive True
 
 # From the login node, with the salloc job id:
-JOBID=<job id> bash /mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/deepep/run_2x8.sh
+JOBID=<job id> bash /mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/deepep/run_2x8.sh
 ```
 
 For 2 nodes × 4 GPU (V1 internode skipped), use [run_2x4.sh](run_2x4.sh) instead. For an IBGDA-only debug session, see [try_nvshmem_transports.sh](try_nvshmem_transports.sh) and [IBGDA_DEBUG.md](IBGDA_DEBUG.md).

@@ -13,9 +13,9 @@
 set -u
 JOBID=${JOBID:?must set JOBID to your salloc job id}
 CNAME=${CNAME:-thmicro_$JOBID}
-INST=${INST:-/mnt/vast/home/tiancheng.chen/workspace/nvshmem-3.3.9-ibp-build/install}
+INST=${INST:-/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/nvshmem-3.3.9-ibp-build/install}
 TAG=${TAG:--newcluster-20260504}
-OUT=/mnt/vast/home/tiancheng.chen/workspace/multi-gpu-programming-models/repro/thesis_microbench/results
+OUT=/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/multi-gpu-programming-models/repro/thesis_microbench/results
 mkdir -p "$OUT"
 
 P2P=$INST/bin/perftest/device/pt-to-pt

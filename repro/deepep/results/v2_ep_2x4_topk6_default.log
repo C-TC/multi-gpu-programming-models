@@ -18,7 +18,7 @@ Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibsta
 Failed to get RDMA connection speed: [Errno 2] No such file or directory: 'ibstat'
 W0504 10:49:07.135000 205642 torch/multiprocessing/spawn.py:175] Terminating process 205997 via signal SIGTERM
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -37,24 +37,24 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 121, in decorate_context
     return func(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
     test_dispatch_combine(buffer, args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
     num_sms = buffer.get_theoretical_num_sms(num_experts, num_topk) if args.num_sms == 0 else args.num_sms
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
     return _func(weakref.ref(self), *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
     return func(_self(), *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
     if self.num_scaleout_ranks > 1 and (rdma_traffic / rdma_gbs) > (nvlink_traffic / nvlink_gbs):
                                         ~~~~~~~~~~~~~^~~~~~~~~~
 ZeroDivisionError: float division by zero
 
 Traceback (most recent call last):
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 563, in <module>
     torch.multiprocessing.spawn(test_loop, args=(num_processes, args), nprocs=num_processes)
   File "/usr/local/lib/python3.12/dist-packages/torch/multiprocessing/spawn.py", line 365, in spawn
     return start_processes(fn, args, nprocs, join, daemon, start_method="spawn")
@@ -73,18 +73,18 @@ Traceback (most recent call last):
   File "/usr/local/lib/python3.12/dist-packages/torch/utils/_contextlib.py", line 121, in decorate_context
     return func(*args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 499, in test_loop
     test_dispatch_combine(buffer, args)
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/tests/elastic/test_ep.py", line 65, in test_dispatch_combine
     num_sms = buffer.get_theoretical_num_sms(num_experts, num_topk) if args.num_sms == 0 else args.num_sms
               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/utils/semantic.py", line 23, in inner
     return _func(weakref.ref(self), *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/utils/semantic.py", line 19, in _func
     return func(_self(), *args, **kwargs)
            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-  File "/mnt/vast/home/tiancheng.chen/workspace/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
+  File "/mnt/vast/home/tiancheng.chen/workspace/nccl-nvshmem-repro/DeepEP/deep_ep/buffers/elastic.py", line 617, in get_theoretical_num_sms
     if self.num_scaleout_ranks > 1 and (rdma_traffic / rdma_gbs) > (nvlink_traffic / nvlink_gbs):
                                         ~~~~~~~~~~~~~^~~~~~~~~~
 ZeroDivisionError: float division by zero
