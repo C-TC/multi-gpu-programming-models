@@ -1,0 +1,35 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#shmem_g_bw
+size(B)     scope     BW (GB/sec)     
+4           None      0.001827        
+8           None      0.003713        
+16          None      0.007427        
+32          None      0.014771        
+64          None      0.029709        
+128         None      0.059242        
+256         None      0.118659        
+512         None      0.236897        
+1024        None      0.472255        
+2048        None      0.906516        
+4096        None      1.732539        
+8192        None      3.471657        
+16384       None      4.986365        
+32768       None      6.431353        
+65536       None      7.426748        
+131072      None      8.065215        
+262144      None      8.447625        
+524288      None      8.625973        
+1048576     None      8.737481        
+2097152     None      8.790902        
+4194304     None      8.825399        
+8388608     None      8.847858        
+16777216    None      7.598125        
+33554432    None      7.531653        
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 1 device name: NVIDIA H200 bus id: 45 

@@ -182,20 +182,110 @@ after the user pointed out the earlier single-trial sweep was noisy.
 
 ### 4.1.1 — P2P device APIs
 
-6 NVSHMEM P2P APIs, intra-node (1 × 2 NVLink) and inter-node (2 × 1 IB IBGDA),
-mean ± stddev over 8 trials each:
+6 NVSHMEM P2P APIs, intra-node (1 × 2 NVLink) and inter-node (2 × 1 IB),
+mean ± stddev over 8 trials each.
 
-| API | What | Intra peak | Inter peak |
+> **Heads-up — original numbers below were `ibrc` (CPU-proxy) only, not IBGDA.**
+> The original `bench_rigorous.sh` P2P block only set `NVSHMEM_BOOTSTRAP=PMI`,
+> with no IBGDA env. NVSHMEM picks `ibrc` by default in that case, which routes
+> device-side puts/gets through the host CPU proxy thread. Probe (with
+> `NVSHMEM_DEBUG=INFO`) confirms only `Successfully initialized the transport: ibrc`
+> appears — no IBGDA. With `NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_HCA_PREFIX= NVSHMEM_DISABLE_NVLS=1`
+> added, the log gains `Successfully initialized the transport: IBGDA. It will be
+> used for device-side APIs over IB.` plus `NIC buffer will be on GPU memory. NIC
+> handler will be GPU.` — kernel-init RDMA is engaged.
+>
+> **The first 3 sub-sections below (table + intra/inter PNGs) are the
+> ibrc-default baseline. The new "Transport ablation" sub-section just below shows
+> the IBRC-vs-IBGDA comparison and the actual NVSHMEM P2P performance once IBGDA
+> is enabled.**
+
+| API | What | Intra peak | Inter peak (ibrc default) |
 |---|---|---:|---:|
 | `g`         | per-thread scalar **get**           | ~10 GB/s | ~22 MB/s (single-elem cap) |
 | `get`       | block-cooperative bulk get          | ~150 GB/s | ~42 GB/s |
 | `p`         | per-thread scalar **put**           | ~10 GB/s | ~16 MB/s (single-elem cap) |
 | `put`       | block-cooperative bulk put          | ~310 GB/s | ~47 GB/s |
-| `st`        | mapped-store via peer pointer       | ~280 GB/s NVLink | n/a (NVL only) |
+| `st`        | mapped-store via peer pointer       | ~280 GB/s NVLink | n/a (NVL only — `peer memory not accessible for LD/ST` cross-node) |
 | `atomic_inc`| block-coop atomic increment         | ~280 GB/s | (intra only — no IB IBGDA fast path for atomic in this build) |
 
 ![NVSHMEM P2P intranode (NVLink)](thesis_microbench/results/figures/p2p_intra.png)
 ![NVSHMEM P2P internode (IB IBGDA)](thesis_microbench/results/figures/p2p_inter.png)
+
+#### 4.1.1.b — Transport ablation: ibrc vs IBGDA
+
+Re-ran the 6 P2P APIs with the IBGDA env set, side-by-side with the ibrc
+default. The cross-node story is dramatically different at small sizes.
+
+`bench_rigorous.sh` now produces two sets of P2P logs:
+* `p2p_<scen>_<api>_t*` — default (ibrc proxy, the original baseline above)
+* `p2p_ibgda_<scen>_<api>_t*` — IBGDA explicit
+
+Same labels in the figure: orange = ibrc, green = IBGDA.
+
+![NVSHMEM P2P: ibrc vs IBGDA](thesis_microbench/results/figures/p2p_ibrc_vs_ibgda.png)
+
+`inter` (cross-node, mean GB/s, 8 trials):
+
+| size | API | ibrc | IBGDA | speedup |
+|---:|:---|---:|---:|---:|
+| **scalar (small-message rate)** | | | | |
+| 4 B   | `p` (scalar put) | 0.0019 | 0.0007 | 0.36× (IBGDA pays setup cost at 4 B) |
+| 1 KiB | `p`              | 0.0177 | 0.1001 | **5.6×** |
+| 8 KiB | `p`              | 0.0181 | 0.5433 | **30×** |
+| 64 KiB| `p`              | 0.0181 | 1.2642 | **70×** |
+| 1 MiB | `p`              | 0.0180 | 1.3584 | **75×** (IBGDA peak ~1.36 GB/s; ibrc capped at ~18 MB/s by proxy poll rate) |
+| 1 KiB | `g` (scalar get) | 0.0142 | 0.0442 | 3.1× |
+| 16 KiB| `g`              | 0.0188 | 0.1667 | **8.9×** |
+| 1 MiB | `g`              | 0.0179 | 0.2280 | **13×** (IBGDA peak ~0.23 GB/s; ibrc capped at ~18 MB/s) |
+| **bulk (BW-dominant)** | | | | |
+| 4 KiB | `put` (bulk)     | 0.5594 | 0.4325 | 0.77× (IBGDA loses ~25% mid-range — extra GPU-side overhead from posting WQEs per chunk) |
+| 1 MiB | `put`            | 47.23  | 47.44  | 1.00× (line rate ~50 GB/s reached by both) |
+| 1 GiB | `put`            | (cap) | 48.36  | — |
+| 4 KiB | `get` (bulk)     | 0.2154 | 0.4307 | **2.0×** |
+| 1 MiB | `get`            | 36.29  | 47.58  | 1.31× |
+| 16 MiB| `get`            | 41.57  | 48.51  | 1.17× |
+
+Three observations:
+
+1. **Scalar `p` and `g` are 13–75× faster with IBGDA.** ibrc scalar-put rate
+   is rate-limited at ~4.5M ops/sec by the host CPU proxy poll loop (each
+   device-side put posts a WQE into a queue that the CPU drains). IBGDA's
+   GPU-init RDMA can issue ~340M small-put ops/sec (75× higher rate, equivalent
+   to ~1.36 GB/s for 4 B puts). This was the user-reported "p2p bandwidth too low,
+   走 proxy?" — for scalar APIs, **yes, ibrc is genuinely the bottleneck**.
+
+2. **Bulk `put` is essentially identical between ibrc and IBGDA** at large sizes
+   (both saturate the 400-Gbps NIC at ~48 GB/s = 96% of line rate). At the
+   16 KiB–256 KiB mid-range IBGDA is actually 25% slower — kernel-side WQE
+   posting has a per-chunk fixed cost the host proxy avoids when it batches.
+   Bulk put at scale is bandwidth-bound, not transport-bound.
+
+3. **Bulk `get` shows IBGDA wins ~2× at mid-range and 1.2–1.3× at large sizes.**
+   Get inherently waits for completion (round-trip), so the proxy round-trip
+   overhead matters even for bulk transfers — IBGDA's elimination of that
+   round-trip helps even when the transfer itself is BW-dominant.
+
+`intra` (NVLink P2P, both rows overlap by construction — neither uses IB):
+the ibrc and IBGDA lines are identical to the line-width on the figure. This
+is the expected sanity check: transport selection only matters cross-node.
+
+What's missing from this comparison:
+* `shmem_st_bw inter` — both transports fail with `peer memory not accessible
+  for LD/ST` (LD/ST is intra-node NVLink-only by NVSHMEM design; not a bug).
+* `shmem_atomic_bw inter` IBGDA — ran into slurmstep timeout repeatedly; the
+  ibrc atomic numbers above are intact.
+
+**For workloads with mostly large bulk transfers, the original `ibrc` numbers
+in §4.1.1 above are essentially what IBGDA would give. For workloads that
+issue many small puts/gets (e.g. fine-grained PGAS or DeepEP-style dispatch
+combine), the IBGDA row is the actual NVSHMEM performance and the difference
+is 1-2 orders of magnitude.**
+
+Scripts: [`analyze_p2p.py`](thesis_microbench/scripts/analyze_p2p.py).
+The bench script update is in [`bench_rigorous.sh`](thesis_microbench/scripts/bench_rigorous.sh) (the new
+`NV_ENV_IBGDA` block + bonus fix to the resume regex that previously
+overwrote NVSHMEM P2P logs on every re-run).
 
 ### 4.1.2 — Collective primitives
 
