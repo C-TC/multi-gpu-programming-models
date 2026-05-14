@@ -30,6 +30,8 @@ APIS = [
     ("shmem_get_bw", "get (bulk)"),
     ("shmem_p_bw", "p (scalar put)"),
     ("shmem_put_bw", "put (bulk)"),
+    ("shmem_st_bw", "st (mapped store)"),
+    ("shmem_atomic_bw", "atomic_inc"),
 ]
 
 
@@ -74,10 +76,11 @@ def stats(vals: list[float]) -> tuple[float, float]:
 
 
 def plot_p2p() -> None:
-    fig, axes = plt.subplots(2, 4, figsize=(20, 9), sharex=True)
+    fig, axes = plt.subplots(2, 6, figsize=(28, 9), sharex=True)
     for col, (api, api_label) in enumerate(APIS):
         for row, (scen, scen_label) in enumerate([("intra", "intranode 1×2"), ("inter", "internode 2×1")]):
             ax = axes[row, col]
+            any_data = False
             for transport, color, marker in [
                 ("p2p", "tab:orange", "o"),
                 ("p2p_ibgda", "tab:green", "s"),
@@ -85,6 +88,7 @@ def plot_p2p() -> None:
                 d = collect(f"{transport}_{scen}_{api}")
                 if not d:
                     continue
+                any_data = True
                 sizes = sorted(d.keys())
                 means = [stats(d[s])[0] for s in sizes]
                 sds = [stats(d[s])[1] for s in sizes]
@@ -97,11 +101,15 @@ def plot_p2p() -> None:
             if col == 0: ax.set_ylabel(f"{scen_label}\nBW (GB/s)")
             if row == 1: ax.set_xlabel("size (B)")
             if row == 0 and col == 0: ax.legend(fontsize=9, loc="lower right")
+            # Annotate the empty st-inter cells with a short note instead of leaving blank
+            if not any_data and api == "shmem_st_bw" and scen == "inter":
+                ax.text(0.5, 0.5, "n/a — peer LD/ST is\nintra-NVLink only", transform=ax.transAxes,
+                        ha="center", va="center", fontsize=10, color="gray")
     fig.suptitle(
         "NVSHMEM P2P: default (ibrc CPU-proxy) vs IBGDA (GPU-init RDMA) — H200, 8 trials, mean ± stddev\n"
-        "Intra: NVLink P2P, transport selection irrelevant (lines should overlap).  "
+        "Intra: NVLink P2P (transport selection irrelevant — lines overlap).  "
         "Inter: IBRC = host CPU proxy posts WRs; IBGDA = GPU posts WRs directly via DCI/RC QPs in GPU-mapped NIC memory.",
-        y=1.02, fontsize=9)
+        y=1.02, fontsize=10)
     fig.tight_layout()
     out = FIG / "p2p_ibrc_vs_ibgda.png"
     fig.savefig(out, dpi=150, bbox_inches="tight")

@@ -225,7 +225,7 @@ Same labels in the figure: orange = ibrc, green = IBGDA.
 
 ![NVSHMEM P2P: ibrc vs IBGDA](thesis_microbench/results/figures/p2p_ibrc_vs_ibgda.png)
 
-`inter` (cross-node, mean GB/s, 8 trials):
+`inter` (cross-node, mean GB/s, 8 trials each, all 6 APIs collected):
 
 | size | API | ibrc | IBGDA | speedup |
 |---:|:---|---:|---:|---:|
@@ -245,6 +245,8 @@ Same labels in the figure: orange = ibrc, green = IBGDA.
 | 4 KiB | `get` (bulk)     | 0.2154 | 0.4307 | **2.0×** |
 | 1 MiB | `get`            | 36.29  | 47.58  | 1.31× |
 | 16 MiB| `get`            | 41.57  | 48.51  | 1.17× |
+| **atomic** | | | | |
+| 4 KiB+ | `atomic_inc`    | 0.0073–0.0080 | 0.0148 | **~2.0×** (both very low absolute — atomics are single-element ops; IBGDA bypasses proxy round-trip) |
 
 Three observations:
 
@@ -272,9 +274,13 @@ is the expected sanity check: transport selection only matters cross-node.
 
 What's missing from this comparison:
 * `shmem_st_bw inter` — both transports fail with `peer memory not accessible
-  for LD/ST` (LD/ST is intra-node NVLink-only by NVSHMEM design; not a bug).
-* `shmem_atomic_bw inter` IBGDA — ran into slurmstep timeout repeatedly; the
-  ibrc atomic numbers above are intact.
+  for LD/ST`. This is a fundamental NVSHMEM design limitation, not a bug:
+  `nvshmem_st` is a mapped-pointer store that requires direct VA mapping of
+  the peer's symmetric heap, which only works over NVLink (intra-node).
+  Cross-node has no equivalent because IB doesn't expose remote memory in
+  the local virtual address space — it has to go through RDMA WRs (which is
+  what `put` does). Marked as "n/a" in the figure rather than left blank.
+* All other 5 APIs × 2 scenarios are 8/8 collected.
 
 **For workloads with mostly large bulk transfers, the original `ibrc` numbers
 in §4.1.1 above are essentially what IBGDA would give. For workloads that
