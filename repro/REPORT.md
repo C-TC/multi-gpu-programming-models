@@ -299,10 +299,27 @@ Four observations:
    fill all the QPs (crossover ~16 KiB for `p`). So the right RC/PE is
    workload-dependent — high for big fine-grained transfers, low for tiny ones.
 
-4. **`get` plateaus far below `put`** (1.27 vs 15.6 GB/s tuned). Get is a
-   round-trip (issue read → wait for data to return), so its rate is latency-
-   bound by completions even with many QPs; put is fire-and-forget and fills
-   the pipe.
+4. **`get` plateaus far below `put`** (1.27 vs 15.6 GB/s tuned) and, unlike
+   `put`, gets *worse* with more concurrency. Knob sweep for `g` (peak GB/s):
+   `RC=1` → 0.076, `RC=64 c64×t1024` → **1.27** (optimum), `RC=128` → 1.20,
+   `RC=128 c128×t1024` → 0.75. Get is a round-trip (issue read → wait for the
+   data to come back), so its rate is bounded by *completion latency*, not by
+   how many requests are in flight — extra QPs/CTAs just add contention. So
+   RC=64 is already the sweet spot for `g`; `put` (fire-and-forget) is the only
+   scalar API that scales to high concurrency.
+
+**Why scalar `p` tops out at ~16 GB/s here, not the 18 GB/s seen on JEDI
+(GH200 + NDR200).** This is a genuine ceiling, not a missing knob — pushing
+further confirms it: `RC=128 c64×t1024` → **16.41**, `RC=256` → 16.26 (no
+gain), `RC=128 c128×t1024` → 13.04 (more CTAs *regress* — over-subscription).
+The ~10% gap is **not** the fabric: these NICs are **400 Gb/s NDR**
+(`/sys/class/infiniband/ibp*/ports/1/rate`), *faster* than JEDI's NDR200, and
+bulk `put` saturates them at 48 GB/s. Scalar-put rate is instead gated by how
+fast the GPU can post WQEs / ring the NIC doorbell, and JEDI's **GH200 has a
+coherent NVLink-C2C GPU↔Grace link** that the PCIe-attached H200 here lacks —
+so each tiny WQE posts marginally faster on GH200. NVSHMEM build differences
+(JEDI's vs 3.3.9 here) may also contribute. A ~10% platform delta on a
+message-rate-bound microbench is expected and not actionable via env tuning.
 
 `intra` (NVLink P2P): all three series overlap by construction — RC QPs and
 transport selection only matter cross-node (the figure's top row is the sanity
