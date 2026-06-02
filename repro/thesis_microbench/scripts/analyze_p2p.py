@@ -81,10 +81,15 @@ def plot_p2p() -> None:
         for row, (scen, scen_label) in enumerate([("intra", "intranode 1×2"), ("inter", "internode 2×1")]):
             ax = axes[row, col]
             any_data = False
-            for transport, color, marker in [
-                ("p2p", "tab:orange", "o"),
-                ("p2p_ibgda", "tab:green", "s"),
-            ]:
+            series = [
+                ("p2p", "tab:orange", "o", "ibrc (default = CPU proxy)"),
+                ("p2p_ibgda", "tab:green", "s", "IBGDA, 1 RC/PE, c32×t256 (untuned)"),
+            ]
+            # tuned IBGDA only exists for inter (NVLink intra doesn't use RC QPs)
+            if scen == "inter":
+                series.append(("p2p_ibgdatuned", "tab:blue", "^",
+                               "IBGDA tuned: 64 RC/PE, c64×t1024"))
+            for transport, color, marker, label in series:
                 d = collect(f"{transport}_{scen}_{api}")
                 if not d:
                     continue
@@ -92,7 +97,6 @@ def plot_p2p() -> None:
                 sizes = sorted(d.keys())
                 means = [stats(d[s])[0] for s in sizes]
                 sds = [stats(d[s])[1] for s in sizes]
-                label = "ibrc (default = CPU proxy)" if transport == "p2p" else "IBGDA (GPU-init RDMA)"
                 ax.errorbar(sizes, means, yerr=sds, marker=marker, ms=4, capsize=2,
                             label=label, color=color)
             ax.set_xscale("log"); ax.set_yscale("log")
@@ -100,15 +104,15 @@ def plot_p2p() -> None:
             if row == 0: ax.set_title(api_label, fontsize=11)
             if col == 0: ax.set_ylabel(f"{scen_label}\nBW (GB/s)")
             if row == 1: ax.set_xlabel("size (B)")
-            if row == 0 and col == 0: ax.legend(fontsize=9, loc="lower right")
+            if col == 0: ax.legend(fontsize=8, loc="lower right")
             # Annotate the empty st-inter cells with a short note instead of leaving blank
             if not any_data and api == "shmem_st_bw" and scen == "inter":
                 ax.text(0.5, 0.5, "n/a — peer LD/ST is\nintra-NVLink only", transform=ax.transAxes,
                         ha="center", va="center", fontsize=10, color="gray")
     fig.suptitle(
-        "NVSHMEM P2P: default (ibrc CPU-proxy) vs IBGDA (GPU-init RDMA) — H200, 8 trials, mean ± stddev\n"
-        "Intra: NVLink P2P (transport selection irrelevant — lines overlap).  "
-        "Inter: IBRC = host CPU proxy posts WRs; IBGDA = GPU posts WRs directly via DCI/RC QPs in GPU-mapped NIC memory.",
+        "NVSHMEM P2P: ibrc (CPU-proxy) vs IBGDA untuned (1 RC/PE) vs IBGDA tuned (64 RC/PE, c64×t1024) — H200, 8 trials, mean ± stddev\n"
+        "Intra: NVLink P2P (transport/RC-QP irrelevant — lines overlap).  Inter: scalar p/g are concurrency-bound — "
+        "throughput ∝ (#RC QPs × #issuing threads). Bulk put/get already saturate the NIC (~48 GB/s) so tuning doesn't move them.",
         y=1.02, fontsize=10)
     fig.tight_layout()
     out = FIG / "p2p_ibrc_vs_ibgda.png"
@@ -118,24 +122,25 @@ def plot_p2p() -> None:
 
 
 def text_table() -> None:
-    print(f"\n=== P2P ibrc vs IBGDA (mean GB/s, IBGDA / IBRC speedup) ===")
-    for scen in ["inter"]:  # focus on inter where transport matters
-        for api, _ in APIS:
-            print(f"\n{scen} {api}:")
-            data_a = collect(f"p2p_{scen}_{api}")
-            data_b = collect(f"p2p_ibgda_{scen}_{api}")
-            sizes = sorted(set(data_a) | set(data_b))
-            print(f"  {'size':>10} | {'ibrc':>10s} | {'IBGDA':>10s} | speedup")
-            for sz in sizes:
-                a = stats(data_a.get(sz, []))
-                b = stats(data_b.get(sz, []))
-                a_str = f"{a[0]:8.4f}" if a[0] == a[0] else "       —"
-                b_str = f"{b[0]:8.4f}" if b[0] == b[0] else "       —"
-                if a[0] and a[0] == a[0] and b[0] == b[0]:
-                    ratio_str = f"{b[0]/a[0]:.2f}x"
-                else:
-                    ratio_str = "—"
-                print(f"  {sz:>10} | {a_str} | {b_str} | {ratio_str}")
+    print(f"\n=== P2P inter: ibrc vs IBGDA-untuned vs IBGDA-tuned (mean GB/s) ===")
+    for api, _ in APIS:
+        data_a = collect(f"p2p_inter_{api}")
+        data_b = collect(f"p2p_ibgda_inter_{api}")
+        data_c = collect(f"p2p_ibgdatuned_inter_{api}")
+        sizes = sorted(set(data_a) | set(data_b) | set(data_c))
+        if not sizes:
+            print(f"\n{api}: (no data — st inter is n/a)")
+            continue
+        print(f"\n{api}:")
+        print(f"  {'size':>10} | {'ibrc':>10s} | {'IBGDA':>10s} | {'IBGDAtuned':>10s} | tuned/untuned")
+        for sz in sizes:
+            a, b, c = (stats(d.get(sz, [])) for d in (data_a, data_b, data_c))
+            def f(x): return f"{x[0]:10.4f}" if x[0] == x[0] else "         —"
+            if b[0] == b[0] and c[0] == c[0] and b[0]:
+                ratio = f"{c[0]/b[0]:.1f}x"
+            else:
+                ratio = "—"
+            print(f"  {sz:>10} | {f(a)} | {f(b)} | {f(c)} | {ratio}")
 
 
 if __name__ == "__main__":

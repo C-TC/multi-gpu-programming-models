@@ -195,10 +195,13 @@ mean ± stddev over 8 trials each.
 > used for device-side APIs over IB.` plus `NIC buffer will be on GPU memory. NIC
 > handler will be GPU.` — kernel-init RDMA is engaged.
 >
-> **The first 3 sub-sections below (table + intra/inter PNGs) are the
-> ibrc-default baseline. The new "Transport ablation" sub-section just below shows
-> the IBRC-vs-IBGDA comparison and the actual NVSHMEM P2P performance once IBGDA
-> is enabled.**
+> **The table + intra/inter PNGs immediately below are the ibrc-default
+> baseline. The "Transport ablation" sub-section (§4.1.1.b) then compares ibrc
+> vs IBGDA — and, after reviewer feedback, vs *tuned* IBGDA
+> (`NVSHMEM_IBGDA_NUM_RC_PER_PE=64`, high thread count). The tuned column is
+> the one to read for real scalar-put performance: ~16 GB/s, ~860× the ibrc
+> proxy. Simply enabling IBGDA without raising the RC-QP count only gets ~1.4
+> GB/s — see the correction box in §4.1.1.b.**
 
 | API | What | Intra peak | Inter peak (ibrc default) |
 |---|---|---:|---:|
@@ -217,60 +220,93 @@ mean ± stddev over 8 trials each.
 Re-ran the 6 P2P APIs with the IBGDA env set, side-by-side with the ibrc
 default. The cross-node story is dramatically different at small sizes.
 
-`bench_rigorous.sh` now produces two sets of P2P logs:
+> **CORRECTION (after reviewer feedback).** The first IBGDA run below
+> (`p2p_ibgda_*`) only set `NVSHMEM_IB_ENABLE_IBGDA=1` and left
+> **`NVSHMEM_IBGDA_NUM_RC_PER_PE` at its default (1 RC queue-pair per PE)**,
+> with `-c 32 -t 256`. For scalar `nvshmem_p`/`nvshmem_g` that is the *wrong*
+> setting: scalar put/get throughput is **concurrency-bound** — it scales with
+> `(#RC QPs × #issuing threads)`, the number of small RDMA writes you can keep
+> in flight. With a single QP, adding threads does nothing (they serialize on
+> that one QP). A reviewer who measured ~18 GB/s for `nvshmem_p` on JEDI
+> (GH200 + NDR200) using `NVSHMEM_IBGDA_NUM_RC_PER_PE=64 -c 64 -t 1024` was
+> right to flag this. A controlled knob-isolation sweep (`shmem_p_bw` inter,
+> peak GB/s) confirms it exactly:
+>
+> | config | RC/PE | CTAs | threads | peak GB/s |
+> |---|---:|---:|---:|---:|
+> | original run | default (1) | 32 | 256 | **1.25** |
+> | + RC=64 only | 64 | 32 | 256 | 4.04 |
+> | + threads only | default (1) | 64 | 1024 | 1.13 (no help — serializes on 1 QP) |
+> | + both | 64 | 64 | 1024 | **15.23** |
+> | + both, RC=128 | 128 | 64 | 1024 | **16.56** |
+>
+> 16.6 GB/s ≈ the reviewer's 18 GB/s; the small residual is fabric/HW
+> (CoreWeave H200 + `ibp` NICs vs JEDI GH200 + NDR200). Two corollaries:
+> RC-QPs and issuing-threads are **multiplicative** (64 QPs alone only buys
+> 4 GB/s; you need the threads to fill them), and — contrary to the
+> "even CPU NIC handler should be better" intuition — on this build
+> `NVSHMEM_IBGDA_NIC_HANDLER=cpu` **collapses** IBGDA to 0.016 GB/s. The GPU
+> NIC handler (which we get by default once IBGDA is on — probe shows
+> `NIC handler will be GPU`) is mandatory here.
+>
+> The corrected, **tuned** numbers (`p2p_ibgdatuned_*`, 64 RC/PE, c64×t1024)
+> are the blue curve in the figure and the rightmost column in the table below.
+
+`bench_rigorous.sh` now produces three sets of P2P logs:
 * `p2p_<scen>_<api>_t*` — default (ibrc proxy, the original baseline above)
-* `p2p_ibgda_<scen>_<api>_t*` — IBGDA explicit
+* `p2p_ibgda_<scen>_<api>_t*` — IBGDA on, **untuned** (1 RC/PE, c32×t256)
+* `p2p_ibgdatuned_inter_<api>_t*` — IBGDA **tuned** (64 RC/PE, c64×t1024) — inter only
 
-Same labels in the figure: orange = ibrc, green = IBGDA.
+Figure: orange = ibrc, green = IBGDA untuned, blue = IBGDA tuned.
 
-![NVSHMEM P2P: ibrc vs IBGDA](thesis_microbench/results/figures/p2p_ibrc_vs_ibgda.png)
+![NVSHMEM P2P: ibrc vs IBGDA untuned vs tuned](thesis_microbench/results/figures/p2p_ibrc_vs_ibgda.png)
 
-`inter` (cross-node, mean GB/s, 8 trials each, all 6 APIs collected):
+`inter` (cross-node, mean GB/s, 8 trials each):
 
-| size | API | ibrc | IBGDA | speedup |
+| size | API | ibrc | IBGDA untuned | IBGDA tuned |
 |---:|:---|---:|---:|---:|
-| **scalar (small-message rate)** | | | | |
-| 4 B   | `p` (scalar put) | 0.0019 | 0.0007 | 0.36× (IBGDA pays setup cost at 4 B) |
-| 1 KiB | `p`              | 0.0177 | 0.1001 | **5.6×** |
-| 8 KiB | `p`              | 0.0181 | 0.5433 | **30×** |
-| 64 KiB| `p`              | 0.0181 | 1.2642 | **70×** |
-| 1 MiB | `p`              | 0.0180 | 1.3584 | **75×** (IBGDA peak ~1.36 GB/s; ibrc capped at ~18 MB/s by proxy poll rate) |
-| 1 KiB | `g` (scalar get) | 0.0142 | 0.0442 | 3.1× |
-| 16 KiB| `g`              | 0.0188 | 0.1667 | **8.9×** |
-| 1 MiB | `g`              | 0.0179 | 0.2280 | **13×** (IBGDA peak ~0.23 GB/s; ibrc capped at ~18 MB/s) |
-| **bulk (BW-dominant)** | | | | |
-| 4 KiB | `put` (bulk)     | 0.5594 | 0.4325 | 0.77× (IBGDA loses ~25% mid-range — extra GPU-side overhead from posting WQEs per chunk) |
-| 1 MiB | `put`            | 47.23  | 47.44  | 1.00× (line rate ~50 GB/s reached by both) |
-| 1 GiB | `put`            | (cap) | 48.36  | — |
-| 4 KiB | `get` (bulk)     | 0.2154 | 0.4307 | **2.0×** |
-| 1 MiB | `get`            | 36.29  | 47.58  | 1.31× |
-| 16 MiB| `get`            | 41.57  | 48.51  | 1.17× |
-| **atomic** | | | | |
-| 4 KiB+ | `atomic_inc`    | 0.0073–0.0080 | 0.0148 | **~2.0×** (both very low absolute — atomics are single-element ops; IBGDA bypasses proxy round-trip) |
+| **scalar `p` (per-thread put)** | | | | |
+| 1 KiB | `p` | 0.0177 | 0.1001 | 0.0754 |
+| 64 KiB| `p` | 0.0181 | 1.2642 | **3.04** |
+| 1 MiB | `p` | 0.0180 | 1.3584 | **14.25** |
+| 4 MiB | `p` | (cap) | 1.3585 | **15.62** ← ≈ JEDI's 18 GB/s |
+| **scalar `g` (per-thread get)** | | | | |
+| 64 KiB| `g` | 0.0179 | 0.2106 | **0.751** |
+| 4 MiB | `g` | (cap) | 0.2274 | **1.272** (get is round-trip-bound → lower ceiling than put) |
+| **atomic_inc** | | | | |
+| 1 MiB | `atomic` | 0.0075 | 0.0148 | **0.178** (12× over untuned) |
+| **bulk `put` / `get` (already BW-bound — tuning is a no-op)** | | | | |
+| 1 MiB | `put` | 47.23 | 47.44 | 48.03 |
+| 1 MiB | `get` | 36.29 | 47.58 | 48.23 |
 
-Three observations:
+Four observations:
 
-1. **Scalar `p` and `g` are 13–75× faster with IBGDA.** ibrc scalar-put rate
-   is rate-limited at ~4.5M ops/sec by the host CPU proxy poll loop (each
-   device-side put posts a WQE into a queue that the CPU drains). IBGDA's
-   GPU-init RDMA can issue ~340M small-put ops/sec (75× higher rate, equivalent
-   to ~1.36 GB/s for 4 B puts). This was the user-reported "p2p bandwidth too low,
-   走 proxy?" — for scalar APIs, **yes, ibrc is genuinely the bottleneck**.
+1. **The scalar-put ceiling is ~16 GB/s on this fabric, not 1.4 GB/s.** The
+   original IBGDA run was real IBGDA (GPU posts WRs, not the CPU proxy) but
+   starved of queue-pairs — 1 RC QP serializes the small writes. With 64 QPs
+   and 1024 threads, `nvshmem_p` reaches 15.6 GB/s at 4 MiB, ~11.5× the
+   untuned IBGDA and ~860× the ibrc proxy. This is the number to quote for
+   fine-grained PGAS / DeepEP-style dispatch.
 
-2. **Bulk `put` is essentially identical between ibrc and IBGDA** at large sizes
-   (both saturate the 400-Gbps NIC at ~48 GB/s = 96% of line rate). At the
-   16 KiB–256 KiB mid-range IBGDA is actually 25% slower — kernel-side WQE
-   posting has a per-chunk fixed cost the host proxy avoids when it batches.
-   Bulk put at scale is bandwidth-bound, not transport-bound.
+2. **Tuning helps only the concurrency-bound APIs** (`p`, `g`, `atomic`).
+   Bulk `put`/`get` already saturate the NIC (~48 GB/s ≈ 96% of 400 Gbps line
+   rate) at the untuned setting, so RC-QP count doesn't move them — they're
+   bandwidth-bound, not concurrency-bound.
 
-3. **Bulk `get` shows IBGDA wins ~2× at mid-range and 1.2–1.3× at large sizes.**
-   Get inherently waits for completion (round-trip), so the proxy round-trip
-   overhead matters even for bulk transfers — IBGDA's elimination of that
-   round-trip helps even when the transfer itself is BW-dominant.
+3. **Tuned is slightly *slower* than untuned at small sizes** (≤ 8 KiB,
+   ~0.6–0.8×). 64 QPs + 1024 threads carry more per-op setup/coordination;
+   the concurrency payoff only appears once there's enough data in flight to
+   fill all the QPs (crossover ~16 KiB for `p`). So the right RC/PE is
+   workload-dependent — high for big fine-grained transfers, low for tiny ones.
 
-`intra` (NVLink P2P, both rows overlap by construction — neither uses IB):
-the ibrc and IBGDA lines are identical to the line-width on the figure. This
-is the expected sanity check: transport selection only matters cross-node.
+4. **`get` plateaus far below `put`** (1.27 vs 15.6 GB/s tuned). Get is a
+   round-trip (issue read → wait for data to return), so its rate is latency-
+   bound by completions even with many QPs; put is fire-and-forget and fills
+   the pipe.
+
+`intra` (NVLink P2P): all three series overlap by construction — RC QPs and
+transport selection only matter cross-node (the figure's top row is the sanity
+check; no `ibgdatuned` series there since NVLink doesn't use IB QPs).
 
 What's missing from this comparison:
 * `shmem_st_bw inter` — both transports fail with `peer memory not accessible
@@ -282,11 +318,29 @@ What's missing from this comparison:
   what `put` does). Marked as "n/a" in the figure rather than left blank.
 * All other 5 APIs × 2 scenarios are 8/8 collected.
 
-**For workloads with mostly large bulk transfers, the original `ibrc` numbers
-in §4.1.1 above are essentially what IBGDA would give. For workloads that
-issue many small puts/gets (e.g. fine-grained PGAS or DeepEP-style dispatch
-combine), the IBGDA row is the actual NVSHMEM performance and the difference
-is 1-2 orders of magnitude.**
+**Bottom line for picking settings.** Bulk transfers: ibrc, IBGDA-untuned, and
+IBGDA-tuned all converge to ~48 GB/s — any of them is fine. Fine-grained small
+puts/gets (PGAS, DeepEP-style dispatch/combine): you **must** set
+`NVSHMEM_IB_ENABLE_IBGDA=1` *and* raise `NVSHMEM_IBGDA_NUM_RC_PER_PE` (64–128)
+*and* launch enough threads (`-c 64 -t 1024`) — the three together get you
+~16 GB/s for scalar put vs ~18 MB/s for the ibrc default (~860×). Leaving
+`NUM_RC_PER_PE` at default is the single biggest footgun.
+
+How the benchmarks were executed (exact recipe):
+```
+salloc -N 2 --gpus-per-node 8 --partition h200 --exclusive   # 2 nodes, 1 GPU/PE used for inter
+srun --mpi=pmi2 -N 2 --ntasks-per-node=1 \
+     --container-image=<gpu sqsh> --container-mounts=/mnt/vast:/mnt/vast \
+     bash -c 'export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+              export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_HCA_PREFIX= NVSHMEM_DISABLE_NVLS=1;
+              export NVSHMEM_IBGDA_NUM_RC_PER_PE=64;        # <-- the knob that was missing
+              shmem_p_bw -b 4 -e 4194304 -n 20 -w 5 -c 64 -t 1024'
+```
+NB: on this NVSHMEM 3.3.9 build the perftest flags differ from older builds —
+`-s` is *scope* (thread/warp/block/all), not stride, and there is no `-M`/`-m`
+size flag (`-m` is mem_handle_type). The reviewer's JEDI args
+(`-s 1 -m 1024 -M 4194304`) were an older perftest; the knobs that carry over
+are `-c`, `-t`, and the `NUM_RC_PER_PE` env.
 
 Scripts: [`analyze_p2p.py`](thesis_microbench/scripts/analyze_p2p.py).
 The bench script update is in [`bench_rigorous.sh`](thesis_microbench/scripts/bench_rigorous.sh) (the new

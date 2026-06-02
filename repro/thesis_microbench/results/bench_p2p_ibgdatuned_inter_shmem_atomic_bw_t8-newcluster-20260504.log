@@ -1,0 +1,35 @@
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 64, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 1 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 64, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+NVSHMEM v3.3.9
+mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
+#shmem_atomic_inc
+size(B)     scope     BW (GB/sec)     
+4           None      0.000304        
+8           None      0.000436        
+16          None      0.000878        
+32          None      0.001720        
+64          None      0.003051        
+128         None      0.004256        
+256         None      0.005304        
+512         None      0.006116        
+1024        None      0.006583        
+2048        None      0.007198        
+4096        None      0.007537        
+8192        None      0.007700        
+16384       None      0.014297        
+32768       None      0.028440        
+65536       None      0.054851        
+131072      None      0.109709        
+262144      None      0.176035        
+524288      None      0.174125        
+1048576     None      0.177743        
+2097152     None      0.180219        
+4194304     None      0.181864        
+8388608     None      0.183008        
+16777216    None      0.183543        
+33554432    None      0.183882        

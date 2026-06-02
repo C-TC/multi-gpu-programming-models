@@ -119,26 +119,38 @@ fi
 #                           transport at init → device-side puts route through the host CPU
 #                           proxy thread. Limits small-message ops/sec to proxy-poll rate
 #                           (~0.5 M ops/sec ≈ 2 µs per put on this fabric).
-#   p2p_ibgda_inter_*     — IBGDA explicitly enabled (NVSHMEM_IB_ENABLE_IBGDA=1 +
-#                           NVSHMEM_HCA_PREFIX= + NVSHMEM_DISABLE_NVLS=1, the recipe
-#                           verified on this cluster — see deepep/IBGDA_DEBUG.md).
-#                           The kernel posts WQEs directly into NIC-mapped GPU memory
-#                           via DCI/RC QPs; GPU-init RDMA. Probe confirms init log
-#                           "Successfully initialized the transport: IBGDA. It will be
-#                           used for device-side APIs over IB."
+#   p2p_ibgda_inter_*     — IBGDA enabled but UNTUNED (NVSHMEM_IB_ENABLE_IBGDA=1 +
+#                           NVSHMEM_HCA_PREFIX= + NVSHMEM_DISABLE_NVLS=1; default
+#                           NVSHMEM_IBGDA_NUM_RC_PER_PE=1, c32×t256). Real IBGDA
+#                           (GPU posts WQEs into NIC-mapped GPU mem via DCI/RC QPs)
+#                           but scalar p/g are starved of queue-pairs. Probe confirms
+#                           "Successfully initialized the transport: IBGDA."
+#   p2p_ibgdatuned_inter_* — IBGDA TUNED (NVSHMEM_IBGDA_NUM_RC_PER_PE=64, c64×t1024).
+#                           Scalar put/get throughput ∝ (#RC QPs × #threads); with 1 QP
+#                           the threads serialize. Tuned reaches ~16 GB/s for scalar `p`
+#                           (≈ JEDI GH200+NDR200 reference) vs ~1.4 GB/s untuned, ~18 MB/s
+#                           ibrc. Inter only — NVLink intra doesn't use IB QPs. NB on this
+#                           3.3.9 build perftest `-s` is scope (not stride), no `-M` flag.
 if [[ " $DOMAINS " =~ " p2p " ]]; then
     NV_ENV="export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;"
     NV_ENV_IBGDA="$NV_ENV export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_HCA_PREFIX= NVSHMEM_DISABLE_NVLS=1;"
+    NV_ENV_IBGDA_TUNED="$NV_ENV_IBGDA export NVSHMEM_IBGDA_NUM_RC_PER_PE=64;"
     P2P=$INST/bin/perftest/device/pt-to-pt
+    P2P_TUNED_ARGS="-b 4 -e 4194304 -n 20 -w 5 -c 64 -t 1024"  # scalar cap 4M; high concurrency
     for api in shmem_g_bw shmem_get_bw shmem_p_bw shmem_put_bw shmem_st_bw shmem_atomic_bw; do
         bin="$P2P/$api"
         [ -x "$bin" ] || continue
         # Default (ibrc proxy)
         run_one "p2p_intra_${api}"        1 2 "$NV_ENV"       "$bin $NVS_P2P_ARGS"
         run_one "p2p_inter_${api}"        2 1 "$NV_ENV"       "$bin $NVS_P2P_ARGS"
-        # IBGDA (kernel-init RDMA)
+        # IBGDA untuned (kernel-init RDMA, 1 RC/PE)
         run_one "p2p_ibgda_intra_${api}"  1 2 "$NV_ENV_IBGDA" "$bin $NVS_P2P_ARGS"
         run_one "p2p_ibgda_inter_${api}"  2 1 "$NV_ENV_IBGDA" "$bin $NVS_P2P_ARGS"
+        # IBGDA tuned (64 RC/PE, high concurrency) — inter only
+        args="$P2P_TUNED_ARGS"
+        [ "$api" = "shmem_atomic_bw" ] && args="-b 4 -e 33554432 -n 5 -w 2 -c 64 -t 1024"
+        [ "$api" = "shmem_put_bw" -o "$api" = "shmem_get_bw" ] && args="-b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024"
+        run_one "p2p_ibgdatuned_inter_${api}" 2 1 "$NV_ENV_IBGDA_TUNED" "$bin $args"
     done
 fi
 
