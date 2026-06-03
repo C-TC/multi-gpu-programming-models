@@ -1,32 +1,35 @@
 Runtime options after parsing command line arguments 
-min_size: 4, max_size: 4194304, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 10, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
 NVSHMEM v3.3.9
 mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
 #shmem_g_bw
 size(B)     scope     BW (GB/sec)     
-4           None      0.000357        
-8           None      0.000617        
-16          None      0.000704        
-32          None      0.003340        
-64          None      0.005186        
-128         None      0.008967        
-256         None      0.012894        
-512         None      0.013581        
-1024        None      0.014083        
-2048        None      0.014292        
-4096        None      0.016700        
-8192        None      0.016834        
-16384       None      0.018609        
-32768       None      0.018138        
-65536       None      0.018139        
-131072      None      0.018114        
-262144      None      0.018099        
-524288      None      0.018247        
-1048576     None      0.018267        
-2097152     None      0.018241        
-4194304     None      0.017612        
+4           None      0.000233        
+8           None      0.000431        
+16          None      0.000733        
+32          None      0.001956        
+64          None      0.003622        
+128         None      0.006386        
+256         None      0.009567        
+512         None      0.013563        
+1024        None      0.014108        
+2048        None      0.014430        
+4096        None      0.015989        
+8192        None      0.016931        
+16384       None      0.018579        
+32768       None      0.018522        
+65536       None      0.018194        
+131072      None      0.018363        
+262144      None      0.018376        
+524288      None      0.018072        
+1048576     None      0.017854        
+2097152     None      0.017463        
+4194304     None      0.018348        
+8388608     None      0.018437        
+16777216    None      0.018445        
+33554432    None      0.018476        
 Runtime options after parsing command line arguments 
-min_size: 4, max_size: 4194304, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 10, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
 mype: 1 mype_node: 0 device name: NVIDIA H200 bus id: 25 

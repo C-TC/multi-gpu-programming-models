@@ -1,30 +1,35 @@
 Runtime options after parsing command line arguments 
-min_size: 4, max_size: 1048576, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 10, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
 mype: 1 mype_node: 0 device name: NVIDIA H200 bus id: 25 
 Runtime options after parsing command line arguments 
-min_size: 4, max_size: 1048576, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 10, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
 NVSHMEM v3.3.9
 mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
 #shmem_p_bw
 size(B)     scope     BW (GB/sec)     
-4           None      0.001904        
-8           None      0.003884        
-16          None      0.008005        
-32          None      0.011537        
-64          None      0.013914        
-128         None      0.014446        
-256         None      0.014636        
-512         None      0.014938        
-1024        None      0.015102        
-2048        None      0.015285        
-4096        None      0.015642        
-8192        None      0.016154        
-16384       None      0.016168        
-32768       None      0.016121        
-65536       None      0.016092        
-131072      None      0.015943        
-262144      None      0.014669        
-524288      None      0.015619        
-1048576     None      0.016028        
+4           None      0.001183        
+8           None      0.002397        
+16          None      0.004836        
+32          None      0.008340        
+64          None      0.010604        
+128         None      0.012162        
+256         None      0.014342        
+512         None      0.014957        
+1024        None      0.015355        
+2048        None      0.015711        
+4096        None      0.015811        
+8192        None      0.015842        
+16384       None      0.015863        
+32768       None      0.015837        
+65536       None      0.015866        
+131072      None      0.015843        
+262144      None      0.015834        
+524288      None      0.015817        
+1048576     None      0.015842        
+2097152     None      0.015803        
+4194304     None      0.014779        
+8388608     None      0.015119        
+16777216    None      0.015823        
+33554432    None      0.015803        

@@ -263,30 +263,39 @@ Figure: orange = ibrc, green = IBGDA untuned, blue = IBGDA tuned.
 
 `inter` (cross-node, mean GB/s, 8 trials each):
 
+All three series now sweep the full **4 B – 32 MiB** range, 8 trials each
+(mean GB/s):
+
 | size | API | ibrc | IBGDA untuned | IBGDA tuned |
 |---:|:---|---:|---:|---:|
 | **scalar `p` (per-thread put)** | | | | |
-| 1 KiB | `p` | 0.0177 | 0.1001 | 0.0754 |
-| 64 KiB| `p` | 0.0181 | 1.2642 | **3.04** |
-| 1 MiB | `p` | 0.0180 | 1.3584 | **14.25** |
-| 4 MiB | `p` | (cap) | 1.3585 | **15.62** ← ≈ JEDI's 18 GB/s |
+| 1 KiB | `p` | 0.0181 | 0.1001 | 0.0741 |
+| 64 KiB| `p` | 0.0189 | 1.2642 | **3.02** |
+| 1 MiB | `p` | 0.0188 | 1.3584 | **14.17** |
+| 8 MiB | `p` | 0.0181 | 1.3583 | **15.64** ← RC=64 peak |
+| 32 MiB| `p` | 0.0182 | 1.3548 | 15.07 (slight taper past 8 MiB) |
 | **scalar `g` (per-thread get)** | | | | |
-| 64 KiB| `g` | 0.0179 | 0.2106 | **0.751** |
-| 4 MiB | `g` | (cap) | 0.2274 | **1.272** (get is round-trip-bound → lower ceiling than put) |
+| 64 KiB| `g` | 0.0187 | 0.2106 | **0.734** |
+| 8 MiB | `g` | 0.0192 | 0.2276 | **1.245** |
+| 32 MiB| `g` | 0.0192 | 0.2237 | **1.283** (get is round-trip-bound → lower ceiling than put) |
 | **atomic_inc** | | | | |
 | 1 MiB | `atomic` | 0.0075 | 0.0148 | **0.178** (12× over untuned) |
+| 32 MiB| `atomic` | 0.0075 | 0.0148 | 0.183 |
 | **bulk `put` / `get` (already BW-bound — tuning is a no-op)** | | | | |
 | 1 MiB | `put` | 47.23 | 47.44 | 48.03 |
+| 32 MiB| `put` | 48.36 | 48.36 | 48.32 |
 | 1 MiB | `get` | 36.29 | 47.58 | 48.23 |
+| 32 MiB| `get` | 41.6 | 48.54 | 48.5 |
 
 Four observations:
 
 1. **The scalar-put ceiling is ~16 GB/s on this fabric, not 1.4 GB/s.** The
    original IBGDA run was real IBGDA (GPU posts WRs, not the CPU proxy) but
    starved of queue-pairs — 1 RC QP serializes the small writes. With 64 QPs
-   and 1024 threads, `nvshmem_p` reaches 15.6 GB/s at 4 MiB, ~11.5× the
-   untuned IBGDA and ~860× the ibrc proxy. This is the number to quote for
-   fine-grained PGAS / DeepEP-style dispatch.
+   and 1024 threads, `nvshmem_p` peaks at 15.6 GB/s (at 8 MiB), ~11.5× the
+   untuned IBGDA and ~860× the ibrc proxy; RC=128 pushes the peak to ~16.9 GB/s
+   (at 16 MiB). This is the number to quote for fine-grained PGAS /
+   DeepEP-style dispatch.
 
 2. **Tuning helps only the concurrency-bound APIs** (`p`, `g`, `atomic`).
    Bulk `put`/`get` already saturate the NIC (~48 GB/s ≈ 96% of 400 Gbps line

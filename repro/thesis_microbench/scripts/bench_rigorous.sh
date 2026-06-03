@@ -136,7 +136,7 @@ if [[ " $DOMAINS " =~ " p2p " ]]; then
     NV_ENV_IBGDA="$NV_ENV export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_HCA_PREFIX= NVSHMEM_DISABLE_NVLS=1;"
     NV_ENV_IBGDA_TUNED="$NV_ENV_IBGDA export NVSHMEM_IBGDA_NUM_RC_PER_PE=64;"
     P2P=$INST/bin/perftest/device/pt-to-pt
-    P2P_TUNED_ARGS="-b 4 -e 4194304 -n 20 -w 5 -c 64 -t 1024"  # scalar cap 4M; high concurrency
+    P2P_TUNED_ARGS="-b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024"  # full 32 MiB sweep, high concurrency
     for api in shmem_g_bw shmem_get_bw shmem_p_bw shmem_put_bw shmem_st_bw shmem_atomic_bw; do
         bin="$P2P/$api"
         [ -x "$bin" ] || continue
@@ -146,10 +146,9 @@ if [[ " $DOMAINS " =~ " p2p " ]]; then
         # IBGDA untuned (kernel-init RDMA, 1 RC/PE)
         run_one "p2p_ibgda_intra_${api}"  1 2 "$NV_ENV_IBGDA" "$bin $NVS_P2P_ARGS"
         run_one "p2p_ibgda_inter_${api}"  2 1 "$NV_ENV_IBGDA" "$bin $NVS_P2P_ARGS"
-        # IBGDA tuned (64 RC/PE, high concurrency) — inter only
+        # IBGDA tuned (64 RC/PE, high concurrency) — inter only. All sweep to 32 MiB.
         args="$P2P_TUNED_ARGS"
         [ "$api" = "shmem_atomic_bw" ] && args="-b 4 -e 33554432 -n 5 -w 2 -c 64 -t 1024"
-        [ "$api" = "shmem_put_bw" -o "$api" = "shmem_get_bw" ] && args="-b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024"
         run_one "p2p_ibgdatuned_inter_${api}" 2 1 "$NV_ENV_IBGDA_TUNED" "$bin $args"
     done
 fi
