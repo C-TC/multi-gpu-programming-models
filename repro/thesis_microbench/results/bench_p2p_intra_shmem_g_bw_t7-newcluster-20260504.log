@@ -5,30 +5,30 @@ NVSHMEM v3.3.9
 mype: 0 mype_node: 0 device name: NVIDIA H200 bus id: 25 
 #shmem_g_bw
 size(B)     scope     BW (GB/sec)     
-4           None      0.001866        
-8           None      0.003766        
-16          None      0.007523        
-32          None      0.015042        
-64          None      0.030057        
-128         None      0.059630        
-256         None      0.118800        
-512         None      0.241838        
-1024        None      0.467563        
-2048        None      0.928074        
-4096        None      1.767956        
-8192        None      3.529087        
-16384       None      5.010765        
-32768       None      6.450800        
-65536       None      7.444565        
-131072      None      8.065533        
-262144      None      8.420014        
-524288      None      8.613276        
-1048576     None      8.715450        
-2097152     None      8.768203        
-4194304     None      8.792412        
-8388608     None      8.802545        
-16777216    None      7.267179        
-33554432    None      7.268939        
+4           None      0.001867        
+8           None      0.003744        
+16          None      0.007499        
+32          None      0.014966        
+64          None      0.029949        
+128         None      0.059542        
+256         None      0.118203        
+512         None      0.240529        
+1024        None      0.481058        
+2048        None      0.949837        
+4096        None      1.755830        
+8192        None      3.489640        
+16384       None      5.037387        
+32768       None      6.509027        
+65536       None      7.435376        
+131072      None      8.044306        
+262144      None      8.405154        
+524288      None      8.600796        
+1048576     None      8.710631        
+2097152     None      8.763419        
+4194304     None      8.789924        
+8388608     None      8.809064        
+16777216    None      7.403420        
+33554432    None      7.407491        
 Runtime options after parsing command line arguments 
 min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0
 Note: Above is full list of options, any given test will use only a subset of these variables.
