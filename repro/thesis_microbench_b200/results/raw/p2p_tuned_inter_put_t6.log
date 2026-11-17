@@ -1,0 +1,38 @@
+#BENCH label=p2p_tuned_inter_put trial=6 nodes=prenyx0245,prenyx0247 tpn=1 mpi=pmi2 date=2026-11-17T07:40:42-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=64 NVSHMEM_IBGDA_RC_MAP_BY=warp;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_put_bw -b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024 --use_smem 0
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 20, warmup iterations: 5, number of ctas: 64, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+PE 0: GPU 0, UUID: GPU-a612d89e-d6a2-d499-f21c-b64119c0fc3d, peer: 1
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+PE 1: GPU 0, UUID: GPU-e4990a33-db1b-2768-a1bb-37dc845cafeb, peer: 0
+#shmem_put_bw_uni
+size(B)     scope     BW (GB/sec)     
+4           None      0.000330        
+8           None      0.000668        
+16          None      0.001336        
+32          None      0.002673        
+64          None      0.005367        
+128         None      0.010687        
+256         None      0.021422        
+512         None      0.022815        
+1024        None      0.042890        
+2048        None      0.088994        
+4096        None      0.175535        
+8192        None      0.359097        
+16384       None      0.714535        
+32768       None      1.370817        
+65536       None      2.820742        
+131072      None      5.780004        
+262144      None      11.478212       
+524288      None      22.668972       
+1048576     None      37.333939       
+2097152     None      42.683338       
+4194304     None      45.828568       
+8388608     None      47.636131       
+16777216    None      48.559574       
+33554432    None      49.060776       
+#BENCH_EXIT 0

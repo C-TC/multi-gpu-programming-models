@@ -1,0 +1,8 @@
+#BENCH label=vfy_correct_intra_nvs_reduce_maxteams trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T06:56:56-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_MAX_TEAMS=1024;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/tests/test_install/host/coll/reduce
+NVSHMEM v3.8.0
+[PE 0] Runtime options after parsing command line arguments
+min_size: 4, max_size: 4194304, step_factor: 2, min_iters: 10, max_iters: 20, repeat: 1, threadgroup_scope: all_scopes, mmap: 0, use_egm: 0, only_p2p: 0, mem_handle_type: 0, dynamic_smem_size: 32768
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#BENCH_EXIT 0

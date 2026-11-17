@@ -1,0 +1,16 @@
+#BENCH label=tune_p2p_inter_p_rc256cta_c256t1024 trial=1 nodes=prenyx0245,prenyx0247 tpn=1 mpi=pmi2 date=2026-11-17T07:26:12-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=256 NVSHMEM_IBGDA_RC_MAP_BY=cta;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_p_bw -b 65536 -e 33554432 -f 8 -n 20 -w 5 -c 256 -t 1024 --use_smem 0
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 65536, max_size: 33554432, step_factor: 8, iterations: 20, warmup iterations: 5, number of ctas: 256, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_p_bw
+size(B)     scope     BW (GB/sec)     
+65536       None      1.915720        
+524288      None      10.526856       
+4194304     None      12.438860       
+33554432    None      12.971646       
+#BENCH_EXIT 0

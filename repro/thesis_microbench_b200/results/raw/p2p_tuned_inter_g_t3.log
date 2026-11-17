@@ -1,0 +1,36 @@
+#BENCH label=p2p_tuned_inter_g trial=3 nodes=prenyx0245,prenyx0247 tpn=1 mpi=pmi2 date=2026-11-17T07:44:13-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=64 NVSHMEM_IBGDA_RC_MAP_BY=warp;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_g_bw -b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024 --use_smem 0
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 20, warmup iterations: 5, number of ctas: 64, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_g_bw
+size(B)     scope     BW (GB/sec)     
+4           None      0.000258        
+8           None      0.000498        
+16          None      0.000976        
+32          None      0.001767        
+64          None      0.003253        
+128         None      0.007856        
+256         None      0.016008        
+512         None      0.030693        
+1024        None      0.059172        
+2048        None      0.111566        
+4096        None      0.199797        
+8192        None      0.393786        
+16384       None      0.758519        
+32768       None      1.420250        
+65536       None      2.325027        
+131072      None      3.113645        
+262144      None      3.439849        
+524288      None      4.519911        
+1048576     None      4.748607        
+2097152     None      5.129457        
+4194304     None      5.334972        
+8388608     None      5.571546        
+16777216    None      5.667182        
+33554432    None      5.698642        
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+#BENCH_EXIT 0

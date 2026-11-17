@@ -1,0 +1,33 @@
+#BENCH label=smoke_nvsdev trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T06:27:41-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/coll/reduction_focus -b 128 -e 4194304 -n 20 -w 5 --cudagraph
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 4194304, step_factor: 2, iterations: 20, warmup iterations: 5, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       b         6.550400          0.020         0.034       
+256         64        float     sum       b         6.478400          0.040         0.069       
+512         128       float     sum       b         6.441600          0.079         0.139       
+1024        256       float     sum       b         6.465600          0.158         0.277       
+2048        512       float     sum       b         6.427200          0.319         0.558       
+4096        1024      float     sum       b         6.758400          0.606         1.061       
+8192        2048      float     sum       b         8.406400          0.974         1.705       
+16384       4096      float     sum       b         9.702400          1.689         2.955       
+32768       8192      float     sum       b         9.737600          3.365         5.889       
+65536       16384     float     sum       b         11.950400         5.484         9.597       
+131072      32768     float     sum       b         16.259199         8.061         14.107      
+262144      65536     float     sum       b         24.264000         10.804        18.907      
+524288      131072    float     sum       b         40.867200         12.829        22.451      
+1048576     262144    float     sum       b         74.126399         14.146        24.755      
+2097152     524288    float     sum       b         139.831996        14.998        26.246      
+#BENCH_EXIT 0

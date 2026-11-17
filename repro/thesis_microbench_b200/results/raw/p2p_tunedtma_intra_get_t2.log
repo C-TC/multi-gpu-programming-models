@@ -1,0 +1,38 @@
+#BENCH label=p2p_tuned_intra_get trial=2 nodes=prenyx0245 tpn=2 mpi=pmi2 date=2026-11-17T07:09:58-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_TMA_POLICY=ENABLE;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_get_bw -b 4 -e 33554432 -n 50 -w 20 -c 32 -t 256 --use_smem 1
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+PE 0: GPU 0, UUID: GPU-a612d89e-d6a2-d499-f21c-b64119c0fc3d, peer: 1
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+PE 1: GPU 1, UUID: GPU-02b60f29-5ffa-b0a6-f36a-b0c5af0fc980, peer: 0
+#shmem_get_bw_uni
+size(B)     scope     BW (GB/sec)     
+4           None      0.001606        
+8           None      0.003255        
+16          None      0.006453        
+32          None      0.012781        
+64          None      0.026048        
+128         None      0.051573        
+256         None      0.059242        
+512         None      0.061232        
+1024        None      0.121942        
+2048        None      0.249182        
+4096        None      0.498675        
+8192        None      0.986817        
+16384       None      1.962739        
+32768       None      3.934829        
+65536       None      7.835335        
+131072      None      15.427495       
+262144      None      30.251110       
+524288      None      58.795666       
+1048576     None      107.119972      
+2097152     None      157.092865      
+4194304     None      248.741791      
+8388608     None      369.331329      
+16777216    None      480.345947      
+33554432    None      576.945801      
+#BENCH_EXIT 0

@@ -1,0 +1,132 @@
+=== toolchain ===
+Cuda compilation tools, release 13.3, V13.3.33
+Build cuda_13.3.r13.3/compiler.37862127_0
+cmake version 3.31.6
+gcc (Ubuntu 13.3.0-6ubuntu2~24.04.1) 13.3.0
+README.txt
+VERSION
+clusterkit
+hcoll
+nccl_rdma_sharp_plugin
+nccl_spectrum-x_plugin
+ompi
+ompi4
+ompi5
+sharp
+/usr/local/mpi/bin/mpicc
+=== copy sources to local disk ===
+=== NCCL 2.32.6-1 ===
+libnccl.so
+libnccl.so.2
+libnccl.so.2.32.6
+libnccl_static.a
+pkgconfig
+=== NVSHMEM 3.8.0-0 (+ reduction_focus) ===
+6:nvshmem_add_perftest(reduction_latency.cu)
+7:nvshmem_add_perftest(reduction_focus.cu)
+16:    nvshmem_add_cubin_perftest(reduction_latency.cu)
+NVSHMEM_MPI_SUPPORT: OFF
+NVSHMEM_IBRC_SUPPORT: ON
+NVSHMEM_USE_GDRCOPY: ON
+NVSHMEM_BUILD_TESTS: ON
+NVSHMEM_IBGDA_SUPPORT: ON
+NVSHMEM_USE_NCCL: OFF
+/raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/coll:
+alltoall_latency
+alltoall_latency.args
+barrier_latency
+barrier_latency.args
+bcast_latency
+bcast_latency.args
+fcollect_latency
+fcollect_latency.args
+reducescatter_latency
+reducescatter_latency.args
+reduction_focus
+reduction_latency
+reduction_latency.args
+sync_latency
+sync_latency.args
+
+/raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt:
+shmem_atomic_bw
+shmem_atomic_bw.args
+shmem_atomic_bw_ltoir.cubin
+shmem_atomic_latency
+shmem_atomic_latency.args
+shmem_atomic_latency_ltoir.cubin
+shmem_atomic_ping_pong_latency
+shmem_atomic_ping_pong_latency.args
+shmem_atomic_ping_pong_latency_ltoir.cubin
+shmem_flush_bench
+shmem_flush_bench.args
+shmem_g_bw
+shmem_g_bw.args
+shmem_g_latency
+shmem_g_latency.args
+shmem_g_latency_ltoir.cubin
+shmem_get_bw
+shmem_get_bw.args
+shmem_get_latency
+shmem_get_latency.args
+shmem_get_latency_ltoir.cubin
+shmem_nbi_issue_rate
+shmem_nbi_issue_rate.args
+shmem_p_bw
+shmem_p_bw.args
+shmem_p_latency
+shmem_p_latency.args
+shmem_p_latency_ltoir.cubin
+shmem_p_ping_pong_latency
+shmem_p_ping_pong_latency.args
+shmem_p_ping_pong_latency_ltoir.cubin
+shmem_put_atomic_ping_pong_latency
+shmem_put_atomic_ping_pong_latency.args
+shmem_put_atomic_ping_pong_latency_ltoir.cubin
+shmem_put_bw
+shmem_put_bw.args
+shmem_put_latency
+shmem_put_latency.args
+shmem_put_latency_ltoir.cubin
+shmem_put_ping_pong_latency
+shmem_put_ping_pong_latency.args
+shmem_put_ping_pong_latency_ltoir.cubin
+NCCL symbols in libnvshmem_host (expect 0): 0
+=== nccl-tests 2.21.1 (MPI=1) ===
+all_gather.o
+all_gather_perf
+all_reduce.o
+all_reduce_perf
+alltoall.o
+alltoall_perf
+alltoallv.o
+alltoallv_perf
+broadcast.o
+broadcast_perf
+comm_ops.o
+comm_ops_perf
+common.o
+device_api
+gather.o
+gather_perf
+hypercube.o
+hypercube_perf
+obj
+os
+reduce.o
+reduce_perf
+reduce_scatter.o
+reduce_scatter_perf
+scatter.o
+scatter_perf
+sendrecv.o
+sendrecv_perf
+timer.o
+util.o
+verifiable
+=== package install tree -> /home/siyshen/workspace/b200-microbench/artifacts ===
+total 531320
+drwxrwxr-x  2 siyshen siyshen        36 Nov 17 06:25 .
+drwxrwxr-x 10 siyshen siyshen       213 Nov 17 06:04 ..
+-rw-rw-r--  1 siyshen siyshen 474583676 Nov 17 06:25 b200mb-install.tgz
+BUILD_OK

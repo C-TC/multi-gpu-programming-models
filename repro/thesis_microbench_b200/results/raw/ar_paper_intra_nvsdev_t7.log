@@ -1,0 +1,42 @@
+#BENCH label=ar_paper_intra_nvsdev trial=7 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T06:48:12-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/coll/reduction_focus -b 128 -e 2147483648 -n 100 -w 50 --cudagraph
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 2147483648, step_factor: 2, iterations: 100, warmup iterations: 50, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       b         5.863680          0.022         0.038       
+256         64        float     sum       b         5.835840          0.044         0.077       
+512         128       float     sum       b         5.854080          0.087         0.153       
+1024        256       float     sum       b         5.852800          0.175         0.306       
+2048        512       float     sum       b         5.849280          0.350         0.613       
+4096        1024      float     sum       b         6.075200          0.674         1.180       
+8192        2048      float     sum       b         8.049600          1.018         1.781       
+16384       4096      float     sum       b         9.403200          1.742         3.049       
+32768       8192      float     sum       b         9.320640          3.516         6.152       
+65536       16384     float     sum       b         11.408640         5.744         10.053      
+131072      32768     float     sum       b         15.657600         8.371         14.649      
+262144      65536     float     sum       b         23.807681         11.011        19.269      
+524288      131072    float     sum       b         40.616322         12.908        22.590      
+1048576     262144    float     sum       b         73.463998         14.273        24.978      
+2097152     524288    float     sum       b         139.296637        15.055        26.347      
+4194304     1048576   float     sum       b         271.625271        15.442        27.023      
+8388608     2097152   float     sum       b         589.782066        14.223        24.891      
+16777216    4194304   float     sum       b         1178.639069       14.234        24.910      
+33554432    8388608   float     sum       b         2368.587189       14.166        24.791      
+67108864    16777216  float     sum       b         4741.153564       14.155        24.770      
+134217728   33554432  float     sum       b         9545.129395       14.061        24.607      
+268435456   67108864  float     sum       b         19025.697021      14.109        24.691      
+536870912   134217728  float     sum       b         38034.501953      14.115        24.702      
+1073741824  268435456  float     sum       b         75937.109375      14.140        24.745      
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+#BENCH_EXIT 0

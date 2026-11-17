@@ -1,5 +1,7 @@
 # Thesis Chapter 4 micro-benchmarks — H200 reproduction
 
+> **B200 rerun (2026-11-17):** the paper figures re-measured on DGX B200 with NCCL 2.32.6 / NVSHMEM 3.8.0, plus verification of these H200 data, are in [`../thesis_microbench_b200/`](../thesis_microbench_b200/README.md).
+
 This directory reproduces the NVSHMEM micro-benchmarks from the thesis Chapter 4
 (`../../ETH_Zürich_CADMO_Thesis_Template_v2.pdf`):
 

@@ -1,0 +1,25 @@
+#BENCH label=tune_ar_intra_nvshost_ctas32_nt1024 trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T07:07:48-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_MAX_CTAS=32 NVSHMEM_MAX_TEAMS=1024 NVSHMEM_REDUCE_NTHREADS=1024;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/host/coll/reduction_on_stream -b 128 -e 1073741824 -f 4 -n 50 -w 20 --cudagraph -d float -o sum
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+[./src/host/stream/coll/rdxn/reduce_common.cuh:88] cuda failed with too many resources requested for launch 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+srun: error: prenyx0245: tasks 0-6: Exited with exit code 255
+srun: Terminating StepId=2674876.126
+[2026-11-17T07:08:05.644] error: *** STEP 2674876.126 ON prenyx0245 CANCELLED AT 2026-11-17T07:08:05 DUE TO TASK FAILURE ***
+srun: error: prenyx0245: task 7: Exited with exit code 255
+#BENCH_EXIT 255

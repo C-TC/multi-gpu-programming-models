@@ -1,0 +1,60 @@
+# NCCL series from ar_rearch_* (rearch enqueue path)
+p2p_paper_intra_put: trials=8 peak=672.36 GB/s @ 33554432 B; lat@256B=2.31us lat@512B=2.37us lat@64KiB=2.36us max_rel_sd=0.030; dropped zero-byte sizes [4, 8, 16, 32, 64, 128]
+p2p_paper_intra_get: trials=8 peak=72.69 GB/s @ 33554432 B; lat@256B=3.78us lat@512B=3.89us lat@64KiB=3.96us max_rel_sd=0.012; dropped zero-byte sizes [4, 8, 16, 32, 64, 128]
+p2p_paper_intra_p: trials=8 peak=180.57 GB/s @ 33554432 B; lat@256B=1.78us lat@512B=1.75us lat@64KiB=2.26us max_rel_sd=0.036
+p2p_paper_intra_g: trials=8 peak=18.08 GB/s @ 33554432 B; lat@256B=3.40us lat@512B=3.42us lat@64KiB=5.33us max_rel_sd=0.006
+p2p_paper_inter_ibgdatuned_put: trials=8 peak=48.87 GB/s @ 33554432 B; lat@256B=nanus lat@512B=21.81us lat@64KiB=21.68us max_rel_sd=0.014; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_paper_inter_ibgdatuned_get: trials=8 peak=49.12 GB/s @ 33554432 B; lat@256B=nanus lat@512B=18.47us lat@64KiB=18.42us max_rel_sd=0.019; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_paper_inter_ibgdatuned_p: trials=8 peak=15.69 GB/s @ 8388608 B; lat@256B=11.98us lat@512B=12.66us lat@64KiB=26.71us max_rel_sd=0.015
+p2p_paper_inter_ibgdatuned_g: trials=8 peak=5.55 GB/s @ 33554432 B; lat@256B=19.86us lat@512B=21.25us lat@64KiB=47.56us max_rel_sd=0.055
+ar_paper_intra_nvshost: trials=8 sizes=23 [128..536870912] peak=303.49 GB/s @ 536870912 B; lat(<=64KiB) 7.70-12.90 us; max_rel_sd=0.011
+ar_paper_intra_nvsdev: trials=8 sizes=23 [128..536870912] peak=15.45 GB/s @ 4194304 B; lat(<=64KiB) 5.87-11.45 us; max_rel_sd=0.009
+ar_rearch_intra_nccl_ring: trials=8 sizes=23 [128..536870912] peak=398.67 GB/s @ 536870912 B; lat(<=64KiB) 21.71-24.38 us; max_rel_sd=0.002
+ar_rearch_intra_nccl_nvls: trials=8 sizes=23 [128..536870912] peak=479.25 GB/s @ 536870912 B; lat(<=64KiB) 4.13-24.42 us; max_rel_sd=0.007
+ar_paper_inter_nvshost: trials=8 sizes=23 [128..536870912] peak=0.14 GB/s @ 8192 B; lat(<=64KiB) 52.02-2265.56 us; max_rel_sd=0.036
+ar_paper_inter_nvsdev: trials=8 sizes=23 [128..536870912] peak=0.13 GB/s @ 8192 B; lat(<=64KiB) 50.66-2399.14 us; max_rel_sd=0.027
+ar_rearch_inter_nccl_ring: trials=8 sizes=23 [128..536870912] peak=195.71 GB/s @ 536870912 B; lat(<=64KiB) 49.33-61.87 us; max_rel_sd=0.017
+ar_rearch_inter_nccl_nvls: trials=8 sizes=23 [128..536870912] peak=366.05 GB/s @ 536870912 B; lat(<=64KiB) 29.81-37.30 us; max_rel_sd=0.013
+
+# ---- tuned NVSHMEM figures ----
+p2p_tuned_intra_put: trials=8 peak=697.37 GB/s @ 33554432 B; lat@256B=nanus lat@512B=2.54us lat@64KiB=2.57us max_rel_sd=0.013; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_tuned_intra_get: trials=8 peak=535.25 GB/s @ 33554432 B; lat@256B=nanus lat@512B=4.00us lat@64KiB=4.08us max_rel_sd=0.010; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_tuned_intra_p: trials=8 peak=698.71 GB/s @ 33554432 B; lat@256B=1.99us lat@512B=1.99us lat@64KiB=2.05us max_rel_sd=0.012
+p2p_tuned_intra_g: trials=8 peak=584.49 GB/s @ 33554432 B; lat@256B=3.42us lat@512B=3.42us lat@64KiB=3.61us max_rel_sd=0.013
+p2p_tuned_inter_put: trials=8 peak=49.06 GB/s @ 33554432 B; lat@256B=nanus lat@512B=22.30us lat@64KiB=23.22us max_rel_sd=0.009; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_tuned_inter_get: trials=8 peak=49.31 GB/s @ 33554432 B; lat@256B=nanus lat@512B=19.54us lat@64KiB=20.13us max_rel_sd=0.012; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+p2p_tuned_inter_p: trials=8 peak=17.37 GB/s @ 33554432 B; lat@256B=11.19us lat@512B=12.27us lat@64KiB=22.91us max_rel_sd=0.007
+p2p_tuned_inter_g: trials=8 peak=5.81 GB/s @ 33554432 B; lat@256B=16.01us lat@512B=16.67us lat@64KiB=28.05us max_rel_sd=0.040
+ar_tuned_intra_nvshost: trials=8 sizes=23 [128..536870912] peak=474.45 GB/s @ 536870912 B; lat(<=64KiB) 7.73-12.86 us; max_rel_sd=0.007
+ar_paper_intra_nvsdev: trials=8 sizes=23 [128..536870912] peak=15.45 GB/s @ 4194304 B; lat(<=64KiB) 5.87-11.45 us; max_rel_sd=0.009
+ar_rearch_intra_nccl_ring: trials=8 sizes=23 [128..536870912] peak=398.67 GB/s @ 536870912 B; lat(<=64KiB) 21.71-24.38 us; max_rel_sd=0.002
+ar_rearch_intra_nccl_nvls: trials=8 sizes=23 [128..536870912] peak=479.25 GB/s @ 536870912 B; lat(<=64KiB) 4.13-24.42 us; max_rel_sd=0.007
+ar_tuned_inter_nvshost: trials=8 sizes=23 [128..536870912] peak=0.74 GB/s @ 2097152 B; lat(<=64KiB) 50.92-512.29 us; max_rel_sd=0.024
+ar_tuned_inter_nvsdev: trials=8 sizes=23 [128..536870912] peak=0.48 GB/s @ 2097152 B; lat(<=64KiB) 52.63-564.29 us; max_rel_sd=0.024
+ar_rearch_inter_nccl_ring: trials=8 sizes=23 [128..536870912] peak=195.71 GB/s @ 536870912 B; lat(<=64KiB) 49.33-61.87 us; max_rel_sd=0.017
+ar_rearch_inter_nccl_nvls: trials=8 sizes=23 [128..536870912] peak=366.05 GB/s @ 536870912 B; lat(<=64KiB) 29.81-37.30 us; max_rel_sd=0.013
+series | config | prefix | trials | peak GB/s | @size
+p2p intra put | paper | p2p_paper_intra_put | 8 | 672.36 | 33554432
+p2p intra put | tuned | p2p_tuned_intra_put | 8 | 697.37 | 33554432
+p2p intra get | paper | p2p_paper_intra_get | 8 | 72.69 | 33554432
+p2p intra get | tuned | p2p_tuned_intra_get | 8 | 535.25 | 33554432
+p2p intra p | paper | p2p_paper_intra_p | 8 | 180.57 | 33554432
+p2p intra p | tuned | p2p_tuned_intra_p | 8 | 698.71 | 33554432
+p2p intra g | paper | p2p_paper_intra_g | 8 | 18.08 | 33554432
+p2p intra g | tuned | p2p_tuned_intra_g | 8 | 584.49 | 33554432
+allreduce intra nvshost | paper | ar_paper_intra_nvshost | 8 | 303.49 | 536870912
+allreduce intra nvshost | tuned | ar_tuned_intra_nvshost | 8 | 474.45 | 536870912
+allreduce intra nvsdev | paper | ar_paper_intra_nvsdev | 8 | 15.45 | 4194304
+allreduce intra nvsdev | tuned | ar_paper_intra_nvsdev | 8 | 15.45 | 4194304
+p2p inter put | paper | p2p_paper_inter_ibgdatuned_put | 8 | 48.87 | 33554432
+p2p inter put | tuned | p2p_tuned_inter_put | 8 | 49.06 | 33554432
+p2p inter get | paper | p2p_paper_inter_ibgdatuned_get | 8 | 49.12 | 33554432
+p2p inter get | tuned | p2p_tuned_inter_get | 8 | 49.31 | 33554432
+p2p inter p | paper | p2p_paper_inter_ibgdatuned_p | 8 | 15.69 | 8388608
+p2p inter p | tuned | p2p_tuned_inter_p | 8 | 17.37 | 33554432
+p2p inter g | paper | p2p_paper_inter_ibgdatuned_g | 8 | 5.55 | 33554432
+p2p inter g | tuned | p2p_tuned_inter_g | 8 | 5.81 | 33554432
+allreduce inter nvshost | paper | ar_paper_inter_nvshost | 8 | 0.14 | 8192
+allreduce inter nvshost | tuned | ar_tuned_inter_nvshost | 8 | 0.74 | 2097152
+allreduce inter nvsdev | paper | ar_paper_inter_nvsdev | 8 | 0.13 | 8192
+allreduce inter nvsdev | tuned | ar_tuned_inter_nvsdev | 8 | 0.48 | 2097152

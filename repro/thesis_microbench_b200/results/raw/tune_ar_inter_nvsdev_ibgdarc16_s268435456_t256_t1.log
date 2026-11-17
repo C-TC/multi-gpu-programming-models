@@ -1,0 +1,46 @@
+#BENCH label=tune_ar_inter_nvsdev_ibgdarc16_s268435456_t256 trial=1 nodes=prenyx0245,prenyx0247 tpn=8 mpi=pmi2 date=2026-11-17T07:38:36-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_REDUCE_SCRATCH_SIZE=268435456; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_IBGDA_NUM_RC_PER_PE=16;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/coll/reduction_focus -b 128 -e 134217728 -n 5 -w 2
+mype: 15 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 12 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 134217728, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#device_reduction
+size(B)     count     type      redop     scope     latency(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       b         55.859202         0.002         0.004       
+256         64        float     sum       b         84.991997         0.003         0.006       
+512         128       float     sum       b         148.339200        0.003         0.006       
+1024        256       float     sum       b         273.990393        0.004         0.007       
+2048        512       float     sum       b         529.689598        0.004         0.007       
+4096        1024      float     sum       b         806.956768        0.005         0.010       
+8192        2048      float     sum       b         817.574406        0.010         0.019       
+16384       4096      float     sum       b         841.766357        0.019         0.036       
+32768       8192      float     sum       b         900.492764        0.036         0.068       
+65536       16384     float     sum       b         1020.729637       0.064         0.120       
+131072      32768     float     sum       b         1254.393578       0.104         0.196       
+262144      65536     float     sum       b         1777.638435       0.147         0.277       
+524288      131072    float     sum       b         2817.299271       0.186         0.349       
+1048576     262144    float     sum       b         4901.267242       0.214         0.401       
+2097152     524288    float     sum       b         8969.567871       0.234         0.438       
+4194304     1048576   float     sum       b         17167.507935      0.244         0.458       
+8388608     2097152   float     sum       b         41170.483398      0.204         0.382       
+16777216    4194304   float     sum       b         82131.469727      0.204         0.383       
+33554432    8388608   float     sum       b         169841.040039     0.198         0.370       
+67108864    16777216  float     sum       b         350186.987305     0.192         0.359       
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 8 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+mype: 11 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 13 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+mype: 9 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+mype: 14 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 10 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+#BENCH_EXIT 0

@@ -1,0 +1,50 @@
+unknown group tuned_intra_get
+[07:23:18] p2p_tuned_intra_get t1
+[07:23:28] p2p_tuned_intra_get t2
+[07:23:39] p2p_tuned_intra_get t3
+[07:23:49] p2p_tuned_intra_get t4
+[07:24:00] p2p_tuned_intra_get t5
+[07:24:10] p2p_tuned_intra_get t6
+[07:24:21] p2p_tuned_intra_get t7
+[07:24:32] p2p_tuned_intra_get t8
+unknown group inv_ring_nccl230_inter
+[07:24:42] inv_ring230_inter_dbg t1
+[07:25:06] inv_nvls230_inter_dbg t1
+[07:25:32] tune_p2p_inter_p_rc64cta_c64t1024 t1
+[07:25:42] tune_p2p_inter_p_rc128cta_c128t1024 t1
+[07:25:52] tune_p2p_inter_p_rc64warp_c64t1024 t1
+[07:26:02] tune_p2p_inter_p_rc128none_c128t1024 t1
+[07:26:12] tune_p2p_inter_p_rc256cta_c256t1024 t1
+[07:26:23] tune_p2p_inter_g_rc64cta_c64t1024 t1
+[07:26:33] tune_p2p_inter_g_rc128cta_c128t1024 t1
+[07:26:43] tune_p2p_inter_g_rc64warp_c64t1024 t1
+[07:26:53] tune_p2p_inter_g_rc128none_c128t1024 t1
+[07:27:04] tune_p2p_inter_g_rc256cta_c256t1024 t1
+[07:27:15] tune_p2p_inter_put_rc64cta_c64t1024 t1
+[07:27:25] tune_p2p_inter_put_rc128cta_c128t1024 t1
+[07:27:36] tune_p2p_inter_put_rc64warp_c64t1024 t1
+[07:27:45] tune_p2p_inter_put_rc128none_c128t1024 t1
+[07:27:55] tune_p2p_inter_put_rc256cta_c256t1024 t1
+  FAIL: srun: Terminating StepId=2675201.26 srun: error: prenyx0247: task 1: Exited with exit code 6 #BENCH_EXIT 6 
+[07:28:06] tune_p2p_inter_get_rc64cta_c64t1024 t1
+[07:28:16] tune_p2p_inter_get_rc128cta_c128t1024 t1
+[07:28:26] tune_p2p_inter_get_rc64warp_c64t1024 t1
+[07:28:36] tune_p2p_inter_get_rc128none_c128t1024 t1
+[07:28:46] tune_p2p_inter_get_rc256cta_c256t1024 t1
+  FAIL: srun: Terminating StepId=2675201.31 srun: error: prenyx0247: task 1: Exited with exit code 6 #BENCH_EXIT 6 
+[07:28:57] tune_ar_inter_nvsdev_ibrc_s524288_t256 t1
+[07:29:46] tune_ar_inter_nvshost_ibrc_s524288 t1
+[07:30:10] tune_ar_inter_nvsdev_ibgda_s524288_t256 t1
+[07:31:16] tune_ar_inter_nvshost_ibgda_s524288 t1
+[07:31:46] tune_ar_inter_nvsdev_ibgda_s16777216_t256 t1
+[07:32:11] tune_ar_inter_nvshost_ibgda_s16777216 t1
+[07:32:32] tune_ar_inter_nvsdev_ibgda_s268435456_t256 t1
+[07:33:01] tune_ar_inter_nvshost_ibgda_s268435456 t1
+[07:33:26] tune_ar_inter_nvsdev_ibgda_s268435456_t1024 t1
+  FAIL: srun: error: prenyx0247: task 11: Exited with exit code 255 srun: error: prenyx0245: task 3: Exited with exit code 255 #BENCH_EXIT 255 
+[07:33:44] tune_ar_inter_nvsdev_ibrc_s268435456_t1024 t1
+  FAIL: srun: error: prenyx0247: task 9: Exited with exit code 255 srun: error: prenyx0245: task 3: Exited with exit code 255 #BENCH_EXIT 255 
+unknown group vfy_archeck
+[07:34:03] vfy_archeck_inter_ibrc t1
+[07:35:10] vfy_archeck_inter_ibgda t1
+[07:36:41] done: tuned_intra_get inv_ring_nccl230_inter tune_p2p_inter tune_ar_inter vfy_archeck

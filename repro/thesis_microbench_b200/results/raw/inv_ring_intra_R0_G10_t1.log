@@ -1,0 +1,32 @@
+#BENCH label=inv_ring_intra_R0_G10 trial=1 nodes=prenyx0245 tpn=1 mpi=pmix date=2026-11-17T06:54:58-08:00
+#BENCH env: export NCCL_GRAPH_MIXING_SUPPORT=0; export NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nccl-tests/all_reduce_perf -b 128 -e 1048576 -f 8 -w 50 -n 100 -c 0 -R 0 -G 10 -g 8
+# nccl-tests version 2.21.1 (unknown) nccl-headers=23206 nccl-library=23206
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 8 minBytes 128 maxBytes 1048576 step: 8(factor) warmup iters: 50 iters: 100 agg iters: 1 validation: 0 graph: 10 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2270093 on prenyx0245 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  1 Group  0 Pid 2270093 on prenyx0245 device  1 [0000:43:00] NVIDIA B200
+#  Rank  2 Group  0 Pid 2270093 on prenyx0245 device  2 [0000:52:00] NVIDIA B200
+#  Rank  3 Group  0 Pid 2270093 on prenyx0245 device  3 [0000:61:00] NVIDIA B200
+#  Rank  4 Group  0 Pid 2270093 on prenyx0245 device  4 [0000:9d:00] NVIDIA B200
+#  Rank  5 Group  0 Pid 2270093 on prenyx0245 device  5 [0000:c3:00] NVIDIA B200
+#  Rank  6 Group  0 Pid 2270093 on prenyx0245 device  6 [0000:d1:00] NVIDIA B200
+#  Rank  7 Group  0 Pid 2270093 on prenyx0245 device  7 [0000:df:00] NVIDIA B200
+#
+#                                                              out-of-place                       in-place
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)        
+         128            32     float     sum      -1    21.90    0.01    0.01    N/A    21.92    0.01    0.01    N/A
+        1024           256     float     sum      -1    22.75    0.05    0.08    N/A    22.73    0.05    0.08    N/A
+        8192          2048     float     sum      -1    23.74    0.35    0.60    N/A    23.71    0.35    0.60    N/A
+       65536         16384     float     sum      -1    24.13    2.72    4.75    N/A    24.01    2.73    4.78    N/A
+      524288        131072     float     sum      -1    24.33   21.55   37.71    N/A    24.32   21.56   37.73    N/A
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 8.63575 
+#
+# Collective test concluded: all_reduce_perf
+#
+
+#BENCH_EXIT 0

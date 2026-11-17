@@ -1,0 +1,1308 @@
+#BENCH label=vfy_rearch_algo_inter_ring trial=1 nodes=prenyx0234,prenyx0235 tpn=8 mpi=pmix date=2026-11-17T08:57:25-08:00
+#BENCH env: export NCCL_ENQUEUE_REARCH_ENABLE=1; export NCCL_GRAPH_MIXING_SUPPORT=0; export NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring; export NCCL_DEBUG=INFO NCCL_DEBUG_SUBSYS=INIT,TUNING,NET; export NCCL_DEBUG_SUBSYS=INIT,ENV,TUNING;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nccl-tests/all_reduce_perf -b 128 -e 1G -f 8 -w 1 -n 1 -c 0 -R 2 -G 10 -g 1
+# nccl-tests version 2.21.1 (unknown) nccl-headers=23206 nccl-library=23206
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 1 minBytes 128 maxBytes 1073741824 step: 8(factor) warmup iters: 1 iters: 1 agg iters: 1 validation: 0 graph: 10 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2002099 on prenyx0234 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  1 Group  0 Pid 2002100 on prenyx0234 device  1 [0000:43:00] NVIDIA B200
+#  Rank  2 Group  0 Pid 2002101 on prenyx0234 device  2 [0000:52:00] NVIDIA B200
+#  Rank  3 Group  0 Pid 2002102 on prenyx0234 device  3 [0000:61:00] NVIDIA B200
+#  Rank  4 Group  0 Pid 2002103 on prenyx0234 device  4 [0000:9d:00] NVIDIA B200
+#  Rank  5 Group  0 Pid 2002104 on prenyx0234 device  5 [0000:c3:00] NVIDIA B200
+#  Rank  6 Group  0 Pid 2002105 on prenyx0234 device  6 [0000:d1:00] NVIDIA B200
+#  Rank  7 Group  0 Pid 2002106 on prenyx0234 device  7 [0000:df:00] NVIDIA B200
+#  Rank  8 Group  0 Pid 2845365 on prenyx0235 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  9 Group  0 Pid 2845366 on prenyx0235 device  1 [0000:43:00] NVIDIA B200
+#  Rank 10 Group  0 Pid 2845367 on prenyx0235 device  2 [0000:52:00] NVIDIA B200
+#  Rank 11 Group  0 Pid 2845368 on prenyx0235 device  3 [0000:61:00] NVIDIA B200
+#  Rank 12 Group  0 Pid 2845369 on prenyx0235 device  4 [0000:9d:00] NVIDIA B200
+#  Rank 13 Group  0 Pid 2845370 on prenyx0235 device  5 [0000:c3:00] NVIDIA B200
+#  Rank 14 Group  0 Pid 2845371 on prenyx0235 device  6 [0000:d1:00] NVIDIA B200
+#  Rank 15 Group  0 Pid 2845372 on prenyx0235 device  7 [0000:df:00] NVIDIA B200
+prenyx0234:2002099:2002099 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002099:2002749 [0] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002099:2002099 [0] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002100:2002100 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845365:2845365 [0] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845366:2845366 [1] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845367:2845367 [2] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002101:2002101 [2] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002104:2002104 [5] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002102:2002102 [3] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002103:2002103 [4] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002105:2002105 [6] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002106:2002106 [7] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0234:2002101:2002101 [2] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002102:2002102 [3] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002104:2002104 [5] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002106:2002106 [7] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002100:2002100 [1] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845368:2845368 [3] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845368:2845368 [3] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002103:2002103 [4] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845369:2845369 [4] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845369:2845369 [4] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002105:2002105 [6] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845370:2845370 [5] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845370:2845370 [5] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845371:2845371 [6] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845371:2845371 [6] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845372:2845372 [7] NCCL INFO ENV/Plugin: Could not find: libnccl-env.so
+prenyx0235:2845372:2845372 [7] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845365:2845365 [0] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845366:2845366 [1] NCCL INFO cudaDriverVersion 13030
+prenyx0235:2845367:2845367 [2] NCCL INFO cudaDriverVersion 13030
+prenyx0234:2002099:2002099 [0] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002099:2002099 [0] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002099:2002099 [0] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL git version unknown unknown
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL version 2.32.6+cuda13.3
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL git version unknown unknown
+prenyx0234:2002101:2002101 [2] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002101:2002101 [2] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002101:2002101 [2] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002102:2002102 [3] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002102:2002102 [3] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002102:2002102 [3] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002106:2002106 [7] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002106:2002106 [7] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002106:2002106 [7] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002103:2002103 [4] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002103:2002103 [4] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002103:2002103 [4] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845370:2845370 [5] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845370:2845370 [5] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845370:2845370 [5] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845366:2845366 [1] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845366:2845366 [1] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845366:2845366 [1] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845371:2845371 [6] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845371:2845371 [6] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845371:2845371 [6] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845369:2845369 [4] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845369:2845369 [4] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845369:2845369 [4] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845372:2845372 [7] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845372:2845372 [7] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845372:2845372 [7] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002105:2002105 [6] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002105:2002105 [6] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002105:2002105 [6] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002104:2002104 [5] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002104:2002104 [5] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002104:2002104 [5] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845367:2845367 [2] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845367:2845367 [2] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845367:2845367 [2] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845368:2845368 [3] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845368:2845368 [3] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845368:2845368 [3] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002100:2002100 [1] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0234:2002100:2002100 [1] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0234:2002100:2002100 [1] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0235:2845365:2845365 [0] NCCL INFO Comm config nvlinkCentricSched set to 1
+prenyx0235:2845365:2845365 [0] NCCL INFO Comm config graphUsageMode set to 1
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_GRAPH_MIXING_SUPPORT set by environment to 0.
+prenyx0235:2845365:2845365 [0] NCCL INFO Comm config graphUsageMode reset to 0 by NCCL_GRAPH_MIXING_SUPPORT=0
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_ENQUEUE_REARCH_ENABLE set by environment to 1.
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0234:2002099:2002099 [0] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002099:2002099 [0] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002099:2002099 [0] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002099:2002099 [0] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002099:2002099 [0] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002099:2002099 [0] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002099:2002099 [0] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002099:2002099 [0] NCCL INFO Using network IB
+prenyx0234:2002099:2002099 [0] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845365:2845365 [0] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845365:2845365 [0] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845365:2845365 [0] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845365:2845365 [0] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845365:2845365 [0] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845365:2845365 [0] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845365:2845365 [0] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845365:2845365 [0] NCCL INFO Using network IB
+prenyx0235:2845365:2845365 [0] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845365:2845365 [0] NCCL INFO DMA-BUF is available on GPU device 0
+prenyx0235:2845365:2845365 [0] NCCL INFO [Rank 8] ncclCommInitRankConfig comm 0x55555a1ac240 rank 8 nranks 16 cudaDev 0 nvmlDev 0 busId 1b000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845365:2845365 [0] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002099:2002099 [0] NCCL INFO DMA-BUF is available on GPU device 0
+prenyx0234:2002099:2002099 [0] NCCL INFO [Rank 0] ncclCommInitRankConfig comm 0x55555a2f28a0 rank 0 nranks 16 cudaDev 0 nvmlDev 0 busId 1b000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845367:2845367 [2] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845367:2845367 [2] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845367:2845367 [2] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845367:2845367 [2] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845367:2845367 [2] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845367:2845367 [2] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845367:2845367 [2] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845367:2845367 [2] NCCL INFO Using network IB
+prenyx0235:2845367:2845367 [2] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845371:2845371 [6] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845371:2845371 [6] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845372:2845372 [7] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845372:2845372 [7] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845371:2845371 [6] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845372:2845372 [7] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845371:2845371 [6] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845371:2845371 [6] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845371:2845371 [6] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845366:2845366 [1] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845366:2845366 [1] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845372:2845372 [7] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845372:2845372 [7] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845372:2845372 [7] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845371:2845371 [6] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845371:2845371 [6] NCCL INFO Using network IB
+prenyx0235:2845372:2845372 [7] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845371:2845371 [6] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845372:2845372 [7] NCCL INFO Using network IB
+prenyx0235:2845372:2845372 [7] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845366:2845366 [1] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845366:2845366 [1] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845366:2845366 [1] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845366:2845366 [1] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845366:2845366 [1] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845366:2845366 [1] NCCL INFO Using network IB
+prenyx0235:2845366:2845366 [1] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845368:2845368 [3] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845368:2845368 [3] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845368:2845368 [3] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845368:2845368 [3] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845368:2845368 [3] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845368:2845368 [3] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845368:2845368 [3] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845368:2845368 [3] NCCL INFO Using network IB
+prenyx0235:2845368:2845368 [3] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845370:2845370 [5] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845370:2845370 [5] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845370:2845370 [5] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845370:2845370 [5] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845370:2845370 [5] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845370:2845370 [5] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845370:2845370 [5] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845370:2845370 [5] NCCL INFO Using network IB
+prenyx0235:2845370:2845370 [5] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0235:2845369:2845369 [4] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.87<0>
+prenyx0235:2845369:2845369 [4] NCCL INFO Initialized NET plugin IB
+prenyx0235:2845369:2845369 [4] NCCL INFO Assigned NET plugin IB to comm
+prenyx0235:2845369:2845369 [4] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0235:2845369:2845369 [4] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0235:2845369:2845369 [4] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0235:2845369:2845369 [4] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0235:2845369:2845369 [4] NCCL INFO Using network IB
+prenyx0235:2845369:2845369 [4] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0234:2002102:2002102 [3] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002102:2002102 [3] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002102:2002102 [3] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002102:2002102 [3] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002102:2002102 [3] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002102:2002102 [3] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002102:2002102 [3] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002102:2002102 [3] NCCL INFO Using network IB
+prenyx0234:2002102:2002102 [3] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_NET_PLUGIN set by environment to none
+prenyx0234:2002106:2002106 [7] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002106:2002106 [7] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002104:2002104 [5] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002104:2002104 [5] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002104:2002104 [5] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002106:2002106 [7] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002104:2002104 [5] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002104:2002104 [5] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002104:2002104 [5] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002106:2002106 [7] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002106:2002106 [7] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002106:2002106 [7] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002104:2002104 [5] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002106:2002106 [7] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002106:2002106 [7] NCCL INFO Using network IB
+prenyx0234:2002104:2002104 [5] NCCL INFO Using network IB
+prenyx0234:2002104:2002104 [5] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002106:2002106 [7] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002101:2002101 [2] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002101:2002101 [2] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002101:2002101 [2] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002101:2002101 [2] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002101:2002101 [2] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002101:2002101 [2] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002101:2002101 [2] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002101:2002101 [2] NCCL INFO Using network IB
+prenyx0234:2002101:2002101 [2] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002100:2002100 [1] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002100:2002100 [1] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002100:2002100 [1] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002100:2002100 [1] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002100:2002100 [1] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002100:2002100 [1] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002100:2002100 [1] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002100:2002100 [1] NCCL INFO Using network IB
+prenyx0234:2002100:2002100 [1] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002103:2002103 [4] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002103:2002103 [4] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002103:2002103 [4] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002103:2002103 [4] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002103:2002103 [4] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002103:2002103 [4] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002103:2002103 [4] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002103:2002103 [4] NCCL INFO Using network IB
+prenyx0234:2002103:2002103 [4] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0234:2002105:2002105 [6] NCCL INFO NET/IB : Using [0]mlx5_4:1/IB [1]mlx5_7:1/IB [2]mlx5_8:1/IB [3]mlx5_9:1/IB [4]mlx5_10:1/IB [5]mlx5_13:1/IB [6]mlx5_14:1/IB [7]mlx5_15:1/IB [RO]; OOB ibp24s0:172.16.65.86<0>
+prenyx0234:2002105:2002105 [6] NCCL INFO Initialized NET plugin IB
+prenyx0234:2002105:2002105 [6] NCCL INFO Assigned NET plugin IB to comm
+prenyx0234:2002105:2002105 [6] NCCL INFO RMA/Plugin: Could not find: libnccl-rma.so
+prenyx0234:2002105:2002105 [6] NCCL INFO RMA/Plugin: Initialized plugin 
+prenyx0234:2002105:2002105 [6] NCCL INFO RMA/Plugin: Assigned plugin RMA_IB_PROXY to comm
+prenyx0234:2002105:2002105 [6] NCCL INFO GIN/Plugin: Could not find: libnccl-gin.so
+prenyx0234:2002105:2002105 [6] NCCL INFO Using network IB
+prenyx0234:2002105:2002105 [6] NCCL INFO Loaded NVML from libnvidia-ml.so.1
+prenyx0235:2845367:2845367 [2] NCCL INFO DMA-BUF is available on GPU device 2
+prenyx0235:2845367:2845367 [2] NCCL INFO [Rank 10] ncclCommInitRankConfig comm 0x555559fa4400 rank 10 nranks 16 cudaDev 2 nvmlDev 2 busId 52000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845367:2845367 [2] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002102:2002102 [3] NCCL INFO DMA-BUF is available on GPU device 3
+prenyx0234:2002102:2002102 [3] NCCL INFO [Rank 3] ncclCommInitRankConfig comm 0x55555a1aeb60 rank 3 nranks 16 cudaDev 3 nvmlDev 3 busId 61000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002102:2002102 [3] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845371:2845371 [6] NCCL INFO DMA-BUF is available on GPU device 6
+prenyx0235:2845371:2845371 [6] NCCL INFO [Rank 14] ncclCommInitRankConfig comm 0x555559fa25c0 rank 14 nranks 16 cudaDev 6 nvmlDev 6 busId d1000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845371:2845371 [6] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845372:2845372 [7] NCCL INFO DMA-BUF is available on GPU device 7
+prenyx0235:2845372:2845372 [7] NCCL INFO [Rank 15] ncclCommInitRankConfig comm 0x55555a2e72b0 rank 15 nranks 16 cudaDev 7 nvmlDev 7 busId df000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845372:2845372 [7] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845366:2845366 [1] NCCL INFO DMA-BUF is available on GPU device 1
+prenyx0235:2845366:2845366 [1] NCCL INFO [Rank 9] ncclCommInitRankConfig comm 0x55555a0a9e40 rank 9 nranks 16 cudaDev 1 nvmlDev 1 busId 43000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845366:2845366 [1] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845368:2845368 [3] NCCL INFO DMA-BUF is available on GPU device 3
+prenyx0235:2845368:2845368 [3] NCCL INFO [Rank 11] ncclCommInitRankConfig comm 0x55555a1a7ee0 rank 11 nranks 16 cudaDev 3 nvmlDev 3 busId 61000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845372:2845372 [7] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845368:2845368 [3] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845370:2845370 [5] NCCL INFO DMA-BUF is available on GPU device 5
+prenyx0235:2845366:2845366 [1] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845370:2845370 [5] NCCL INFO [Rank 13] ncclCommInitRankConfig comm 0x55555a0a9dc0 rank 13 nranks 16 cudaDev 5 nvmlDev 5 busId c3000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845369:2845369 [4] NCCL INFO DMA-BUF is available on GPU device 4
+prenyx0235:2845369:2845369 [4] NCCL INFO [Rank 12] ncclCommInitRankConfig comm 0x55555a0a5800 rank 12 nranks 16 cudaDev 4 nvmlDev 4 busId 9d000 commId 0xdda7428485fa6915 - Init START
+prenyx0235:2845370:2845370 [5] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845369:2845369 [4] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845367:2845367 [2] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845371:2845371 [6] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845368:2845368 [3] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845369:2845369 [4] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845370:2845370 [5] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002104:2002104 [5] NCCL INFO DMA-BUF is available on GPU device 5
+prenyx0234:2002104:2002104 [5] NCCL INFO [Rank 5] ncclCommInitRankConfig comm 0x555559fa85b0 rank 5 nranks 16 cudaDev 5 nvmlDev 5 busId c3000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002104:2002104 [5] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002106:2002106 [7] NCCL INFO DMA-BUF is available on GPU device 7
+prenyx0234:2002106:2002106 [7] NCCL INFO [Rank 7] ncclCommInitRankConfig comm 0x55555a2edef0 rank 7 nranks 16 cudaDev 7 nvmlDev 7 busId df000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002106:2002106 [7] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0235:2845365:2845365 [0] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002101:2002101 [2] NCCL INFO DMA-BUF is available on GPU device 2
+prenyx0234:2002101:2002101 [2] NCCL INFO [Rank 2] ncclCommInitRankConfig comm 0x55555a0aaba0 rank 2 nranks 16 cudaDev 2 nvmlDev 2 busId 52000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002101:2002101 [2] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002100:2002100 [1] NCCL INFO DMA-BUF is available on GPU device 1
+prenyx0234:2002100:2002100 [1] NCCL INFO [Rank 1] ncclCommInitRankConfig comm 0x555559fa2d00 rank 1 nranks 16 cudaDev 1 nvmlDev 1 busId 43000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002100:2002100 [1] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002101:2002101 [2] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002100:2002100 [1] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002099:2002099 [0] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002103:2002103 [4] NCCL INFO DMA-BUF is available on GPU device 4
+prenyx0234:2002103:2002103 [4] NCCL INFO [Rank 4] ncclCommInitRankConfig comm 0x55555a0a66a0 rank 4 nranks 16 cudaDev 4 nvmlDev 4 busId 9d000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002103:2002103 [4] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002102:2002102 [3] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002103:2002103 [4] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002105:2002105 [6] NCCL INFO DMA-BUF is available on GPU device 6
+prenyx0234:2002105:2002105 [6] NCCL INFO [Rank 6] ncclCommInitRankConfig comm 0x555559fa9bf0 rank 6 nranks 16 cudaDev 6 nvmlDev 6 busId d1000 commId 0xdda7428485fa6915 - Init START
+prenyx0234:2002105:2002105 [6] NCCL INFO Socket handshake magic 0x564ab9f2fc4b9d6c (built-in default)
+prenyx0234:2002105:2002105 [6] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002104:2002104 [5] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0234:2002106:2002106 [7] NCCL INFO RAS client listening socket at ::1<28028>
+prenyx0235:2845365:2845365 [0] NCCL INFO MNNVL busId 0x1b000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845372:2845372 [7] NCCL INFO MNNVL busId 0xdf000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845371:2845371 [6] NCCL INFO MNNVL busId 0xd1000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845370:2845370 [5] NCCL INFO MNNVL busId 0xc3000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002100:2002100 [1] NCCL INFO MNNVL busId 0x43000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845367:2845367 [2] NCCL INFO MNNVL busId 0x52000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002103:2002103 [4] NCCL INFO MNNVL busId 0x9d000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002099:2002099 [0] NCCL INFO MNNVL busId 0x1b000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002101:2002101 [2] NCCL INFO MNNVL busId 0x52000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002102:2002102 [3] NCCL INFO MNNVL busId 0x61000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002104:2002104 [5] NCCL INFO MNNVL busId 0xc3000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002105:2002105 [6] NCCL INFO MNNVL busId 0xd1000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0234:2002106:2002106 [7] NCCL INFO MNNVL busId 0xdf000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845369:2845369 [4] NCCL INFO MNNVL busId 0x9d000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845368:2845368 [3] NCCL INFO MNNVL busId 0x61000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845366:2845366 [1] NCCL INFO MNNVL busId 0x43000 fabric UUID 0.0 cliqueId 0x0 state 3 healthMask 0x80 degradedBw not-supported
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_MNNVL_ENABLE set by environment to 0.
+prenyx0234:2002101:2002101 [2] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002103:2002103 [4] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 4 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002104:2002104 [5] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 5 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0234:2002099:2002099 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002106:2002106 [7] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 7 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002105:2002105 [6] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 6 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002100:2002100 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002102:2002102 [3] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0234:2002103:2002103 [4] NCCL INFO Rank 4: 8 Net devices
+prenyx0234:2002103:2002103 [4] NCCL INFO Rank 4: 0 CollNet devices
+prenyx0234:2002104:2002104 [5] NCCL INFO Rank 5: 8 Net devices
+prenyx0234:2002104:2002104 [5] NCCL INFO Rank 5: 0 CollNet devices
+prenyx0234:2002105:2002105 [6] NCCL INFO Rank 6: 8 Net devices
+prenyx0234:2002105:2002105 [6] NCCL INFO Rank 6: 0 CollNet devices
+prenyx0234:2002106:2002106 [7] NCCL INFO Rank 7: 8 Net devices
+prenyx0234:2002106:2002106 [7] NCCL INFO Rank 7: 0 CollNet devices
+prenyx0234:2002099:2002099 [0] NCCL INFO Rank 0: 8 Net devices
+prenyx0234:2002099:2002099 [0] NCCL INFO Rank 0: 0 CollNet devices
+prenyx0234:2002100:2002100 [1] NCCL INFO Rank 1: 8 Net devices
+prenyx0234:2002100:2002100 [1] NCCL INFO Rank 1: 0 CollNet devices
+prenyx0234:2002101:2002101 [2] NCCL INFO Rank 2: 8 Net devices
+prenyx0234:2002101:2002101 [2] NCCL INFO Rank 2: 0 CollNet devices
+prenyx0234:2002102:2002102 [3] NCCL INFO Rank 3: 8 Net devices
+prenyx0234:2002102:2002102 [3] NCCL INFO Rank 3: 0 CollNet devices
+prenyx0235:2845369:2845369 [4] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 4 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845370:2845370 [5] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 5 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845371:2845371 [6] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 6 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845368:2845368 [3] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 3 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845372:2845372 [7] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 7 is 56-111,168-223. (GPU affinity = 56-111,168-223 ; CPU affinity = 0-223).
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845367:2845367 [2] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 2 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0235:2845365:2845365 [0] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 0 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845366:2845366 [1] NCCL INFO ncclTopoGetCpuAffinity: Affinity for GPU 1 is 0-55,112-167. (GPU affinity = 0-55,112-167 ; CPU affinity = 0-223).
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_NVLS_ENABLE set by environment to 0.
+prenyx0235:2845369:2845369 [4] NCCL INFO Rank 12: 8 Net devices
+prenyx0235:2845369:2845369 [4] NCCL INFO Rank 12: 0 CollNet devices
+prenyx0235:2845370:2845370 [5] NCCL INFO Rank 13: 8 Net devices
+prenyx0235:2845370:2845370 [5] NCCL INFO Rank 13: 0 CollNet devices
+prenyx0235:2845371:2845371 [6] NCCL INFO Rank 14: 8 Net devices
+prenyx0235:2845371:2845371 [6] NCCL INFO Rank 14: 0 CollNet devices
+prenyx0235:2845372:2845372 [7] NCCL INFO Rank 15: 8 Net devices
+prenyx0235:2845372:2845372 [7] NCCL INFO Rank 15: 0 CollNet devices
+prenyx0235:2845365:2845365 [0] NCCL INFO Rank 8: 8 Net devices
+prenyx0235:2845365:2845365 [0] NCCL INFO Rank 8: 0 CollNet devices
+prenyx0235:2845366:2845366 [1] NCCL INFO Rank 9: 8 Net devices
+prenyx0235:2845366:2845366 [1] NCCL INFO Rank 9: 0 CollNet devices
+prenyx0235:2845367:2845367 [2] NCCL INFO Rank 10: 8 Net devices
+prenyx0235:2845367:2845367 [2] NCCL INFO Rank 10: 0 CollNet devices
+prenyx0235:2845368:2845368 [3] NCCL INFO Rank 11: 8 Net devices
+prenyx0235:2845368:2845368 [3] NCCL INFO Rank 11: 0 CollNet devices
+prenyx0235:2845365:2845365 [0] NCCL INFO comm 0x55555a1ac240 rank 8 nRanks 16 nNodes 2 localRanks 8 localRank 0 MNNVL 0
+prenyx0234:2002099:2002099 [0] NCCL INFO Local Net device counts across ranks: min 8 max 8
+prenyx0234:2002099:2002099 [0] NCCL INFO Local CollNet device counts across ranks: min 0 max 0
+prenyx0234:2002099:2002099 [0] NCCL INFO comm 0x55555a2f28a0 rank 0 nRanks 16 nNodes 2 localRanks 8 localRank 0 MNNVL 0
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 00/16 :  0  7  6  5  4  3  2  1  8 15 14 13 12 11 10  9
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 01/16 :  0  7  6  5  4  3  2  9  8 15 14 13 12 11 10  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 02/16 :  0  7  6  5  4  3 10  9  8 15 14 13 12 11  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 03/16 :  0  7  6  5  4 11 10  9  8 15 14 13 12  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 04/16 :  0  7  6  5 12 11 10  9  8 15 14 13  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 05/16 :  0  7  6 13 12 11 10  9  8 15 14  5  4  3  2  1
+prenyx0235:2845365:2845365 [0] NCCL INFO Trees [0] 9/-1/-1->8->0 [1] -1/-1/-1->8->15 [2] 9/-1/-1->8->15 [3] 9/-1/-1->8->15 [4] 9/-1/-1->8->15 [5] 9/-1/-1->8->15 [6] 9/-1/-1->8->15 [7] 9/-1/-1->8->15 [8] 9/0/-1->8->-1 [9] -1/-1/-1->8->15 [10] 9/-1/-1->8->15 [11] 9/-1/-1->8->15 [12] 9/-1/-1->8->15 [13] 9/-1/-1->8->15 [14] 9/-1/-1->8->15 [15] 9/-1/-1->8->15
+prenyx0235:2845365:2845365 [0] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845365:2845365 [0] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845365:2845365 [0] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845367:2845367 [2] NCCL INFO comm 0x555559fa4400 rank 10 nRanks 16 nNodes 2 localRanks 8 localRank 2 MNNVL 0
+prenyx0235:2845366:2845366 [1] NCCL INFO comm 0x55555a0a9e40 rank 9 nRanks 16 nNodes 2 localRanks 8 localRank 1 MNNVL 0
+prenyx0235:2845367:2845367 [2] NCCL INFO Trees [0] 11/-1/-1->10->9 [1] 11/-1/-1->10->9 [2] 11/-1/-1->10->2 [3] -1/-1/-1->10->9 [4] 11/-1/-1->10->9 [5] 11/-1/-1->10->9 [6] 11/-1/-1->10->9 [7] 11/-1/-1->10->9 [8] 11/-1/-1->10->9 [9] 11/-1/-1->10->9 [10] 11/2/-1->10->-1 [11] -1/-1/-1->10->9 [12] 11/-1/-1->10->9 [13] 11/-1/-1->10->9 [14] 11/-1/-1->10->9 [15] 11/-1/-1->10->9
+prenyx0235:2845367:2845367 [2] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845367:2845367 [2] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845367:2845367 [2] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845368:2845368 [3] NCCL INFO comm 0x55555a1a7ee0 rank 11 nRanks 16 nNodes 2 localRanks 8 localRank 3 MNNVL 0
+prenyx0235:2845366:2845366 [1] NCCL INFO Trees [0] 10/-1/-1->9->8 [1] 10/-1/-1->9->1 [2] -1/-1/-1->9->8 [3] 10/-1/-1->9->8 [4] 10/-1/-1->9->8 [5] 10/-1/-1->9->8 [6] 10/-1/-1->9->8 [7] 10/-1/-1->9->8 [8] 10/-1/-1->9->8 [9] 10/1/-1->9->-1 [10] -1/-1/-1->9->8 [11] 10/-1/-1->9->8 [12] 10/-1/-1->9->8 [13] 10/-1/-1->9->8 [14] 10/-1/-1->9->8 [15] 10/-1/-1->9->8
+prenyx0235:2845366:2845366 [1] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845366:2845366 [1] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845366:2845366 [1] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845368:2845368 [3] NCCL INFO Trees [0] 12/-1/-1->11->10 [1] 12/-1/-1->11->10 [2] 12/-1/-1->11->10 [3] 12/-1/-1->11->3 [4] -1/-1/-1->11->10 [5] 12/-1/-1->11->10 [6] 12/-1/-1->11->10 [7] 12/-1/-1->11->10 [8] 12/-1/-1->11->10 [9] 12/-1/-1->11->10 [10] 12/-1/-1->11->10 [11] 12/3/-1->11->-1 [12] -1/-1/-1->11->10 [13] 12/-1/-1->11->10 [14] 12/-1/-1->11->10 [15] 12/-1/-1->11->10
+prenyx0235:2845368:2845368 [3] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845368:2845368 [3] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845368:2845368 [3] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845369:2845369 [4] NCCL INFO comm 0x55555a0a5800 rank 12 nRanks 16 nNodes 2 localRanks 8 localRank 4 MNNVL 0
+prenyx0235:2845369:2845369 [4] NCCL INFO Trees [0] 13/-1/-1->12->11 [1] 13/-1/-1->12->11 [2] 13/-1/-1->12->11 [3] 13/-1/-1->12->11 [4] 13/-1/-1->12->4 [5] -1/-1/-1->12->11 [6] 13/-1/-1->12->11 [7] 13/-1/-1->12->11 [8] 13/-1/-1->12->11 [9] 13/-1/-1->12->11 [10] 13/-1/-1->12->11 [11] 13/-1/-1->12->11 [12] 13/4/-1->12->-1 [13] -1/-1/-1->12->11 [14] 13/-1/-1->12->11 [15] 13/-1/-1->12->11
+prenyx0235:2845369:2845369 [4] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845369:2845369 [4] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845369:2845369 [4] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002100:2002100 [1] NCCL INFO comm 0x555559fa2d00 rank 1 nRanks 16 nNodes 2 localRanks 8 localRank 1 MNNVL 0
+prenyx0234:2002100:2002100 [1] NCCL INFO Trees [0] 2/-1/-1->1->0 [1] 2/9/-1->1->-1 [2] -1/-1/-1->1->0 [3] 2/-1/-1->1->0 [4] 2/-1/-1->1->0 [5] 2/-1/-1->1->0 [6] 2/-1/-1->1->0 [7] 2/-1/-1->1->0 [8] 2/-1/-1->1->0 [9] 2/-1/-1->1->9 [10] -1/-1/-1->1->0 [11] 2/-1/-1->1->0 [12] 2/-1/-1->1->0 [13] 2/-1/-1->1->0 [14] 2/-1/-1->1->0 [15] 2/-1/-1->1->0
+prenyx0234:2002100:2002100 [1] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002100:2002100 [1] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002100:2002100 [1] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845370:2845370 [5] NCCL INFO comm 0x55555a0a9dc0 rank 13 nRanks 16 nNodes 2 localRanks 8 localRank 5 MNNVL 0
+prenyx0235:2845370:2845370 [5] NCCL INFO Trees [0] 14/-1/-1->13->12 [1] 14/-1/-1->13->12 [2] 14/-1/-1->13->12 [3] 14/-1/-1->13->12 [4] 14/-1/-1->13->12 [5] 14/-1/-1->13->5 [6] -1/-1/-1->13->12 [7] 14/-1/-1->13->12 [8] 14/-1/-1->13->12 [9] 14/-1/-1->13->12 [10] 14/-1/-1->13->12 [11] 14/-1/-1->13->12 [12] 14/-1/-1->13->12 [13] 14/5/-1->13->-1 [14] -1/-1/-1->13->12 [15] 14/-1/-1->13->12
+prenyx0235:2845370:2845370 [5] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845370:2845370 [5] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845370:2845370 [5] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002101:2002101 [2] NCCL INFO comm 0x55555a0aaba0 rank 2 nRanks 16 nNodes 2 localRanks 8 localRank 2 MNNVL 0
+prenyx0234:2002101:2002101 [2] NCCL INFO Trees [0] 3/-1/-1->2->1 [1] 3/-1/-1->2->1 [2] 3/10/-1->2->-1 [3] -1/-1/-1->2->1 [4] 3/-1/-1->2->1 [5] 3/-1/-1->2->1 [6] 3/-1/-1->2->1 [7] 3/-1/-1->2->1 [8] 3/-1/-1->2->1 [9] 3/-1/-1->2->1 [10] 3/-1/-1->2->10 [11] -1/-1/-1->2->1 [12] 3/-1/-1->2->1 [13] 3/-1/-1->2->1 [14] 3/-1/-1->2->1 [15] 3/-1/-1->2->1
+prenyx0234:2002101:2002101 [2] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002101:2002101 [2] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002101:2002101 [2] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845371:2845371 [6] NCCL INFO comm 0x555559fa25c0 rank 14 nRanks 16 nNodes 2 localRanks 8 localRank 6 MNNVL 0
+prenyx0235:2845371:2845371 [6] NCCL INFO Trees [0] 15/-1/-1->14->13 [1] 15/-1/-1->14->13 [2] 15/-1/-1->14->13 [3] 15/-1/-1->14->13 [4] 15/-1/-1->14->13 [5] 15/-1/-1->14->13 [6] 15/-1/-1->14->6 [7] -1/-1/-1->14->13 [8] 15/-1/-1->14->13 [9] 15/-1/-1->14->13 [10] 15/-1/-1->14->13 [11] 15/-1/-1->14->13 [12] 15/-1/-1->14->13 [13] 15/-1/-1->14->13 [14] 15/6/-1->14->-1 [15] -1/-1/-1->14->13
+prenyx0235:2845371:2845371 [6] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845371:2845371 [6] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845371:2845371 [6] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002102:2002102 [3] NCCL INFO comm 0x55555a1aeb60 rank 3 nRanks 16 nNodes 2 localRanks 8 localRank 3 MNNVL 0
+prenyx0234:2002102:2002102 [3] NCCL INFO Trees [0] 4/-1/-1->3->2 [1] 4/-1/-1->3->2 [2] 4/-1/-1->3->2 [3] 4/11/-1->3->-1 [4] -1/-1/-1->3->2 [5] 4/-1/-1->3->2 [6] 4/-1/-1->3->2 [7] 4/-1/-1->3->2 [8] 4/-1/-1->3->2 [9] 4/-1/-1->3->2 [10] 4/-1/-1->3->2 [11] 4/-1/-1->3->11 [12] -1/-1/-1->3->2 [13] 4/-1/-1->3->2 [14] 4/-1/-1->3->2 [15] 4/-1/-1->3->2
+prenyx0234:2002102:2002102 [3] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002102:2002102 [3] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002102:2002102 [3] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845372:2845372 [7] NCCL INFO comm 0x55555a2e72b0 rank 15 nRanks 16 nNodes 2 localRanks 8 localRank 7 MNNVL 0
+prenyx0235:2845372:2845372 [7] NCCL INFO Trees [0] -1/-1/-1->15->14 [1] 8/-1/-1->15->14 [2] 8/-1/-1->15->14 [3] 8/-1/-1->15->14 [4] 8/-1/-1->15->14 [5] 8/-1/-1->15->14 [6] 8/-1/-1->15->14 [7] 8/-1/-1->15->7 [8] -1/-1/-1->15->14 [9] 8/-1/-1->15->14 [10] 8/-1/-1->15->14 [11] 8/-1/-1->15->14 [12] 8/-1/-1->15->14 [13] 8/-1/-1->15->14 [14] 8/-1/-1->15->14 [15] 8/7/-1->15->-1
+prenyx0235:2845372:2845372 [7] NCCL INFO P2P Chunksize set to 131072
+prenyx0235:2845372:2845372 [7] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0235:2845372:2845372 [7] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002103:2002103 [4] NCCL INFO comm 0x55555a0a66a0 rank 4 nRanks 16 nNodes 2 localRanks 8 localRank 4 MNNVL 0
+prenyx0234:2002103:2002103 [4] NCCL INFO Trees [0] 5/-1/-1->4->3 [1] 5/-1/-1->4->3 [2] 5/-1/-1->4->3 [3] 5/-1/-1->4->3 [4] 5/12/-1->4->-1 [5] -1/-1/-1->4->3 [6] 5/-1/-1->4->3 [7] 5/-1/-1->4->3 [8] 5/-1/-1->4->3 [9] 5/-1/-1->4->3 [10] 5/-1/-1->4->3 [11] 5/-1/-1->4->3 [12] 5/-1/-1->4->12 [13] -1/-1/-1->4->3 [14] 5/-1/-1->4->3 [15] 5/-1/-1->4->3
+prenyx0234:2002103:2002103 [4] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002103:2002103 [4] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002103:2002103 [4] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845367:2845367 [2] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002104:2002104 [5] NCCL INFO comm 0x555559fa85b0 rank 5 nRanks 16 nNodes 2 localRanks 8 localRank 5 MNNVL 0
+prenyx0234:2002104:2002104 [5] NCCL INFO Trees [0] 6/-1/-1->5->4 [1] 6/-1/-1->5->4 [2] 6/-1/-1->5->4 [3] 6/-1/-1->5->4 [4] 6/-1/-1->5->4 [5] 6/13/-1->5->-1 [6] -1/-1/-1->5->4 [7] 6/-1/-1->5->4 [8] 6/-1/-1->5->4 [9] 6/-1/-1->5->4 [10] 6/-1/-1->5->4 [11] 6/-1/-1->5->4 [12] 6/-1/-1->5->4 [13] 6/-1/-1->5->13 [14] -1/-1/-1->5->4 [15] 6/-1/-1->5->4
+prenyx0234:2002104:2002104 [5] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002104:2002104 [5] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002104:2002104 [5] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845367:2845367 [2] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002105:2002105 [6] NCCL INFO comm 0x555559fa9bf0 rank 6 nRanks 16 nNodes 2 localRanks 8 localRank 6 MNNVL 0
+prenyx0234:2002105:2002105 [6] NCCL INFO Trees [0] 7/-1/-1->6->5 [1] 7/-1/-1->6->5 [2] 7/-1/-1->6->5 [3] 7/-1/-1->6->5 [4] 7/-1/-1->6->5 [5] 7/-1/-1->6->5 [6] 7/14/-1->6->-1 [7] -1/-1/-1->6->5 [8] 7/-1/-1->6->5 [9] 7/-1/-1->6->5 [10] 7/-1/-1->6->5 [11] 7/-1/-1->6->5 [12] 7/-1/-1->6->5 [13] 7/-1/-1->6->5 [14] 7/-1/-1->6->14 [15] -1/-1/-1->6->5
+prenyx0234:2002105:2002105 [6] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002105:2002105 [6] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002105:2002105 [6] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0235:2845365:2845365 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845365:2845365 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002106:2002106 [7] NCCL INFO comm 0x55555a2edef0 rank 7 nRanks 16 nNodes 2 localRanks 8 localRank 7 MNNVL 0
+prenyx0234:2002106:2002106 [7] NCCL INFO Trees [0] -1/-1/-1->7->6 [1] 0/-1/-1->7->6 [2] 0/-1/-1->7->6 [3] 0/-1/-1->7->6 [4] 0/-1/-1->7->6 [5] 0/-1/-1->7->6 [6] 0/-1/-1->7->6 [7] 0/15/-1->7->-1 [8] -1/-1/-1->7->6 [9] 0/-1/-1->7->6 [10] 0/-1/-1->7->6 [11] 0/-1/-1->7->6 [12] 0/-1/-1->7->6 [13] 0/-1/-1->7->6 [14] 0/-1/-1->7->6 [15] 0/-1/-1->7->15
+prenyx0234:2002106:2002106 [7] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002106:2002106 [7] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002106:2002106 [7] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 06/16 :  0  7 14 13 12 11 10  9  8 15  6  5  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 07/16 :  0 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 08/16 :  0  7  6  5  4  3  2  1  8 15 14 13 12 11 10  9
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 09/16 :  0  7  6  5  4  3  2  9  8 15 14 13 12 11 10  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 10/16 :  0  7  6  5  4  3 10  9  8 15 14 13 12 11  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 11/16 :  0  7  6  5  4 11 10  9  8 15 14 13 12  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 12/16 :  0  7  6  5 12 11 10  9  8 15 14 13  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 13/16 :  0  7  6 13 12 11 10  9  8 15 14  5  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 14/16 :  0  7 14 13 12 11 10  9  8 15  6  5  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 15/16 :  0 15 14 13 12 11 10  9  8  7  6  5  4  3  2  1
+prenyx0234:2002099:2002099 [0] NCCL INFO Trees [0] 1/8/-1->0->-1 [1] -1/-1/-1->0->7 [2] 1/-1/-1->0->7 [3] 1/-1/-1->0->7 [4] 1/-1/-1->0->7 [5] 1/-1/-1->0->7 [6] 1/-1/-1->0->7 [7] 1/-1/-1->0->7 [8] 1/-1/-1->0->8 [9] -1/-1/-1->0->7 [10] 1/-1/-1->0->7 [11] 1/-1/-1->0->7 [12] 1/-1/-1->0->7 [13] 1/-1/-1->0->7 [14] 1/-1/-1->0->7 [15] 1/-1/-1->0->7
+prenyx0234:2002099:2002099 [0] NCCL INFO P2P Chunksize set to 131072
+prenyx0234:2002099:2002099 [0] NCCL INFO Simple Buffer Size set to 4194304
+prenyx0234:2002099:2002099 [0] NCCL INFO Tuning P2P operations with maxP2pPeers = 16
+prenyx0234:2002101:2002101 [2] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002101:2002101 [2] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002105:2002105 [6] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002105:2002105 [6] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002103:2002103 [4] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002103:2002103 [4] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002104:2002104 [5] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002104:2002104 [5] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002106:2002106 [7] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002106:2002106 [7] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002099:2002099 [0] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002099:2002099 [0] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002100:2002100 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002100:2002100 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002102:2002102 [3] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0234:2002102:2002102 [3] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0234:2002106:2002848 [0] NCCL INFO [Proxy Service] Device 7 CPU core 111
+prenyx0234:2002106:2002848 [7] NCCL INFO proxy listening socket at 172.16.65.86<59791>
+prenyx0235:2845366:2845366 [1] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845366:2845366 [1] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845368:2845368 [3] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845368:2845368 [3] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845369:2845369 [4] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845369:2845369 [4] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845370:2845370 [5] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845370:2845370 [5] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845371:2845371 [6] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845371:2845371 [6] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845372:2845372 [7] NCCL INFO PROFILER/Plugin: Could not find: libnccl-profiler.so
+prenyx0235:2845372:2845372 [7] NCCL INFO Check P2P Type isAllDirectP2p 1 directMode 0 isAllCudaP2p 1
+prenyx0235:2845365:2846115 [0] NCCL INFO [Proxy Service] Device 0 CPU core 53
+prenyx0235:2845365:2846115 [0] NCCL INFO proxy listening socket at 172.16.65.87<59999>
+prenyx0235:2845367:2846110 [0] NCCL INFO [Proxy Service] Device 2 CPU core 115
+prenyx0235:2845371:2846114 [0] NCCL INFO [Proxy Service] Device 6 CPU core 69
+prenyx0235:2845369:2846113 [0] NCCL INFO [Proxy Service] Device 4 CPU core 168
+prenyx0235:2845370:2846111 [0] NCCL INFO [Proxy Service] Device 5 CPU core 185
+prenyx0235:2845371:2846114 [6] NCCL INFO proxy listening socket at 172.16.65.87<40797>
+prenyx0235:2845372:2846112 [0] NCCL INFO [Proxy Service] Device 7 CPU core 64
+prenyx0235:2845366:2846118 [0] NCCL INFO [Proxy Service] Device 1 CPU core 5
+prenyx0235:2845367:2846116 [0] NCCL INFO [Proxy Service UDS] Device 2 CPU core 4
+prenyx0235:2845368:2846117 [0] NCCL INFO [Proxy Service] Device 3 CPU core 116
+prenyx0235:2845367:2846110 [2] NCCL INFO proxy listening socket at 172.16.65.87<52079>
+prenyx0235:2845370:2846120 [0] NCCL INFO [Proxy Service UDS] Device 5 CPU core 186
+prenyx0235:2845365:2846122 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 54
+prenyx0235:2845369:2846121 [0] NCCL INFO [Proxy Service UDS] Device 4 CPU core 169
+prenyx0235:2845369:2846113 [4] NCCL INFO proxy listening socket at 172.16.65.87<51101>
+prenyx0235:2845370:2846111 [5] NCCL INFO proxy listening socket at 172.16.65.87<44595>
+prenyx0235:2845371:2846123 [0] NCCL INFO [Proxy Service UDS] Device 6 CPU core 182
+prenyx0235:2845372:2846119 [0] NCCL INFO [Proxy Service UDS] Device 7 CPU core 65
+prenyx0235:2845372:2846112 [7] NCCL INFO proxy listening socket at 172.16.65.87<55571>
+prenyx0235:2845366:2846125 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 119
+prenyx0235:2845366:2846118 [1] NCCL INFO proxy listening socket at 172.16.65.87<41691>
+prenyx0235:2845368:2846124 [0] NCCL INFO [Proxy Service UDS] Device 3 CPU core 6
+prenyx0235:2845368:2846117 [3] NCCL INFO proxy listening socket at 172.16.65.87<33335>
+prenyx0234:2002101:2002846 [0] NCCL INFO [Proxy Service] Device 2 CPU core 114
+prenyx0234:2002105:2002845 [0] NCCL INFO [Proxy Service] Device 6 CPU core 185
+prenyx0234:2002105:2002845 [6] NCCL INFO proxy listening socket at 172.16.65.86<60695>
+prenyx0234:2002102:2002860 [0] NCCL INFO [Proxy Service UDS] Device 3 CPU core 119
+prenyx0234:2002106:2002852 [0] NCCL INFO [Proxy Service UDS] Device 7 CPU core 57
+prenyx0234:2002099:2002855 [0] NCCL INFO [Proxy Service] Device 0 CPU core 4
+prenyx0234:2002101:2002849 [0] NCCL INFO [Proxy Service UDS] Device 2 CPU core 115
+prenyx0234:2002101:2002846 [2] NCCL INFO proxy listening socket at 172.16.65.86<39901>
+prenyx0234:2002099:2002855 [0] NCCL INFO proxy listening socket at 172.16.65.86<47157>
+prenyx0234:2002100:2002856 [0] NCCL INFO [Proxy Service] Device 1 CPU core 134
+prenyx0234:2002103:2002851 [0] NCCL INFO [Proxy Service] Device 4 CPU core 180
+prenyx0234:2002104:2002850 [0] NCCL INFO [Proxy Service] Device 5 CPU core 199
+prenyx0234:2002099:2002859 [0] NCCL INFO [Proxy Service UDS] Device 0 CPU core 6
+prenyx0234:2002100:2002858 [0] NCCL INFO [Proxy Service UDS] Device 1 CPU core 23
+prenyx0234:2002103:2002854 [0] NCCL INFO [Proxy Service UDS] Device 4 CPU core 69
+prenyx0234:2002104:2002853 [0] NCCL INFO [Proxy Service UDS] Device 5 CPU core 200
+prenyx0234:2002100:2002856 [1] NCCL INFO proxy listening socket at 172.16.65.86<35947>
+prenyx0234:2002103:2002851 [4] NCCL INFO proxy listening socket at 172.16.65.86<38705>
+prenyx0234:2002104:2002850 [5] NCCL INFO proxy listening socket at 172.16.65.86<54869>
+prenyx0234:2002102:2002857 [0] NCCL INFO [Proxy Service] Device 3 CPU core 5
+prenyx0234:2002105:2002847 [0] NCCL INFO [Proxy Service UDS] Device 6 CPU core 186
+prenyx0234:2002102:2002857 [3] NCCL INFO proxy listening socket at 172.16.65.86<46105>
+prenyx0234:2002106:2002106 [7] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002106:2002106 [7] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002106:2002106 [7] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002106:2002106 [7] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002106:2002106 [7] NCCL INFO Rank 7 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002105:2002105 [6] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002105:2002105 [6] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002105:2002105 [6] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002105:2002105 [6] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002105:2002105 [6] NCCL INFO Rank 6 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845369:2845369 [4] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845369:2845369 [4] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845369:2845369 [4] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845369:2845369 [4] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845369:2845369 [4] NCCL INFO Rank 12 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845372:2845372 [7] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845372:2845372 [7] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002100:2002100 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002100:2002100 [1] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002100:2002100 [1] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002100:2002100 [1] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002100:2002100 [1] NCCL INFO Rank 1 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845372:2845372 [7] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845372:2845372 [7] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845372:2845372 [7] NCCL INFO Rank 15 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845365:2845365 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845365:2845365 [0] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845365:2845365 [0] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845365:2845365 [0] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845365:2845365 [0] NCCL INFO Rank 8 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002102:2002102 [3] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002102:2002102 [3] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002102:2002102 [3] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002102:2002102 [3] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002102:2002102 [3] NCCL INFO Rank 3 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845367:2845367 [2] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845367:2845367 [2] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845367:2845367 [2] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845367:2845367 [2] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845367:2845367 [2] NCCL INFO Rank 10 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845370:2845370 [5] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845370:2845370 [5] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845370:2845370 [5] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845370:2845370 [5] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002103:2002103 [4] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002103:2002103 [4] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002103:2002103 [4] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002103:2002103 [4] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002103:2002103 [4] NCCL INFO Rank 4 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845370:2845370 [5] NCCL INFO Rank 13 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002099:2002099 [0] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002099:2002099 [0] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845371:2845371 [6] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845371:2845371 [6] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845371:2845371 [6] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845371:2845371 [6] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845371:2845371 [6] NCCL INFO Rank 14 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002099:2002099 [0] NCCL INFO Enabled NCCL Func/Proto/Algo Matrix:
+     Function |       LL     LL128    Simple   |          Tree           Ring  CollNetDirect   CollNetChain           NVLS       NVLSTree            PAT   | AllReduce_AGxLL_R  AllReduce_AGxLLMC_R  AllReduce_RSxTmaLD_AGxTmaST  AllReduce_RSxLD_AGxST  AllReduce_RSxLDMC_AGxSTMC   AllGather_LL  AllGather_LLMC  AllGather_TmaST   AllGather_ST  AllGather_TmaSTMC  AllGather_STMC  AllGather_RailRing_LsaSTMC  ReduceScatter_LL  ReduceScatter_TmaLD  ReduceScatter_LD  ReduceScatter_LDMC  ReduceScatter_RailA2A_LsaLD  ReduceScatter_RailA2A_LsaLDMC  AllReduce_Ring_Simple  AllReduce_Tree_Simple  AllGather_Ring_Simple  ReduceScatter_Ring_Simple  Broadcast_Ring_Simple  Reduce_Ring_Simple  AllReduce_Ring_LL  AllReduce_Tree_LL  AllGather_Ring_LL  ReduceScatter_Ring_LL  Broadcast_Ring_LL  Reduce_Ring_LL  AllReduce_Ring_LL128  AllReduce_Tree_LL128  AllGather_Ring_LL128  ReduceScatter_Ring_LL128  Broadcast_Ring_LL128  Reduce_Ring_LL128    AlltoAll_LL  
+    Broadcast |        1         2         1   |             0              1              0              0              0              0              0   |             0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  
+       Reduce |        1         2         1   |             0              1              0              0              0              0              0   |             0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  
+    AllGather |        1         2         1   |             0              1              0              0              0              0              0   |             0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  
+ReduceScatter |        1         2         1   |             0              1              0              0              0              0              0   |             0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0              0  
+    AllReduce |        1         2         1   |             0              1              0              0              0              0              0   |             0              0              0              0              0              0              0              0              0          
+prenyx0234:2002099:2002099 [0] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002099:2002099 [0] NCCL INFO   Algorithm   |                            Tree                  |                            Ring                  |                   CollNetDirect                  |
+prenyx0234:2002099:2002099 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+prenyx0234:2002099:2002099 [0] NCCL INFO     Broadcast |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    49.8/  39.0 |    78.0/ 320.0 |   232.4/ 384.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO        Reduce |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    49.8/  39.0 |    78.0/ 320.0 |   232.4/ 384.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllGather |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    23.3/  41.6 |    44.6/ 341.3 |    70.0/ 409.6 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO ReduceScatter |    -1.0/  -1.0 |    -1.0/  -1.0 |    -1.0/  -1.0 |    23.3/  41.6 |    44.6/ 341.3 |    70.0/ 409.6 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllReduce |    25.2/  16.6 |    48.5/ 124.8 |    92.4/ 145.5 |    40.0/  20.8 |    75.2/ 170.7 |   131.6/ 204.8 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO   Algorithm   |                    CollNetChain                  |                            NVLS                  |                        NVLSTree                  |
+prenyx0234:2002099:2002099 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+prenyx0234:2002099:2002099 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO   Algorithm   |                             PAT                  |
+prenyx0234:2002099:2002099 [0] NCCL INFO   Protocol    |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |             LL |          LL128 |         Simple |
+prenyx0234:2002099:2002099 [0] NCCL INFO     Broadcast |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO        Reduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllGather |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO ReduceScatter |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO     AllReduce |     0.0/   0.0 |     0.0/   0.0 |     0.0/   0.0 |
+prenyx0234:2002099:2002099 [0] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002099:2002099 [0] NCCL INFO Rank 0 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845366:2845366 [1] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845366:2845366 [1] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845366:2845366 [1] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845366:2845366 [1] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845366:2845366 [1] NCCL INFO Rank 9 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002104:2002104 [5] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002104:2002104 [5] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002104:2002104 [5] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002104:2002104 [5] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002104:2002104 [5] NCCL INFO Rank 5 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002099:2002099 [0] NCCL INFO CC Off, workFifoBytes 1048576
+prenyx0235:2845368:2845368 [3] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0235:2845368:2845368 [3] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0235:2845368:2845368 [3] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0235:2845368:2845368 [3] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0235:2845368:2845368 [3] NCCL INFO Rank 11 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0234:2002101:2002101 [2] NCCL INFO TUNER/Plugin: Could not find: libnccl-tuner.so
+prenyx0234:2002101:2002101 [2] NCCL INFO NCCL_ALGO set by environment to Ring
+prenyx0234:2002101:2002101 [2] NCCL INFO threadThresholds 8/8/64 | 128/8/64 | 512 | 512
+prenyx0234:2002101:2002101 [2] NCCL INFO 16 coll channels, 16 collnet channels, 0 nvls channels, 16 p2p channels, 4 p2p channels per peer
+prenyx0234:2002101:2002101 [2] NCCL INFO Rank 2 RMA strides: baseStride 1 userCtxStride 1 defaultUserStride 1 networkRmaSupport 1 (crossNic 1 contiguousRanksPerHost 8 numRmaCtx 1)
+prenyx0235:2845367:2845367 [2] NCCL INFO ncclCommInitRankConfig comm 0x555559fa4400 rank 10 nranks 16 cudaDev 2 nvmlDev 2 busId 52000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845367:2845367 [2] NCCL INFO Init timings - ncclCommInitRankConfig: rank 10 nranks 16 total 2.13 (kernels 0.37, alloc 0.47, bootstrap 0.21, allgathers 0.02, topo 0.97, graphs 0.05, connections 0.03, rest 0.00)
+prenyx0234:2002100:2002100 [1] NCCL INFO ncclCommInitRankConfig comm 0x555559fa2d00 rank 1 nranks 16 cudaDev 1 nvmlDev 1 busId 43000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002100:2002100 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 1 nranks 16 total 2.05 (kernels 0.37, alloc 0.61, bootstrap 0.00, allgathers 0.14, topo 0.85, graphs 0.04, connections 0.03, rest 0.00)
+prenyx0235:2845371:2845371 [6] NCCL INFO ncclCommInitRankConfig comm 0x555559fa25c0 rank 14 nranks 16 cudaDev 6 nvmlDev 6 busId d1000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845371:2845371 [6] NCCL INFO Init timings - ncclCommInitRankConfig: rank 14 nranks 16 total 2.09 (kernels 0.37, alloc 0.59, bootstrap 0.07, allgathers 0.05, topo 0.97, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845365:2845365 [0] NCCL INFO ncclCommInitRankConfig comm 0x55555a1ac240 rank 8 nranks 16 cudaDev 0 nvmlDev 0 busId 1b000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845365:2845365 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 8 nranks 16 total 3.46 (kernels 0.90, alloc 0.37, bootstrap 1.12, allgathers 0.04, topo 0.97, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845369:2845369 [4] NCCL INFO ncclCommInitRankConfig comm 0x55555a0a5800 rank 12 nranks 16 cudaDev 4 nvmlDev 4 busId 9d000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845369:2845369 [4] NCCL INFO Init timings - ncclCommInitRankConfig: rank 12 nranks 16 total 2.09 (kernels 0.37, alloc 0.58, bootstrap 0.06, allgathers 0.05, topo 0.96, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845366:2845366 [1] NCCL INFO ncclCommInitRankConfig comm 0x55555a0a9e40 rank 9 nranks 16 cudaDev 1 nvmlDev 1 busId 43000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845366:2845366 [1] NCCL INFO Init timings - ncclCommInitRankConfig: rank 9 nranks 16 total 2.09 (kernels 0.37, alloc 0.59, bootstrap 0.07, allgathers 0.02, topo 0.97, graphs 0.05, connections 0.03, rest 0.00)
+prenyx0234:2002104:2002104 [5] NCCL INFO ncclCommInitRankConfig comm 0x555559fa85b0 rank 5 nranks 16 cudaDev 5 nvmlDev 5 busId c3000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002104:2002104 [5] NCCL INFO Init timings - ncclCommInitRankConfig: rank 5 nranks 16 total 2.06 (kernels 0.37, alloc 0.61, bootstrap 0.01, allgathers 0.16, topo 0.85, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0234:2002099:2002099 [0] NCCL INFO ncclCommInitRankConfig comm 0x55555a2f28a0 rank 0 nranks 16 cudaDev 0 nvmlDev 0 busId 1b000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002099:2002099 [0] NCCL INFO Init timings - ncclCommInitRankConfig: rank 0 nranks 16 total 3.47 (kernels 0.87, alloc 0.49, bootstrap 1.03, allgathers 0.16, topo 0.85, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0234:2002103:2002103 [4] NCCL INFO ncclCommInitRankConfig comm 0x55555a0a66a0 rank 4 nranks 16 cudaDev 4 nvmlDev 4 busId 9d000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002103:2002103 [4] NCCL INFO Init timings - ncclCommInitRankConfig: rank 4 nranks 16 total 2.05 (kernels 0.37, alloc 0.61, bootstrap 0.00, allgathers 0.16, topo 0.85, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845370:2845370 [5] NCCL INFO ncclCommInitRankConfig comm 0x55555a0a9dc0 rank 13 nranks 16 cudaDev 5 nvmlDev 5 busId c3000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845370:2845370 [5] NCCL INFO Init timings - ncclCommInitRankConfig: rank 13 nranks 16 total 2.09 (kernels 0.37, alloc 0.58, bootstrap 0.06, allgathers 0.05, topo 0.96, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0234:2002106:2002106 [7] NCCL INFO ncclCommInitRankConfig comm 0x55555a2edef0 rank 7 nranks 16 cudaDev 7 nvmlDev 7 busId df000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002106:2002106 [7] NCCL INFO Init timings - ncclCommInitRankConfig: rank 7 nranks 16 total 2.06 (kernels 0.37, alloc 0.61, bootstrap 0.01, allgathers 0.16, topo 0.85, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845368:2845368 [3] NCCL INFO ncclCommInitRankConfig comm 0x55555a1a7ee0 rank 11 nranks 16 cudaDev 3 nvmlDev 3 busId 61000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845368:2845368 [3] NCCL INFO Init timings - ncclCommInitRankConfig: rank 11 nranks 16 total 2.09 (kernels 0.36, alloc 0.58, bootstrap 0.06, allgathers 0.01, topo 0.97, graphs 0.07, connections 0.03, rest 0.00)
+prenyx0234:2002101:2002101 [2] NCCL INFO ncclCommInitRankConfig comm 0x55555a0aaba0 rank 2 nranks 16 cudaDev 2 nvmlDev 2 busId 52000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002101:2002101 [2] NCCL INFO Init timings - ncclCommInitRankConfig: rank 2 nranks 16 total 2.05 (kernels 0.37, alloc 0.61, bootstrap 0.01, allgathers 0.14, topo 0.85, graphs 0.05, connections 0.03, rest 0.00)
+prenyx0235:2845372:2845372 [7] NCCL INFO ncclCommInitRankConfig comm 0x55555a2e72b0 rank 15 nranks 16 cudaDev 7 nvmlDev 7 busId df000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0235:2845372:2845372 [7] NCCL INFO Init timings - ncclCommInitRankConfig: rank 15 nranks 16 total 2.09 (kernels 0.36, alloc 0.59, bootstrap 0.06, allgathers 0.05, topo 0.97, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0234:2002102:2002102 [3] NCCL INFO ncclCommInitRankConfig comm 0x55555a1aeb60 rank 3 nranks 16 cudaDev 3 nvmlDev 3 busId 61000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002102:2002102 [3] NCCL INFO Init timings - ncclCommInitRankConfig: rank 3 nranks 16 total 2.09 (kernels 0.37, alloc 0.48, bootstrap 0.17, allgathers 0.13, topo 0.85, graphs 0.06, connections 0.03, rest 0.01)
+prenyx0234:2002105:2002105 [6] NCCL INFO ncclCommInitRankConfig comm 0x555559fa9bf0 rank 6 nranks 16 cudaDev 6 nvmlDev 6 busId d1000 commId 0xdda7428485fa6915 - Init COMPLETE
+prenyx0234:2002105:2002105 [6] NCCL INFO Init timings - ncclCommInitRankConfig: rank 6 nranks 16 total 2.05 (kernels 0.38, alloc 0.59, bootstrap 0.00, allgathers 0.16, topo 0.85, graphs 0.03, connections 0.03, rest 0.00)
+prenyx0235:2845367:2845367 [2] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002102:2002102 [3] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845369:2845369 [4] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845371:2845371 [6] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002100:2002100 [1] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845365:2845365 [0] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002101:2002101 [2] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002103:2002103 [4] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845368:2845368 [3] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002106:2002106 [7] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845366:2845366 [1] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002104:2002104 [5] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002099:2002099 [0] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845372:2845372 [7] NCCL INFO Symmetric VA size=180GB
+prenyx0235:2845370:2845370 [5] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002105:2002105 [6] NCCL INFO Symmetric VA size=180GB
+prenyx0234:2002099:2002099 [0] NCCL INFO ReduceScatter_RailA2A_LsaLD : satblocks=31 bufsize=1152000 effbw=8.16e+11
+prenyx0234:2002099:2002099 [0] NCCL INFO ReduceScatter_RailA2A_LsaLDMC : satblocks=16 bufsize=1080000 effbw=1.35e+11
+prenyx0235:2845370:2845370 [5] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [5]mlx5_13
+prenyx0234:2002102:2002102 [3] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [3]mlx5_9
+prenyx0235:2845371:2845371 [6] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [6]mlx5_14
+prenyx0235:2845372:2845372 [7] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [7]mlx5_15
+prenyx0235:2845365:2845365 [0] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [0]mlx5_4
+prenyx0235:2845366:2845366 [1] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [1]mlx5_7
+prenyx0235:2845367:2845367 [2] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [2]mlx5_8
+prenyx0234:2002103:2002103 [4] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [4]mlx5_10
+prenyx0235:2845368:2845368 [3] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [3]mlx5_9
+prenyx0234:2002104:2002104 [5] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [5]mlx5_13
+prenyx0235:2845369:2845369 [4] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [4]mlx5_10
+prenyx0234:2002105:2002105 [6] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [6]mlx5_14
+prenyx0234:2002106:2002106 [7] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [7]mlx5_15
+prenyx0234:2002099:2002099 [0] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [0]mlx5_4
+prenyx0234:2002100:2002100 [1] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [1]mlx5_7
+prenyx0234:2002101:2002101 [2] NCCL INFO GIN: backend GIN_IB_GDAKI using 1 connections on devices [2]mlx5_8
+prenyx0234:2002104:2002104 [5] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [5]mlx5_13
+prenyx0234:2002104:2002104 [5] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845370:2845370 [5] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [5]mlx5_13
+prenyx0235:2845370:2845370 [5] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002104:2002104 [5] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002101:2002101 [2] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [2]mlx5_8
+prenyx0234:2002101:2002101 [2] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002101:2002101 [2] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845370:2845370 [5] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002102:2002102 [3] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [3]mlx5_9
+prenyx0234:2002102:2002102 [3] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002102:2002102 [3] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002103:2002103 [4] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [4]mlx5_10
+prenyx0234:2002103:2002103 [4] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002103:2002103 [4] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002105:2002105 [6] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [6]mlx5_14
+prenyx0234:2002105:2002105 [6] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002105:2002105 [6] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845365:2845365 [0] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [0]mlx5_4
+prenyx0235:2845365:2845365 [0] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845365:2845365 [0] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002106:2002106 [7] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [7]mlx5_15
+prenyx0234:2002106:2002106 [7] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002106:2002106 [7] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845366:2845366 [1] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [1]mlx5_7
+prenyx0235:2845366:2845366 [1] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845366:2845366 [1] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845367:2845367 [2] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [2]mlx5_8
+prenyx0235:2845367:2845367 [2] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845367:2845367 [2] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845368:2845368 [3] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [3]mlx5_9
+prenyx0235:2845368:2845368 [3] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845368:2845368 [3] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845369:2845369 [4] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [4]mlx5_10
+prenyx0235:2845369:2845369 [4] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845369:2845369 [4] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0235:2845371:2845371 [6] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [6]mlx5_14
+prenyx0235:2845371:2845371 [6] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845371:2845371 [6] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002099:2002099 [0] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [0]mlx5_4
+prenyx0235:2845372:2845372 [7] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [7]mlx5_15
+prenyx0235:2845372:2845372 [7] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0235:2845372:2845372 [7] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002100:2002100 [1] NCCL INFO GIN: backend RMA_IB_PROXY using 1 connections on devices [1]mlx5_7
+prenyx0234:2002100:2002100 [1] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002100:2002100 [1] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002099:2002099 [0] NCCL INFO devCommCreate: GIN backend type 3: 63868 signals (0 requested at id 0), 0 counters
+prenyx0234:2002099:2002099 [0] NCCL INFO devCommCreate: creating 4 contexts: 1 GIN connections with 4 contexts each (4 contexts total requested)
+prenyx0234:2002105:2002105 [6] NCCL INFO GIN/GDAKI: device mlx5_14 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002104:2002104 [5] NCCL INFO GIN/GDAKI: device mlx5_13 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845370:2845370 [5] NCCL INFO GIN/GDAKI: device mlx5_13 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845369:2845369 [4] NCCL INFO GIN/GDAKI: device mlx5_10 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002102:2002102 [3] NCCL INFO GIN/GDAKI: device mlx5_9 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002101:2002101 [2] NCCL INFO GIN/GDAKI: device mlx5_8 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845366:2845366 [1] NCCL INFO GIN/GDAKI: device mlx5_7 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845365:2845365 [0] NCCL INFO GIN/GDAKI: device mlx5_4 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002100:2002100 [1] NCCL INFO GIN/GDAKI: device mlx5_7 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002103:2002103 [4] NCCL INFO GIN/GDAKI: device mlx5_10 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845367:2845367 [2] NCCL INFO GIN/GDAKI: device mlx5_8 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002106:2002106 [7] NCCL INFO GIN/GDAKI: device mlx5_15 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845368:2845368 [3] NCCL INFO GIN/GDAKI: device mlx5_9 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0234:2002099:2002099 [0] NCCL INFO GIN/GDAKI: device mlx5_4 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845372:2845372 [7] NCCL INFO GIN/GDAKI: device mlx5_15 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845371:2845371 [6] NCCL INFO GIN/GDAKI: device mlx5_14 preHopper=0 dataDirectNic=0 mcst=0
+prenyx0235:2845366:2845366 [1] NCCL INFO Rank 9 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 9) userCtxStride 1 userRankStride 1
+prenyx0235:2845367:2845367 [2] NCCL INFO Rank 10 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 10) userCtxStride 1 userRankStride 1
+prenyx0235:2845365:2845365 [0] NCCL INFO Rank 8 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 8) userCtxStride 1 userRankStride 1
+prenyx0235:2845368:2845368 [3] NCCL INFO Rank 11 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 11) userCtxStride 1 userRankStride 1
+prenyx0235:2845369:2845369 [4] NCCL INFO Rank 12 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 12) userCtxStride 1 userRankStride 1
+prenyx0235:2845370:2845370 [5] NCCL INFO Rank 13 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 13) userCtxStride 1 userRankStride 1
+prenyx0235:2845371:2845371 [6] NCCL INFO Rank 14 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 14) userCtxStride 1 userRankStride 1
+prenyx0235:2845372:2845372 [7] NCCL INFO Rank 15 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 15) userCtxStride 1 userRankStride 1
+prenyx0234:2002099:2002099 [0] NCCL INFO Rank 0 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 0) userCtxStride 1 userRankStride 1
+prenyx0234:2002100:2002100 [1] NCCL INFO Rank 1 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 1) userCtxStride 1 userRankStride 1
+prenyx0234:2002101:2002101 [2] NCCL INFO Rank 2 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 2) userCtxStride 1 userRankStride 1
+prenyx0234:2002102:2002102 [3] NCCL INFO Rank 3 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 3) userCtxStride 1 userRankStride 1
+prenyx0234:2002103:2002103 [4] NCCL INFO Rank 4 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 4) userCtxStride 1 userRankStride 1
+prenyx0234:2002104:2002104 [5] NCCL INFO Rank 5 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 5) userCtxStride 1 userRankStride 1
+prenyx0234:2002105:2002105 [6] NCCL INFO Rank 6 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 6) userCtxStride 1 userRankStride 1
+prenyx0234:2002106:2002106 [7] NCCL INFO Rank 7 ncclRmaProxyConnectOnce: rmaCommCount 1 rmaProxyCtxCount:1 baseStride 1 rail(nPeers 16 myPeer 7) userCtxStride 1 userRankStride 1
+prenyx0234:2002101:2002101 [2] NCCL INFO Rank 2: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002105:2002105 [6] NCCL INFO Rank 6: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845365:2845365 [0] NCCL INFO Rank 8: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845371:2845371 [6] NCCL INFO Rank 14: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845370:2845370 [5] NCCL INFO Rank 13: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002099:2002099 [0] NCCL INFO Rank 0: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002104:2002104 [5] NCCL INFO Rank 5: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845368:2845368 [3] NCCL INFO Rank 11: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002102:2002102 [3] NCCL INFO Rank 3: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845372:2845372 [7] NCCL INFO Rank 15: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845367:2845367 [2] NCCL INFO Rank 10: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845369:2845369 [4] NCCL INFO Rank 12: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0235:2845366:2845366 [1] NCCL INFO Rank 9: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002100:2002100 [1] NCCL INFO Rank 1: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002103:2002103 [4] NCCL INFO Rank 4: finished init RMA CE contexts, numRmaCeCtxs 1
+prenyx0234:2002106:2002106 [7] NCCL INFO Rank 7: finished init RMA CE contexts, numRmaCeCtxs 1
+#
+#                                                              out-of-place                       in-place
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)        
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 06/0 : 7[7] -> 14[6] [receive] via NET/IB/6/GDRDMA/flush=None
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 06/0 : 15[7] -> 6[6] [send] via NET/IB/6(14)/GDRDMA
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 14/0 : 7[7] -> 14[6] [receive] via NET/IB/6/GDRDMA/flush=None
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 14/0 : 15[7] -> 6[6] [send] via NET/IB/6(14)/GDRDMA
+prenyx0235:2845371:2846134 [0] NCCL INFO [Proxy Progress] Device 6 CPU core 71
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 04/0 : 13[5] -> 4[4] [receive] via NET/IB/4/GDRDMA/flush=None
+prenyx0234:2002103:2002870 [0] NCCL INFO [Proxy Progress] Device 4 CPU core 188
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 12/0 : 13[5] -> 4[4] [receive] via NET/IB/4/GDRDMA/flush=None
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 05/0 : 14[6] -> 5[5] [receive] via NET/IB/5/GDRDMA/flush=None
+prenyx0234:2002104:2002869 [0] NCCL INFO [Proxy Progress] Device 5 CPU core 201
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 13/0 : 14[6] -> 5[5] [receive] via NET/IB/5/GDRDMA/flush=None
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 04/0 : 5[5] -> 12[4] [send] via NET/IB/4(4)/GDRDMA
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 12/0 : 5[5] -> 12[4] [send] via NET/IB/4(4)/GDRDMA
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 01/0 : 2[2] -> 9[1] [receive] via NET/IB/1/GDRDMA/flush=None
+prenyx0235:2845366:2846135 [0] NCCL INFO [Proxy Progress] Device 1 CPU core 10
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 09/0 : 2[2] -> 9[1] [receive] via NET/IB/1/GDRDMA/flush=None
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 00/0 : 1[1] -> 8[0] [receive] via NET/IB/0/GDRDMA/flush=None
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 00/0 : 9[1] -> 0[0] [send] via NET/IB/0(8)/GDRDMA
+prenyx0235:2845365:2846136 [0] NCCL INFO [Proxy Progress] Device 0 CPU core 55
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 08/0 : 9[1] -> 0[0] [send] via NET/IB/0(8)/GDRDMA
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 08/0 : 1[1] -> 8[0] [receive] via NET/IB/0/GDRDMA/flush=None
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 00/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 01/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 02/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 02/0 : 11[3] -> 2[2] [receive] via NET/IB/2/GDRDMA/flush=None
+prenyx0234:2002101:2002871 [0] NCCL INFO [Proxy Progress] Device 2 CPU core 26
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 10/0 : 11[3] -> 2[2] [receive] via NET/IB/2/GDRDMA/flush=None
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 03/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 04/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 05/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 06/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 08/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 09/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 10/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 11/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 12/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 13/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 14/0 : 8[0] -> 15[7] via P2P/CUMEM
+prenyx0235:2845369:2846137 [0] NCCL INFO [Proxy Progress] Device 4 CPU core 170
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 04/0 : 5[5] -> 12[4] [receive] via NET/IB/4/GDRDMA/flush=None
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 12/0 : 5[5] -> 12[4] [receive] via NET/IB/4/GDRDMA/flush=None
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 05/0 : 14[6] -> 5[5] [send] via NET/IB/5(13)/GDRDMA
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 05/0 : 6[6] -> 13[5] [receive] via NET/IB/5/GDRDMA/flush=None
+prenyx0235:2845370:2846138 [0] NCCL INFO [Proxy Progress] Device 5 CPU core 187
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 13/0 : 14[6] -> 5[5] [send] via NET/IB/5(13)/GDRDMA
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 13/0 : 6[6] -> 13[5] [receive] via NET/IB/5/GDRDMA/flush=None
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 04/0 : 13[5] -> 4[4] [send] via NET/IB/4(12)/GDRDMA
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 12/0 : 13[5] -> 4[4] [send] via NET/IB/4(12)/GDRDMA
+prenyx0235:2845367:2846139 [0] NCCL INFO [Proxy Progress] Device 2 CPU core 5
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 02/0 : 3[3] -> 10[2] [receive] via NET/IB/2/GDRDMA/flush=None
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 10/0 : 3[3] -> 10[2] [receive] via NET/IB/2/GDRDMA/flush=None
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 01/0 : 10[2] -> 1[1] [send] via NET/IB/1(9)/GDRDMA
+prenyx0235:2845368:2846140 [0] NCCL INFO [Proxy Progress] Device 3 CPU core 5
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 03/0 : 4[4] -> 11[3] [receive] via NET/IB/3/GDRDMA/flush=None
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 03/0 : 12[4] -> 3[3] [send] via NET/IB/3(11)/GDRDMA
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 11/0 : 12[4] -> 3[3] [send] via NET/IB/3(11)/GDRDMA
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 09/0 : 10[2] -> 1[1] [send] via NET/IB/1(9)/GDRDMA
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 11/0 : 4[4] -> 11[3] [receive] via NET/IB/3/GDRDMA/flush=None
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 02/0 : 11[3] -> 2[2] [send] via NET/IB/2(10)/GDRDMA
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 10/0 : 11[3] -> 2[2] [send] via NET/IB/2(10)/GDRDMA
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 06/0 : 15[7] -> 6[6] [receive] via NET/IB/6/GDRDMA/flush=None
+prenyx0234:2002105:2002872 [0] NCCL INFO [Proxy Progress] Device 6 CPU core 189
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 14/0 : 15[7] -> 6[6] [receive] via NET/IB/6/GDRDMA/flush=None
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 06/0 : 7[7] -> 14[6] [send] via NET/IB/6(6)/GDRDMA
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 14/0 : 7[7] -> 14[6] [send] via NET/IB/6(6)/GDRDMA
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 05/0 : 6[6] -> 13[5] [send] via NET/IB/5(5)/GDRDMA
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 13/0 : 6[6] -> 13[5] [send] via NET/IB/5(5)/GDRDMA
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 01/0 : 10[2] -> 1[1] [receive] via NET/IB/1/GDRDMA/flush=None
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 01/0 : 2[2] -> 9[1] [send] via NET/IB/1(1)/GDRDMA
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 09/0 : 10[2] -> 1[1] [receive] via NET/IB/1/GDRDMA/flush=None
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 09/0 : 2[2] -> 9[1] [send] via NET/IB/1(1)/GDRDMA
+prenyx0234:2002100:2002873 [0] NCCL INFO [Proxy Progress] Device 1 CPU core 27
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 03/0 : 12[4] -> 3[3] [receive] via NET/IB/3/GDRDMA/flush=None
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 03/0 : 4[4] -> 11[3] [send] via NET/IB/3(3)/GDRDMA
+prenyx0234:2002102:2002874 [0] NCCL INFO [Proxy Progress] Device 3 CPU core 120
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 11/0 : 12[4] -> 3[3] [receive] via NET/IB/3/GDRDMA/flush=None
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 11/0 : 4[4] -> 11[3] [send] via NET/IB/3(3)/GDRDMA
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 02/0 : 3[3] -> 10[2] [send] via NET/IB/2(2)/GDRDMA
+         128            32     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO Channel 00/0 : 9[1] -> 0[0] [receive] via NET/IB/0/GDRDMA/flush=None
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 00/0 : 1[1] -> 8[0] [send] via NET/IB/0(0)/GDRDMA
+prenyx0234:2002099:2002875 [0] NCCL INFO [Proxy Progress] Device 0 CPU core 121
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 08/0 : 9[1] -> 0[0] [receive] via NET/IB/0/GDRDMA/flush=None
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 00/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 08/0 : 1[1] -> 8[0] [send] via NET/IB/0(0)/GDRDMA
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 10/0 : 3[3] -> 10[2] [send] via NET/IB/2(2)/GDRDMA
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 00/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 01/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 01/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 02/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 02/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 03/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 04/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 03/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 04/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 00/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 05/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 06/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 01/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 07/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 06/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 02/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 08/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 08/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 03/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 09/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 09/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 05/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 06/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 10/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 10/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 11/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 07/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 11/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 12/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 12/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 00/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 14/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 08/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 00/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 13/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 00/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 01/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 09/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 01/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 01/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 03/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 14/0 : 0[0] -> 7[7] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Channel 15/0 : 14[6] -> 13[5] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 00/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 04/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 00/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 02/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 02/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 10/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 02/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 02/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 03/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 03/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 00/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 00/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 05/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 03/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 11/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 00/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 05/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 01/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 06/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 13/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 01/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 06/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 04/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 03/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 01/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 07/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 04/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 05/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 07/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 02/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 08/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 03/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 02/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 14/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 04/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 06/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 06/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 08/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 09/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 04/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 04/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 09/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 07/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 04/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 05/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0234:2002104:2002104 [5] NCCL INFO Channel 15/0 : 5[5] -> 4[4] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 05/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 11/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 07/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 12/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 10/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 05/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 01/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 05/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 06/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 06/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 07/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 08/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 11/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 07/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 06/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 08/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 06/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 07/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 08/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 13/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 07/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 10/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 08/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 13/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 09/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 14/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 09/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 02/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 10/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 08/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 10/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845370:2845370 [5] NCCL INFO Channel 15/0 : 13[5] -> 12[4] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 10/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 14/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 11/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 08/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 09/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 11/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 11/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 12/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 12/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845368:2845368 [3] NCCL INFO Channel 15/0 : 11[3] -> 10[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 12/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 03/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 13/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 11/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 12/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 13/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 14/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 13/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 14/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 04/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0235:2845369:2845369 [4] NCCL INFO Channel 15/0 : 12[4] -> 11[3] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 12/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 09/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0235:2845367:2845367 [2] NCCL INFO Channel 15/0 : 10[2] -> 9[1] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 10/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 05/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 13/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 14/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002105:2002105 [6] NCCL INFO Channel 15/0 : 6[6] -> 5[5] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 14/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 12/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 06/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 14/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 07/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002101:2002101 [2] NCCL INFO Channel 15/0 : 2[2] -> 1[1] via P2P/CUMEM
+prenyx0234:2002102:2002102 [3] NCCL INFO Channel 15/0 : 3[3] -> 2[2] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 09/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 13/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 10/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 14/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002103:2002103 [4] NCCL INFO Channel 15/0 : 4[4] -> 3[3] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 11/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 12/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 13/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 14/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 01/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0234:2002100:2002100 [1] NCCL INFO Channel 15/0 : 1[1] -> 0[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 02/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 03/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 04/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 05/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 06/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 07/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 09/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 10/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 11/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 12/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 13/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 14/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845366:2845366 [1] NCCL INFO Channel 15/0 : 9[1] -> 8[0] via P2P/CUMEM
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 07/0 : 8[0] -> 7[7] [send] via NET/IB/7(15)/GDRDMA
+prenyx0235:2845365:2845365 [0] NCCL INFO Channel 15/0 : 8[0] -> 7[7] [send] via NET/IB/7(15)/GDRDMA
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 07/0 : 0[0] -> 15[7] [receive] via NET/IB/7/GDRDMA/flush=None
+prenyx0235:2845372:2846141 [0] NCCL INFO [Proxy Progress] Device 7 CPU core 178
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 15/0 : 0[0] -> 15[7] [receive] via NET/IB/7/GDRDMA/flush=None
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 00/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 01/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 02/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 03/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 04/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 05/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 07/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 08/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 07/0 : 8[0] -> 7[7] [receive] via NET/IB/7/GDRDMA/flush=None
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 07/0 : 0[0] -> 15[7] [send] via NET/IB/7(7)/GDRDMA
+prenyx0234:2002099:2002099 [0] NCCL INFO Channel 15/0 : 0[0] -> 15[7] [send] via NET/IB/7(7)/GDRDMA
+prenyx0234:2002106:2002876 [0] NCCL INFO [Proxy Progress] Device 7 CPU core 59
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 15/0 : 8[0] -> 7[7] [receive] via NET/IB/7/GDRDMA/flush=None
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 00/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 01/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 02/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 09/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 03/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 10/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 11/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 04/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 12/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 13/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0235:2845372:2845372 [7] NCCL INFO Channel 15/0 : 15[7] -> 14[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 05/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 07/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 08/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 09/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 10/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 11/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 12/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 13/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0234:2002106:2002106 [7] NCCL INFO Channel 15/0 : 7[7] -> 6[6] via P2P/CUMEM
+prenyx0235:2845371:2845371 [6] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845372:2845372 [7] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002101:2002101 [2] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845370:2845370 [5] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002099:2002099 [0] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 128 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0235:2845369:2845369 [4] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002100:2002100 [1] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002102:2002102 [3] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002103:2002103 [4] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002104:2002104 [5] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845365:2845365 [0] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845366:2845366 [1] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002105:2002105 [6] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845367:2845367 [2] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0235:2845368:2845368 [3] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002106:2002106 [7] NCCL INFO Connected all rings, use ring PXN 1 GDR 1
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 128 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   174.93    0.00    0.00    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 128 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 128 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   106.26    0.00    0.00    N/A
+        1024           256     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   112.71    0.01    0.02    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 1024 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   111.43    0.01    0.02    N/A
+        8192          2048     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 8192 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 8192 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   112.42    0.07    0.14    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 8192 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 8192 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   113.04    0.07    0.14    N/A
+       65536         16384     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 65536 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 65536 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   121.74    0.54    1.01    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 65536 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 65536 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..0}
+   121.87    0.54    1.01    N/A
+      524288        131072     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 524288 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..7}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 524288 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..7}
+   172.66    3.04    5.69    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 524288 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..7}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 524288 Bytes -> Algo RING proto LL channel{Lo..Hi}={0..7}
+   138.51    3.79    7.10    N/A
+     4194304       1048576     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 4194304 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 4194304 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+   209.97   19.98   37.45    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 4194304 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 4194304 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+   204.23   20.54   38.51    N/A
+    33554432       8388608     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+   381.97   87.85  164.71    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 33554432 Bytes -> Algo RING proto LL128 channel{Lo..Hi}={0..15}
+   376.42   89.14  167.14    N/A
+   268435456      67108864     float     sum      -1prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 268435456 Bytes -> Algo RING proto SIMPLE channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 268435456 Bytes -> Algo RING proto SIMPLE channel{Lo..Hi}={0..15}
+  1586.60  169.19  317.23    N/Aprenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 268435456 Bytes -> Algo RING proto SIMPLE channel{Lo..Hi}={0..15}
+prenyx0234:2002099:2002099 [0] NCCL INFO AllReduce: 268435456 Bytes -> Algo RING proto SIMPLE channel{Lo..Hi}={0..15}
+  1515.14  177.17  332.19    N/A
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 67.0219 
+#
+# Collective test concluded: all_reduce_perf
+#
+
+#BENCH_EXIT 0

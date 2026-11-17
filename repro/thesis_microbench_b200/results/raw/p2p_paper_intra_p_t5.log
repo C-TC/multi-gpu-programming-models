@@ -1,0 +1,36 @@
+#BENCH label=p2p_paper_intra_p trial=5 nodes=prenyx0245 tpn=2 mpi=pmi2 date=2026-11-17T06:34:30-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_p_bw -b 4 -e 33554432 -n 50 -w 20 -c 32 -t 256 --use_smem 0
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 33554432, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_p_bw
+size(B)     scope     BW (GB/sec)     
+4           None      0.002278        
+8           None      0.004572        
+16          None      0.009256        
+32          None      0.018553        
+64          None      0.037023        
+128         None      0.072176        
+256         None      0.143266        
+512         None      0.296406        
+1024        None      0.590188        
+2048        None      1.120448        
+4096        None      2.223767        
+8192        None      4.484933        
+16384       None      8.605042        
+32768       None      15.557581       
+65536       None      28.691511       
+131072      None      48.199574       
+262144      None      76.575058       
+524288      None      110.107521      
+1048576     None      138.600800      
+2097152     None      156.373184      
+4194304     None      168.325882      
+8388608     None      175.532669      
+16777216    None      178.759735      
+33554432    None      180.564804      
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+#BENCH_EXIT 0

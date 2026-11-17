@@ -1,0 +1,575 @@
+#BENCH label=vfy_transport_ibgda trial=1 nodes=prenyx0047,prenyx0238 tpn=1 mpi=pmi2 date=2026-11-17T06:28:38-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=64 NVSHMEM_IBGDA_RC_MAP_BY=cta; export NVSHMEM_DEBUG=INFO;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_put_bw -b 1048576 -e 1048576 -n 5 -w 2 --use_smem 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO PE distribution has been identified as NVSHMEMI_PE_DIST_ROUNDROBIN
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO PE 1 (process) affinity to 224 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145
+    146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165
+    166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185
+    186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205
+    206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO cudaDriverVersion 13030
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO nvshmemi_common_init failed, continuing
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO PE distribution has been identified as NVSHMEMI_PE_DIST_ROUNDROBIN
+NVSHMEM v3.8.0
+NVSHMEM configuration:
+  CUDA API                     13030
+  CUDA Runtime                 13030
+  CUDA Driver                  13030
+  Build Timestamp              Nov 17 2026 06:16:45
+  Build Variables             
+	NVSHMEM_ARTIFACT_VERSION=3.8.0 NVSHMEM_DEBUG=OFF NVSHMEM_DEVEL=OFF
+	NVSHMEM_DEFAULT_PMI2=OFF NVSHMEM_DEFAULT_PMIX=OFF NVSHMEM_DEFAULT_UCX=OFF
+	NVSHMEM_ENABLE_ALL_DEVICE_INLINING=OFF NVSHMEM_BUILD_P2P_ONLY=OFF
+	NVSHMEM_GPU_COLL_USE_LDST=OFF NVSHMEM_IBGDA_SUPPORT=ON
+	NVSHMEM_IBGDA_SUPPORT_GPUMEM_ONLY=OFF NVSHMEM_GPUNETIO_SUPPORT=OFF
+	NVSHMEM_IBDEVX_SUPPORT=OFF NVSHMEM_IBRC_SUPPORT=ON
+	NVSHMEM_MPI_SUPPORT=OFF NVSHMEM_NVTX=ON NVSHMEM_PMIX_SUPPORT=OFF
+	NVSHMEM_SHMEM_SUPPORT=OFF NVSHMEM_TEST_STATIC_LIB=OFF
+	NVSHMEM_TIMEOUT_DEVICE_POLLING=OFF NVSHMEM_TRACE=OFF NVSHMEM_UCX_SUPPORT=OFF
+	NVSHMEM_USE_DLMALLOC=OFF NVSHMEM_USE_NCCL=OFF NVSHMEM_USE_GDRCOPY=ON
+	NVSHMEM_USE_MLX5DV=ON NVSHMEM_CFT_HANDLES_SUPPORT=OFF
+	NVSHMEM_PRIORITIZE_LOGICAL_ENDPOINT=OFF NVSHMEM_VERBOSE=OFF
+	CUDA_HOME=/usr/local/cuda LIBFABRIC_HOME=/usr/local/libfabric
+	MPI_HOME=/usr/local/ompi NCCL_HOME=/usr/local/nccl
+	NVSHMEM_PREFIX=/raid/scratch/siyshen/b200mb/install/nvshmem PMIX_HOME=/usr
+	SHMEM_HOME=/usr/local/ompi CUTLASS_HOME= UCX_HOME=/usr/local/ucx
+
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO PE 0 (process) affinity to 224 CPUs:
+     0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+    27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49 50 51 52
+    54 55 56 57 58 59 60 61 62 63 64 65 66 67 68 69 70 71 72 73 74 75 76 77 78 79
+    81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101 102 103 104
+    106 107 108 109 110 111 112 113 114 115 116 117 118 119 120 121 122 123 124 125
+    126 127 128 129 130 131 132 133 134 135 136 137 138 139 140 141 142 143 144 145
+    146 147 148 149 150 151 152 153 154 155 156 157 158 159 160 161 162 163 164 165
+    166 167 168 169 170 171 172 173 174 175 176 177 178 179 180 181 182 183 184 185
+    186 187 188 189 190 191 192 193 194 195 196 197 198 199 200 201 202 203 204 205
+    206 207 208 209 210 211 212 213 214 215 216 217 218 219 220 221 222 223 
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO cudaDriverVersion 13030
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO nvshmemi_common_init failed, continuing
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO in get_cucontext, queried and saved context for device: 0 context: 0x555555c0f070
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] Created stream 0x555556c04090 for device 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO PE 0 pinned to NUMA node 0 (112 CPUs) for GPU 0
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM symmetric heap kind = DEVICE selected
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] nvshmemi_get_cucontext->cuCtxSynchronize->CUDA_SUCCESS) my_stream (nil)
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO in get_cucontext, queried and saved context for device: 0 context: 0x555555c0f070
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] Created stream 0x555556c04090 for device 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO PE 1 pinned to NUMA node 0 (112 CPUs) for GPU 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVLS: disabled by user (NVSHMEM_DISABLE_NVLS)
+
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVLS: disabled by user (NVSHMEM_DISABLE_NVLS)
+
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO ALGO: FCOLLECT_ALGO set to 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO ALGO: BCAST_ALGO set to 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO ALGO: REDUCE_ALGO set to 0 (0 -> 1)
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO ALGO: REDMAXLOC_ALGO set to 1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO ALGO: REDUCESCATTER_ALGO set to 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO ALGO: FCOLLECT_ALGO set to 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO ALGO: BCAST_ALGO set to 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO ALGO: REDUCE_ALGO set to 0 (0 -> 1)
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO ALGO: REDMAXLOC_ALGO set to 1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO ALGO: REDUCESCATTER_ALGO set to 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO team psync mem req 620546 bytes, team mem total req 1270882536 bytes, max teams 256
+
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM_ENABLE_MULTI_PORT = 1 (source: default)
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO Selected remote transport: ibrc
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO team psync mem req 620546 bytes, team mem total req 1270882536 bytes, max teams 256
+
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM_ENABLE_MULTI_PORT = 1 (source: default)
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO Selected remote transport: ibrc
+./src/modules/transport/common/transport_gdr_common.cpp 294 GDRCopy library version: (2, 5)
+./src/modules/transport/common/transport_gdr_common.cpp 300 GDRCopy v2 symbols found (gdr_pin_buffer_v2, gdr_map_v2, gdr_get_attribute).
+./src/modules/transport/common/transport_gdr_common.cpp 337 GDR driver version: (2, 6)
+./src/modules/transport/common/transport_ib_common.cpp 1697 Begin - Enumerating IB devices in the system ([<dev_id, device_name, num_ports>]) - 
+./src/modules/transport/common/transport_gdr_common.cpp 294 GDRCopy library version: (2, 5)
+./src/modules/transport/common/transport_gdr_common.cpp 300 GDRCopy v2 symbols found (gdr_pin_buffer_v2, gdr_map_v2, gdr_get_attribute).
+./src/modules/transport/common/transport_gdr_common.cpp 337 GDR driver version: (2, 6)
+./src/modules/transport/common/transport_ib_common.cpp 1697 Begin - Enumerating IB devices in the system ([<dev_id, device_name, num_ports>]) - 
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=0 (of 8), name=mlx5_4, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=0 (of 8), name=mlx5_4, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=1 (of 8), name=mlx5_7, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=1 (of 8), name=mlx5_7, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=2 (of 8), name=mlx5_8, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=2 (of 8), name=mlx5_8, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=3 (of 8), name=mlx5_9, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=3 (of 8), name=mlx5_9, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=4 (of 8), name=mlx5_10, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=4 (of 8), name=mlx5_10, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=5 (of 8), name=mlx5_13, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=5 (of 8), name=mlx5_13, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=6 (of 8), name=mlx5_14, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=6 (of 8), name=mlx5_14, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=7 (of 8), name=mlx5_15, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=7 (of 8), name=mlx5_15, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1835 End - Enumerating IB devices in the system
+./src/modules/transport/common/transport_ib_common.cpp 1497 Begin - Ordered list of devices for assignment (after processing user provided env vars (if any))  - 
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=0 (of 8), device id=0, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=1 (of 8), device id=1, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=2 (of 8), device id=2, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=3 (of 8), device id=3, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=4 (of 8), device id=4, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=5 (of 8), device id=5, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=6 (of 8), device id=6, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=7 (of 8), device id=7, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1835 End - Enumerating IB devices in the system
+./src/modules/transport/common/transport_ib_common.cpp 1497 Begin - Ordered list of devices for assignment (after processing user provided env vars (if any))  - 
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=0 (of 8), device id=0, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=1 (of 8), device id=1, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1505 End - Ordered list of devices for assignment (after processing user provided env vars (if any))
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=2 (of 8), device id=2, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=3 (of 8), device id=3, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=4 (of 8), device id=4, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=5 (of 8), device id=5, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=6 (of 8), device id=6, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=7 (of 8), device id=7, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1505 End - Ordered list of devices for assignment (after processing user provided env vars (if any))
+./src/modules/transport/common/transport_gdr_common.cpp 294 GDRCopy library version: (2, 5)
+./src/modules/transport/common/transport_gdr_common.cpp 300 GDRCopy v2 symbols found (gdr_pin_buffer_v2, gdr_map_v2, gdr_get_attribute).
+./src/modules/transport/common/transport_gdr_common.cpp 337 GDR driver version: (2, 6)
+./src/modules/transport/common/transport_gdr_common.cpp 294 GDRCopy library version: (2, 5)
+./src/modules/transport/common/transport_gdr_common.cpp 300 GDRCopy v2 symbols found (gdr_pin_buffer_v2, gdr_map_v2, gdr_get_attribute).
+./src/modules/transport/common/transport_gdr_common.cpp 337 GDR driver version: (2, 6)
+./src/modules/transport/ibgda/ibgda.cpp 5125 NVSHMEM_IBGDA_NIC_HANDLER: auto
+
+./src/modules/transport/common/transport_ib_common.cpp 1697 Begin - Enumerating IB devices in the system ([<dev_id, device_name, num_ports>]) - 
+./src/modules/transport/ibgda/ibgda.cpp 5125 NVSHMEM_IBGDA_NIC_HANDLER: auto
+
+./src/modules/transport/common/transport_ib_common.cpp 1697 Begin - Enumerating IB devices in the system ([<dev_id, device_name, num_ports>]) - 
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=0 (of 8), name=mlx5_4, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=0 (of 8), name=mlx5_4, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=1 (of 8), name=mlx5_7, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=1 (of 8), name=mlx5_7, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=2 (of 8), name=mlx5_8, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=2 (of 8), name=mlx5_8, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=3 (of 8), name=mlx5_9, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=3 (of 8), name=mlx5_9, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=4 (of 8), name=mlx5_10, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=4 (of 8), name=mlx5_10, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=5 (of 8), name=mlx5_13, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=5 (of 8), name=mlx5_13, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=6 (of 8), name=mlx5_14, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=6 (of 8), name=mlx5_14, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=7 (of 8), name=mlx5_15, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1835 End - Enumerating IB devices in the system
+./src/modules/transport/common/transport_ib_common.cpp 1726 Enumerated IB devices in the system - device id=7 (of 8), name=mlx5_15, num_ports=1
+./src/modules/transport/common/transport_ib_common.cpp 1835 End - Enumerating IB devices in the system
+./src/modules/transport/common/transport_ib_common.cpp 1497 Begin - Ordered list of devices for assignment (after processing user provided env vars (if any))  - 
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=0 (of 8), device id=0, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=1 (of 8), device id=1, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=2 (of 8), device id=2, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=3 (of 8), device id=3, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=4 (of 8), device id=4, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=5 (of 8), device id=5, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=6 (of 8), device id=6, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=7 (of 8), device id=7, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1505 End - Ordered list of devices for assignment (after processing user provided env vars (if any))
+./src/modules/transport/ibgda/ibgda.cpp 5272 NIC buffer will be on GPU memory.
+
+./src/modules/transport/ibgda/ibgda.cpp 5287 NIC handler will be GPU.
+
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO Successfully initialized the transport: ibrc
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO Successfully initialized the transport: IBGDA. It will be used for device-side APIs over IB.
+./src/modules/transport/common/transport_ib_common.cpp 1497 Begin - Ordered list of devices for assignment (after processing user provided env vars (if any))  - 
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=0 (of 8), device id=0, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=1 (of 8), device id=1, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=2 (of 8), device id=2, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=3 (of 8), device id=3, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=4 (of 8), device id=4, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=5 (of 8), device id=5, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=6 (of 8), device id=6, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1501 Ordered list of devices for assignment - idx=7 (of 8), device id=7, port_num=1
+./src/modules/transport/common/transport_ib_common.cpp 1505 End - Ordered list of devices for assignment (after processing user provided env vars (if any))
+./src/modules/transport/ibgda/ibgda.cpp 5272 NIC buffer will be on GPU memory.
+
+./src/modules/transport/ibgda/ibgda.cpp 5287 NIC handler will be GPU.
+
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO Successfully initialized the transport: ibrc
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO Successfully initialized the transport: IBGDA. It will be used for device-side APIs over IB.
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVML library found. libnvidia-ml.so.1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM has set MAX_PEER_STREAMS to 1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM has set MAX_PEER_STREAMS to 1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM_ENABLE_NIC_PE_MAPPING = 0, device 0 setting dev_id = 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM_ENABLE_NIC_PE_MAPPING = 0, device 0 setting dev_id = 0
+./src/modules/transport/common/transport_ib_common.cpp 712 Selected 1 NIC(s) for IB endpoint creation
+./src/modules/transport/common/transport_ib_common.cpp 712 Selected 1 NIC(s) for IB endpoint creation
+./src/modules/transport/ibrc/ibrc.cpp 228 ./src/modules/transport/ibrc/ibrc.cpp:325 Ib Alloc Size 2097152 pointer 0x7ffdc9276000
+./src/modules/transport/ibrc/ibrc.cpp 228 ./src/modules/transport/ibrc/ibrc.cpp:325 Ib Alloc Size 2097152 pointer 0x7ffdc9276000
+./src/modules/transport/common/transport_ib_common.cpp 1145 Multi-NIC AMO routing: cross-device round-robin (policy: AUTO, selected NIC slots: 1, physical HCAs: 0)
+./src/modules/transport/common/transport_ib_common.cpp 1145 Multi-NIC AMO routing: cross-device round-robin (policy: AUTO, selected NIC slots: 1, physical HCAs: 0)
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM_ENABLE_NIC_PE_MAPPING = 0, device 0 setting dev_id = 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM_ENABLE_NIC_PE_MAPPING = 0, device 0 setting dev_id = 0
+./src/modules/transport/common/transport_ib_common.cpp 1145 Multi-NIC AMO routing: cross-device round-robin (policy: AUTO, selected NIC slots: 1, physical HCAs: 0)
+./src/modules/transport/ibgda/ibgda.cpp 3081 IBGDA_DCI_MAP_BY is set to cta.
+./src/modules/transport/ibgda/ibgda.cpp 3353 IBGDA_RC_MAP_BY is set to cta.
+./src/modules/transport/common/transport_ib_common.cpp 1145 Multi-NIC AMO routing: cross-device round-robin (policy: AUTO, selected NIC slots: 1, physical HCAs: 0)
+./src/modules/transport/ibgda/ibgda.cpp 3081 IBGDA_DCI_MAP_BY is set to cta.
+./src/modules/transport/ibgda/ibgda.cpp 3353 IBGDA_RC_MAP_BY is set to cta.
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555558e44960 mr 0x555558f87b00
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555558e44960 mr 0x555558f87b00
+./src/modules/transport/ibgda/ibgda.cpp 3148 Creating 1 DCI QPs (shared: 1, exclusive: 0)
+./src/modules/transport/ibgda/ibgda.cpp 3148 Creating 1 DCI QPs (shared: 1, exclusive: 0)
+./src/modules/transport/ibgda/ibgda.cpp 3439 Creating 64 RC QPs
+./src/modules/transport/ibgda/ibgda.cpp 3439 Creating 64 RC QPs
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e0920 mr 0x5555590e0950
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e0920 mr 0x5555590e0950
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e3760 mr 0x5555590e3790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e3760 mr 0x5555590e3790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e7000 mr 0x5555590e7030
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590e7000 mr 0x5555590e7030
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590ea110 mr 0x5555590ea140
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590ea110 mr 0x5555590ea140
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590ed940 mr 0x5555590ed970
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590ed940 mr 0x5555590ed970
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f07f0 mr 0x5555590f0820
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f07f0 mr 0x5555590f0820
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f3630 mr 0x5555590f3660
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f3630 mr 0x5555590f3660
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f7130 mr 0x5555590f7160
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f7130 mr 0x5555590f7160
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f9fe0 mr 0x5555590fa010
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590f9fe0 mr 0x5555590fa010
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590fce20 mr 0x5555590fce50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559100650 mr 0x555559100680
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555590fce20 mr 0x5555590fce50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591037d0 mr 0x555559103800
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559100650 mr 0x555559100680
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559106610 mr 0x555559106640
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591037d0 mr 0x555559103800
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559109eb0 mr 0x555559109ee0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559106610 mr 0x555559106640
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555910ccf0 mr 0x55555910cd20
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559109eb0 mr 0x555559109ee0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555910fe00 mr 0x55555910fe30
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555910ccf0 mr 0x55555910cd20
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591136a0 mr 0x5555591136d0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555910fe00 mr 0x55555910fe30
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591164e0 mr 0x555559116510
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559119320 mr 0x555559119350
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591136a0 mr 0x5555591136d0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555911ce90 mr 0x55555911cec0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591164e0 mr 0x555559116510
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555911fcd0 mr 0x55555911fd00
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559119320 mr 0x555559119350
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559123500 mr 0x555559123530
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555911ce90 mr 0x55555911cec0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591263b0 mr 0x5555591263e0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555911fcd0 mr 0x55555911fd00
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591294c0 mr 0x5555591294f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559123500 mr 0x555559123530
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555912ccf0 mr 0x55555912cd20
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591263b0 mr 0x5555591263e0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555912fba0 mr 0x55555912fbd0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591329e0 mr 0x555559132a10
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591294c0 mr 0x5555591294f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559136550 mr 0x555559136580
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555912ccf0 mr 0x55555912cd20
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559139390 mr 0x5555591393c0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555912fba0 mr 0x55555912fbd0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913c1d0 mr 0x55555913c200
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591329e0 mr 0x555559132a10
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913fa70 mr 0x55555913faa0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559136550 mr 0x555559136580
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559142b80 mr 0x555559142bb0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559139390 mr 0x5555591393c0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591459c0 mr 0x5555591459f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913c1d0 mr 0x55555913c200
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559149260 mr 0x555559149290
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913fa70 mr 0x55555913faa0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555914c0a0 mr 0x55555914c0d0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559142b80 mr 0x555559142bb0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555914fba0 mr 0x55555914fbd0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559152a50 mr 0x555559152a80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591459c0 mr 0x5555591459f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559155890 mr 0x5555591558c0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559149260 mr 0x555559149290
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591590c0 mr 0x5555591590f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555914c0a0 mr 0x55555914c0d0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555915c240 mr 0x55555915c270
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555914fba0 mr 0x55555914fbd0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555915f080 mr 0x55555915f0b0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559152a50 mr 0x555559152a80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591628b0 mr 0x5555591628e0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559155890 mr 0x5555591558c0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559165760 mr 0x555559165790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591590c0 mr 0x5555591590f0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559168870 mr 0x5555591688a0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555915c240 mr 0x55555915c270
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555916c110 mr 0x55555916c140
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555916ef50 mr 0x55555916ef80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555915f080 mr 0x55555915f0b0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559171d90 mr 0x555559171dc0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591628b0 mr 0x5555591628e0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559175900 mr 0x555559175930
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559165760 mr 0x555559165790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913e000 mr 0x555559178770
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559168870 mr 0x5555591688a0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555917b580 mr 0x55555917b5b0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555916c110 mr 0x55555916c140
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555917ee20 mr 0x55555917ee50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555916ef50 mr 0x55555916ef80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559181f30 mr 0x555559181f60
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559171d90 mr 0x555559171dc0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559185760 mr 0x555559185790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559175900 mr 0x555559175930
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559188610 mr 0x555559188640
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555913e000 mr 0x555559178770
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555918b450 mr 0x55555918b480
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555917b580 mr 0x55555917b5b0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555918ef50 mr 0x55555918ef80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559191e00 mr 0x555559191e30
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555917ee20 mr 0x55555917ee50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559194c40 mr 0x555559194c70
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559181f30 mr 0x555559181f60
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591984e0 mr 0x555559198510
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559185760 mr 0x555559185790
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555919b5f0 mr 0x55555919b620
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559188610 mr 0x555559188640
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555919e430 mr 0x55555919e460
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555918b450 mr 0x55555918b480
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a1cd0 mr 0x5555591a1d00
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555918ef50 mr 0x55555918ef80
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a4b10 mr 0x5555591a4b40
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559191e00 mr 0x555559191e30
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a7c20 mr 0x5555591a7c50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x555559194c40 mr 0x555559194c70
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591984e0 mr 0x555559198510
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555919b5f0 mr 0x55555919b620
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x55555919e430 mr 0x55555919e460
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a1cd0 mr 0x5555591a1d00
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a4b10 mr 0x5555591a4b40
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591a7c20 mr 0x5555591a7c50
+./src/modules/transport/ibgda/ibgda.cpp 3632 num_rc_handles: 128
+./src/modules/transport/ibgda/ibgda.cpp 3632 num_rc_handles: 128
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] job_connectivity: 16
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] job_connectivity: 16
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] job_connectivity: 1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] job_connectivity: 16
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] status 0 cudaErrorInvalidValue 1 cudaErrorInvalidSymbol 13 cudaErrorInvalidMemcpyDirection 21 cudaErrorNoKernelImageForDevice 209
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM TMA policy = 0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] status 0 cudaErrorInvalidValue 1 cudaErrorInvalidSymbol 13 cudaErrorInvalidMemcpyDirection 21 cudaErrorNoKernelImageForDevice 209
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM TMA policy = 0
+./src/modules/transport/ibrc/ibrc.cpp 674 [0] IBRC: selected slot 0 uses mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591bce90 mr 0x5555591d0180
+./src/modules/transport/ibrc/ibrc.cpp 674 [1] IBRC: selected slot 0 uses mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591bce90 mr 0x5555591d0180
+./src/modules/transport/ibrc/ibrc.cpp 228 ./src/modules/transport/ibrc/ibrc.cpp:766 Ib Alloc Size 8 pointer 0x5555591d3000
+./src/modules/transport/ibgda/ibgda.cpp 744 [0] IBGDA: device used mlx5_4, data_direct support: 0
+./src/modules/transport/ibrc/ibrc.cpp 228 ./src/modules/transport/ibrc/ibrc.cpp:766 Ib Alloc Size 8 pointer 0x5555591d3000
+./src/modules/transport/ibgda/ibgda.cpp 744 [1] IBGDA: device used mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591bd090 mr 0x5555591d21d0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591bd090 mr 0x5555591d21d0
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO P2P connected list: 0 
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO P2P connected list: 1 
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM_TEAM_SHARED: start=1, stride=1, size=1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEM_TEAM_MC_SHARED aliases NVSHMEM_TEAM_SHARED: start=1, stride=1, size=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM_TEAM_SHARED: start=0, stride=1, size=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEM_TEAM_MC_SHARED aliases NVSHMEM_TEAM_SHARED: start=0, stride=1, size=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEMX_TEAM_NODE: start=0, stride=1, size=1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEMX_TEAM_NODE: start=1, stride=1, size=1
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEMX_TEAM_SAME_MYPE_NODE: start=0, stride=1, size=2
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEMI_TEAM_SAME_GPU: start=1, stride=1, size=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO FCOLLECT LL support: 2/2 PEs locally eligible; job-wide=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEMX_TEAM_SAME_MYPE_NODE: start=0, stride=1, size=2
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEMI_TEAM_SAME_GPU: start=0, stride=1, size=1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO NVSHMEMI_TEAM_GPU_LEADERS: start=0, stride=1, size=2
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO NVSHMEMI_TEAM_GPU_LEADERS: start=0, stride=1, size=2
+./src/modules/transport/ibrc/ibrc.cpp 674 [0] IBRC: selected slot 0 uses mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591e3160 mr 0x5555591e4dd0
+./src/modules/transport/ibrc/ibrc.cpp 674 [1] IBRC: selected slot 0 uses mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591e3160 mr 0x5555591e4dd0
+./src/modules/transport/ibgda/ibgda.cpp 744 [0] IBGDA: device used mlx5_4, data_direct support: 0
+./src/modules/transport/ibgda/ibgda.cpp 744 [1] IBGDA: device used mlx5_4, data_direct support: 0
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591e3360 mr 0x5555591e4e50
+./src/modules/transport/common/transport_ib_common.cpp 497 ibv_reg_dmabuf_mr handle 0x5555591e3360 mr 0x5555591e4e50
+
+prenyx0238:1556266:1556266 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 1
+
+
+prenyx0238:1556266:1556266 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 2
+
+
+prenyx0238:1556266:1556266 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 4
+
+
+prenyx0047:1311810:1311810 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 1
+
+
+prenyx0047:1311810:1311810 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 2
+
+
+prenyx0047:1311810:1311810 [0] ./src/host/team/team_internal.cpp:809 NVSHMEM WARN Skipping NVLINK SHARP resource initialized for team ID: 4
+
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] job_connectivity: 16
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1] job_connectivity: 16
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] job_connectivity: 1
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [0] job_connectivity: 16
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 1048576, max_size: 1048576, step_factor: 2, iterations: 5, warmup iterations: 2, number of ctas: 32, threads per cta: 256 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+PE 0: GPU 0, UUID: GPU-bd2bc316-635b-bbc1-3e38-fdff5aeefc45, peer: 1
+PE 1: GPU 0, UUID: GPU-86e19fb5-2a99-77d3-3646-14e9aadab67a, peer: 0
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO [1556266] in nvshmem_finalize:
+#shmem_put_bw_uni
+size(B)     scope     BW (GB/sec)     
+1048576     None      18.758875       
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO [1311810] in nvshmem_finalize:
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO In nvshmemi_proxy_finalize
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO In nvshmemi_proxy_finalize
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO In nvshmemi_teardown_handles
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591be710 handle->mr 0x5555591d0180
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO In nvshmemi_teardown_handles
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591be110 handle->mr 0x5555591d0180
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591be910 handle->mr 0x5555591d21d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591e49c0 handle->mr 0x5555591e4dd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591be310 handle->mr 0x5555591d21d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591e43c0 handle->mr 0x5555591e4dd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591e4bc0 handle->mr 0x5555591e4e50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591e45c0 handle->mr 0x5555591e4e50
+prenyx0238:1556266:1556266 [0] NVSHMEM INFO In nvshmemi_transport_finalize
+prenyx0047:1311810:1311810 [0] NVSHMEM INFO In nvshmemi_transport_finalize
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e0920 handle->mr 0x5555590e0950
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e3760 handle->mr 0x5555590e3790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e7000 handle->mr 0x5555590e7030
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590ea110 handle->mr 0x5555590ea140
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590ed940 handle->mr 0x5555590ed970
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e0920 handle->mr 0x5555590e0950
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f07f0 handle->mr 0x5555590f0820
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e3760 handle->mr 0x5555590e3790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f3630 handle->mr 0x5555590f3660
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590e7000 handle->mr 0x5555590e7030
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f7130 handle->mr 0x5555590f7160
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590ea110 handle->mr 0x5555590ea140
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f9fe0 handle->mr 0x5555590fa010
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590ed940 handle->mr 0x5555590ed970
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590fce20 handle->mr 0x5555590fce50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f07f0 handle->mr 0x5555590f0820
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559100650 handle->mr 0x555559100680
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f3630 handle->mr 0x5555590f3660
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591037d0 handle->mr 0x555559103800
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f7130 handle->mr 0x5555590f7160
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559106610 handle->mr 0x555559106640
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559109eb0 handle->mr 0x555559109ee0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590f9fe0 handle->mr 0x5555590fa010
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555910ccf0 handle->mr 0x55555910cd20
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555590fce20 handle->mr 0x5555590fce50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559100650 handle->mr 0x555559100680
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555910fe00 handle->mr 0x55555910fe30
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591136a0 handle->mr 0x5555591136d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591037d0 handle->mr 0x555559103800
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591164e0 handle->mr 0x555559116510
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559106610 handle->mr 0x555559106640
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559109eb0 handle->mr 0x555559109ee0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559119320 handle->mr 0x555559119350
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555910ccf0 handle->mr 0x55555910cd20
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555911ce90 handle->mr 0x55555911cec0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555910fe00 handle->mr 0x55555910fe30
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555911fcd0 handle->mr 0x55555911fd00
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559123500 handle->mr 0x555559123530
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591136a0 handle->mr 0x5555591136d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591263b0 handle->mr 0x5555591263e0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591164e0 handle->mr 0x555559116510
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591294c0 handle->mr 0x5555591294f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559119320 handle->mr 0x555559119350
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555912ccf0 handle->mr 0x55555912cd20
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555911ce90 handle->mr 0x55555911cec0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555912fba0 handle->mr 0x55555912fbd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555911fcd0 handle->mr 0x55555911fd00
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591329e0 handle->mr 0x555559132a10
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559123500 handle->mr 0x555559123530
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559136550 handle->mr 0x555559136580
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591263b0 handle->mr 0x5555591263e0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559139390 handle->mr 0x5555591393c0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591294c0 handle->mr 0x5555591294f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913c1d0 handle->mr 0x55555913c200
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555912ccf0 handle->mr 0x55555912cd20
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913fa70 handle->mr 0x55555913faa0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555912fba0 handle->mr 0x55555912fbd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559142b80 handle->mr 0x555559142bb0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591329e0 handle->mr 0x555559132a10
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591459c0 handle->mr 0x5555591459f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559136550 handle->mr 0x555559136580
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559149260 handle->mr 0x555559149290
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559139390 handle->mr 0x5555591393c0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555914c0a0 handle->mr 0x55555914c0d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913c1d0 handle->mr 0x55555913c200
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555914fba0 handle->mr 0x55555914fbd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913fa70 handle->mr 0x55555913faa0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559152a50 handle->mr 0x555559152a80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559142b80 handle->mr 0x555559142bb0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559155890 handle->mr 0x5555591558c0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591459c0 handle->mr 0x5555591459f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591590c0 handle->mr 0x5555591590f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559149260 handle->mr 0x555559149290
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555915c240 handle->mr 0x55555915c270
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555914c0a0 handle->mr 0x55555914c0d0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555915f080 handle->mr 0x55555915f0b0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555914fba0 handle->mr 0x55555914fbd0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591628b0 handle->mr 0x5555591628e0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559152a50 handle->mr 0x555559152a80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559165760 handle->mr 0x555559165790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559155890 handle->mr 0x5555591558c0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559168870 handle->mr 0x5555591688a0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591590c0 handle->mr 0x5555591590f0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555916c110 handle->mr 0x55555916c140
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555915c240 handle->mr 0x55555915c270
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555916ef50 handle->mr 0x55555916ef80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555915f080 handle->mr 0x55555915f0b0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559171d90 handle->mr 0x555559171dc0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591628b0 handle->mr 0x5555591628e0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559175900 handle->mr 0x555559175930
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559165760 handle->mr 0x555559165790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913e000 handle->mr 0x555559178770
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555917b580 handle->mr 0x55555917b5b0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559168870 handle->mr 0x5555591688a0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555917ee20 handle->mr 0x55555917ee50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555916c110 handle->mr 0x55555916c140
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559181f30 handle->mr 0x555559181f60
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555916ef50 handle->mr 0x55555916ef80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559185760 handle->mr 0x555559185790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559171d90 handle->mr 0x555559171dc0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559188610 handle->mr 0x555559188640
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559175900 handle->mr 0x555559175930
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555918b450 handle->mr 0x55555918b480
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555913e000 handle->mr 0x555559178770
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555918ef50 handle->mr 0x55555918ef80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555917b580 handle->mr 0x55555917b5b0
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559191e00 handle->mr 0x555559191e30
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555917ee20 handle->mr 0x55555917ee50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559194c40 handle->mr 0x555559194c70
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559181f30 handle->mr 0x555559181f60
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591984e0 handle->mr 0x555559198510
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559185760 handle->mr 0x555559185790
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555919b5f0 handle->mr 0x55555919b620
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559188610 handle->mr 0x555559188640
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555919e430 handle->mr 0x55555919e460
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555918b450 handle->mr 0x55555918b480
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a1cd0 handle->mr 0x5555591a1d00
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555918ef50 handle->mr 0x55555918ef80
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a4b10 handle->mr 0x5555591a4b40
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559191e00 handle->mr 0x555559191e30
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a7c20 handle->mr 0x5555591a7c50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555559194c40 handle->mr 0x555559194c70
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591984e0 handle->mr 0x555559198510
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555919b5f0 handle->mr 0x55555919b620
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555558e44960 handle->mr 0x555558f87b00
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x55555919e430 handle->mr 0x55555919e460
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a1cd0 handle->mr 0x5555591a1d00
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a4b10 handle->mr 0x5555591a4b40
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x5555591a7c20 handle->mr 0x5555591a7c50
+./src/modules/transport/common/transport_ib_common.cpp 536 ibv_dereg_mr handle 0x555558e44960 handle->mr 0x555558f87b00
+#BENCH_EXIT 0

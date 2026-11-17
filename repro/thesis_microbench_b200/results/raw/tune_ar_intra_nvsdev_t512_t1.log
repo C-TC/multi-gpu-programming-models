@@ -1,0 +1,44 @@
+#BENCH label=tune_ar_intra_nvsdev_t512 trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T07:04:27-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/coll/reduction_focus -b 128 -e 2147483648 -n 20 -w 5 -t 512
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+./src/device/launch/collective_launch.cpp:154: One or more PEs cannot launch 
+
+shmemx_collective_launch failed 6 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 2147483648, step_factor: 2, iterations: 20, warmup iterations: 5, number of ctas: 32, threads per cta: 512 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+srun: error: prenyx0245: tasks 0-4,6-7: Exited with exit code 255
+srun: Terminating StepId=2674876.120
+[2026-11-17T07:04:46.676] error: *** STEP 2674876.120 ON prenyx0245 CANCELLED AT 2026-11-17T07:04:46 DUE TO TASK FAILURE ***
+srun: error: prenyx0245: task 5: Exited with exit code 255
+#BENCH_EXIT 255

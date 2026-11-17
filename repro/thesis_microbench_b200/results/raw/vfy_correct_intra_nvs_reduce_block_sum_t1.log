@@ -1,0 +1,31 @@
+#BENCH label=vfy_correct_intra_nvs_reduce_block_sum trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T06:53:00-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; 
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/tests/test_install/device/coll/reduce_block_sum
+./src/host/team/team_internal.cpp:1917: error status: 2 (NVSHMEMX_ERROR_OUT_OF_MEMORY) No more teams available (max = 256), try setting NVSHMEM_MAX_TEAMS environment variable
+
+./src/host/team/team_internal.cpp:nvshmemi_team_allocate_resources:2073: Failed to set team index for team -1 is_dupl: 1
+
+./src/host/team/team_internal.cpp:1917: error status: 2 (NVSHMEMX_ERROR_OUT_OF_MEMORY) No more teams available (max = 256), try setting NVSHMEM_MAX_TEAMS environment variable
+
+./src/host/team/team_internal.cpp:nvshmemi_team_allocate_resources:2073: Failed to set team index for team -1 is_dupl: 1
+
+./src/host/team/team_internal.cpp:nvshmemi_duplicate_team:982: Unable to allocate enough duplicate teams. This will cause significant performance degradation. Please increase NVSHMEM_MAX_TEAMS. Exiting
+
+./src/host/team/team_internal.cpp:nvshmemi_duplicate_team:982: Unable to allocate enough duplicate teams. This will cause significant performance degradation. Please increase NVSHMEM_MAX_TEAMS. Exiting
+
+NVSHMEM v3.8.0
+[PE 0] Runtime options after parsing command line arguments
+min_size: 4, max_size: 4194304, step_factor: 2, min_iters: 10, max_iters: 20, repeat: 1, threadgroup_scope: all_scopes, mmap: 0, use_egm: 0, only_p2p: 0, mem_handle_type: 0, dynamic_smem_size: 32768
+Note: Above is full list of options, any given test will use only a subset of these variables.
+WARN: Team split strided failed: child <0, 4, 2>, parent <0, 4, 2>
+
+WARN: Team split strided failed: child <0, 4, 2>, parent <0, 4, 2>
+
+srun: error: prenyx0245: task 0: Exited with exit code 255
+srun: Terminating StepId=2674876.79
+[2026-11-17T06:53:14.701] error: *** STEP 2674876.79 ON prenyx0245 CANCELLED AT 2026-11-17T06:53:14 DUE TO TASK FAILURE ***
+srun: error: prenyx0245: task 4: Exited with exit code 255
+srun: error: prenyx0245: tasks 1-2,5-7: Terminated
+srun: error: prenyx0245: task 3: Terminated
+srun: Force Terminated StepId=2674876.79
+#BENCH_EXIT 143

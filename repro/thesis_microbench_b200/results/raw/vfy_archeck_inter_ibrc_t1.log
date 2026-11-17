@@ -1,0 +1,30 @@
+#BENCH label=vfy_archeck_inter_ibrc trial=1 nodes=prenyx0245,prenyx0247 tpn=8 mpi=pmi2 date=2026-11-17T07:34:03-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/validate/ar_check 536870912 536870912
+NVSHMEM v3.8.0
+AR_CHECK path=on_stream npes=16 bytes=128 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=512 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=2048 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=8192 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=32768 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=131072 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=524288 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=2097152 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=8388608 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=33554432 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=134217728 bad_elems=0
+AR_CHECK path=on_stream npes=16 bytes=536870912 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=128 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=512 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=2048 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=8192 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=32768 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=131072 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=524288 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=2097152 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=8388608 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=33554432 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=134217728 bad_elems=0
+AR_CHECK path=device_block npes=16 bytes=536870912 bad_elems=0
+AR_CHECK PASS errors=0
+#BENCH_EXIT 0

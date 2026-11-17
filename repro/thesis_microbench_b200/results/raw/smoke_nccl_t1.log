@@ -1,0 +1,32 @@
+#BENCH label=smoke_nccl trial=1 nodes=prenyx0245 tpn=1 mpi=pmix date=2026-11-17T06:27:25-08:00
+#BENCH env: export NCCL_GRAPH_MIXING_SUPPORT=0; export NCCL_DEBUG=VERSION;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nccl-tests/all_reduce_perf -b 128 -e 1G -f 64 -w 5 -n 10 -c 1 -R 2 -G 10 -g 8
+# nccl-tests version 2.21.1 (unknown) nccl-headers=23206 nccl-library=23206
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 8 minBytes 128 maxBytes 1073741824 step: 64(factor) warmup iters: 5 iters: 10 agg iters: 1 validation: 1 graph: 10 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2215148 on prenyx0245 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  1 Group  0 Pid 2215148 on prenyx0245 device  1 [0000:43:00] NVIDIA B200
+#  Rank  2 Group  0 Pid 2215148 on prenyx0245 device  2 [0000:52:00] NVIDIA B200
+#  Rank  3 Group  0 Pid 2215148 on prenyx0245 device  3 [0000:61:00] NVIDIA B200
+#  Rank  4 Group  0 Pid 2215148 on prenyx0245 device  4 [0000:9d:00] NVIDIA B200
+#  Rank  5 Group  0 Pid 2215148 on prenyx0245 device  5 [0000:c3:00] NVIDIA B200
+#  Rank  6 Group  0 Pid 2215148 on prenyx0245 device  6 [0000:d1:00] NVIDIA B200
+#  Rank  7 Group  0 Pid 2215148 on prenyx0245 device  7 [0000:df:00] NVIDIA B200
+NCCL version 2.32.6+cuda13.3
+#
+#                                                              out-of-place                       in-place
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)        
+         128            32     float     sum      -1     5.51    0.02    0.04       0     5.18    0.02    0.04       0
+        8192          2048     float     sum      -1     5.64    1.45    2.54       0     5.60    1.46    2.56       0
+      524288        131072     float     sum      -1    11.55   45.39   79.43       0    11.48   45.69   79.95       0
+    33554432       8388608     float     sum      -1    80.41  417.28  730.24       0    80.94  414.54  725.45       0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 202.532 
+#
+# Collective test concluded: all_reduce_perf
+#
+
+#BENCH_EXIT 0

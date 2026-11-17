@@ -1,0 +1,42 @@
+#BENCH label=ar_paper_intra_nvshost trial=3 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T06:50:09-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/host/coll/reduction_on_stream -b 128 -e 1073741824 -n 50 -w 20 --cudagraph -d float -o sum
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 1073741824, step_factor: 2, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#reduction_on_stream
+size(B)     count     type      redop     latency(us)       min_lat(us)       max_lat(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       7.742080          7.742             7.742             0.017         0.029       
+256         64        float     sum       7.692800          7.693             7.693             0.033         0.058       
+512         128       float     sum       7.668480          7.668             7.668             0.067         0.117       
+1024        256       float     sum       7.658880          7.659             7.659             0.134         0.234       
+2048        512       float     sum       7.648640          7.649             7.649             0.268         0.469       
+4096        1024      float     sum       7.726720          7.727             7.727             0.530         0.928       
+8192        2048      float     sum       9.781760          9.782             9.782             0.837         1.466       
+16384       4096      float     sum       10.788480         10.788            10.788            1.519         2.658       
+32768       8192      float     sum       10.865920         10.866            10.866            3.016         5.277       
+65536       16384     float     sum       12.904960         12.905            12.905            5.078         8.887       
+131072      32768     float     sum       15.105920         15.106            15.106            8.677         15.185      
+262144      65536     float     sum       13.208320         13.208            13.208            19.847        34.732      
+524288      131072    float     sum       13.328000         13.328            13.328            39.337        68.840      
+1048576     262144    float     sum       15.571840         15.572            15.572            67.338        117.841     
+2097152     524288    float     sum       18.284800         18.285            18.285            114.694       200.714     
+4194304     1048576   float     sum       25.211520         25.212            25.212            166.365       291.138     
+8388608     2097152   float     sum       39.502721         39.503            39.503            212.355       371.622     
+16777216    4194304   float     sum       67.931519         67.932            67.932            246.972       432.202     
+33554432    8388608   float     sum       122.098560        122.099           122.099           274.814       480.925     
+67108864    16777216  float     sum       232.872963        232.873           232.873           288.178       504.311     
+134217728   33554432  float     sum       452.993927        452.994           452.994           296.290       518.508     
+268435456   67108864  float     sum       891.788788        891.789           891.789           301.008       526.764     
+536870912   134217728  float     sum       1765.660858       1765.661          1765.661          304.062       532.109     
+1073741824  268435456  float     sum       3506.124878       3506.125          3506.125          306.247       535.933     
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+#BENCH_EXIT 0

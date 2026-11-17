@@ -1,0 +1,30 @@
+#BENCH label=tune_ar_intra_nvshost_ctas32 trial=1 nodes=prenyx0245 tpn=8 mpi=pmi2 date=2026-11-17T07:06:47-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_MAX_CTAS=32 NVSHMEM_MAX_TEAMS=1024;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/host/coll/reduction_on_stream -b 128 -e 1073741824 -f 4 -n 50 -w 20 --cudagraph -d float -o sum
+mype: 4 mype_node: 4 device name: NVIDIA B200 bus id: 157 
+mype: 5 mype_node: 5 device name: NVIDIA B200 bus id: 195 
+mype: 7 mype_node: 7 device name: NVIDIA B200 bus id: 223 
+mype: 1 mype_node: 1 device name: NVIDIA B200 bus id: 67 
+mype: 6 mype_node: 6 device name: NVIDIA B200 bus id: 209 
+mype: 3 mype_node: 3 device name: NVIDIA B200 bus id: 97 
+mype: 2 mype_node: 2 device name: NVIDIA B200 bus id: 82 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 128, max_size: 1073741824, step_factor: 4, iterations: 50, warmup iterations: 20, number of ctas: 32, threads per cta: 256 stride: 1, datatype: float, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 1, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#reduction_on_stream
+size(B)     count     type      redop     latency(us)       min_lat(us)       max_lat(us)       algbw(GB/s)   busbw(GB/s) 
+128         32        float     sum       7.809280          7.809             7.809             0.016         0.029       
+512         128       float     sum       7.752960          7.753             7.753             0.066         0.116       
+2048        512       float     sum       7.747200          7.747             7.747             0.264         0.463       
+8192        2048      float     sum       9.811200          9.811             9.811             0.835         1.461       
+32768       8192      float     sum       10.708480         10.708            10.708            3.060         5.355       
+131072      32768     float     sum       14.963840         14.964            14.964            8.759         15.329      
+524288      131072    float     sum       13.408639         13.409            13.409            39.101        68.426      
+2097152     524288    float     sum       18.096640         18.097            18.097            115.886       202.801     
+8388608     2097152   float     sum       31.239040         31.239            31.239            268.530       469.927     
+33554432    8388608   float     sum       85.313282         85.313            85.313            393.308       688.290     
+134217728   33554432  float     sum       297.327995        297.328           297.328           451.413       789.973     
+536870912   134217728  float     sum       1145.075836       1145.076          1145.076          468.852       820.491     
+#BENCH_EXIT 0

@@ -1,0 +1,25 @@
+series,config,prefix,trials,peak_GBps,at_size_B
+p2p intra put,paper,p2p_paper_intra_put,8,672.35847475,33554432
+p2p intra put,tuned,p2p_tuned_intra_put,8,697.3736343749999,33554432
+p2p intra get,paper,p2p_paper_intra_get,8,72.686336375,33554432
+p2p intra get,tuned,p2p_tuned_intra_get,8,535.246681125,33554432
+p2p intra p,paper,p2p_paper_intra_p,8,180.571037375,33554432
+p2p intra p,tuned,p2p_tuned_intra_p,8,698.71083075,33554432
+p2p intra g,paper,p2p_paper_intra_g,8,18.08071025,33554432
+p2p intra g,tuned,p2p_tuned_intra_g,8,584.4935915,33554432
+allreduce intra nvshost,paper,ar_paper_intra_nvshost,8,303.4854774889652,536870912
+allreduce intra nvshost,tuned,ar_tuned_intra_nvshost,8,474.4488991198111,536870912
+allreduce intra nvsdev,paper,ar_paper_intra_nvsdev,8,15.446325744565003,4194304
+allreduce intra nvsdev,tuned,ar_paper_intra_nvsdev,8,15.446325744565003,4194304
+p2p inter put,paper,p2p_paper_inter_ibgdatuned_put,8,48.869462375,33554432
+p2p inter put,tuned,p2p_tuned_inter_put,8,49.060433375,33554432
+p2p inter get,paper,p2p_paper_inter_ibgdatuned_get,8,49.118156875,33554432
+p2p inter get,tuned,p2p_tuned_inter_get,8,49.310747125,33554432
+p2p inter p,paper,p2p_paper_inter_ibgdatuned_p,8,15.68603275,8388608
+p2p inter p,tuned,p2p_tuned_inter_p,8,17.371485125,33554432
+p2p inter g,paper,p2p_paper_inter_ibgdatuned_g,8,5.546836375,33554432
+p2p inter g,tuned,p2p_tuned_inter_g,8,5.805083375000001,33554432
+allreduce inter nvshost,paper,ar_paper_inter_nvshost,8,0.13840584121171948,8192
+allreduce inter nvshost,tuned,ar_tuned_inter_nvshost,8,0.7408531532258059,2097152
+allreduce inter nvsdev,paper,ar_paper_inter_nvsdev,8,0.13256166963491262,8192
+allreduce inter nvsdev,tuned,ar_tuned_inter_nvsdev,8,0.4787825207300196,2097152

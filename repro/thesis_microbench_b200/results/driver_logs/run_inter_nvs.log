@@ -1,0 +1,44 @@
+[06:52:48] ar_paper_inter_nvsdev t1
+[07:02:16] ar_paper_inter_nvsdev t2
+[07:11:42] ar_paper_inter_nvsdev t3
+[07:21:13] ar_paper_inter_nvsdev t4
+unknown group ar_paper_inter_nvs_v2
+[07:21:28] ar_paper_inter_nvsdev t4
+[07:30:57] ar_paper_inter_nvsdev t5
+[07:40:26] ar_paper_inter_nvsdev t6
+[07:49:52] ar_paper_inter_nvsdev t7
+[07:59:21] ar_paper_inter_nvsdev t8
+  FAIL: srun: error: prenyx0047: task 5: Terminated srun: error: prenyx0238: task 11: Terminated #BENCH_EXIT 143 
+[08:02:24] ar_paper_inter_nvshost t1
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:24] ar_paper_inter_nvshost t2
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:24] ar_paper_inter_nvshost t3
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:25] ar_paper_inter_nvshost t4
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:25] ar_paper_inter_nvshost t5
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:25] ar_paper_inter_nvshost t6
+  FAIL: srun: error: Slurm job 2674863 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2674863 #BENCH_EXIT 1 
+[08:02:25] ar_paper_inter_nvshost t7
+unknown group ar_paper_inter_nvs_v2
+[08:14:02] ar_paper_inter_nvsdev t8
+  FAIL: srun: error: prenyx0247: task 13: Terminated srun: error: prenyx0245: task 3: Terminated #BENCH_EXIT 143 
+[08:21:54] ar_paper_inter_nvshost t1
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:54] ar_paper_inter_nvshost t2
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:54] ar_paper_inter_nvshost t3
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:55] ar_paper_inter_nvshost t4
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:55] ar_paper_inter_nvshost t5
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:55] ar_paper_inter_nvshost t6
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:55] ar_paper_inter_nvshost t7
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:55] ar_paper_inter_nvshost t8
+  FAIL: srun: error: Slurm job 2675201 has expired srun: Check SLURM_JOB_ID environment variable. Expired or invalid job 2675201 #BENCH_EXIT 1 
+[08:21:56] done: ar_paper_inter_nvs_v2

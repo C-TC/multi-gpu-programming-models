@@ -1,0 +1,26 @@
+#BENCH label=vfy_zerobyte_inter_c1_get trial=1 nodes=prenyx0047,prenyx0238 tpn=1 mpi=pmi2 date=2026-11-17T06:31:31-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=64 NVSHMEM_IBGDA_RC_MAP_BY=cta;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_get_bw -b 4 -e 8192 -n 20 -w 5 -c 1 -t 1024 --use_smem 0
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+PE 1: GPU 0, UUID: GPU-86e19fb5-2a99-77d3-3646-14e9aadab67a, peer: 0
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 8192, step_factor: 2, iterations: 20, warmup iterations: 5, number of ctas: 1, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+Note: Above is full list of options, any given test will use only a subset of these variables.
+PE 0: GPU 0, UUID: GPU-bd2bc316-635b-bbc1-3e38-fdff5aeefc45, peer: 1
+#shmem_get_bw_uni
+size(B)     scope     BW (GB/sec)     
+4           None      0.000458        
+8           None      0.000540        
+16          None      0.001087        
+32          None      0.002175        
+64          None      0.004349        
+128         None      0.008692        
+256         None      0.017380        
+512         None      0.034828        
+1024        None      0.069197        
+2048        None      0.139282        
+4096        None      0.278746        
+8192        None      0.555857        
+#BENCH_EXIT 0

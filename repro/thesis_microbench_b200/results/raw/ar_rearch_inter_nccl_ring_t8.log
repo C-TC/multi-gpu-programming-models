@@ -1,0 +1,59 @@
+#BENCH label=ar_rearch_inter_nccl_ring trial=8 nodes=prenyx0234,prenyx0235 tpn=8 mpi=pmix date=2026-11-17T09:10:27-08:00
+#BENCH env: export NCCL_ENQUEUE_REARCH_ENABLE=1; export NCCL_GRAPH_MIXING_SUPPORT=0; export NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nccl-tests/all_reduce_perf -b 128 -e 1G -f 2 -w 50 -n 100 -c 0 -R 2 -G 10 -g 1
+# nccl-tests version 2.21.1 (unknown) nccl-headers=23206 nccl-library=23206
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 1 minBytes 128 maxBytes 1073741824 step: 2(factor) warmup iters: 50 iters: 100 agg iters: 1 validation: 0 graph: 10 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 2017331 on prenyx0234 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  1 Group  0 Pid 2017332 on prenyx0234 device  1 [0000:43:00] NVIDIA B200
+#  Rank  2 Group  0 Pid 2017333 on prenyx0234 device  2 [0000:52:00] NVIDIA B200
+#  Rank  3 Group  0 Pid 2017334 on prenyx0234 device  3 [0000:61:00] NVIDIA B200
+#  Rank  4 Group  0 Pid 2017335 on prenyx0234 device  4 [0000:9d:00] NVIDIA B200
+#  Rank  5 Group  0 Pid 2017336 on prenyx0234 device  5 [0000:c3:00] NVIDIA B200
+#  Rank  6 Group  0 Pid 2017337 on prenyx0234 device  6 [0000:d1:00] NVIDIA B200
+#  Rank  7 Group  0 Pid 2017338 on prenyx0234 device  7 [0000:df:00] NVIDIA B200
+#  Rank  8 Group  0 Pid 2860575 on prenyx0235 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  9 Group  0 Pid 2860576 on prenyx0235 device  1 [0000:43:00] NVIDIA B200
+#  Rank 10 Group  0 Pid 2860577 on prenyx0235 device  2 [0000:52:00] NVIDIA B200
+#  Rank 11 Group  0 Pid 2860578 on prenyx0235 device  3 [0000:61:00] NVIDIA B200
+#  Rank 12 Group  0 Pid 2860579 on prenyx0235 device  4 [0000:9d:00] NVIDIA B200
+#  Rank 13 Group  0 Pid 2860580 on prenyx0235 device  5 [0000:c3:00] NVIDIA B200
+#  Rank 14 Group  0 Pid 2860581 on prenyx0235 device  6 [0000:d1:00] NVIDIA B200
+#  Rank 15 Group  0 Pid 2860582 on prenyx0235 device  7 [0000:df:00] NVIDIA B200
+#
+#                                                              out-of-place                       in-place
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)        
+         128            32     float     sum      -1    49.13    0.00    0.00    N/A    48.79    0.00    0.00    N/A
+         256            64     float     sum      -1    52.64    0.00    0.01    N/A    52.70    0.00    0.01    N/A
+         512           128     float     sum      -1    53.16    0.01    0.02    N/A    53.06    0.01    0.02    N/A
+        1024           256     float     sum      -1    53.68    0.02    0.04    N/A    53.87    0.02    0.04    N/A
+        2048           512     float     sum      -1    54.28    0.04    0.07    N/A    54.03    0.04    0.07    N/A
+        4096          1024     float     sum      -1    55.03    0.07    0.14    N/A    54.95    0.07    0.14    N/A
+        8192          2048     float     sum      -1    55.85    0.15    0.28    N/A    55.79    0.15    0.28    N/A
+       16384          4096     float     sum      -1    56.79    0.29    0.54    N/A    56.99    0.29    0.54    N/A
+       32768          8192     float     sum      -1    58.37    0.56    1.05    N/A    58.38    0.56    1.05    N/A
+       65536         16384     float     sum      -1    61.72    1.06    1.99    N/A    61.50    1.07    2.00    N/A
+      131072         32768     float     sum      -1    64.38    2.04    3.82    N/A    64.32    2.04    3.82    N/A
+      262144         65536     float     sum      -1    66.80    3.92    7.36    N/A    66.40    3.95    7.40    N/A
+      524288        131072     float     sum      -1    69.14    7.58   14.22    N/A    67.87    7.72   14.48    N/A
+     1048576        262144     float     sum      -1   142.43    7.36   13.80    N/A   141.70    7.40   13.87    N/A
+     2097152        524288     float     sum      -1   146.62   14.30   26.82    N/A   146.33   14.33   26.87    N/A
+     4194304       1048576     float     sum      -1   153.24   27.37   51.32    N/A   152.96   27.42   51.41    N/A
+     8388608       2097152     float     sum      -1   170.75   49.13   92.11    N/A   171.13   49.02   91.91    N/A
+    16777216       4194304     float     sum      -1   230.07   72.92  136.73    N/A   229.70   73.04  136.95    N/A
+    33554432       8388608     float     sum      -1   340.96   98.41  184.52    N/A   339.77   98.76  185.17    N/A
+    67108864      16777216     float     sum      -1   521.48  128.69  241.29    N/A   520.84  128.85  241.59    N/A
+   134217728      33554432     float     sum      -1   824.24  162.84  305.32    N/A   822.08  163.27  306.12    N/A
+   268435456      67108864     float     sum      -1  1463.38  183.44  343.94    N/A  1460.34  183.82  344.66    N/A
+   536870912     134217728     float     sum      -1  2744.40  195.62  366.79    N/A  2735.92  196.23  367.93    N/A
+  1073741824     268435456     float     sum      -1  5388.47  199.27  373.62    N/A  5394.19  199.06  373.23    N/A
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 90.3206 
+#
+# Collective test concluded: all_reduce_perf
+#
+
+#BENCH_EXIT 0

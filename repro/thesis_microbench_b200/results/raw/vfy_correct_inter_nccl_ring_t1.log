@@ -1,0 +1,47 @@
+#BENCH label=vfy_correct_inter_nccl_ring trial=1 nodes=prenyx0047,prenyx0238 tpn=8 mpi=pmix date=2026-11-17T06:33:13-08:00
+#BENCH env: export NCCL_GRAPH_MIXING_SUPPORT=0; export NCCL_NVLS_ENABLE=0 NCCL_ALGO=Ring;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nccl-tests/all_reduce_perf -b 128 -e 1G -f 4 -w 5 -n 5 -c 1 -R 2 -G 10 -g 1
+# nccl-tests version 2.21.1 (unknown) nccl-headers=23206 nccl-library=23206
+# Collective test starting: all_reduce_perf
+# nThread 1 nGpus 1 minBytes 128 maxBytes 1073741824 step: 4(factor) warmup iters: 5 iters: 5 agg iters: 1 validation: 1 graph: 10 unalign: 0
+#
+# Using devices
+#  Rank  0 Group  0 Pid 1328451 on prenyx0047 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  1 Group  0 Pid 1328452 on prenyx0047 device  1 [0000:43:00] NVIDIA B200
+#  Rank  2 Group  0 Pid 1328453 on prenyx0047 device  2 [0000:52:00] NVIDIA B200
+#  Rank  3 Group  0 Pid 1328454 on prenyx0047 device  3 [0000:61:00] NVIDIA B200
+#  Rank  4 Group  0 Pid 1328455 on prenyx0047 device  4 [0000:9d:00] NVIDIA B200
+#  Rank  5 Group  0 Pid 1328456 on prenyx0047 device  5 [0000:c3:00] NVIDIA B200
+#  Rank  6 Group  0 Pid 1328457 on prenyx0047 device  6 [0000:d1:00] NVIDIA B200
+#  Rank  7 Group  0 Pid 1328458 on prenyx0047 device  7 [0000:df:00] NVIDIA B200
+#  Rank  8 Group  0 Pid 1572907 on prenyx0238 device  0 [0000:1b:00] NVIDIA B200
+#  Rank  9 Group  0 Pid 1572908 on prenyx0238 device  1 [0000:43:00] NVIDIA B200
+#  Rank 10 Group  0 Pid 1572909 on prenyx0238 device  2 [0000:52:00] NVIDIA B200
+#  Rank 11 Group  0 Pid 1572910 on prenyx0238 device  3 [0000:61:00] NVIDIA B200
+#  Rank 12 Group  0 Pid 1572911 on prenyx0238 device  4 [0000:9d:00] NVIDIA B200
+#  Rank 13 Group  0 Pid 1572912 on prenyx0238 device  5 [0000:c3:00] NVIDIA B200
+#  Rank 14 Group  0 Pid 1572913 on prenyx0238 device  6 [0000:d1:00] NVIDIA B200
+#  Rank 15 Group  0 Pid 1572914 on prenyx0238 device  7 [0000:df:00] NVIDIA B200
+#
+#                                                              out-of-place                       in-place
+#       size         count      type   redop    root     time   algbw   busbw  #wrong     time   algbw   busbw  #wrong
+#        (B)    (elements)                               (us)  (GB/s)  (GB/s)             (us)  (GB/s)  (GB/s)        
+         128            32     float     sum      -1    78.40    0.00    0.00       0    67.09    0.00    0.00       0
+         512           128     float     sum      -1    79.41    0.01    0.01       0    72.93    0.01    0.01       0
+        2048           512     float     sum      -1    75.51    0.03    0.05       0    73.19    0.03    0.05       0
+        8192          2048     float     sum      -1    73.59    0.11    0.21       0    73.66    0.11    0.21       0
+       32768          8192     float     sum      -1    75.94    0.43    0.81       0    76.14    0.43    0.81       0
+      131072         32768     float     sum      -1    87.26    1.50    2.82       0    83.13    1.58    2.96       0
+      524288        131072     float     sum      -1   101.18    5.18    9.72       0    99.38    5.28    9.89       0
+     2097152        524288     float     sum      -1   163.45   12.83   24.06       0   161.70   12.97   24.32       0
+     8388608       2097152     float     sum      -1   186.58   44.96   84.30       0   189.99   44.15   82.79       0
+    33554432       8388608     float     sum      -1   357.63   93.82  175.92       0   357.27   93.92  176.10       0
+   134217728      33554432     float     sum      -1   882.32  152.12  285.22       0   880.87  152.37  285.69       0
+   536870912     134217728     float     sum      -1  2872.67  186.89  350.42       0  2877.37  186.58  349.84       0
+# Out of bounds values : 0 OK
+# Avg bus bandwidth    : 77.7587 
+#
+# Collective test concluded: all_reduce_perf
+#
+
+#BENCH_EXIT 0
