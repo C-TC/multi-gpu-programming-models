@@ -1,0 +1,26 @@
+#BENCH label=tune_lat_inter_get_rc1 trial=1 nodes=prenyx0273,prenyx0274 tpn=1 mpi=pmi2 date=2026-11-17T11:34:27-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=1;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_get_latency -b 8 -e 65536 -f 64 -n 200 -w 20 -t 1024 --repetitions 3 --use_smem 0
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 8, max_size: 65536, step_factor: 64, iterations: 200, warmup iterations: 20, number of ctas: 32, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+repetitions: 3
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_g_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+8           Thread    13.344214         0.031295          13.320481         13.379681         3           
+512         Thread    13.665174         0.248992          13.479680         13.948160         3           
+32768       Thread    14.952853         0.011926          14.942240         14.965759         3           
+#shmem_get_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+8           Warp      14.198880         0.023595          14.173600         14.220320         3           
+512         Warp      14.304107         0.013125          14.294400         14.319039         3           
+32768       Warp      15.280853         0.024850          15.257600         15.307040         3           
+#shmem_get_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+8           Block     16.516427         0.027509          16.499359         16.548161         3           
+512         Block     16.650613         0.017730          16.631041         16.665600         3           
+32768       Block     17.625387         0.023034          17.599520         17.643681         3           
+#BENCH_EXIT 0

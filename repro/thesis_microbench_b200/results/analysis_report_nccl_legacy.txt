@@ -1,11 +1,19 @@
 # NCCL series from ar_paper_* (legacy enqueue path)
+  measured latency lat_intra_put (Block): trials=8 8B=2.57us 256B=2.49us 4096B=2.57us 65536B=3.86us
 p2p_paper_intra_put: trials=8 peak=672.36 GB/s @ 33554432 B; lat@256B=2.31us lat@512B=2.37us lat@64KiB=2.36us max_rel_sd=0.030; dropped zero-byte sizes [4, 8, 16, 32, 64, 128]
+  measured latency lat_intra_get_rot (Block): trials=8 8B=4.20us 256B=4.17us 4096B=4.29us 65536B=9.95us
 p2p_paper_intra_get: trials=8 peak=72.69 GB/s @ 33554432 B; lat@256B=3.78us lat@512B=3.89us lat@64KiB=3.96us max_rel_sd=0.012; dropped zero-byte sizes [4, 8, 16, 32, 64, 128]
+  measured latency lat_intra_p (None): trials=8 8B=2.22us 256B=2.26us 4096B=2.34us 65536B=8.31us
 p2p_paper_intra_p: trials=8 peak=180.57 GB/s @ 33554432 B; lat@256B=1.78us lat@512B=1.75us lat@64KiB=2.26us max_rel_sd=0.036
+  measured latency lat_intra_g_rot (None): trials=8 8B=1.90us 256B=1.97us 4096B=3.89us 65536B=58.60us
 p2p_paper_intra_g: trials=8 peak=18.08 GB/s @ 33554432 B; lat@256B=3.40us lat@512B=3.42us lat@64KiB=5.33us max_rel_sd=0.006
+  measured latency lat_inter_ibgdadef_put (Block): trials=8 8B=20.35us 256B=20.42us 4096B=20.61us 65536B=22.05us
 p2p_paper_inter_ibgdatuned_put: trials=8 peak=48.87 GB/s @ 33554432 B; lat@256B=nanus lat@512B=21.81us lat@64KiB=21.68us max_rel_sd=0.014; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_inter_ibgdadef_get_rot (Block): trials=8 8B=17.88us 256B=17.91us 4096B=18.13us 65536B=19.73us
 p2p_paper_inter_ibgdatuned_get: trials=8 peak=49.12 GB/s @ 33554432 B; lat@256B=nanus lat@512B=18.47us lat@64KiB=18.42us max_rel_sd=0.019; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_inter_ibgdadef_p (None): trials=8 8B=14.78us 256B=15.87us 4096B=29.13us 65536B=205.05us
 p2p_paper_inter_ibgdatuned_p: trials=8 peak=15.69 GB/s @ 8388608 B; lat@256B=11.98us lat@512B=12.66us lat@64KiB=26.71us max_rel_sd=0.015
+  measured latency lat_inter_ibgdadef_g_rot (None): trials=8 8B=14.27us 256B=15.02us 4096B=39.78us 65536B=586.39us
 p2p_paper_inter_ibgdatuned_g: trials=8 peak=5.55 GB/s @ 33554432 B; lat@256B=19.86us lat@512B=21.25us lat@64KiB=47.56us max_rel_sd=0.055
 ar_paper_intra_nvshost: trials=8 sizes=23 [128..536870912] peak=303.49 GB/s @ 536870912 B; lat(<=64KiB) 7.70-12.90 us; max_rel_sd=0.011
 ar_paper_intra_nvsdev: trials=8 sizes=23 [128..536870912] peak=15.45 GB/s @ 4194304 B; lat(<=64KiB) 5.87-11.45 us; max_rel_sd=0.009
@@ -17,13 +25,21 @@ ar_paper_inter_nccl_ring: trials=8 sizes=23 [128..536870912] peak=190.58 GB/s @ 
 ar_paper_inter_nccl_nvls: trials=8 sizes=23 [128..536870912] peak=363.71 GB/s @ 536870912 B; lat(<=64KiB) 32.49-40.19 us; max_rel_sd=0.018
 
 # ---- tuned NVSHMEM figures ----
+  measured latency lat_intra_put (Block): trials=8 8B=2.57us 256B=2.49us 4096B=2.57us 65536B=3.86us
 p2p_tuned_intra_put: trials=8 peak=697.37 GB/s @ 33554432 B; lat@256B=nanus lat@512B=2.54us lat@64KiB=2.57us max_rel_sd=0.013; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_intra_get_rot (Block): trials=8 8B=4.20us 256B=4.17us 4096B=4.29us 65536B=9.95us
 p2p_tuned_intra_get: trials=8 peak=535.25 GB/s @ 33554432 B; lat@256B=nanus lat@512B=4.00us lat@64KiB=4.08us max_rel_sd=0.010; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_intra_p (None): trials=8 8B=2.22us 256B=2.26us 4096B=2.34us 65536B=8.31us
 p2p_tuned_intra_p: trials=8 peak=698.71 GB/s @ 33554432 B; lat@256B=1.99us lat@512B=1.99us lat@64KiB=2.05us max_rel_sd=0.012
+  measured latency lat_intra_g_rot (None): trials=8 8B=1.90us 256B=1.97us 4096B=3.89us 65536B=58.60us
 p2p_tuned_intra_g: trials=8 peak=584.49 GB/s @ 33554432 B; lat@256B=3.42us lat@512B=3.42us lat@64KiB=3.61us max_rel_sd=0.013
+  measured latency lat_inter_ibgdadef_put (Block): trials=8 8B=20.35us 256B=20.42us 4096B=20.61us 65536B=22.05us
 p2p_tuned_inter_put: trials=8 peak=49.06 GB/s @ 33554432 B; lat@256B=nanus lat@512B=22.30us lat@64KiB=23.22us max_rel_sd=0.009; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_inter_ibgdadef_get_rot (Block): trials=8 8B=17.88us 256B=17.91us 4096B=18.13us 65536B=19.73us
 p2p_tuned_inter_get: trials=8 peak=49.31 GB/s @ 33554432 B; lat@256B=nanus lat@512B=19.54us lat@64KiB=20.13us max_rel_sd=0.012; dropped zero-byte sizes [4, 8, 16, 32, 64, 128, 256]
+  measured latency lat_inter_ibgdadef_p (None): trials=8 8B=14.78us 256B=15.87us 4096B=29.13us 65536B=205.05us
 p2p_tuned_inter_p: trials=8 peak=17.37 GB/s @ 33554432 B; lat@256B=11.19us lat@512B=12.27us lat@64KiB=22.91us max_rel_sd=0.007
+  measured latency lat_inter_ibgdadef_g_rot (None): trials=8 8B=14.27us 256B=15.02us 4096B=39.78us 65536B=586.39us
 p2p_tuned_inter_g: trials=8 peak=5.81 GB/s @ 33554432 B; lat@256B=16.01us lat@512B=16.67us lat@64KiB=28.05us max_rel_sd=0.040
 ar_tuned_intra_nvshost: trials=8 sizes=23 [128..536870912] peak=474.45 GB/s @ 536870912 B; lat(<=64KiB) 7.73-12.86 us; max_rel_sd=0.007
 ar_paper_intra_nvsdev: trials=8 sizes=23 [128..536870912] peak=15.45 GB/s @ 4194304 B; lat(<=64KiB) 5.87-11.45 us; max_rel_sd=0.009

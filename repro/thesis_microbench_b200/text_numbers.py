@@ -53,6 +53,20 @@ row("inter p / g latency at 256 B (µs)", "7.5 / 25.3", f"{X['p'][1][256]:.1f} /
     "H200 data actually gives 10.8 / 25.3")
 
 NP = {"nccl_ring": "ar_rearch", "nccl_nvls": "ar_rearch"}  # NCCL: refactored enqueue path (main figures)
+# measured one-sided latency (shmem_*_latency; put/get Block scope, p/g 1 CTA x 512 thr), mean of trials
+LATCFG = (("intra [figure]", an.LAT_INTRA), ("intra, upstream perftest (g/get same-address, cached)", "lat_intra_{api}"),
+          ("inter IBGDA default QPs [figure]", an.LAT_INTER), ("inter IBGDA 64 RC/PE (paper bw env)", "lat_inter_ibgda_{api}"),
+          ("inter IBRC (CPU proxy)", "lat_inter_ibrc_{api}"))
+for scen, pfx in LATCFG:
+    for api in ("put", "get", "p", "g"):
+        pp = pfx[api] if isinstance(pfx, dict) else pfx.format(api=api)
+        if scen.startswith("intra, upstream") and api in ("put", "p"):
+            continue  # identical to the [figure] series
+        d, n = an.lat_series(pp, api)
+        if d:
+            vals = " / ".join(f"{an.ms(d[s])[0]:.2f}" for s in (8, 256, 4096, 65536) if s in d)
+            row(f"MEASURED {scen} {api} latency @ 8 B / 256 B / 4 KiB / 64 KiB (µs), n={n}", "(not measured)", vals,
+                pp + (" (Block scope)" if api in ("put", "get") else ""))
 A = {k: ar(f"{NP.get(k, 'ar_paper')}_intra_{k}") for k in ("nvshost", "nvsdev", "nccl_ring", "nccl_nvls")}
 B = {k: ar(f"{NP.get(k, 'ar_paper')}_inter_{k}") for k in ("nvshost", "nvsdev", "nccl_ring", "nccl_nvls")}
 for k, lab, h in (("nvshost", "NVSHMEM on-stream", "264*"), ("nccl_nvls", "NCCL NVLS", "276*"), ("nvsdev", "NVSHMEM device block", "30"),

@@ -20,8 +20,8 @@ def main(mod, a, rep):
         def format(self, api):
             return self.m[api]
 
-    mod.fig_p2p({"intra": (Fmt(p2p["intra"]), None, "Intra-node, B200", a.nvlink, nv),
-                 "inter": (Fmt(p2p["inter"]), None, "Inter-node, B200", a.ib, f"IB: {a.ib:.0f} GB/s")},
+    mod.fig_p2p({"intra": (Fmt(p2p["intra"]), None, "Intra-node, B200", a.nvlink, nv, mod.LAT_INTRA),
+                 "inter": (Fmt(p2p["inter"]), None, "Inter-node, B200", a.ib, f"IB: {a.ib:.0f} GB/s", mod.LAT_INTER)},
                 "nvshmem-p2p-bandwidth-onecol-tuned" + a.suffix, rep, legend_title="tuned NVSHMEM configs")
     ar = {}
     for scen in ("intra", "inter"):

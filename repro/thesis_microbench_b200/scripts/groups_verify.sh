@@ -154,3 +154,36 @@ ab_samepair)   # same-node-pair A/B: legacy enqueue path, to compare with ar_rea
   N_TRIAL=3 run_one ab_legacy_intra_nccl_nvls 1 1 pmix 900 "$NCCL_ENV" "$NB $NARGS -g 8"
   N_TRIAL=3 run_one ab_rearch_intra_nccl_nvls 1 1 pmix 900 "export NCCL_ENQUEUE_REARCH_ENABLE=1; $NCCL_ENV" "$NB $NARGS -g 8" ;;
 esac
+case $G1 in
+latency)   # true one-sided latency (NOT ping-pong RTT): NVSHMEM shmem_{put,get,p,g}_latency, shipped .args settings, 8 trials
+  # put/get: 1 CTA issues {put,get}_nbi + nvshmem_quiet per iteration; reported for Thread/Warp/Block scope (Block = bulk op as in *_bw)
+  # p: 1 CTA x 512 threads, scalar p per element + quiet per iteration; g: 1 CTA x 512 threads, blocking scalar g per element
+  for api in put get p g; do
+    case $api in put|get) LA="-b 4 -e 65536 -n 200 -w 20 -t 1024 --repetitions 3 --use_smem 0";;
+                 p)       LA="-b 4 -e 65536 -n 50 -w 5 -t 512 --repetitions 3";;
+                 g)       LA="-b 4 -e 65536 -n 200 -w 20 -t 512 --repetitions 3";; esac
+    run_one lat_intra_${api}       1 2 pmi2 300 "$NV_ENV"          "$NVS_P2P/shmem_${api}_latency $LA"
+    run_one lat_inter_ibgda_${api} 2 1 pmi2 600 "$IBGDA_TUNED_ENV" "$NVS_P2P/shmem_${api}_latency $LA"
+    run_one lat_inter_ibrc_${api}  2 1 pmi2 900 "$NV_ENV"          "$NVS_P2P/shmem_${api}_latency $LA"
+  done ;;
+esac
+case $G1 in
+latency2)
+  ROT=$LOCAL/validate
+  LPG="-b 4 -e 65536 -n 200 -w 20 -t 1024 --repetitions 3 --use_smem 0"; LG="-b 4 -e 65536 -n 200 -w 20 -t 512 --repetitions 3"
+  LP="-b 4 -e 65536 -n 50 -w 5 -t 512 --repetitions 3"
+  # (1) intra g/get without the same-address cache artifact
+  run_one lat_intra_g_rot   1 2 pmi2 300 "$NV_ENV" "$ROT/shmem_g_latency_rot $LG"
+  run_one lat_intra_get_rot 1 2 pmi2 300 "$NV_ENV" "$ROT/shmem_get_latency_rot $LPG"
+  # (2) inter IBGDA with default QP count (latency config) — the 64-RC/PE env is a bandwidth config whose quiet drains 64 QPs
+  for api in put get p g; do
+    case $api in put|get) LA="$LPG";; p) LA="$LP";; g) LA="$LG";; esac
+    run_one lat_inter_ibgdadef_${api} 2 1 pmi2 600 "$IBGDA_ENV" "$NVS_P2P/shmem_${api}_latency $LA"
+  done
+  run_one lat_inter_ibgdadef_g_rot   2 1 pmi2 600 "$IBGDA_ENV" "$ROT/shmem_g_latency_rot $LG"
+  run_one lat_inter_ibgdadef_get_rot 2 1 pmi2 600 "$IBGDA_ENV" "$ROT/shmem_get_latency_rot $LPG"
+  # (3) probe: put/get latency vs RC QPs per PE
+  for rc in 1 2 8 64; do for api in put get; do
+    N_TRIAL=1 run_one tune_lat_inter_${api}_rc$rc 2 1 pmi2 600 "$IBGDA_ENV export NVSHMEM_IBGDA_NUM_RC_PER_PE=$rc;" "$NVS_P2P/shmem_${api}_latency -b 8 -e 65536 -f 64 -n 200 -w 20 -t 1024 --repetitions 3 --use_smem 0"
+  done; done ;;
+esac

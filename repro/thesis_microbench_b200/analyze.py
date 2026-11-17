@@ -55,6 +55,34 @@ def parse_nvshmem_table(text, value_col_pred):
     return rows
 
 
+def parse_lat_scope(text, scope):
+    """NVSHMEM shmem_*_latency output: several tables ('#shmem_put_latency' Thread/Warp/Block, or one 'None' table);
+    return {size: mean latency us} for rows whose scope column == scope. Rows must be complete (token count == header)."""
+    rows, cols = {}, None
+    for line in text.splitlines():
+        st = line.strip()
+        if st.startswith("size(B)"):
+            cols = [c.strip() for c in re.split(r"\s{2,}", st) if c.strip()]
+            continue
+        if cols is None:
+            continue
+        f = st.split()
+        if not f or not f[0].isdigit() or len(f) != len(cols):
+            continue
+        if f[cols.index("scope")] != scope:
+            continue
+        idx = next(i for i, c in enumerate(cols) if c.startswith("latency"))
+        rows[int(f[0])] = float(f[idx])
+    return rows
+
+
+LAT_SCOPE = {"put": "Block", "get": "Block", "p": "None", "g": "None"}  # put/get Block = same scope as the *_bw bulk ops
+
+
+def lat_series(prefix, api):
+    return collect(prefix, lambda t: parse_lat_scope(t, LAT_SCOPE[api]))
+
+
 def parse_p2p(text):
     return parse_nvshmem_table(text, lambda c: c.startswith("BW"))
 
@@ -186,7 +214,8 @@ def fig_p2p(cfg, out_name, report, legend_title=None):
     fig.set_size_inches(4.96, 3.2)
     lo, hi = 8, 25
     for ax, scen in zip(axes, ("intra", "inter")):
-        pfx_fmt, ctas, title, ref, ref_label = cfg[scen]
+        pfx_fmt, ctas, title, ref, ref_label = cfg[scen][:5]
+        lat_fmt = cfg[scen][5] if len(cfg[scen]) > 5 else None   # measured-latency series (shmem_*_latency)
         ins = ax.inset_axes([0.56, 0.08, 0.42, 0.38] if scen == "intra" else [0.56, 0.08, 0.42, 0.38])
         best = (None, -1, None, None)
         for api in ("put", "get", "p", "g"):
@@ -202,10 +231,21 @@ def fig_p2p(cfg, out_name, report, legend_title=None):
             c = GREENS[api]
             ax.errorbar(sizes, m, yerr=sd, color=c, ls=ls, marker=mk, ms=3.5, lw=1.4, capsize=1.5,
                         mfc=mfc or c, label=api)
-            lat = [s / (v * 1e3) for s, v in zip(sizes, m)]  # us
-            sl = [(s, l) for s, l in zip(sizes, lat) if s <= 2 ** 16]
-            ins.plot([x for x, _ in sl], [y for _, y in sl], color=c, ls=ls, marker=mk, ms=2.5, lw=1,
-                     mfc=mfc or c)
+            lat_pfx = (lat_fmt[api] if isinstance(lat_fmt, dict) else lat_fmt.format(api=api)) if lat_fmt else None
+            ld = lat_series(lat_pfx, api)[0] if lat_pfx else {}
+            if ld:   # MEASURED one-sided latency from shmem_<api>_latency (mean over trials, error bar = stddev)
+                ls_ = [s for s in sorted(ld) if 2 ** lo <= s <= 2 ** 16]
+                ins.errorbar(ls_, [ms(ld[s])[0] for s in ls_], yerr=[ms(ld[s])[1] for s in ls_], color=c, ls=ls,
+                             marker=mk, ms=2.5, lw=1, capsize=1, mfc=mfc or c)
+                report.append(f"  measured latency {lat_pfx} ({LAT_SCOPE[api]}): trials={lat_series(lat_pfx, api)[1]} "
+                              + " ".join(f"{s}B={ms(ld[s])[0]:.2f}us" for s in (8, 256, 4096, 65536) if s in ld))
+                ins_kind = "measured"
+            else:    # fallback: paper's effective latency = size / BW
+                lat = [s / (v * 1e3) for s, v in zip(sizes, m)]  # us
+                sl = [(s, l) for s, l in zip(sizes, lat) if s <= 2 ** 16]
+                ins.plot([x for x, _ in sl], [y for _, y in sl], color=c, ls=ls, marker=mk, ms=2.5, lw=1,
+                         mfc=mfc or c)
+                ins_kind = "size/BW"
             pk = max(m)
             if pk > best[1]:
                 best = (api, pk, sizes, m)
@@ -229,7 +269,8 @@ def fig_p2p(cfg, out_name, report, legend_title=None):
         ins.set_xticks([2 ** k for k in (8, 10, 12, 14, 16)])
         ins.set_xticklabels([f"$2^{{{k}}}$" for k in (8, 10, 12, 14, 16)], fontsize=6.5)
         ins.tick_params(labelsize=6.5)
-        ins.set_ylabel("Latency [µs]", fontsize=6.5)
+        ins.set_ylabel("Latency [µs]" if ins_kind == "measured" else "size/BW [µs]", fontsize=6.5)
+        ins.set_yscale("log")
         ins.grid(True, which="both", alpha=0.3)
         _plain_log_ticks(ins)
         ax.set_ylim(top=ref * 8)
@@ -245,6 +286,12 @@ def fig_p2p(cfg, out_name, report, legend_title=None):
 
 
 NCCLP = "ar_rearch"
+# Measured one-sided latency series for the P2P insets (shmem_*_latency, 8 trials):
+#  intra: default env; g/get use the "_rot" perftests (upstream re-reads one address -> NVLink loads hit cache)
+#  inter: IBGDA with the default RC-QP count (the 64-RC/PE bandwidth config adds ~0.9 us per QP to every quiet)
+LAT_INTRA = {"put": "lat_intra_put", "get": "lat_intra_get_rot", "p": "lat_intra_p", "g": "lat_intra_g_rot"}
+LAT_INTER = {"put": "lat_inter_ibgdadef_put", "get": "lat_inter_ibgdadef_get_rot", "p": "lat_inter_ibgdadef_p",
+             "g": "lat_inter_ibgdadef_g_rot"}
 AR_COL = {"nvshost": ("#8fbc3f", "o"), "nvsdev": ("#2e8b57", "s"), "nccl_ring": ("#2f6f7e", "D"), "nccl_nvls": ("#6fb3e0", "^")}
 AR_LAB = {"nvshost": "NVSHMEM [On-stream]", "nvsdev": "NVSHMEM [Device Block]", "nccl_ring": "NCCL [Ring]", "nccl_nvls": "NCCL [NVLS]"}
 
@@ -311,10 +358,19 @@ def dump_tables():
     """One CSV per series prefix with mean/stddev/n (P2P: GB/s; AR: latency us and algbw GB/s)."""
     prefixes = sorted({re.sub(r"_t\d+\.log$", "", p.name) for p in RAW.glob("*_t*.log")})
     for pfx in prefixes:
+        if pfx.startswith("tune_lat_"):
+            pass  # handled below with the latency tables
         if pfx.startswith("p2p"):
             d, n = collect(pfx, parse_p2p)
             rows = [(s, *ms(d[s]), len(d[s])) for s in sorted(d)]
             write_csv(TAB / f"{pfx}.csv", ["size_B", "bw_GBps_mean", "bw_GBps_std", "n"], rows)
+        elif pfx.startswith("lat_") or pfx.startswith("tune_lat_"):
+            api = re.search(r"_(put|get|p|g)(?:_rot|_rc\d+)?$", pfx).group(1)
+            for scope in (("Thread", "Warp", "Block") if api in ("put", "get") else ("None",)):
+                d, n = collect(pfx, lambda t, sc=scope: parse_lat_scope(t, sc))
+                rows = [(s, *ms(d[s]), len(d[s])) for s in sorted(d)]
+                write_csv(TAB / f"{pfx}{'' if scope == 'None' else '_' + scope.lower()}.csv",
+                          ["size_B", "lat_us_mean", "lat_us_std", "n"], rows)
         elif pfx.startswith("ar") or pfx.startswith("tune"):
             parser = parse_nccl if "_nccl_" in pfx else (parse_p2p if "p2p" in pfx else parse_nvs_coll)
             d, n = collect(pfx, parser)
@@ -337,8 +393,9 @@ if __name__ == "__main__":
     NCCLP = "ar_rearch" if a.nccl_path == "rearch" else "ar_paper"
     rep = [f"# NCCL series from {NCCLP}_* ({a.nccl_path} enqueue path)"]
     nv = f"NVLink: {a.nvlink:.0f} GB/s"
-    fig_p2p({"intra": ("p2p_paper_intra_{api}", 32, "Intra-node, B200", a.nvlink, nv),
-             "inter": ("p2p_paper_inter_ibgdatuned_{api}", 64, "Inter-node, B200", a.ib, f"IB: {a.ib:.0f} GB/s")},
+    fig_p2p({"intra": ("p2p_paper_intra_{api}", 32, "Intra-node, B200", a.nvlink, nv, LAT_INTRA),
+             "inter": ("p2p_paper_inter_ibgdatuned_{api}", 64, "Inter-node, B200", a.ib, f"IB: {a.ib:.0f} GB/s",
+                       LAT_INTER)},
             "nvshmem-p2p-bandwidth-onecol" + a.suffix, rep)
     fig_ar({"intra": ({"nvshost": "ar_paper_intra_nvshost", "nvsdev": "ar_paper_intra_nvsdev",
                        "nccl_ring": f"{NCCLP}_intra_nccl_ring", "nccl_nvls": f"{NCCLP}_intra_nccl_nvls"},

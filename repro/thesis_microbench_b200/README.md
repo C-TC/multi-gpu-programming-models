@@ -19,6 +19,9 @@ Variants: `*-tuned.pdf` (tuned NVSHMEM) and `*-nccl-legacy.pdf` (NCCL legacy enq
 | AllReduce inter peak: NVSHMEM on-stream / device / NCCL ring / NCCL NVLS-Tree (GB/s) | 0.14 / 0.16 / 179.6 / 246.4 | **0.14 / 0.13 / 195.7 / 366.1** |
 | AllReduce inter latency @64 KiB: NVSHMEM on-stream / device / NCCL ring / NVLS (µs) | 2324 / 2248 / 53 / 31 | **2266 / 2399 / 62 / 37** |
 
+**Latency:** the P2P insets show *measured* one-sided latency from `shmem_*_latency` (8 trials), not the paper's size/BW: intra put/get/p/g
+2.5 / 4.2 / 2.2 / 1.9 µs; inter (IBGDA) 20.4 / 17.9 / 14.8 / 14.3 µs at 8 B. See *Latency*; the upstream intra `g` latency test needed a fix.
+
 Low B200 numbers at the paper's settings are configuration-bound, not hardware limits: intra `get` (73 GB/s), scalar p/g, and intra on-stream (16 CTAs).
 With a few NVSHMEM knobs they reach 532 / 699 / 584 / 474 GB/s (see *Tuned*). B200 intra small-message latencies for NVSHMEM P2P and device
 AllReduce are 25–60% higher than the H200 data (e.g. put 2.3 vs 1.8 µs; device AllReduce 5.9 vs 3.8 µs), while NCCL's symmetric kernels
@@ -44,6 +47,16 @@ P2P (`device/pt-to-pt/shmem_{put,get,p,g}_bw`, 8 trials):
 * intra, 1 node × 2 PEs: `-b 4 -e 33554432 -n 50 -w 20 -c 32 -t 256`, env: PMI2 bootstrap only.
 * inter, 2 nodes × 1 PE, "IBGDA tuned" (this is what the paper's inter panel actually plots, for **all four** ops):
   `NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1 NVSHMEM_IBGDA_NUM_RC_PER_PE=64`, `-b 4 -e 33554432 -n 20 -w 5 -c 64 -t 1024`.
+
+P2P latency, **measured** (not ping-pong RTT, and not size/BW). These are the dedicated `device/pt-to-pt/shmem_{put,get,p,g}_latency` perftests
+with NVSHMEM's shipped `.args`: `-b 4 -e 65536 -n 200 -w 20 --repetitions 3`, `-t 1024` (put/get) and `-t 512` (p/g; p uses `-n 50 -w 5`), 8 trials.
+One PE launches a single 1-CTA kernel and times `iters` back-to-back operations:
+* put/get: `{put,get}_nbi` + `nvshmem_quiet` per iteration (Block-scope table = same bulk op as `*_bw`).
+* p: scalar `p` per element + `quiet`.
+* g: blocking scalar `g` per element.
+
+So this is one-sided completion latency: remote-completion ack for put/p, data return for get/g. For p and g above 512 elements (2 KiB), each thread
+serializes several operations, so the number becomes "time to p/g the whole buffer". The paper's insets were size/BW from the `*_bw` runs; the new insets plot these measured values.
 
 AllReduce (float, sum, 8 trials):
 * NCCL [NVLS]: `all_reduce_perf -b 128 -e 1G -f 2 -w 50 -n 100 -c 0 -R 2 -G 10`, `NCCL_GRAPH_MIXING_SUPPORT=0`.
@@ -145,6 +158,39 @@ Each item was checked against the H200 logs in the reference repo and, where pos
    NCCL 2.32.6 masks symmetric kernels when `NCCL_ALGO` is set ("No algorithm/protocol nor symKernelId available … NCCL_ALGO was set to Ring"),
    so the B200 "NCCL [Ring]" line is a genuine ring: 22–24 µs latency floor (14 dependent NVLink hops), 398 GB/s peak.
 
+## Latency (measured with `shmem_*_latency`)
+Insets of `nvshmem-p2p-bandwidth-onecol*.pdf` and `results/tables/lat_*.csv` (all scopes); `results/tables/paper_text_numbers.md` ("MEASURED" rows).
+The figure configurations are the intra default env and inter IBGDA with default RC-QP count; `g`/`get` use the `_rot` perftests (see 1. below).
+
+| one-sided latency, µs (8 trials) | 8 B | 256 B | 4 KiB | 64 KiB |
+|---|---|---|---|---|
+| intra put (Block) | 2.57 | 2.49 | 2.57 | 3.86 |
+| intra get (Block) | 4.20 | 4.17 | 4.29 | 9.95 |
+| intra p | 2.22 | 2.26 | 2.34 | 8.31 |
+| intra g | 1.90 | 1.97 | 3.89 | 58.6 |
+| inter put (Block), IBGDA | 20.4 | 20.4 | 20.6 | 22.1 |
+| inter get (Block), IBGDA | 17.9 | 17.9 | 18.1 | 19.7 |
+| inter p, IBGDA | 14.8 | 15.9 | 29.1 | 205 |
+| inter g, IBGDA | 14.3 | 15.0 | 39.8 | 586 |
+| inter put / get / p / g, IBRC (CPU proxy) | 13.9 / 9.9 / 8.3 / 10.1 | 13.9 / 9.9 / 21.6 / 11.0 | 14.0 / 9.9 / 270 / 53 | 15.9 / 11.5 / 4250 / 884 |
+
+Two pitfalls, both measured:
+1. **Upstream intra `shmem_g_latency` times cache hits.** On the P2P path, `nvshmem_g` is a plain load
+   (`nvshmemi_g`: `return *source_actual;`), and the perftest re-reads the same remote address every iteration. It reports 0.18–0.28 µs, an L1 hit, not an
+   NVLink round trip. `nvshmem_patches/shmem_{g,get}_latency_rot.cu` are the upstream files with one change: iteration *i* reads region
+   `i % 256` of a 256×`max_size` buffer. With that change intra `g` is **1.9–2.0 µs** (and 58.6 vs 2.75 µs at 64 KiB). Bulk `get` changes by only 2–5% (4.2 vs 4.1 µs).
+   Over IB the patched and upstream tests agree within 1%, so the artifact is specific to NVLink loads.
+2. **The paper's inter-node P2P env (64 RC QPs/PE) is a bandwidth config.** Every `nvshmem_quiet` drains all RC QPs, adding ~0.9 µs per QP:
+   put latency is 18.7 / 20.3 / 25.4 / 75.3 µs with 1 / 2 / 8 / 64 QPs (`tune_lat_inter_*_rc*`). In that env put/get measure 77 / 73 µs (`lat_inter_ibgda_*`).
+   The figure therefore uses IBGDA's default QP count for latency.
+
+For single operations, IBRC is lower than IBGDA on this system (put 13.9 vs 20.4 µs, g 10.1 vs 14.3 µs), but scalar `p` over IBRC
+collapses with size (4.2 ms at 64 KiB vs 205 µs) because every element goes through the CPU proxy.
+
+**Collectives** were never derived from bandwidth. The AllReduce insets plot the measured time per collective: the nccl-tests out-of-place `time`
+column, and NVSHMEM's `latency(us)` from `reduction_focus` / `reduction_on_stream` (elapsed / iterations). Only algbw is derived (size / time),
+as nccl-tests itself does.
+
 ## Tuned NVSHMEM configurations
 Figures `*-tuned.{pdf,png}` replace the NVSHMEM series with the configurations below; NCCL series are unchanged.
 Every choice comes from a single-trial sweep (`tune_*` logs) and was then re-measured with the paper's protocol (8 trials).
@@ -174,27 +220,19 @@ Inter-node NVSHMEM AllReduce stays ~3 orders of magnitude below NCCL even when t
 
 ## Files
 ```
-repro/thesis_microbench_b200/
+repro/
 ├── README.md                 this file
 ├── analyze.py                parses results/raw → results/figures + results/tables (paper-config figures)
 ├── analyze_tuned.py          tuned-NVSHMEM figures + paper-vs-tuned peak table
-├── nvshmem_patches/reduction_focus.cu   paper's float-sum-block reduction perftest, ported to NVSHMEM 3.8
+├── nvshmem_patches/          reduction_focus.cu (paper's float-sum-block perftest, ported to 3.8);
+│                             shmem_{g,get}_latency_rot.cu (upstream latency tests minus the same-address cache artifact)
 ├── validate/ar_check.cu      bitwise float-sum AllReduce correctness check for the plotted NVSHMEM paths
-├── scripts/                  env.sh, build_all.sh, stage_node.sh, prep_hold.sh, bench.sh (+ groups_*.sh); slurm/ = hold jobs
+├── scripts/                  env.sh, build_all.sh, stage_node.sh, prep_hold.sh, bench.sh (+ groups_*.sh)
 └── results/
     ├── raw/                  one log per (config, trial): '#BENCH' header (nodes, env, cmd) + raw output + exit code
-    ├── tables/               per-series CSV (mean, stddev, n per size), peaks_paper_vs_tuned.csv, paper_text_numbers.md
-    ├── driver_logs/          bench.sh driver output (per-trial start times, failures/retries) + build log
-    ├── analysis_report*.txt  analyze.py summary (main = refactored NCCL path; *_nccl_legacy = legacy path)
-    └── figures/              nvshmem-{p2p,allreduce}-bandwidth-onecol{,-tuned}.{pdf,png}; allreduce also *-nccl-legacy
+    ├── tables/               per-series CSV (mean, stddev, n per size) + peaks_paper_vs_tuned.csv
+    └── figures/              nvshmem-{p2p,allreduce}-bandwidth-onecol{,-tuned}.{pdf,png}
 ```
-Label prefixes in `results/raw/`: `p2p_paper_*` / `ar_paper_*` = paper configs (`ar_paper_*_nccl_*` = NCCL legacy enqueue path),
-`ar_rearch_*` = NCCL refactored enqueue path (used in the main figure), `p2p_tuned_*` / `ar_tuned_*` = tuned NVSHMEM,
-`vfy_*` = verification, `inv_*` = investigations (Ring / NCCL 2.30), `tune_*` = single-trial tuning sweeps, `ab_*` = same-node A/B of the enqueue paths.
-
-Paths: the scripts were run from a working copy at `/home/siyshen/workspace/b200-microbench/repro` (set `B200MB`/`REPRO` in
-`scripts/env.sh` to reuse them). Plots: `python3 analyze.py [--nccl-path rearch|legacy]` and `python3 text_numbers.py` (matplotlib only).
-
 Storage: sources/scripts/results on NFS home; image + builds + binaries on node-local `/raid/scratch`; nothing
 executed from Lustre (the container image is copied off Lustre once per node; `srun --export=NONE` keeps the
 login shell's Lustre-hosted HPC-X environment out of the container).

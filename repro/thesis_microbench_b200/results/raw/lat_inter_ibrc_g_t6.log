@@ -1,0 +1,28 @@
+#BENCH label=lat_inter_ibrc_g trial=6 nodes=prenyx0273,prenyx0274 tpn=1 mpi=pmi2 date=2026-11-17T11:21:09-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_g_latency -b 4 -e 65536 -n 200 -w 20 -t 512 --repetitions 3
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 65536, step_factor: 2, iterations: 200, warmup iterations: 20, number of ctas: 32, threads per cta: 512 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+repetitions: 3
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_g_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+4           None      8.804587          0.202187          8.576000          8.960000          3           
+8           None      10.108534         0.077685          10.022080         10.172481         3           
+16          None      10.241227         0.036159          10.209280         10.280481         3           
+32          None      11.608213         0.024086          11.581120         11.627200         3           
+64          None      13.984587         0.020276          13.962881         14.003039         3           
+128         None      9.021386          0.087535          8.949120          9.118720          3           
+256         None      10.986240         0.223091          10.818240         11.239361         3           
+512         None      12.886027         0.043059          12.837280         12.918880         3           
+1024        None      16.660320         0.023202          16.639999         16.685600         3           
+2048        None      25.021334         0.013364          25.011202         25.036480         3           
+4096        None      53.165120         0.075860          53.084160         53.234562         3           
+8192        None      108.956960        0.172704          108.758881        109.076004        3           
+16384       None      219.132151        0.264242          218.837753        219.348785        3           
+32768       None      438.715302        0.818124          438.156799        439.654388        3           
+65536       None      878.882080        0.205176          878.663025        879.069763        3           
+#BENCH_EXIT 0

@@ -1,0 +1,28 @@
+#BENCH label=lat_inter_ibgda_p trial=6 nodes=prenyx0273,prenyx0274 tpn=1 mpi=pmi2 date=2026-11-17T11:16:11-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2; export NVSHMEM_IB_ENABLE_IBGDA=1 NVSHMEM_DISABLE_NVLS=1; export NVSHMEM_IBGDA_NUM_RC_PER_PE=64 NVSHMEM_IBGDA_RC_MAP_BY=cta;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_p_latency -b 4 -e 65536 -n 50 -w 5 -t 512 --repetitions 3
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 65536, step_factor: 2, iterations: 50, warmup iterations: 5, number of ctas: 32, threads per cta: 512 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 1, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+repetitions: 3
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_p_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+4           None      68.832212         0.026860          68.801918         68.853119         3           
+8           None      68.878721         0.014763          68.867203         68.895363         3           
+16          None      69.547094         0.143286          69.425278         69.704964         3           
+32          None      69.581228         0.010638          69.569923         69.591042         3           
+64          None      72.238291         0.022357          72.212479         72.251518         3           
+128         None      70.228053         0.019256          70.208000         70.246399         3           
+256         None      70.565971         0.031330          70.532478         70.594559         3           
+512         None      70.195841         0.033738          70.158722         70.224640         3           
+1024        None      72.329597         0.038628          72.302078         72.373756         3           
+2048        None      76.686930         0.167978          76.499199         76.823036         3           
+4096        None      82.968320         0.087785          82.898552         83.066887         3           
+8192        None      94.368212         0.157543          94.267517         94.549767         3           
+16384       None      117.918933        0.139204          117.780479        118.058876        3           
+32768       None      164.266449        0.272681          163.983353        164.527359        3           
+65536       None      258.289073        0.279875          258.105591        258.611206        3           
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+#BENCH_EXIT 0

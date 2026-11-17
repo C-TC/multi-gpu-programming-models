@@ -1,0 +1,62 @@
+#BENCH label=lat_inter_ibrc_get trial=1 nodes=prenyx0273,prenyx0274 tpn=1 mpi=pmi2 date=2026-11-17T11:04:45-08:00
+#BENCH env: export NVSHMEM_BOOTSTRAP=PMI NVSHMEM_BOOTSTRAP_PMI=PMI2;
+#BENCH cmd: /raid/scratch/siyshen/b200mb/install/nvshmem/bin/perftest/device/pt-to-pt/shmem_get_latency -b 4 -e 65536 -n 200 -w 20 -t 1024 --repetitions 3 --use_smem 0
+NVSHMEM v3.8.0
+mype: 0 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+[PE 0] Runtime options after parsing command line arguments 
+min_size: 4, max_size: 65536, step_factor: 2, iterations: 200, warmup iterations: 20, number of ctas: 32, threads per cta: 1024 stride: 1, datatype: int, reduce_op: sum, threadgroup_scope: all_scopes, atomic_op: inc, dir: write, report_msgrate: 0, bidirectional: 0, putget_issue :on_stream, use_graph: 0, use_mmap: 0, mem_handle_type: 0, use_egm: 0, use_smem: 0, iteration_barrier: 1, final_barrier: 1, final_quiet_only: 0, use_nucs: 0
+repetitions: 3
+Note: Above is full list of options, any given test will use only a subset of these variables.
+#shmem_g_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+4           Thread    8.584427          0.062653          8.513280          8.631360          3           
+8           Thread    8.598453          0.076360          8.511040          8.652160          3           
+16          Thread    8.452214          0.105382          8.332480          8.530880          3           
+32          Thread    8.482454          0.107023          8.360480          8.560640          3           
+64          Thread    8.484640          0.134840          8.328960          8.564640          3           
+128         Thread    8.544693          0.032731          8.507999          8.570880          3           
+256         Thread    8.480374          0.095552          8.375680          8.562881          3           
+512         Thread    8.561974          0.097574          8.460320          8.654880          3           
+1024        Thread    8.573493          0.096654          8.462240          8.636800          3           
+2048        Thread    8.895467          0.059125          8.827520          8.935200          3           
+4096        Thread    9.312267          0.096166          9.204480          9.389279          3           
+8192        Thread    9.658346          0.111546          9.530080          9.732639          3           
+16384       Thread    9.695200          0.136658          9.538401          9.788960          3           
+32768       Thread    10.049973         0.014081          10.039999         10.066080         3           
+65536       Thread    11.087466         0.107701          10.963519         11.158239         3           
+#shmem_get_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+4           Warp      8.599093          0.096647          8.487520          8.656960          3           
+8           Warp      8.608587          0.087507          8.509280          8.674400          3           
+16          Warp      8.654720          0.010837          8.642560          8.663360          3           
+32          Warp      8.598560          0.105744          8.477921          8.675200          3           
+64          Warp      8.594613          0.099829          8.479840          8.661281          3           
+128         Warp      8.604533          0.100259          8.488960          8.668159          3           
+256         Warp      8.652906          0.000489          8.652480          8.653440          3           
+512         Warp      8.600480          0.098348          8.487040          8.661760          3           
+1024        Warp      8.608373          0.111160          8.480480          8.681760          3           
+2048        Warp      8.613760          0.090978          8.509439          8.676640          3           
+4096        Warp      8.978933          0.050695          8.920480          9.010880          3           
+8192        Warp      9.476267          0.054348          9.424000          9.532480          3           
+16384       Warp      9.834187          0.091436          9.729280          9.896960          3           
+32768       Warp      10.092747         0.108211          9.968640          10.167360         3           
+mype: 1 mype_node: 0 device name: NVIDIA B200 bus id: 27 
+65536       Warp      11.112640         0.016269          11.100160         11.131040         3           
+#shmem_get_latency
+size(B)     scope     latency (us)      stddev (us)       min (us)          max (us)          repetitions 
+4           Block     9.777600          0.007132          9.770241          9.784480          3           
+8           Block     9.787467          0.012648          9.776800          9.801440          3           
+16          Block     9.785173          0.003395          9.782400          9.788960          3           
+32          Block     9.782347          0.016631          9.763520          9.795040          3           
+64          Block     9.777387          0.009759          9.768800          9.788000          3           
+128         Block     9.787467          0.012737          9.773920          9.799200          3           
+256         Block     9.793600          0.013105          9.778880          9.804000          3           
+512         Block     9.786187          0.015963          9.768960          9.800480          3           
+1024        Block     9.782400          0.009962          9.774080          9.793440          3           
+2048        Block     9.797440          0.016169          9.778880          9.808480          3           
+4096        Block     9.912054          0.035703          9.891360          9.953280          3           
+8192        Block     10.514453         0.008253          10.505280         10.521279         3           
+16384       Block     11.067094         0.010519          11.058240         11.078721         3           
+32768       Block     11.255573         0.006354          11.248640         11.261120         3           
+65536       Block     12.092693         0.019511          12.070880         12.108480         3           
+#BENCH_EXIT 0
